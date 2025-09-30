@@ -1,0 +1,246 @@
+{
+  "stage": "validate",
+  "files_valid": 12,
+  "files_invalid": 38,
+  "timestamp": "2025-09-30T21:56:57.008905",
+  "results": [
+    {
+      "file": "tests/safety\\test_import_validation.py",
+      "status": "valid"
+    },
+    {
+      "file": "tests/safety\\test_safety_system.py",
+      "status": "invalid",
+      "error": "invalid syntax (line 23)"
+    },
+    {
+      "file": "tests/safety\\__init__.py",
+      "status": "valid"
+    },
+    {
+      "file": "tests/byzantium\\test_byzantine_stress.py",
+      "status": "invalid",
+      "error": "unexpected indent (line 96)"
+    },
+    {
+      "file": "tests/byzantium\\__init__.py",
+      "status": "valid"
+    },
+    {
+      "file": "tests/cache_analyzer\\comprehensive_cache_test.py",
+      "status": "invalid",
+      "error": "unexpected indent (line 159)"
+    },
+    {
+      "file": "tests/cache_analyzer\\test_cache_functionality.py",
+      "status": "valid"
+    },
+    {
+      "file": "tests/cycles\\test_integration.py",
+      "status": "invalid",
+      "error": "unexpected indent (line 174)"
+    },
+    {
+      "file": "tests/debug\\test_circular_imports_audit.py",
+      "status": "invalid",
+      "error": "expected 'except' or 'finally' block (line 24)"
+    },
+    {
+      "file": "tests/debug\\test_debug.py",
+      "status": "invalid",
+      "error": "unexpected indent (line 22)"
+    },
+    {
+      "file": "tests/debug\\test_hash_debug.py",
+      "status": "invalid",
+      "error": "unexpected indent (line 27)"
+    },
+    {
+      "file": "tests/debug\\test_quick.py",
+      "status": "valid"
+    },
+    {
+      "file": "tests/end_to_end\\complete_system_validation.py",
+      "status": "valid"
+    },
+    {
+      "file": "tests/json_schema_validation\\demo_test_execution.py",
+      "status": "invalid",
+      "error": "invalid syntax. Perhaps you forgot a comma? (line 135)"
+    },
+    {
+      "file": "tests/json_schema_validation\\test_full_pipeline_integration.py",
+      "status": "invalid",
+      "error": "unexpected indent (line 105)"
+    },
+    {
+      "file": "tests/json_schema_validation\\test_json_schema_validation.py",
+      "status": "invalid",
+      "error": "unexpected indent (line 61)"
+    },
+    {
+      "file": "tests/json_schema_validation\\test_risk_mitigation.py",
+      "status": "invalid",
+      "error": "invalid syntax (line 5)"
+    },
+    {
+      "file": "tests/json_schema_validation\\test_runner.py",
+      "status": "invalid",
+      "error": "invalid syntax (line 5)"
+    },
+    {
+      "file": "tests/json_schema_validation\\test_sarif_compliance.py",
+      "status": "invalid",
+      "error": "expected ':' (line 54)"
+    },
+    {
+      "file": "tests/memory_integration\\test_cross_phase_memory.py",
+      "status": "invalid",
+      "error": "invalid syntax (line 31)"
+    },
+    {
+      "file": "tests/monitoring\\performance_overhead_validation.py",
+      "status": "invalid",
+      "error": "invalid syntax (line 21)"
+    },
+    {
+      "file": "tests/nasa-compliance\\test_nasa_agents.py",
+      "status": "invalid",
+      "error": "invalid syntax (line 27)"
+    },
+    {
+      "file": "tests/phase4\\test_precision_validation.py",
+      "status": "invalid",
+      "error": "unexpected indent (line 125)"
+    },
+    {
+      "file": "tests/production\\load_testing_suite.py",
+      "status": "invalid",
+      "error": "unexpected indent (line 68)"
+    },
+    {
+      "file": "tests/refactored\\batch2\\test_agent_database_builder.py",
+      "status": "invalid",
+      "error": "invalid syntax (line 3)"
+    },
+    {
+      "file": "tests/refactored\\batch2\\test_deployment_task_builder.py",
+      "status": "invalid",
+      "error": "invalid syntax (line 3)"
+    },
+    {
+      "file": "tests/refactored\\batch2\\test_dfars_controls_builder.py",
+      "status": "invalid",
+      "error": "invalid syntax (line 3)"
+    },
+    {
+      "file": "tests/refactored\\batch2\\test_test_pattern_builder.py",
+      "status": "invalid",
+      "error": "invalid syntax (line 3)"
+    },
+    {
+      "file": "tests/refactored\\batch3\\test_validation_strategies.py",
+      "status": "invalid",
+      "error": "unmatched ')' (line 61)"
+    },
+    {
+      "file": "tests/security\\complete_security_validation.py",
+      "status": "invalid",
+      "error": "closing parenthesis ')' does not match opening parenthesis '{' on line 73 (line 75)"
+    },
+    {
+      "file": "tests/security\\test_dfars_compliance.py",
+      "status": "invalid",
+      "error": "invalid syntax (line 14)"
+    },
+    {
+      "file": "tests/security\\test_dfars_workflow_automation.py",
+      "status": "invalid",
+      "error": "closing parenthesis ')' does not match opening parenthesis '{' (line 413)"
+    },
+    {
+      "file": "tests/security\\test_enterprise_theater_detection.py",
+      "status": "invalid",
+      "error": "invalid syntax (line 10)"
+    },
+    {
+      "file": "tests/self-dogfooding\\quality_gate_test.py",
+      "status": "valid"
+    },
+    {
+      "file": "tests/self-dogfooding\\workflow_simulation_test.py",
+      "status": "valid"
+    },
+    {
+      "file": "tests/sixsigma\\sample_data.py",
+      "status": "invalid",
+      "error": "unexpected indent (line 250)"
+    },
+    {
+      "file": "tests/sixsigma\\test_integration.py",
+      "status": "invalid",
+      "error": "invalid syntax. Perhaps you forgot a comma? (line 175)"
+    },
+    {
+      "file": "tests/sixsigma\\__init__.py",
+      "status": "valid"
+    },
+    {
+      "file": "tests/theater-detection\\test_theater_detection.py",
+      "status": "invalid",
+      "error": "invalid syntax. Perhaps you forgot a comma? (line 179)"
+    },
+    {
+      "file": "tests/unit\\test_analyzer_core.py",
+      "status": "valid"
+    },
+    {
+      "file": "tests/unit\\test_connascence_detectors.py",
+      "status": "invalid",
+      "error": "unexpected indent (line 18)"
+    },
+    {
+      "file": "tests/unit\\test_flake8_adapter.py",
+      "status": "valid"
+    },
+    {
+      "file": "tests/unit\\test_pylint_adapter.py",
+      "status": "valid"
+    },
+    {
+      "file": "tests/version_log\\test_import_validation.py",
+      "status": "invalid",
+      "error": "closing parenthesis ')' does not match opening parenthesis '{' (line 49)"
+    },
+    {
+      "file": "tests/version_log\\test_unified_validation.py",
+      "status": "invalid",
+      "error": "unexpected indent (line 51)"
+    },
+    {
+      "file": "tests/version_log\\test_version_log_system.py",
+      "status": "invalid",
+      "error": "invalid decimal literal (line 50)"
+    },
+    {
+      "file": "tests/workflow-validation\\comprehensive_validation_report.py",
+      "status": "invalid",
+      "error": "unexpected indent (line 3)"
+    },
+    {
+      "file": "tests/workflow-validation\\json_validation_framework.py",
+      "status": "invalid",
+      "error": "unexpected indent (line 592)"
+    },
+    {
+      "file": "tests/workflow-validation\\python_execution_tests.py",
+      "status": "invalid",
+      "error": "unexpected indent (line 3)"
+    },
+    {
+      "file": "tests/workflow-validation\\workflow_test_suite.py",
+      "status": "invalid",
+      "error": "unexpected indent (line 3)"
+    }
+  ]
+}

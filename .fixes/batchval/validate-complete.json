@@ -1,0 +1,48 @@
+{
+  "stage": "validate",
+  "files_valid": 0,
+  "files_invalid": 8,
+  "timestamp": "2025-09-30T21:56:27.967811Z",
+  "results": [
+    {
+      "file": "tests\\batch2_validation\\run_validation.py",
+      "valid": false,
+      "message": "Line 178: expected an indented block after 'else' statement on line 177"
+    },
+    {
+      "file": "tests\\batch2_validation\\test_builder_patterns.py",
+      "valid": false,
+      "message": "Line 50: expected an indented block after 'if' statement on line 49"
+    },
+    {
+      "file": "tests\\batch2_validation\\test_regression.py",
+      "valid": false,
+      "message": "Line 61: invalid syntax"
+    },
+    {
+      "file": "tests\\batch3_validation\\run_validation.py",
+      "valid": false,
+      "message": "Line 263: invalid syntax"
+    },
+    {
+      "file": "tests\\batch3_validation\\test_strategy_pattern_validation.py",
+      "valid": false,
+      "message": "Line 612: unterminated triple-quoted string literal (detected at line 671)"
+    },
+    {
+      "file": "tests\\batches_10_18_validation\\batch_pattern_validators.py",
+      "valid": false,
+      "message": "Line 97: unmatched ')'"
+    },
+    {
+      "file": "tests\\batches_10_18_validation\\run_validation.py",
+      "valid": false,
+      "message": "Line 64: expected an indented block after 'for' statement on line 63"
+    },
+    {
+      "file": "tests\\batches_10_18_validation\\test_suite_orchestrator.py",
+      "valid": false,
+      "message": "Line 854: invalid decimal literal"
+    }
+  ]
+}

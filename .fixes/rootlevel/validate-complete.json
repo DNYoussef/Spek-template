@@ -1,0 +1,218 @@
+{
+  "stage": "validate",
+  "files_fixed": 11,
+  "files_remaining": 30,
+  "fixed_files": [
+    "tests\\integration_test_suite.py",
+    "tests\\phase3_enhanced_validation.py",
+    "tests\\regression_test_runner.py",
+    "tests\\test_command_factory_patterns.py",
+    "tests\\test_discovery_report.py",
+    "tests\\test_kill_switch_integration.py",
+    "tests\\test_phase4_config_wiring_reality.py",
+    "tests\\test_phase4_configuration.py",
+    "tests\\test_supply_chain_security.py",
+    "tests\\test_utils.py",
+    "tests\\unified_test_orchestrator.py"
+  ],
+  "syntax_valid": [
+    "tests\\__init__.py",
+    "tests\\audit_phase7_god_object_decomposition.py",
+    "tests\\batch_validation_report.py",
+    "tests\\config_reality_check.py",
+    "tests\\conftest.py",
+    "tests\\fix_test_imports.py",
+    "tests\\isolated_phase7_audit.py",
+    "tests\\phase1_critical_fixes.py",
+    "tests\\standalone_facade_test.py",
+    "tests\\test_analyzer_fixes.py",
+    "tests\\test_fixes_simple.py",
+    "tests\\test_github_fixes.py",
+    "tests\\test_main.py",
+    "tests\\test_modules.py",
+    "tests\\test_yaml_validator.py"
+  ],
+  "syntax_errors": [
+    {
+      "file": "tests\\audit_test.py",
+      "error": "unmatched ')' (<unknown>, line 38)",
+      "line": 38,
+      "text": "json_fields = re.findall(r\"\\.get\\(['\\\"](\\w+)['\\\"]\", content))"
+    },
+    {
+      "file": "tests\\integration_test_suite.py",
+      "error": "closing parenthesis '}' does not match opening parenthesis '(' (<unknown>, line 182)",
+      "line": 182,
+      "text": "(        })"
+    },
+    {
+      "file": "tests\\naming_convention_validator.py",
+      "error": "unexpected indent (<unknown>, line 68)",
+      "line": 68,
+      "text": "file_path=file_path,"
+    },
+    {
+      "file": "tests\\phase1_functional_test.py",
+      "error": "unexpected indent (<unknown>, line 28)",
+      "line": 28,
+      "text": "type=\"test_violation\","
+    },
+    {
+      "file": "tests\\phase3_enhanced_validation.py",
+      "error": "invalid syntax (<unknown>, line 21)",
+      "line": 21,
+      "text": "from quiet_star.algorithms import ()"
+    },
+    {
+      "file": "tests\\production_validation_test.py",
+      "error": "unexpected indent (<unknown>, line 71)",
+      "line": 71,
+      "text": "def test_02_cross_platform_compatibility(self):"
+    },
+    {
+      "file": "tests\\regression_test_runner.py",
+      "error": "closing parenthesis '}' does not match opening parenthesis '(' (<unknown>, line 252)",
+      "line": 252,
+      "text": "(            })"
+    },
+    {
+      "file": "tests\\simple_kill_switch_test.py",
+      "error": "unexpected indent (<unknown>, line 67)",
+      "line": 67,
+      "text": "TriggerType.MANUAL_PANIC,"
+    },
+    {
+      "file": "tests\\simple_test_runner.py",
+      "error": "unterminated triple-quoted string literal (detected at line 159) (<unknown>, line 107)",
+      "line": 107,
+      "text": "\"\"\"Run all tests and generate reports.\"\"\""
+    },
+    {
+      "file": "tests\\simplified_integration_test.py",
+      "error": "unmatched ')' (<unknown>, line 304)",
+      "line": 304,
+      "text": "bad_file.write_text(\"def incomplete(\\n# Missing closing paren\"))"
+    },
+    {
+      "file": "tests\\test_analyzer.py",
+      "error": "invalid syntax (<unknown>, line 44)",
+      "line": 44,
+      "text": "from analyzer.performance import ()"
+    },
+    {
+      "file": "tests\\test_command_factory_patterns.py",
+      "error": "invalid syntax. Perhaps you forgot a comma? (<unknown>, line 220)",
+      "line": 220,
+      "text": "result = subprocess.run([]"
+    },
+    {
+      "file": "tests\\test_core_functionality.py",
+      "error": "invalid syntax (<unknown>, line 89)",
+      "line": 89,
+      "text": "from src.constants import ()"
+    },
+    {
+      "file": "tests\\test_discovery_report.py",
+      "error": "expected ':' (<unknown>, line 25)",
+      "line": 25,
+      "text": "if file.endswith('.py') and ()"
+    },
+    {
+      "file": "tests\\test_fixes.py",
+      "error": "unterminated triple-quoted string literal (detected at line 338) (<unknown>, line 283)",
+      "line": 283,
+      "text": "\"\"\"Run all validation tests.\"\"\""
+    },
+    {
+      "file": "tests\\test_focused_pattern_validation.py",
+      "error": "unexpected indent (<unknown>, line 34)",
+      "line": 34,
+      "text": "pattern_id=\"test_1\","
+    },
+    {
+      "file": "tests\\test_import_fixes.py",
+      "error": "unexpected indent (<unknown>, line 67)",
+      "line": 67,
+      "text": "config=None,  # Will use defaults"
+    },
+    {
+      "file": "tests\\test_kelly_dpi_integration.py",
+      "error": "invalid syntax (<unknown>, line 16)",
+      "line": 16,
+      "text": "from risk.kelly_criterion import ()"
+    },
+    {
+      "file": "tests\\test_kill_switch_integration.py",
+      "error": "invalid decimal literal (<unknown>, line 6)",
+      "line": 6,
+      "text": "- Performance validation (<500ms)"
+    },
+    {
+      "file": "tests\\test_naming_standardization.py",
+      "error": "invalid syntax (<unknown>, line 18)",
+      "line": 18,
+      "text": "from src.compatibility_layer import ()"
+    },
+    {
+      "file": "tests\\test_phase3_100_percent.py",
+      "error": "invalid syntax (<unknown>, line 4)",
+      "line": 4,
+      "text": "Comprehensive test suite to verify that ComponentIntegrator achieves 100% reality"
+    },
+    {
+      "file": "tests\\test_phase3_integration.py",
+      "error": "unterminated triple-quoted string literal (detected at line 617) (<unknown>, line 601)",
+      "line": 601,
+      "text": "\"\"\"Run Phase MAXIMUM_RETRY_ATTEMPTS integration tests.\"\"\""
+    },
+    {
+      "file": "tests\\test_phase4_config_wiring_reality.py",
+      "error": "closing parenthesis '}' does not match opening parenthesis '(' (<unknown>, line 139)",
+      "line": 139,
+      "text": "(        })"
+    },
+    {
+      "file": "tests\\test_phase4_configuration.py",
+      "error": "invalid decimal literal (<unknown>, line 194)",
+      "line": 194,
+      "text": "'sigmaShift': 1.MAXIMUM_NESTED_DEPTH,"
+    },
+    {
+      "file": "tests\\test_phase5_integration.py",
+      "error": "invalid syntax (<unknown>, line 5)",
+      "line": 5,
+      "text": "Tests the complete integration of all analyzer components:"
+    },
+    {
+      "file": "tests\\test_phase5_sandbox_reality.py",
+      "error": "unexpected indent (<unknown>, line 91)",
+      "line": 91,
+      "text": "type=ConnascenceType.ALGORITHM,"
+    },
+    {
+      "file": "tests\\test_supply_chain_security.py",
+      "error": "invalid syntax. Perhaps you forgot a comma? (<unknown>, line 35)",
+      "line": 35,
+      "text": "(project_path / \"package.json\").write_text(json.dumps({})"
+    },
+    {
+      "file": "tests\\test_utils.py",
+      "error": "invalid syntax. Perhaps you forgot a comma? (<unknown>, line 60)",
+      "line": 60,
+      "text": "self.assertEqual(result, MAXIMUM_GOD_OBJECTS_ALLOWED.0)"
+    },
+    {
+      "file": "tests\\theater_detection_audit.py",
+      "error": "unterminated triple-quoted string literal (detected at line 678) (<unknown>, line 628)",
+      "line": 628,
+      "text": "\"\"\"Run the complete theater detection audit.\"\"\""
+    },
+    {
+      "file": "tests\\unified_test_orchestrator.py",
+      "error": "closing parenthesis '}' does not match opening parenthesis '(' (<unknown>, line 266)",
+      "line": 266,
+      "text": "(            })"
+    }
+  ],
+  "timestamp": "2025-09-30T21:55:04.009480+00:00"
+}

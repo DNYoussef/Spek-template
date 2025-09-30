@@ -1,0 +1,236 @@
+{
+  "stage": "final",
+  "files_fixed": 29,
+  "files_remaining": 30,
+  "fixed_files": [
+    "tests\\integration_test_suite.py",
+    "tests\\naming_convention_validator.py",
+    "tests\\phase1_functional_test.py",
+    "tests\\phase3_enhanced_validation.py",
+    "tests\\production_validation_test.py",
+    "tests\\regression_test_runner.py",
+    "tests\\simple_kill_switch_test.py",
+    "tests\\simple_test_runner.py",
+    "tests\\simplified_integration_test.py",
+    "tests\\test_analyzer.py",
+    "tests\\test_command_factory_patterns.py",
+    "tests\\test_core_functionality.py",
+    "tests\\test_discovery_report.py",
+    "tests\\test_fixes.py",
+    "tests\\test_focused_pattern_validation.py",
+    "tests\\test_import_fixes.py",
+    "tests\\test_kelly_dpi_integration.py",
+    "tests\\test_kill_switch_integration.py",
+    "tests\\test_naming_standardization.py",
+    "tests\\test_phase3_100_percent.py",
+    "tests\\test_phase3_integration.py",
+    "tests\\test_phase4_config_wiring_reality.py",
+    "tests\\test_phase4_configuration.py",
+    "tests\\test_phase5_integration.py",
+    "tests\\test_phase5_sandbox_reality.py",
+    "tests\\test_supply_chain_security.py",
+    "tests\\test_utils.py",
+    "tests\\theater_detection_audit.py",
+    "tests\\unified_test_orchestrator.py"
+  ],
+  "syntax_valid": [
+    "tests\\__init__.py",
+    "tests\\audit_phase7_god_object_decomposition.py",
+    "tests\\batch_validation_report.py",
+    "tests\\config_reality_check.py",
+    "tests\\conftest.py",
+    "tests\\fix_test_imports.py",
+    "tests\\isolated_phase7_audit.py",
+    "tests\\phase1_critical_fixes.py",
+    "tests\\standalone_facade_test.py",
+    "tests\\test_analyzer_fixes.py",
+    "tests\\test_fixes_simple.py",
+    "tests\\test_github_fixes.py",
+    "tests\\test_main.py",
+    "tests\\test_modules.py",
+    "tests\\test_yaml_validator.py"
+  ],
+  "syntax_errors": [
+    {
+      "file": "tests\\audit_test.py",
+      "error": "unmatched ')' (<unknown>, line 38)",
+      "line": 38,
+      "text": "json_fields = re.findall(r\"\\.get\\(['\\\"](\\w+)['\\\"]\", content))"
+    },
+    {
+      "file": "tests\\integration_test_suite.py",
+      "error": "closing parenthesis '}' does not match opening parenthesis '(' (<unknown>, line 342)",
+      "line": 342,
+      "text": "((        }, indent=2))"
+    },
+    {
+      "file": "tests\\naming_convention_validator.py",
+      "error": "unexpected indent (<unknown>, line 69)",
+      "line": 69,
+      "text": "line_number=1,"
+    },
+    {
+      "file": "tests\\phase1_functional_test.py",
+      "error": "unexpected indent (<unknown>, line 29)",
+      "line": 29,
+      "text": "severity=\"high\","
+    },
+    {
+      "file": "tests\\phase3_enhanced_validation.py",
+      "error": "unexpected indent (<unknown>, line 22)",
+      "line": 22,
+      "text": "QuietSTaRConfig,"
+    },
+    {
+      "file": "tests\\production_validation_test.py",
+      "error": "closing parenthesis ']' does not match opening parenthesis '(' (<unknown>, line 112)",
+      "line": 112,
+      "text": "(            ], capture_output=True, text=True, timeout=10)"
+    },
+    {
+      "file": "tests\\regression_test_runner.py",
+      "error": "invalid syntax. Perhaps you forgot a comma? (<unknown>, line 57)",
+      "line": 57,
+      "text": "failed_imports.append({}"
+    },
+    {
+      "file": "tests\\simple_kill_switch_test.py",
+      "error": "unexpected indent (<unknown>, line 68)",
+      "line": 68,
+      "text": "{'test': scenario['name']}"
+    },
+    {
+      "file": "tests\\simple_test_runner.py",
+      "error": "invalid syntax (<unknown>, line 16)",
+      "line": 16,
+      "text": "\"\"\"\n\ndef test_basic_imports():\n    \"\"\"Test basic Python imports work.\"\"\""
+    },
+    {
+      "file": "tests\\simplified_integration_test.py",
+      "error": "unmatched ')' (<unknown>, line 304)",
+      "line": 304,
+      "text": "bad_file.write_text(\"def incomplete(\\n# Missing closing paren\"))"
+    },
+    {
+      "file": "tests\\test_analyzer.py",
+      "error": "expected 'except' or 'finally' block (<unknown>, line 49)",
+      "line": 49,
+      "text": "(        )"
+    },
+    {
+      "file": "tests\\test_command_factory_patterns.py",
+      "error": "unterminated triple-quoted string literal (detected at line 479) (<unknown>, line 429)",
+      "line": 429,
+      "text": "\"\"\"Run comprehensive test validation.\"\"\""
+    },
+    {
+      "file": "tests\\test_core_functionality.py",
+      "error": "expected 'except' or 'finally' block (<unknown>, line 92)",
+      "line": 92,
+      "text": "(            )"
+    },
+    {
+      "file": "tests\\test_discovery_report.py",
+      "error": "expected ':' (<unknown>, line 25)",
+      "line": 25,
+      "text": "if file.endswith('.py') and ()"
+    },
+    {
+      "file": "tests\\test_fixes.py",
+      "error": "invalid syntax (<unknown>, line 23)",
+      "line": 23,
+      "text": "\"\"\"\n\ndef setup_environment():\n    \"\"\"Set up the testing environment with proper Python path.\"\"\""
+    },
+    {
+      "file": "tests\\test_focused_pattern_validation.py",
+      "error": "unexpected indent (<unknown>, line 35)",
+      "line": 35,
+      "text": "pattern_type=\"test\","
+    },
+    {
+      "file": "tests\\test_import_fixes.py",
+      "error": "unexpected indent (<unknown>, line 68)",
+      "line": 68,
+      "text": "kelly_calculator=kelly_calc,"
+    },
+    {
+      "file": "tests\\test_kelly_dpi_integration.py",
+      "error": "unexpected indent (<unknown>, line 17)",
+      "line": 17,
+      "text": "KellyCriterionCalculator,"
+    },
+    {
+      "file": "tests\\test_kill_switch_integration.py",
+      "error": "invalid decimal literal (<unknown>, line 6)",
+      "line": 6,
+      "text": "- Performance validation (<500ms)"
+    },
+    {
+      "file": "tests\\test_naming_standardization.py",
+      "error": "unexpected indent (<unknown>, line 19)",
+      "line": 19,
+      "text": "generateConnascenceReport,"
+    },
+    {
+      "file": "tests\\test_phase3_100_percent.py",
+      "error": "unterminated triple-quoted string literal (detected at line 396) (<unknown>, line 339)",
+      "line": 339,
+      "text": "\"\"\"Run all tests and calculate reality score.\"\"\""
+    },
+    {
+      "file": "tests\\test_phase3_integration.py",
+      "error": "invalid syntax (<unknown>, line 2)",
+      "line": 2,
+      "text": "from src.constants.base import 3"
+    },
+    {
+      "file": "tests\\test_phase4_config_wiring_reality.py",
+      "error": "invalid syntax (<unknown>, line 4)",
+      "line": 4,
+      "text": "CRITICAL TEST: Proves that detectors use REAL configuration values, not hardcoded defaults."
+    },
+    {
+      "file": "tests\\test_phase4_configuration.py",
+      "error": "invalid syntax (<unknown>, line 1)",
+      "line": 1,
+      "text": "from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_PARAMETERS, 5, 3"
+    },
+    {
+      "file": "tests\\test_phase5_integration.py",
+      "error": "unterminated triple-quoted string literal (detected at line 286) (<unknown>, line 272)",
+      "line": 272,
+      "text": "\"\"\"A simple function with few parameters.\"\"\""
+    },
+    {
+      "file": "tests\\test_phase5_sandbox_reality.py",
+      "error": "invalid syntax (<unknown>, line 1)",
+      "line": 1,
+      "text": "from src.constants.base import 5, 3"
+    },
+    {
+      "file": "tests\\test_supply_chain_security.py",
+      "error": "unterminated triple-quoted string literal (detected at line 502) (<unknown>, line 457)",
+      "line": 457,
+      "text": "\"\"\"Test quality gates enforcement.\"\"\""
+    },
+    {
+      "file": "tests\\test_utils.py",
+      "error": "unterminated triple-quoted string literal (detected at line 91) (<unknown>, line 86)",
+      "line": 86,
+      "text": "\"\"\"Test zero division handling.\"\"\""
+    },
+    {
+      "file": "tests\\theater_detection_audit.py",
+      "error": "invalid syntax (<unknown>, line 2)",
+      "line": 2,
+      "text": "from src.constants.base import 5, QUALITY_GATE_MINIMUM_PASS_RATE, TAKE_PROFIT_PERCENTAGE"
+    },
+    {
+      "file": "tests\\unified_test_orchestrator.py",
+      "error": "invalid syntax (<unknown>, line 1)",
+      "line": 1,
+      "text": "from src.constants.base import API_TIMEOUT_SECONDS, 5, 3"
+    }
+  ],
+  "timestamp": "2025-09-30T21:55:42.493562+00:00"
+}

@@ -1,0 +1,146 @@
+{
+  "stage": "docstring",
+  "files_fixed": 0,
+  "files_remaining": 30,
+  "fixed_files": [],
+  "syntax_valid": [
+    "tests\\__init__.py",
+    "tests\\audit_phase7_god_object_decomposition.py",
+    "tests\\batch_validation_report.py",
+    "tests\\config_reality_check.py",
+    "tests\\conftest.py",
+    "tests\\fix_test_imports.py",
+    "tests\\isolated_phase7_audit.py",
+    "tests\\phase1_critical_fixes.py",
+    "tests\\standalone_facade_test.py",
+    "tests\\test_analyzer_fixes.py",
+    "tests\\test_fixes_simple.py",
+    "tests\\test_github_fixes.py",
+    "tests\\test_main.py",
+    "tests\\test_modules.py",
+    "tests\\test_yaml_validator.py"
+  ],
+  "syntax_errors": [
+    {
+      "file": "tests\\audit_test.py",
+      "error": "unmatched ')' (<unknown>, line 38)"
+    },
+    {
+      "file": "tests\\integration_test_suite.py",
+      "error": "closing parenthesis ')' does not match opening parenthesis '{' (<unknown>, line 95)"
+    },
+    {
+      "file": "tests\\naming_convention_validator.py",
+      "error": "unexpected indent (<unknown>, line 68)"
+    },
+    {
+      "file": "tests\\phase1_functional_test.py",
+      "error": "unexpected indent (<unknown>, line 28)"
+    },
+    {
+      "file": "tests\\phase3_enhanced_validation.py",
+      "error": "closing parenthesis ')' does not match opening parenthesis '{' (<unknown>, line 176)"
+    },
+    {
+      "file": "tests\\production_validation_test.py",
+      "error": "unexpected indent (<unknown>, line 71)"
+    },
+    {
+      "file": "tests\\regression_test_runner.py",
+      "error": "closing parenthesis ')' does not match opening parenthesis '{' (<unknown>, line 57)"
+    },
+    {
+      "file": "tests\\simple_kill_switch_test.py",
+      "error": "unexpected indent (<unknown>, line 67)"
+    },
+    {
+      "file": "tests\\simple_test_runner.py",
+      "error": "unterminated triple-quoted string literal (detected at line 159) (<unknown>, line 107)"
+    },
+    {
+      "file": "tests\\simplified_integration_test.py",
+      "error": "unmatched ')' (<unknown>, line 304)"
+    },
+    {
+      "file": "tests\\test_analyzer.py",
+      "error": "invalid syntax (<unknown>, line 44)"
+    },
+    {
+      "file": "tests\\test_command_factory_patterns.py",
+      "error": "closing parenthesis ')' does not match opening parenthesis '[' (<unknown>, line 220)"
+    },
+    {
+      "file": "tests\\test_core_functionality.py",
+      "error": "invalid syntax (<unknown>, line 89)"
+    },
+    {
+      "file": "tests\\test_discovery_report.py",
+      "error": "expected ':' (<unknown>, line 25)"
+    },
+    {
+      "file": "tests\\test_fixes.py",
+      "error": "unterminated triple-quoted string literal (detected at line 338) (<unknown>, line 283)"
+    },
+    {
+      "file": "tests\\test_focused_pattern_validation.py",
+      "error": "unexpected indent (<unknown>, line 34)"
+    },
+    {
+      "file": "tests\\test_import_fixes.py",
+      "error": "unexpected indent (<unknown>, line 67)"
+    },
+    {
+      "file": "tests\\test_kelly_dpi_integration.py",
+      "error": "invalid syntax (<unknown>, line 16)"
+    },
+    {
+      "file": "tests\\test_kill_switch_integration.py",
+      "error": "invalid decimal literal (<unknown>, line 6)"
+    },
+    {
+      "file": "tests\\test_naming_standardization.py",
+      "error": "invalid syntax (<unknown>, line 18)"
+    },
+    {
+      "file": "tests\\test_phase3_100_percent.py",
+      "error": "invalid syntax (<unknown>, line 4)"
+    },
+    {
+      "file": "tests\\test_phase3_integration.py",
+      "error": "unterminated triple-quoted string literal (detected at line 617) (<unknown>, line 601)"
+    },
+    {
+      "file": "tests\\test_phase4_config_wiring_reality.py",
+      "error": "closing parenthesis ')' does not match opening parenthesis '{' (<unknown>, line 119)"
+    },
+    {
+      "file": "tests\\test_phase4_configuration.py",
+      "error": "invalid decimal literal (<unknown>, line 194)"
+    },
+    {
+      "file": "tests\\test_phase5_integration.py",
+      "error": "invalid syntax (<unknown>, line 5)"
+    },
+    {
+      "file": "tests\\test_phase5_sandbox_reality.py",
+      "error": "unexpected indent (<unknown>, line 91)"
+    },
+    {
+      "file": "tests\\test_supply_chain_security.py",
+      "error": "closing parenthesis ')' does not match opening parenthesis '{' (<unknown>, line 35)"
+    },
+    {
+      "file": "tests\\test_utils.py",
+      "error": "invalid syntax. Perhaps you forgot a comma? (<unknown>, line 60)"
+    },
+    {
+      "file": "tests\\theater_detection_audit.py",
+      "error": "unterminated triple-quoted string literal (detected at line 678) (<unknown>, line 628)"
+    },
+    {
+      "file": "tests\\unified_test_orchestrator.py",
+      "error": "closing parenthesis ')' does not match opening parenthesis '{' (<unknown>, line 256)"
+    }
+  ],
+  "timestamp": "2025-09-30T21:53:41.842511Z"
+}

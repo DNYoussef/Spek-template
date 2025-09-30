@@ -1,0 +1,96 @@
+{
+  "stage": "validate",
+  "files_fixed": 0,
+  "files_remaining": 11,
+  "timestamp": "2025-09-30T21:56:05.855948",
+  "validations": [
+    {
+      "valid": false,
+      "file": "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\run_all_tests.py",
+      "error": "unexpected indent (<unknown>, line 25)",
+      "line": 25,
+      "offset": 12,
+      "text": "            if test_categories is None:\n"
+    },
+    {
+      "valid": false,
+      "file": "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_adapter_patterns.py",
+      "error": "unexpected indent (<unknown>, line 38)",
+      "line": 38,
+      "offset": 12,
+      "text": "            executable_path=\"test_linter\",\n"
+    },
+    {
+      "valid": false,
+      "file": "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_api_endpoints.py",
+      "error": "closing parenthesis '}' does not match opening parenthesis '(' (<unknown>, line 37)",
+      "line": 37,
+      "offset": 10,
+      "text": "(        })"
+    },
+    {
+      "valid": false,
+      "file": "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_failure_modes.py",
+      "error": "unexpected indent (<unknown>, line 35)",
+      "line": 35,
+      "offset": 8,
+      "text": "        async def test_single_node_failure_recovery(self, coordinator):\n"
+    },
+    {
+      "valid": false,
+      "file": "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_full_pipeline.py",
+      "error": "unexpected indent (<unknown>, line 59)",
+      "line": 59,
+      "offset": 12,
+      "text": "            async def execute_full_pipeline(self, file_paths: List[str], options: Dict[str, Any] = None) -> Dict[str, Any]:\n"
+    },
+    {
+      "valid": false,
+      "file": "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_mesh_coordination.py",
+      "error": "unmatched ')' (<unknown>, line 54)",
+      "line": 54,
+      "offset": 48,
+      "text": "        assert set(coordinator.mesh_nodes.keys)) == expected_nodes"
+    },
+    {
+      "valid": false,
+      "file": "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_performance_scalability.py",
+      "error": "unexpected indent (<unknown>, line 46)",
+      "line": 46,
+      "offset": 12,
+      "text": "            def measure_performance(self, func, *args, **kwargs) -> PerformanceMetrics:\n"
+    },
+    {
+      "valid": false,
+      "file": "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_real_linter_validation.py",
+      "error": "unexpected indent (<unknown>, line 24)",
+      "line": 24,
+      "offset": 4,
+      "text": "    def sample_python_files():\n"
+    },
+    {
+      "valid": false,
+      "file": "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_real_time_processing.py",
+      "error": "unexpected indent (<unknown>, line 37)",
+      "line": 37,
+      "offset": 16,
+      "text": "                class MockViolation:\n"
+    },
+    {
+      "valid": false,
+      "file": "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_severity_mapping.py",
+      "error": "invalid syntax (<unknown>, line 19)",
+      "line": 19,
+      "offset": 67,
+      "text": "from linter_integration.severity_mapping.unified_severity import ()\n"
+    },
+    {
+      "valid": false,
+      "file": "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_tool_management.py",
+      "error": "invalid syntax (<unknown>, line 18)",
+      "line": 18,
+      "offset": 56,
+      "text": "from linter_integration.tool_management_system import ()\n"
+    }
+  ]
+}
