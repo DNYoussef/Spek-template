@@ -28,9 +28,9 @@ export class QualityGateEngine {
   private aggregateResults(results: QualityGateResult[]): QualityGateResult {
     return {
       gateId: 'aggregate',
-      passed: results.every(r  = > r.passed),
-      score: results.reduce((sum, r)  = > sum + r.score, 0) / results.length,
-      violations: results.flatMap(r  = > r.violations)
+      passed: results.every(r => r.passed),
+      score: results.reduce((sum, r) => sum + r.score, 0) / results.length,
+      violations: results.flatMap(r => r.violations)
     };
   }
 }

@@ -38,7 +38,7 @@ conflictResolution: ConflictResolution;
 
 
 // Range-specific type definitions for 500-599
-export interface integration.typesConfig {
+export interface IntegrationTypesConfig {
     range: '500-599';
     maxLines: number;
     decomposed: boolean;

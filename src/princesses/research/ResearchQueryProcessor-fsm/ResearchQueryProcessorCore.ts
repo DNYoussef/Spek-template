@@ -9,14 +9,15 @@ export class ResearchQueryProcessorCore {
     constructor() {
         // Core initialization
     }
+}
 
-    // Core business logic extracted from original
-    export class ResearchQueryProcessor {
-private nlpProcessor: NLPProcessor;
-private optimizer: QueryOptimizer;
-private knowledgeGraph: KnowledgeGraphEngine;
+// Core business logic extracted from original
+export class ResearchQueryProcessor {
+    private nlpProcessor: NLPProcessor;
+    private optimizer: QueryOptimizer;
+    private knowledgeGraph: KnowledgeGraphEngine;
 
-constructor(knowledgeGraph: KnowledgeGraphEngine) {
+    constructor(knowledgeGraph: KnowledgeGraphEngine) {
 this.nlpProcessor = new NLPProcessor();
 this.optimizer = new QueryOptimizer();
 this.knowledgeGraph = knowledgeGraph;
@@ -343,6 +344,5 @@ return total + (costPerStep[step.type] || 0.01);
 */
 private generateQueryId(): string {
 return `rq_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-}
 }
 }
