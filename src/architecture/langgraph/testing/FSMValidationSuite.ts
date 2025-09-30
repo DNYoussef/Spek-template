@@ -604,4 +604,4 @@ export class FSMValidationSuite extends EventEmitter implements IValidationState
   }
 }
 
-export default FSMValidationSuite;"}, {"old_string": "        await this.executeTestPhase(phase.phase, phase.tests);", "new_string": "        await this.executeTestPhase(phase.phase, phase.tests);"}]
+export default FSMValidationSuite;

@@ -1,5 +1,5 @@
 /**
- * EventFSMTypes - Auto-generated const type definitions
+ * EventFSMTypes - Auto-generated type definitions
  * TODO: Define proper types
  */
 export interface EventFSMTypesConfig {
@@ -19,11 +19,11 @@ export enum EventFSMTypesStatus {
   COMPLETE  =  'COMPLETE',
   ERROR  =  'ERROR'
 }
-export const type EventFSMTypesType  =  any;
+export type EventFSMTypesType = any;
 export default {
   EventFSMTypesStatus
 };
 export interface BaseEvent {
-  // TODO: Define proper const type
+  // TODO: Define proper type
   [key: string]: any;
 }

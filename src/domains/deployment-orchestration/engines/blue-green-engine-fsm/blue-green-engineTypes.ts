@@ -6,7 +6,7 @@
 
 
 // Range-specific type definitions for 700-799
-export interface blue-green-engineConfig {
+export interface BlueGreenEngineConfig {
     range: '700-799';
     maxLines: number;
     decomposed: boolean;

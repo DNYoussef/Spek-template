@@ -6,7 +6,7 @@
 
 
 // Range-specific type definitions for 800-899
-export interface pipeline-orchestratorConfig {
+export interface PipelineOrchestratorConfig {
     range: '800-899';
     maxLines: number;
     decomposed: boolean;

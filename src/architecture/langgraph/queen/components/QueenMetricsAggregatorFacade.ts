@@ -188,7 +188,8 @@ const results: AggregatedMetric[]   = [];
     }
     const endTime  =  Date.now();
     startTime  =  timeRangeMs ? endTime - timeRangeMs : endTime - QueenMetricsAggregatorFacade.MAX_AGGREGATION_WINDOW;
-    const aggregatedMetrics  =  this.getAggregatedMetrics(undefined, timeRangeMs);const aggregatedMetricsMap: Record<MetricType, AggregatedMetric>   = {} as Record<MetricType, AggregatedMetric>;
+    const aggregatedMetrics  =  this.getAggregatedMetrics(undefined, timeRangeMs);
+const aggregatedMetricsMap: Record<MetricType, AggregatedMetric>   = {} as Record<MetricType, AggregatedMetric>;
     aggregatedMetrics.forEach(metric => {
       aggregatedMetricsMap[metric.type]  =  metric;
     });
@@ -285,7 +286,7 @@ const results: AggregatedMetric[]   = [];
     const trend  =  this.calculateTrend(values);
     const timestamps  =  metrics.map(m => m.timestamp);
     return {
-      const type,
+      type,
       count: metrics.length,
       sum,
       average,
@@ -316,7 +317,8 @@ const results: AggregatedMetric[]   = [];
     const thresholds  =  this.getThresholds(metric.type);
     for (const [level, threshold] of Object.entries(thresholds)) {
       if (metric.value > threshold) {
-        const alertId  =  `${metric.type}_${level}_${Date.now()}`;const alert: MetricAlert   = {
+        const alertId  =  `${metric.type}_${level}_${Date.now()}`;
+const alert: MetricAlert   = {
           id: alertId,
           type: metric.type,
           severity: level as MetricAlert['severity'],
@@ -360,13 +362,15 @@ const results: AggregatedMetric[]   = [];
     else if (averageScore >= 75) overall  =  'good';
     else if (averageScore >= 60) overall  =  'fair';
     else if (averageScore >= 40) overall  =  'poor';
-    else overall  =  'critical';  issues: string[]  =  [];
+    else overall = 'critical';
+    const issues: string[]  =  [];
     if (averageScore < 60) {
       issues.push('System performance below acceptable levels');
     }
     return { overall, score: averageScore, issues };
   }
-  private generateRecommendations(metrics: AggregatedMetric[]): string[] {  recommendations: string[]  =  [];
+  private generateRecommendations(metrics: AggregatedMetric[]): string[] {
+    const recommendations: string[]  =  [];
     metrics.forEach(metric => {
     // WARNING: Recursion detected - consider iterative approach for NASA Rule 10 compliance
       if (metric.trend === 'increasing' && metric.average > 80) {

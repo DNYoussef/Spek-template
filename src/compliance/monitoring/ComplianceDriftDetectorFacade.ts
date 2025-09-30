@@ -25,7 +25,8 @@ export class ComplianceDriftDetector {
   /**
    * Detect drift from baseline
    */
-  detectDrift(current: Record<string, any>): DriftResult {  violations: string[]  =  [];
+  detectDrift(current: Record<string, any>): DriftResult {
+    const violations: string[]  =  [];
     let totalMetrics  =  0;
     let driftedMetrics  =  0;
     for (const [key, baseValue] of Object.entries(this.baseline)) {

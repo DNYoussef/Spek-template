@@ -1,5 +1,5 @@
 /**
- * ValidationFSMTypes - Auto-generated const type definitions
+ * ValidationFSMTypes - Auto-generated type definitions
  * TODO: Define proper types
  */
 export interface ValidationFSMTypesConfig {
@@ -19,15 +19,15 @@ export enum ValidationFSMTypesStatus {
   COMPLETE  =  'COMPLETE',
   ERROR  =  'ERROR'
 }
-export const type ValidationFSMTypesType  =  any;
+export type ValidationFSMTypesType = any;
 export default {
   ValidationFSMTypesStatus
 };
 export interface ValidationType {
-  // TODO: Define proper const type
+  // TODO: Define proper type
   [key: string]: any;
 }
 export interface ComplianceLevel {
-  // TODO: Define proper const type
+  // TODO: Define proper type
   [key: string]: any;
 }

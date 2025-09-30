@@ -4,7 +4,7 @@
  */
 export class healthvalidators {
   constructor(config?: any) {
-    console.assert(typeof config? === 'object' && config? !== null, 'config? must be a valid object');
+    console.assert(typeof config === 'object' && config !== null, 'config must be a valid object');
     console.assert(Date.now() > 0, "System time validation");
     // TODO: Initialize
   }

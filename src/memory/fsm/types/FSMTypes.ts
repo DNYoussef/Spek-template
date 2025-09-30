@@ -1,5 +1,5 @@
 /**
- * FSMTypes - Auto-generated const type definitions
+ * FSMTypes - Auto-generated type definitions
  * TODO: Define proper types
  */
 export interface FSMTypesConfig {
@@ -19,23 +19,23 @@ export enum FSMTypesStatus {
   COMPLETE  =  'COMPLETE',
   ERROR  =  'ERROR'
 }
-export const type FSMTypesType  =  any;
+export type FSMTypesType = any;
 export default {
   FSMTypesStatus
 };
 export interface FSMContext {
-  // TODO: Define proper const type
+  // TODO: Define proper type
   [key: string]: any;
 }
 export interface TransitionDefinition {
-  // TODO: Define proper const type
+  // TODO: Define proper type
   [key: string]: any;
 }
 export interface StateDefinition {
-  // TODO: Define proper const type
+  // TODO: Define proper type
   [key: string]: any;
 }
 export interface TransitionGuard {
-  // TODO: Define proper const type
+  // TODO: Define proper type
   [key: string]: any;
 }

@@ -19,7 +19,7 @@ export enum typesStatus {
   COMPLETE  =  'COMPLETE',
   ERROR  =  'ERROR'
 }
-export const type typesType  =  any;
+export type typesType = any;
 export default {
   typesStatus
 };

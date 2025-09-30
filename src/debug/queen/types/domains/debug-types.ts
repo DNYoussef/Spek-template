@@ -1,5 +1,5 @@
 /**
- * debugtypes - Auto-generated const type definitions
+ * debugtypes - Auto-generated type definitions
  * TODO: Define proper types
  */
 export interface DebugTypesConfig {
@@ -19,23 +19,23 @@ export enum DebugTypesStatus {
   COMPLETE  =  'COMPLETE',
   ERROR  =  'ERROR'
 }
-export const type DebugTypesType  =  any;
+export type DebugTypesType = any;
 export default {
   DebugTypesStatus
 };
 export interface DebugCapability {
-  // TODO: Define proper const type
+  // TODO: Define proper type
   [key: string]: any;
 }
 export interface DebugContext {
-  // TODO: Define proper const type
+  // TODO: Define proper type
   [key: string]: any;
 }
 export interface DebugEvidence {
-  // TODO: Define proper const type
+  // TODO: Define proper type
   [key: string]: any;
 }
 export interface DebugStrategy {
-  // TODO: Define proper const type
+  // TODO: Define proper type
   [key: string]: any;
 }

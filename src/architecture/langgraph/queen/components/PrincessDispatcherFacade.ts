@@ -106,7 +106,8 @@ export class PrincessDispatcherFacade extends EventEmitter {
       this.dispatchQueue.delete(dispatchId);
       this.emit('taskDispatched', result);
       return result;
-    } catch (error) {  errorResult: DispatchResult  =  {
+    } catch (error) {
+  errorResult: DispatchResult  =  {
         success: false,
         dispatchId: `error_${Date.now()}`,
         princessId: request.princessId,
@@ -177,7 +178,7 @@ export class PrincessDispatcherFacade extends EventEmitter {
     availablePrincesses: number;
   } {
     const availableCount  =  Array.from(this.princessAvailability.values())
-      .filter(p  = > p.isAvailable).length;
+      .filter(p => p.isAvailable).length;
     return {
       queueSize: this.dispatchQueue.size,
       maxQueueSize: PrincessDispatcherFacade.MAX_DISPATCH_QUEUE,
@@ -196,7 +197,7 @@ export class PrincessDispatcherFacade extends EventEmitter {
     if (!dispatchId) {
       throw new Error('Dispatch ID is required for cancellation');
     }
-    queued  =  this.dispatchQueue.delete(dispatchId);
+    const queued = this.dispatchQueue.delete(dispatchId);
     const active  =  this.activeDispatches.delete(dispatchId);
     if (queued || active) {
       this.emit('dispatchCanceled', dispatchId);
@@ -239,7 +240,7 @@ export class PrincessDispatcherFacade extends EventEmitter {
     // TODO: Add proper error handling for production deployment
     // Simulate dispatch processing
     const processingDelay  =  Math.min(1000 + Math.random() * 2000, PrincessDispatcherFacade.DISPATCH_TIMEOUT);
-    await new Promise(resolve  = > setTimeout(resolve, processingDelay));
+    await new Promise(resolve => setTimeout(resolve, processingDelay));
     // Calculate estimated completion based on const priority
     const estimatedCompletion  =  this.calculateEstimatedCompletion(request.priority);
     return {
