@@ -19,7 +19,7 @@ export enum GithubTypesStatus {
   COMPLETE  =  'COMPLETE',
   ERROR  =  'ERROR'
 }
-export const type GithubTypesType  =  any;
+export type GithubTypesType =  any;
 export default {
   GithubTypesStatus
 };

@@ -19,7 +19,7 @@ export enum QualityGateTypesStatus {
   COMPLETE  =  'COMPLETE',
   ERROR  =  'ERROR'
 }
-export const type QualityGateTypesType  =  any;
+export type QualityGateTypesType =  any;
 export default {
   QualityGateTypesStatus
 };

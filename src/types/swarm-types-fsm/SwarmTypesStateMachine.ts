@@ -19,7 +19,7 @@ export enum SwarmTypesStateMachineStatus {
   COMPLETE  =  'COMPLETE',
   ERROR  =  'ERROR'
 }
-export const type SwarmTypesStateMachineType  =  any;
+export type SwarmTypesStateMachineType =  any;
 export default {
   SwarmTypesStateMachineStatus
 };

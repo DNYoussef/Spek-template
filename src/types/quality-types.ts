@@ -11,7 +11,7 @@ export class QualityGateEngine {
     this.gates.set(gate.id, gate);
   }
   evaluate(data: any): QualityGateResult {
-    results: QualityGateResult[]  =  [];
+    const results: QualityGateResult[] = [];
     for (const gate of this.gates.values()) {
       results.push(this.evaluateGate(gate, data));
     }

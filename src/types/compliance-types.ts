@@ -19,7 +19,7 @@ export enum ComplianceTypesStatus {
   COMPLETE  =  'COMPLETE',
   ERROR  =  'ERROR'
 }
-export const type ComplianceTypesType  =  any;
+export type ComplianceTypesType =  any;
 export default {
   ComplianceTypesStatus
 };

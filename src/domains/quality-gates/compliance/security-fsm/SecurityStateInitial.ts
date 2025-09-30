@@ -51,11 +51,11 @@ export class SecurityStateInitial {
    * Validate required inputs
    */
   private validateInputs(context: SecurityValidationContext): void {
-    if (!context.artifacts // !Array.isArray(context.artifacts)) {
+    if (!context.artifacts || !Array.isArray(context.artifacts)) {
       throw new Error('Invalid artifacts: must be an array');
     }
     
-    if (!context.requestContext // typeof context.requestContext !== 'object') {
+    if (!context.requestContext || typeof context.requestContext !== 'object') {
       throw new Error('Invalid request context: must be an object');
     }
     

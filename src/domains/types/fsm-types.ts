@@ -19,7 +19,7 @@ export enum FsmTypesStatus {
   COMPLETE  =  'COMPLETE',
   ERROR  =  'ERROR'
 }
-export const type FsmTypesType  =  any;
+export type FsmTypesType =  any;
 export default {
   FsmTypesStatus
 };

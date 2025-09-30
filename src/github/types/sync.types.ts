@@ -19,7 +19,7 @@ export enum SynctypesStatus {
   COMPLETE  =  'COMPLETE',
   ERROR  =  'ERROR'
 }
-export const type SynctypesType  =  any;
+export type SynctypesType =  any;
 export default {
   SynctypesStatus
 };

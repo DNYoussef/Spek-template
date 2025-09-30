@@ -19,7 +19,7 @@ export enum SwarmTypesCoreStatus {
   COMPLETE  =  'COMPLETE',
   ERROR  =  'ERROR'
 }
-export const type SwarmTypesCoreType  =  any;
+export type SwarmTypesCoreType =  any;
 export default {
   SwarmTypesCoreStatus
 };

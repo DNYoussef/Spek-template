@@ -35,7 +35,7 @@ export interface ApiResponse {
   data: any;
   headers: Record<string, string>;
 }
-export const type ApiType  =  'rest' | 'graphql';
+export type ApiType =  'rest' | 'graphql';
 export default {
   ApiStatus
 };

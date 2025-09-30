@@ -6,7 +6,7 @@
 
 
 // Range-specific type definitions for 800-899
-export interface result-correlation-frameworkConfig {
+export interface ResultCorrelationFrameworkConfig {
     range: '800-899';
     maxLines: number;
     decomposed: boolean;

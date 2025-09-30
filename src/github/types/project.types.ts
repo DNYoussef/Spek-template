@@ -19,7 +19,7 @@ export enum ProjecttypesStatus {
   COMPLETE  =  'COMPLETE',
   ERROR  =  'ERROR'
 }
-export const type ProjecttypesType  =  any;
+export type ProjecttypesType =  any;
 export default {
   ProjecttypesStatus
 };

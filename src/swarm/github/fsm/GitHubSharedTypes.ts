@@ -19,7 +19,7 @@ export enum GitHubSharedTypesStatus {
   COMPLETE  =  'COMPLETE',
   ERROR  =  'ERROR'
 }
-export const type GitHubSharedTypesType  =  any;
+export type GitHubSharedTypesType =  any;
 export default {
   GitHubSharedTypesStatus
 };
