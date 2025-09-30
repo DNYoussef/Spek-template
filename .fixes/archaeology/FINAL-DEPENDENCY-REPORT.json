@@ -1,0 +1,456 @@
+{
+  "mission": "dependency_mapping_and_critical_path_analysis",
+  "status": "COMPLETE",
+  "timestamp": "2025-09-30T18:54:49.017591",
+  "agent": "system-architecture-designer",
+  "executive_summary": {
+    "total_test_files": 114,
+    "working_files": 17,
+    "broken_files": 97,
+    "working_tests": 111,
+    "working_percentage": 14.9,
+    "infrastructure_health": "EXCELLENT",
+    "primary_issue": "syntax_errors_in_individual_files",
+    "dependency_cascades": "NONE_DETECTED"
+  },
+  "infrastructure_analysis": {
+    "init_files": {
+      "total": 5,
+      "working": 5,
+      "broken": 0,
+      "status": "HEALTHY"
+    },
+    "conftest_files": {
+      "total": 3,
+      "working": 3,
+      "broken": 0,
+      "status": "HEALTHY"
+    },
+    "pytest_framework": "WORKING",
+    "test_discovery": "WORKING"
+  },
+  "root_cause_analysis": {
+    "primary_cause": "automated_refactoring_syntax_errors",
+    "error_types": {
+      "syntax_errors": 93,
+      "import_errors": 0,
+      "fixture_errors": 0,
+      "other_errors": 4
+    },
+    "error_distribution": {
+      "syntax": 95.9,
+      "other": 4.1
+    },
+    "common_patterns": [
+      "mismatched_brackets",
+      "unterminated_strings",
+      "missing_colons",
+      "unexpected_indentation",
+      "invalid_syntax"
+    ]
+  },
+  "critical_path": [
+    {
+      "file": "tests\\test_analyzer.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: invalid syntax at line 44",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_command_factory_patterns.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '[' at line 220",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_core_functionality.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: invalid syntax at line 89",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_discovery_report.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: expected ':' at line 25",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_fixes.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 338) at line 283",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_focused_pattern_validation.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: unexpected indent at line 34",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_import_fixes.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: unexpected indent at line 67",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_kelly_dpi_integration.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: invalid syntax at line 16",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_kill_switch_integration.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: invalid decimal literal at line 6",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_naming_standardization.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: invalid syntax at line 18",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_analyzer.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: invalid syntax at line 44",
+      "action": "Fix to complete directory"
+    },
+    {
+      "file": "tests\\test_command_factory_patterns.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '[' at line 220",
+      "action": "Fix to complete directory"
+    },
+    {
+      "file": "tests\\test_core_functionality.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: invalid syntax at line 89",
+      "action": "Fix to complete directory"
+    },
+    {
+      "file": "tests\\test_discovery_report.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: expected ':' at line 25",
+      "action": "Fix to complete directory"
+    },
+    {
+      "file": "tests\\test_fixes.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 338) at line 283",
+      "action": "Fix to complete directory"
+    },
+    {
+      "file": "tests\\test_focused_pattern_validation.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: unexpected indent at line 34",
+      "action": "Fix to complete directory"
+    },
+    {
+      "file": "tests\\test_import_fixes.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: unexpected indent at line 67",
+      "action": "Fix to complete directory"
+    },
+    {
+      "file": "tests\\test_kelly_dpi_integration.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: invalid syntax at line 16",
+      "action": "Fix to complete directory"
+    },
+    {
+      "file": "tests\\test_kill_switch_integration.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: invalid decimal literal at line 6",
+      "action": "Fix to complete directory"
+    },
+    {
+      "file": "tests\\test_naming_standardization.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: invalid syntax at line 18",
+      "action": "Fix to complete directory"
+    }
+  ],
+  "priority_queue": {
+    "tier_1_critical": {
+      "count": 93,
+      "description": "Syntax errors - EASY to fix",
+      "effort": "LOW",
+      "roi": "HIGHEST",
+      "files": [
+        {
+          "file": "tests\\test_analyzer.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: invalid syntax at line 44",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\test_command_factory_patterns.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '[' at line 220",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\test_core_functionality.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: invalid syntax at line 89",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\test_discovery_report.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: expected ':' at line 25",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\test_fixes.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 338) at line 283",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\test_focused_pattern_validation.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: unexpected indent at line 34",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\test_import_fixes.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: unexpected indent at line 67",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\test_kelly_dpi_integration.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: invalid syntax at line 16",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\test_kill_switch_integration.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: invalid decimal literal at line 6",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\test_naming_standardization.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: invalid syntax at line 18",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\test_phase3_100_percent.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: invalid syntax at line 4",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\test_phase3_integration.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 617) at line 601",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\test_phase4_configuration.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: invalid decimal literal at line 194",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\test_phase4_config_wiring_reality.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' at line 119",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\test_phase5_integration.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: invalid syntax at line 5",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\test_phase5_sandbox_reality.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: unexpected indent at line 91",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\test_supply_chain_security.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' at line 35",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\test_utils.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: invalid syntax. Perhaps you forgot a comma? at line 60",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\batch3_validation\\test_strategy_pattern_validation.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 671) at line 612",
+          "fix_difficulty": "EASY"
+        },
+        {
+          "file": "tests\\batches_10_18_validation\\test_suite_orchestrator.py",
+          "reason": "Syntax error",
+          "error": "SyntaxError: invalid decimal literal at line 854",
+          "fix_difficulty": "EASY"
+        }
+      ]
+    },
+    "tier_2_high_impact": {
+      "count": 0,
+      "description": "Import/fixture errors",
+      "effort": "MEDIUM",
+      "roi": "HIGH",
+      "files": []
+    },
+    "tier_3_isolated": {
+      "count": 4,
+      "description": "Other collection errors",
+      "effort": "MEDIUM",
+      "roi": "MEDIUM",
+      "files": [
+        {
+          "file": "tests\\e2e\\test_complete_workflow.py",
+          "reason": "Collection failed",
+          "error": "",
+          "fix_difficulty": "HARD"
+        },
+        {
+          "file": "tests\\integration\\test_analyzer_integration.py",
+          "reason": "Collection failed",
+          "error": "",
+          "fix_difficulty": "HARD"
+        },
+        {
+          "file": "tests\\unit\\test_analyzer_core.py",
+          "reason": "Collection failed",
+          "error": "",
+          "fix_difficulty": "HARD"
+        },
+        {
+          "file": "tests\\self-dogfooding\\quality_gate_test.py",
+          "reason": "Collection failed",
+          "error": "No collection info",
+          "fix_difficulty": "HARD"
+        }
+      ]
+    }
+  },
+  "protected_suites": {
+    "phase7_adas": {
+      "test_count": 61,
+      "status": "WORKING",
+      "protection": "MANDATORY"
+    },
+    "enterprise": {
+      "test_count": 8,
+      "status": "WORKING",
+      "protection": "MANDATORY"
+    },
+    "byzantium": {
+      "test_count": 2,
+      "status": "WORKING",
+      "protection": "RECOMMENDED"
+    },
+    "safety": {
+      "test_count": 2,
+      "status": "WORKING",
+      "protection": "RECOMMENDED"
+    }
+  },
+  "fix_strategy": {
+    "phase_1": {
+      "name": "Automated Syntax Repair",
+      "target_files": 93,
+      "expected_recovery": "93+ files, 200+ tests",
+      "effort": "LOW",
+      "time_estimate": "2-4 hours",
+      "approach": "automated",
+      "tools": [
+        "syntax_auto_fixer.py",
+        "py_compile",
+        "pytest"
+      ]
+    },
+    "phase_2": {
+      "name": "Manual Review",
+      "target_files": 4,
+      "expected_recovery": "4 files",
+      "effort": "MEDIUM",
+      "time_estimate": "1-2 hours",
+      "approach": "manual"
+    },
+    "phase_3": {
+      "name": "Validation & Protection",
+      "target": "all_repaired_files",
+      "actions": [
+        "full_test_collection",
+        "create_fixignore",
+        "run_subset_tests",
+        "verify_no_regressions"
+      ]
+    }
+  },
+  "success_metrics": {
+    "current": {
+      "working_files": 17,
+      "working_percentage": 14.9,
+      "collected_tests": 111
+    },
+    "target_phase_1": {
+      "working_files": 110,
+      "working_percentage": 96.5,
+      "collected_tests": "300+"
+    },
+    "final_target": {
+      "working_files": 114,
+      "working_percentage": 100.0,
+      "collected_tests": "350+"
+    }
+  },
+  "validation_gates": [
+    "phase7_adas still collects 61 tests",
+    "enterprise still collects 8 tests",
+    "total collected tests increases",
+    "no new syntax errors introduced"
+  ],
+  "deliverables": {
+    "dependency_map": ".fixes/archaeology/dependency-map.json",
+    "enhanced_map": ".fixes/archaeology/enhanced-dependency-map.json",
+    "critical_path_analysis": ".fixes/archaeology/CRITICAL-PATH-ANALYSIS.md",
+    "executive_summary": ".fixes/archaeology/EXECUTIVE-SUMMARY.md",
+    "final_report": ".fixes/archaeology/FINAL-DEPENDENCY-REPORT.json"
+  },
+  "mission_objectives_status": {
+    "scan_all_test_files": "COMPLETE",
+    "build_dependency_graph": "COMPLETE",
+    "calculate_centrality_scores": "COMPLETE",
+    "identify_critical_path": "COMPLETE",
+    "verify_wave10_successes": "COMPLETE",
+    "create_priority_queue": "COMPLETE"
+  }
+}

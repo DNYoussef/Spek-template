@@ -1,0 +1,88 @@
+{
+  "phase": "archaeological",
+  "agent": "dependency-mapper",
+  "status": "complete",
+  "critical_path": [
+    {
+      "file": "tests\\phase7_adas\\__init__.py",
+      "centrality": 0.95,
+      "blocks_tests": 0,
+      "status": "WORKING",
+      "action": "PROTECT - add to .fixignore"
+    }
+  ],
+  "tier_1_critical": [],
+  "tier_2_high_impact": [],
+  "tier_3_isolated": [],
+  "init_files": [
+    {
+      "file": "tests\\__init__.py",
+      "directory": "tests",
+      "related_files": 162,
+      "status": "WORKING",
+      "blocks_tests": 0
+    },
+    {
+      "file": "tests\\byzantium\\__init__.py",
+      "directory": "tests\\byzantium",
+      "related_files": 2,
+      "status": "WORKING",
+      "blocks_tests": 0
+    },
+    {
+      "file": "tests\\phase7_adas\\__init__.py",
+      "directory": "tests\\phase7_adas",
+      "related_files": 7,
+      "status": "WORKING",
+      "blocks_tests": 0
+    },
+    {
+      "file": "tests\\safety\\__init__.py",
+      "directory": "tests\\safety",
+      "related_files": 3,
+      "status": "WORKING",
+      "blocks_tests": 0
+    },
+    {
+      "file": "tests\\sixsigma\\__init__.py",
+      "directory": "tests\\sixsigma",
+      "related_files": 3,
+      "status": "WORKING",
+      "blocks_tests": 0
+    }
+  ],
+  "conftest_files": [
+    {
+      "file": "tests\\conftest.py",
+      "directory": "tests",
+      "affects_tests": 102,
+      "status": "WORKING",
+      "blocks_tests": 0
+    },
+    {
+      "file": "tests\\enterprise\\conftest.py",
+      "directory": "tests\\enterprise",
+      "affects_tests": 8,
+      "status": "WORKING",
+      "blocks_tests": 0
+    },
+    {
+      "file": "tests\\phase7_adas\\conftest.py",
+      "directory": "tests\\phase7_adas",
+      "affects_tests": 5,
+      "status": "WORKING",
+      "blocks_tests": 0
+    }
+  ],
+  "dependency_clusters": [],
+  "statistics": {
+    "total_files": 162,
+    "broken_files": 121,
+    "working_files": 41,
+    "syntax_errors": 121,
+    "import_errors": 0,
+    "init_files_broken": 0,
+    "conftest_files_broken": 0
+  },
+  "timestamp": "2025-09-30T18:48:55.897274"
+}
