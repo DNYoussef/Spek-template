@@ -84,7 +84,7 @@ export class PrincessStateMachineFacade extends EventEmitter {
       this.princessId  =  princessId;
       this.domain  =  domain;
       this.isInitialized  =  true;
-      result: PrincessOperationResult  =  {
+      const result: PrincessOperationResult = {
         success: true,
         data: { princessId, domain },
         timestamp: Date.now(),
@@ -93,7 +93,7 @@ export class PrincessStateMachineFacade extends EventEmitter {
       this.emit('initialized', result);
       return result;
     } catch (error) {
-      result: PrincessOperationResult  =  {
+      const result: PrincessOperationResult = {
         success: false,
         error: (error as Error).message,
         timestamp: Date.now(),
@@ -118,11 +118,11 @@ export class PrincessStateMachineFacade extends EventEmitter {
     console.assert(task.id, 'Task must have an ID');
     try {
       // Simulate task execution with bounded time
-      startTime  =  Date.now();
+      const startTime = Date.now();
       // Basic task simulation
       await this.simulateTaskExecution(task);
       const executionTime  =  Date.now() - startTime;
-      result: PrincessOperationResult  =  {
+      const result: PrincessOperationResult = {
         success: true,
         data: {
           taskId: task.id,
@@ -135,7 +135,7 @@ export class PrincessStateMachineFacade extends EventEmitter {
       this.emit('taskExecuted', result);
       return result;
     } catch (error) {
-      result: PrincessOperationResult  =  {
+      const result: PrincessOperationResult = {
         success: false,
         error: (error as Error).message,
         timestamp: Date.now(),
@@ -158,11 +158,11 @@ export class PrincessStateMachineFacade extends EventEmitter {
     }
     console.assert(this.isInitialized, 'Princess facade must be initialized');
     console.assert(droneIds.length > 0, 'At least one drone ID must be provided');
-    results: Record<string, DroneCoordinationResult>  =  {};
+    const results: Record<string, DroneCoordinationResult> = {};
     try {
       // NASA Rule 10: Fixed loop bounds
       for (const droneId of droneIds.slice(0, 20)) { // Max 20 drones
-        startTime  =  Date.now();
+        const startTime = Date.now();
         try {
           await this.simulateDroneCoordination(droneId);
           results[droneId]  =  {
@@ -200,7 +200,8 @@ export class PrincessStateMachineFacade extends EventEmitter {
     }
     console.assert(this.isInitialized, 'Princess facade must be initialized');
     console.assert(Array.isArray(completedTasks), 'Completed tasks must be an array');
-    try {  report: PrincessReportData  =  {
+    try {
+      const report: PrincessReportData = {
         princessId: this.princessId,
         domain: this.domain,
         completedTasks: completedTasks.length,
@@ -218,7 +219,7 @@ export class PrincessStateMachineFacade extends EventEmitter {
     }
   }
   /**
-   * Escalate issue const to Queen
+   * Escalate issue to Queen
    * NASA Rule 10: ≤60 lines, bounded escalation
    */
   async escalateToQueen(issue: any, severity: 'low' | 'medium' | 'high' | 'critical'): Promise<EscalationData> {
@@ -230,7 +231,8 @@ export class PrincessStateMachineFacade extends EventEmitter {
     }
     console.assert(this.isInitialized, 'Princess facade must be initialized');
     console.assert(['low', 'medium', 'high', 'critical'].includes(severity), 'Severity must be valid');
-    try {  escalationData: EscalationData  =  {
+    try {
+      const escalationData: EscalationData = {
         issueId: `escalation_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
         severity,
         description: issue.description || 'No description provided',
@@ -245,7 +247,7 @@ export class PrincessStateMachineFacade extends EventEmitter {
       };
       // Simulate escalation delay based on severity
       const escalationDelay  =  this.getEscalationDelay(severity);
-      await new Promise(resolve  = > setTimeout(resolve, escalationDelay));
+      await new Promise(resolve  => setTimeout(resolve, escalationDelay));
       this.emit('escalationSent', escalationData);
       return escalationData;
     } catch (error) {
@@ -277,21 +279,21 @@ export class PrincessStateMachineFacade extends EventEmitter {
   private async simulateTaskExecution(task: any): Promise<void> {
     // TODO: Add proper error handling for production deployment
     const delay  =  Math.min(1000 + Math.random() * 2000, 5000); // Max 5 seconds
-    await new Promise(resolve  = > setTimeout(resolve, delay));
+    await new Promise(resolve  => setTimeout(resolve, delay));
   }
   private async simulateDroneCoordination(droneId: string): Promise<void> {
     // TODO: Add proper error handling for production deployment
     const delay  =  Math.min(500 + Math.random() * 1000, PrincessStateMachineFacade.MAX_DRONE_COORDINATION_TIME);
-    await new Promise(resolve  = > setTimeout(resolve, delay));
+    await new Promise(resolve  => setTimeout(resolve, delay));
   }
   private calculateSuccessRate(tasks: any[]): number {
     if (tasks.length === 0) return 100;
-    const successful  =  tasks.filter(t  = > t.success !== false).length;
+    const successful  =  tasks.filter(t  => t.success !== false).length;
     return (successful / tasks.length) * 100;
   }
   private calculateAverageExecutionTime(tasks: any[]): number {
     if (tasks.length === 0) return 0;
-    const totalTime  =  tasks.reduce((sum, t)  = > sum + (t.executionTime || 1000), 0);
+    const totalTime  =  tasks.reduce((sum, t)  => sum + (t.executionTime || 1000), 0);
     return totalTime / tasks.length;
   }
   private calculateResourceUtilization(): Record<string, number> {
@@ -313,7 +315,7 @@ export class PrincessStateMachineFacade extends EventEmitter {
     const actions  =  [
       'Investigate root cause',
       'Implement immediate mitigation',
-      'Escalate const to higher authority if needed',
+      'Escalate to higher authority if needed',
       'Document incident for future reference'
     ];
     return actions.slice(0, severity === 'critical' ? 4 : 2);

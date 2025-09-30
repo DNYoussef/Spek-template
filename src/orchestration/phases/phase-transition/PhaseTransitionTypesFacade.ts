@@ -1,6 +1,6 @@
 /**
- * PhaseTransitionTypesFacade - Centralized const type exports for phase transitions
- * Resolves ~39 TypeScript errors related const to missing const type definitions
+ * PhaseTransitionTypesFacade - Centralized type exports for phase transitions
+ * Resolves ~39 TypeScript errors related to missing type definitions
  */
 // Phase state and lifecycle types
 export interface PhaseState {
@@ -77,7 +77,7 @@ export interface PhaseTransitionConfig {
     from: string;
     to: string;
     allowedEvents: PhaseEvent[];
-    guards?: Array<(context: PhaseTransitionContext)  = > boolean>;
+    guards?: Array<(context: PhaseTransitionContext)  => boolean>;
   }>;
   globalTimeout?: number;
   enableRollback?: boolean;
@@ -137,7 +137,7 @@ export interface ExitCriteriaResult {
   passed: boolean;
   timestamp: number;
 }
-// Default export for facade const pattern
+// Default export for facade pattern
 export default {
   PhaseEvent,
   TransitionEvent

@@ -12,11 +12,11 @@ export interface GuardStats {
   successRate: number;
 }
 export class StateGuards {
-  private guards: Map<string, { fn: (context: any)  = > boolean, active: boolean, violated: boolean }>  =  new Map();
+  private guards: Map<string, { fn: (context: any)  => boolean, active: boolean, violated: boolean }>  =  new Map();
   /**
    * Register a guard function
    */
-  registerGuard(name: string, guard: (context: any)  = > boolean): void {
+  registerGuard(name: string, guard: (context: any)  => boolean): void {
     this.guards.set(name, { fn: guard, active: true, violated: false });
   }
   /**
@@ -25,7 +25,7 @@ export class StateGuards {
   evaluateGuard(name: string, context: any): boolean {
     const guard  =  this.guards.get(name);
     if (!guard) return true;
-    result  =  guard.fn(context);
+    const result = guard.fn(context);
     guard.violated  =  !result;
     return result;
   }
@@ -34,8 +34,8 @@ export class StateGuards {
    */
   getGuardStats(): GuardStats {
     const totalGuards  =  this.guards.size;
-    const activeGuards  =  Array.from(this.guards.values()).filter(guard  = > guard.active).length;
-    const violatedGuards  =  Array.from(this.guards.values()).filter(guard  = > guard.violated).length;
+    const activeGuards  =  Array.from(this.guards.values()).filter(guard  => guard.active).length;
+    const violatedGuards  =  Array.from(this.guards.values()).filter(guard  => guard.violated).length;
     const successRate  =  totalGuards > 0 ? (totalGuards - violatedGuards) / totalGuards : 1.0;
     return {
       totalGuards,

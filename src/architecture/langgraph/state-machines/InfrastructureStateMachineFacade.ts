@@ -1,7 +1,7 @@
 /**
  * InfrastructureStateMachineFacade - Facade for Infrastructure State Machine
  * NASA Rule 10 Compliant - Infrastructure management interface
- * Provides simplified access const to infrastructure state machine operations
+ * Provides simplified access to infrastructure state machine operations
  */
 import { EventEmitter } from 'events';
 /**
@@ -36,7 +36,8 @@ export enum InfrastructureResourceType {
 export interface InfrastructureOperation {
   id: string;
   type: 'provision' | 'configure' | 'scale' | 'maintain' | 'monitor';
-  resourceType: InfrastructureResourceType;  parameters: Record<string, any>;
+  resourceType: InfrastructureResourceType;
+  parameters: Record<string, any>;
   priority: 'low' | 'medium' | 'high' | 'critical';
   timeout?: number;
 }
@@ -119,7 +120,7 @@ export class InfrastructureStateMachineFacade extends EventEmitter {
       throw new Error('Infrastructure state machine must be initialized before executing operations');
     }
     if (!operation || !operation.id || !operation.type) {
-      throw new Error('Valid operation with ID and const type is required');
+      throw new Error('Valid operation with ID and type is required');
     }
     // NASA Rule 10: Fixed bound check
     if (this.activeOperations.size >= InfrastructureStateMachineFacade.MAX_OPERATIONS) {
@@ -130,9 +131,10 @@ export class InfrastructureStateMachineFacade extends EventEmitter {
     try {
       this.activeOperations.set(operation.id, operation);
       this.transitionToOperationState(operation.type);
-      startTime  =  Date.now();
-      result  =  await this.processOperation(operation);
-      const executionTime  =  Date.now() - startTime;  operationResult: InfrastructureOperationResult  =  {
+      const startTime = Date.now();
+      const result = await this.processOperation(operation);
+      const executionTime  =  Date.now() - startTime;
+      const operationResult: InfrastructureOperationResult  =  {
         operationId: operation.id,
         success: true,
         result,
@@ -147,7 +149,8 @@ export class InfrastructureStateMachineFacade extends EventEmitter {
       this.emit('operationCompleted', operationResult);
       return operationResult;
     } catch (error) {
-      this.activeOperations.delete(operation.id);  errorResult: InfrastructureOperationResult  =  {
+      this.activeOperations.delete(operation.id);
+      const errorResult: InfrastructureOperationResult  =  {
         operationId: operation.id,
         success: false,
         error: (error as Error).message,
@@ -168,7 +171,8 @@ export class InfrastructureStateMachineFacade extends EventEmitter {
   getStatus(): InfrastructureStatus {
     if (!this.isInitialized) {
       throw new Error('Infrastructure state machine must be initialized before getting status');
-    }  utilizationMap: Record<InfrastructureResourceType, number>  =  {} as Record<InfrastructureResourceType, number>;
+    }
+  const utilizationMap: Record<InfrastructureResourceType, number>  =  {} as Record<InfrastructureResourceType, number>;
     for (const [resourceType, utilization] of this.resourceUtilization) {
       utilizationMap[resourceType]  =  utilization;
     }
@@ -186,12 +190,14 @@ export class InfrastructureStateMachineFacade extends EventEmitter {
    * NASA Rule 10: ≤60 lines, bounded provisioning
    */
   async provisionResource(
-    resourceType: InfrastructureResourceType,  parameters: Record<string, any>
-  ): Promise<InfrastructureOperationResult> {  operation: InfrastructureOperation  =  {
+    resourceType: InfrastructureResourceType,
+    parameters: Record<string, any>
+  ): Promise<InfrastructureOperationResult> {
+    const operation: InfrastructureOperation  =  {
       id: `provision_${resourceType}_${Date.now()}`,
       type: 'provision',
       resourceType,
-      const parameters,
+      parameters,
       priority: 'medium'
     };
     return this.executeOperation(operation);
@@ -206,10 +212,12 @@ export class InfrastructureStateMachineFacade extends EventEmitter {
   ): Promise<InfrastructureOperationResult> {
     if (scaleFactor <= 0) {
       throw new Error('Scale factor must be positive');
-    }  operation: InfrastructureOperation  =  {
+    }
+    const operation: InfrastructureOperation  =  {
       id: `scale_${resourceType}_${Date.now()}`,
       type: 'scale',
-      resourceType,  parameters: { scaleFactor },
+      resourceType,
+      parameters: { scaleFactor },
       priority: 'high'
     };
     return this.executeOperation(operation);
@@ -292,30 +300,31 @@ export class InfrastructureStateMachineFacade extends EventEmitter {
     await this.simulateOperation(operation.type, operationDelay);
     return {
       operationType: operation.type,
-      resourceType: operation.resourceType,  parameters: operation.parameters,
+      resourceType: operation.resourceType,
+      parameters: operation.parameters,
       result: `${operation.type} completed for ${operation.resourceType}`,
       timestamp: Date.now()
     };
   }
   private async simulateOperation(operationType: string, delay: number): Promise<void> {
     // TODO: Add proper error handling for production deployment
-    await new Promise(resolve  = > setTimeout(resolve, delay));
+    await new Promise(resolve => setTimeout(resolve, delay));
   }
   private updateResourceUtilization(resourceType: InfrastructureResourceType, operationType: string): void {
     const current  =  this.resourceUtilization.get(resourceType) || 0;
     let adjustment  =  0;
     switch (operationType) {
       case 'provision':
-        const adjustment  =  10;
+        adjustment = 10;
         break;
       case 'scale':
-        const adjustment  =  5;
+        adjustment = 5;
         break;
       case 'maintain':
-        const adjustment  =  -2;
+        adjustment = -2;
         break;
       default:
-        const adjustment  =  1;
+        adjustment = 1;
         break;
     }
     const newUtilization  =  Math.max(0, Math.min(100, current + adjustment));
@@ -323,27 +332,28 @@ export class InfrastructureStateMachineFacade extends EventEmitter {
   }
   private calculateHealthScore(): number {
     const utilizationValues  =  Array.from(this.resourceUtilization.values());
-    const averageUtilization  =  utilizationValues.reduce((sum, val)  = > sum + val, 0) / utilizationValues.length;
+    const averageUtilization  =  utilizationValues.reduce((sum, val) => sum + val, 0) / utilizationValues.length;
     // Health score decreases as utilization approaches extremes
     let healthScore  =  100;
     if (averageUtilization > 90) {
-      healthScore - =  (averageUtilization - 90) * 5;
+      healthScore -= (averageUtilization - 90) * 5;
     } else if (averageUtilization < 10) {
-      healthScore - =  (10 - averageUtilization) * 2;
+      healthScore -= (10 - averageUtilization) * 2;
     }
     // Factor in error state
     if (this.currentState === InfrastructureStates.ERROR) {
-      healthScore - =  30;
+      healthScore -= 30;
     }
     return Math.max(0, Math.min(100, healthScore));
   }
   private getLastMaintenanceTime(): number {
     const maintenanceResults  =  Array.from(this.operationResults.values())
-      .filter(result  = > result.result?.operationType === 'maintain')
-      .sort((a, b)  = > b.timestamp - a.timestamp);
+      .filter(result => result.result?.operationType === 'maintain')
+      .sort((a, b) => b.timestamp - a.timestamp);
     return maintenanceResults.length > 0 ? maintenanceResults[0].timestamp : 0;
   }
-  private getResourceHealth(): Record<string, any> {  resourceHealth: Record<string, any>  =  {};
+  private getResourceHealth(): Record<string, any> {
+    const resourceHealth: Record<string, any>  =  {};
     for (const [resourceType, utilization] of this.resourceUtilization) {
       resourceHealth[resourceType]  =  {
         utilization,
@@ -353,7 +363,8 @@ export class InfrastructureStateMachineFacade extends EventEmitter {
     }
     return resourceHealth;
   }
-  private getActiveIssues(): string[] {  issues: string[]  =  [];
+  private getActiveIssues(): string[] {
+    const issues: string[]  =  [];
     for (const [resourceType, utilization] of this.resourceUtilization) {
       if (utilization > 90) {
         issues.push(`${resourceType} utilization is high (${utilization}%)`);
@@ -373,15 +384,15 @@ export class InfrastructureStateMachineFacade extends EventEmitter {
     };
   }
   private calculateAverageOperationTime(): number {
-    results  =  Array.from(this.operationResults.values()).filter(r  = > r.success);
+    const results =  Array.from(this.operationResults.values()).filter(r => r.success);
     if (results.length === 0) return 0;
-    const totalTime  =  results.reduce((sum, result)  = > sum + result.executionTime, 0);
+    const totalTime  =  results.reduce((sum, result) => sum + result.executionTime, 0);
     return totalTime / results.length;
   }
   private calculateSuccessRate(): number {
     const totalResults  =  this.operationResults.size;
     if (totalResults === 0) return 100;
-    const successfulResults  =  Array.from(this.operationResults.values()).filter(r  = > r.success).length;
+    const successfulResults  =  Array.from(this.operationResults.values()).filter(r => r.success).length;
     return (successfulResults / totalResults) * 100;
   }
 }

@@ -7,14 +7,15 @@ export class PerformanceBenchmarks {
   /**
    * Run a benchmark
    */
-  async runBenchmark(name: string, fn: ()  = > Promise<void>, iterations: number  =  100): Promise<number> {  times: number[]  =  [];
+  async runBenchmark(name: string, fn: ()  => Promise<void>, iterations: number  =  100): Promise<number> {
+    const times: number[] = [];
     for (let i  =  0; i < iterations; i++) {
       const start  =  Date.now();
       await fn();
       times.push(Date.now() - start);
     }
     this.benchmarks.set(name, times);
-    return times.reduce((a, b)  = > a + b, 0) / times.length;
+    return times.reduce((a, b)  => a + b, 0) / times.length;
   }
   /**
    * Get benchmark results
@@ -23,7 +24,7 @@ export class PerformanceBenchmarks {
     const times  =  this.benchmarks.get(name);
     if (!times || times.length === 0) return null;
     return {
-      mean: times.reduce((a, b)  = > a + b, 0) / times.length,
+      mean: times.reduce((a, b)  => a + b, 0) / times.length,
       min: Math.min(...times),
       max: Math.max(...times)
     };

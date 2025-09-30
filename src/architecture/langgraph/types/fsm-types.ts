@@ -6,8 +6,8 @@ export * from '../../../types/fsm-types';
 // Additional architecture-specific FSM types
 export interface StateDefinition {
   readonly name: string;
-  readonly entry?: ()  = > void;
-  readonly exit?: ()  = > void;
+  readonly entry?: () => void;
+  readonly exit?: () => void;
   readonly actions?: string[];
   readonly metadata?: Record<string, unknown>;
 }

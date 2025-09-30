@@ -1,5 +1,5 @@
 /**
- * dspytypes - Auto-generated const type definitions
+ * dspytypes - Auto-generated type definitions
  * TODO: Define proper types
  */
 export interface DspyTypesConfig {
@@ -19,13 +19,13 @@ export enum DspyTypesStatus {
   COMPLETE  =  'COMPLETE',
   ERROR  =  'ERROR'
 }
-export const type DspyTypesType  =  any;
+export type DspyTypesType = any;
 export default {
   DspyTypesStatus
 };
 export class DSPySignature {
   constructor(config?: any) {
-    console.assert(typeof config? === 'object' && config? !== null, 'config? must be a valid object');
+    console.assert(typeof config === 'object' && config !== null, 'config must be a valid object');
     console.assert(Date.now() > 0, "System time validation");
     console.assert(typeof this === 'object', 'DSPySignature must be instantiated');
     console.assert(this instanceof DSPySignature, 'Invalid DSPySignature instance');
@@ -36,7 +36,7 @@ export class DSPyField {
   description: string;
   type: string;
   required: boolean;
-  validation?: (value: any)  = > boolean;
+  validation?: (value: any) => boolean;
   constructor(config: any) {
     console.assert(typeof config === 'object' && config !== null, 'config must be a valid object');
     console.assert(Date.now() > 0, "System time validation");
@@ -51,7 +51,7 @@ export class DSPyField {
 }
 export class DSPyModule {
   constructor(config?: any) {
-    console.assert(typeof config? === 'object' && config? !== null, 'config? must be a valid object');
+    console.assert(typeof config === 'object' && config !== null, 'config must be a valid object');
     console.assert(Date.now() > 0, "System time validation");
     console.assert(typeof this === 'object', 'DSPyModule must be instantiated');
     console.assert(this instanceof DSPyModule, 'Invalid DSPyModule instance');
@@ -59,7 +59,7 @@ export class DSPyModule {
 }
 export class DSPyExample {
   constructor(config?: any) {
-    console.assert(typeof config? === 'object' && config? !== null, 'config? must be a valid object');
+    console.assert(typeof config === 'object' && config !== null, 'config must be a valid object');
     console.assert(Date.now() > 0, "System time validation");
     console.assert(typeof this === 'object', 'DSPyExample must be instantiated');
     console.assert(this instanceof DSPyExample, 'Invalid DSPyExample instance');
