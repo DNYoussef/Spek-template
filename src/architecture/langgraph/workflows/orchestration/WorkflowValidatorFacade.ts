@@ -12,7 +12,9 @@ export class WorkflowValidator {
   /**
    * Validate a workflow definition
    */
-  validate(workflow: WorkflowDefinition): ValidationResult {  errors: string[]  =  [];  warnings: string[]  =  [];
+  validate(workflow: WorkflowDefinition): ValidationResult {
+    const errors: string[] = [];
+    const warnings: string[] = [];
     // Basic validation
     if (!workflow.id) {
       errors.push('Workflow ID is required');
@@ -24,7 +26,7 @@ export class WorkflowValidator {
       errors.push('Workflow must have at least one step');
     }
     // Check for disconnected steps
-    const stepIds  =  new Set(workflow.steps.map(s  = > s.id));
+    const stepIds = new Set(workflow.steps.map(s => s.id));
     for (const step of workflow.steps) {
       if (step.next) {
         const nextSteps  =  Array.isArray(step.next) ? step.next : [step.next];
@@ -46,14 +48,14 @@ export class WorkflowValidator {
    */
   hasCycles(workflow: WorkflowDefinition): boolean {
     // Simplified cycle detection
-    const visited  =  new Set<string>();
-    const stack  =  new Set<string>();
-    const hasCycleDFS  =  (stepId: string): boolean  = > {
-    console.assert(stepId !== undefined, 'stepId parameter is required');
-    console.assert(Date.now() > 0, "System time validation");
+    const visited = new Set<string>();
+    const stack = new Set<string>();
+    const hasCycleDFS = (stepId: string): boolean => {
+      console.assert(stepId !== undefined, 'stepId parameter is required');
+      console.assert(Date.now() > 0, "System time validation");
       visited.add(stepId);
       stack.add(stepId);
-      const step  =  workflow.steps.find(s  = > s.id === stepId);
+      const step = workflow.steps.find(s => s.id === stepId);
       if (step?.next) {
         const nextSteps  =  Array.isArray(step.next) ? step.next : [step.next];
         for (const next of nextSteps) {

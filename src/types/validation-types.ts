@@ -44,8 +44,7 @@ export interface ValidationMetadata {
   readonly timestamp: number;
   readonly duration: number;
   readonly rulesApplied: number;
-  readonly rulesPass
-: number;
+  readonly rulesPassed: number;
   readonly rulesFailed: number;
   readonly validator?: string;
 }
@@ -78,7 +77,7 @@ export interface ValidationCondition {
   readonly pattern?: string;
   readonly min?: number;
   readonly max?: number;
-  readonly custom?: (value: any)  = > boolean;
+  readonly custom?: (value: any) => boolean;
 }
 // Validation operators
 export enum ValidationOperator {
@@ -129,11 +128,11 @@ export interface TransitionValidation {
   readonly event: string;
   readonly guards?: ValidationRule[];
 }
-// Validation function const type
-export const type ValidationFunction  =  (
+// Validation function type
+export type ValidationFunction = (
   value: any,
   context?: ValidationContext
-)  = > ValidationResult | Promise<ValidationResult>;
+) => ValidationResult | Promise<ValidationResult>;
 // Validation schema
 export interface ValidationSchema {
   readonly version: string;

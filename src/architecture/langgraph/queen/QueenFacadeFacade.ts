@@ -1,7 +1,7 @@
 /**
  * QueenFacadeFacade - Main Queen Facade Interface
  * NASA Rule 10 Compliant - Unified Queen interface for external systems
- * Provides simplified access const to all Queen-level operations
+ * Provides simplified access to all Queen-level operations
  */
 import { EventEmitter } from 'events';
 import { QueenFSMStates, QueenFSMEvents } from './fsm/QueenFSMTypes';
@@ -85,7 +85,7 @@ export class QueenFacadeFacade extends EventEmitter {
     try {
       this.isInitialized  =  true;
       this.currentState  =  QueenFSMStates.IDLE;
-      result: QueenOperationResult  =  {
+      const result: QueenOperationResult = {
         operationId: 'init_' + Date.now(),
         success: true,
         result: { state: this.currentState },
@@ -117,7 +117,7 @@ export class QueenFacadeFacade extends EventEmitter {
       throw new Error('Queen facade must be initialized before executing operations');
     }
     if (!request || !request.id || !request.type) {
-      throw new Error('Valid operation request with ID and const type is required');
+      throw new Error('Valid operation request with ID and type is required');
     }
     // NASA Rule 10: Fixed bound check
     if (this.operationQueue.size >= QueenFacadeFacade.MAX_OPERATION_QUEUE) {
@@ -182,7 +182,7 @@ export class QueenFacadeFacade extends EventEmitter {
    */
   getOperationResults(operationId?: string): QueenOperationResult[] {
     if (operationId) {
-      result  =  this.operationResults.get(operationId);
+      const result = this.operationResults.get(operationId);
       return result ? [result] : [];
     }
     return Array.from(this.operationResults.values());
@@ -198,8 +198,8 @@ export class QueenFacadeFacade extends EventEmitter {
     if (!operationId) {
       throw new Error('Operation ID is required for cancellation');
     }
-    queued  =  this.operationQueue.delete(operationId);
-    const active  =  this.activeOperations.delete(operationId);
+    const queued = this.operationQueue.delete(operationId);
+    const active = this.activeOperations.delete(operationId);
     if (queued || active) {
       this.emit('operationCanceled', operationId);
       return true;
@@ -227,7 +227,7 @@ export class QueenFacadeFacade extends EventEmitter {
       this.operationQueue.clear();
       this.operationResults.clear();
       this.activeOperations.clear();
-      result: QueenOperationResult  =  {
+      const result: QueenOperationResult = {
         operationId: 'shutdown_' + Date.now(),
         success: true,
         result: { state: this.currentState },
@@ -256,7 +256,7 @@ export class QueenFacadeFacade extends EventEmitter {
     // TODO: Add proper error handling for production deployment
     // Simulate operation processing
     const processingDelay  =  Math.min(1000 + Math.random() * 2000, request.timeout || QueenFacadeFacade.MAX_OPERATION_TIME);
-    await new Promise(resolve  = > setTimeout(resolve, processingDelay));
+    await new Promise(resolve => setTimeout(resolve, processingDelay));
     switch (request.type) {
       case QueenOperationType.REGISTER_PRINCESS:
         return this.handleRegisterPrincess(request.payload);
@@ -275,7 +275,7 @@ export class QueenFacadeFacade extends EventEmitter {
   private handleRegisterPrincess(payload: any): any {
     this.currentState  =  QueenFSMStates.REGISTERING_PRINCESS;
     // Simulate princess registration
-    setTimeout(()  = > {
+    setTimeout(() => {
       this.currentState  =  QueenFSMStates.ACTIVE;
     }, 100);
     return {
@@ -287,7 +287,7 @@ export class QueenFacadeFacade extends EventEmitter {
   private handleDefineObjective(payload: any): any {
     this.currentState  =  QueenFSMStates.DEFINING_OBJECTIVE;
     // Simulate objective definition
-    setTimeout(()  = > {
+    setTimeout(() => {
       this.currentState  =  QueenFSMStates.ACTIVE;
     }, 100);
     return {
@@ -299,7 +299,7 @@ export class QueenFacadeFacade extends EventEmitter {
   private handleExecuteObjective(payload: any): any {
     this.currentState  =  QueenFSMStates.EXECUTING_OBJECTIVE;
     // Simulate objective execution
-    setTimeout(()  = > {
+    setTimeout(() => {
       this.currentState  =  QueenFSMStates.ACTIVE;
     }, 2000);
     return {
@@ -311,7 +311,7 @@ export class QueenFacadeFacade extends EventEmitter {
   private handleDelegateTask(payload: any): any {
     this.currentState  =  QueenFSMStates.DELEGATING_TASK;
     // Simulate task delegation
-    setTimeout(()  = > {
+    setTimeout(() => {
       this.currentState  =  QueenFSMStates.ACTIVE;
     }, 100);
     return {
