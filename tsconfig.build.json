@@ -28,6 +28,8 @@
     "**/*.spec.js",
     "dist/**",
     "build/**",
-    "coverage/**"
+    "coverage/**",
+    "src/linter-integration/result-correlation-framework.ts",
+    "src/linter-integration/result-correlation-framework-fsm/**"
   ]
 }

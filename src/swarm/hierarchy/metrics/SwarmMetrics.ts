@@ -5,7 +5,7 @@
 
 import { EventEmitter } from 'events';
 
-interface QueenMetrics {
+export interface QueenMetrics {
   totalPrincesses: number;
   activePrincesses: number;
   totalAgents: number;

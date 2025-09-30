@@ -21,13 +21,13 @@ interface ComplianceRule {
   check: (context: any) => boolean;
 }
 
-interface ComplianceScanData {
+export interface ComplianceScanData {
   standards: ComplianceStandard[];
   codebase: string[];
   policies: any[];
 }
 
-interface ComplianceDriftResult {
+export interface ComplianceDriftResult {
   driftScore: number;
   violations: ComplianceViolation[];
   degradations: ComplianceDegradation[];
