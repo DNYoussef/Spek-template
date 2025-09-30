@@ -383,7 +383,7 @@ export class PhaseTransitionManagerFacade extends EventEmitter {
    * Cleanup resources
    * NASA Rule 10: ≤60 lines, 2+ assertions, no recursion
    */
-  cleanup(): void {
+  destroy(): void {
     // NASA Rule 10: Assertions
     console.assert(this.phaseMonitor !== null, 'Phase monitor cannot be null');
     console.assert(this.transitionMonitor !== null, 'Transition monitor cannot be null');

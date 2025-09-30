@@ -203,17 +203,18 @@ def main():
 if __name__ == "__main__":
     sys.exit(main())
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-29T13:30:15-04:00 | test-infrastructure@sonnet | Create batch import fix script | fix_test_imports.py | OK | Fixed 50 test files | 0.00 | b4c9d2e |
-
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: test-infra-002
-- inputs: ["test_files", "import_patterns"]
-- tools_used: ["Write", "Bash", "regex"]
-- versions: {"model":"sonnet-4","prompt":"import-fix-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+# AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
+# Version & Run Log
+# | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+# |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+# | 1.0.0   | 2025-09-29 13:30:15 | test-infrastructure@sonnet | Create batch import fix script | fix_test_imports.py | OK | Fixed 50 test files | 0.00 | b4c9d2e |
+# | 1.0.1   | 2025-09-30 17:00:00 | test-infrastructure@sonnet | Fix HTML comment syntax in Python file | fix_test_imports.py | OK | Removed HTML comment footer | 0.00 | c7e9a1f |
+#
+# Receipt
+# - status: OK
+# - reason_if_blocked: --
+# - run_id: test-infra-002
+# - inputs: ["test_files", "import_patterns"]
+# - tools_used: ["Write", "Bash", "regex"]
+# - versions: {"model":"sonnet-4","prompt":"import-fix-v1"}
+# AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE

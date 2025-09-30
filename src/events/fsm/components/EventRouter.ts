@@ -98,12 +98,13 @@ export class EventRouter {
       return results;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       results.push({
         routeId: 'error',
         target: 'none',
         matched: false,
         duration: Date.now() - startTime,
-        error: error.message
+        error: errorMessage
       });
 
       return results;
@@ -341,8 +342,9 @@ export class EventRouter {
         }
 
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         // Strategy failed, continue with original subscriptions
-        console.warn(`Routing strategy ${strategy.name} failed:`, error.message);
+        console.warn(`Routing strategy ${strategy.name} failed:`, errorMessage);
       }
     }
 

@@ -44,6 +44,9 @@ except ImportError:
 
 import pytest
 
+# pytest plugins must be defined in top-level conftest
+pytest_plugins = ["pytest_asyncio"]
+
 @pytest.fixture(scope="session")
 def project_root():
     """Provide project root path for tests"""

@@ -75,7 +75,8 @@ export class ProtocolTranslatorCore extends EventEmitter {
       return result;
 
     } catch (error) {
-      return this.createFailureResult(translationId, error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      return this.createFailureResult(translationId, errorMessage);
     }
   }
 

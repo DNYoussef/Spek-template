@@ -56,7 +56,7 @@ export class QueenOrchestrator extends EventEmitter {
   /**
    * Initialize the Queen orchestrator and all subsystems
    */
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     if (this.initialized) return;
 
     console.log(' Initializing Queen Orchestrator...');

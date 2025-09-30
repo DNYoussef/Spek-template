@@ -1,4 +1,6 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
+import pytest
+
 """
 
 This script tests the ToolCoordinator in a sandboxed environment
@@ -165,11 +167,11 @@ def validate_correlation_results(correlation, connascence_data, external_data):
     }
 
     def add_test(name, condition, details=""):
-        validation["tests"].append({
+        validation["tests"].append({)
             "name": name,
             "passed": condition,
             "details": details
-        })
+(        })
         if condition:
             validation["passed"] += 1
         else:
@@ -181,57 +183,57 @@ def validate_correlation_results(correlation, connascence_data, external_data):
     expected_overlap = len(conn_files & ext_files)
     actual_overlap = correlation["correlation_analysis"]["overlapping_files"]
 
-    add_test(
+    add_test()
         "Overlapping files calculation",
         actual_overlap == expected_overlap,
         f"Expected {expected_overlap}, got {actual_overlap}"
-    )
+(    )
 
     # Test 2: Total violations sum
     expected_total = len(connascence_data["violations"]) + len(external_data["issues"])
     actual_total = correlation["consolidated_findings"]["total_violations"]
 
-    add_test(
+    add_test()
         "Total violations sum",
         actual_total == expected_total,
         f"Expected {expected_total}, got {actual_total}"
-    )
+(    )
 
     # Test 3: NASA compliance average
     expected_avg = (connascence_data["nasa_compliance"] + external_data["compliance_score"]) / 2
     actual_avg = correlation["consolidated_findings"]["nasa_compliance"]
 
-    add_test(
+    add_test()
         "NASA compliance average",
         abs(actual_avg - expected_avg) < 0.1,
         f"Expected {expected_avg:.3f}, got {actual_avg:.3f}"
-    )
+(    )
 
     # Test 4: Critical violations count
     expected_critical = len([v for v in connascence_data["violations"] if v["severity"] == "critical"])
     actual_critical = correlation["consolidated_findings"]["critical_violations"]
 
-    add_test(
+    add_test()
         "Critical violations count",
         actual_critical == expected_critical,
         f"Expected {expected_critical}, got {actual_critical}"
-    )
+(    )
 
     # Test MAXIMUM_NESTED_DEPTH: Correlation score bounds
     corr_score = correlation["correlation_analysis"]["correlation_score"]
-    add_test(
+    add_test()
         "Correlation score bounds",
         0.0 <= corr_score <= 1.0,
         f"Score {corr_score:.3f} should be between 0.0 and 1.0"
-    )
+(    )
 
     # Test 6: Recommendations are not empty
     recommendations = correlation["recommendations"]
-    add_test(
+    add_test()
         "Recommendations generated",
         len(recommendations) > 0,
         f"Got {len(recommendations)} recommendations"
-    )
+(    )
 
     # Test 7: Timestamp format
     timestamp = correlation["timestamp"]
@@ -242,11 +244,11 @@ def validate_correlation_results(correlation, connascence_data, external_data):
     except:
         timestamp_valid = False
 
-    add_test(
+    add_test()
         "Valid timestamp format",
         timestamp_valid,
         f"Timestamp: {timestamp}"
-    )
+(    )
 
     # Calculate reality score
     total_tests = validation["passed"] + validation["failed"]

@@ -93,10 +93,11 @@ export class RecoveryState extends EventEmitter {
       return recoveryResult.success;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       recoveryAttempt.success = false;
       recoveryAttempt.action = 'recovery-exception';
       recoveryAttempt.duration = Date.now() - startTime;
-      recoveryAttempt.resultingState = { error: error.message };
+      recoveryAttempt.resultingState = { error: errorMessage };
 
       context.recoveryAttempts.push(recoveryAttempt);
 
@@ -136,12 +137,13 @@ export class RecoveryState extends EventEmitter {
         clearTimeout(timeout);
         resolve(result);
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         clearTimeout(timeout);
         resolve({
           success: false,
           action: 'recovery-exception',
-          resultingState: { error: error.message },
-          error: error.message
+          resultingState: { error: errorMessage },
+          error: errorMessage
         });
       }
     });

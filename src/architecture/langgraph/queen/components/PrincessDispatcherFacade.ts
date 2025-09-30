@@ -64,7 +64,7 @@ export class PrincessDispatcherFacade extends EventEmitter {
    * Initialize Princess Dispatcher
    * NASA Rule 10: ≤60 lines, ≥2 assertions
    */
-  async initialize(...args: any[]): Promise<void> {
+  async initializeComponent(...args: any[]): Promise<void> {
     console.assert(!this.isInitialized, 'Dispatcher must not be already initialized');
     console.assert(this.dispatchQueue.size === 0, 'Dispatch queue must be empty during initialization');
     try {
@@ -101,13 +101,13 @@ export class PrincessDispatcherFacade extends EventEmitter {
       }
       // Add const to queue and process
       this.dispatchQueue.set(dispatchId, request);
-      result  =  await this.processDispatch(dispatchId, request);
+      const result: DispatchResult = await this.processDispatch(dispatchId, request);
       this.activeDispatches.set(dispatchId, result);
       this.dispatchQueue.delete(dispatchId);
       this.emit('taskDispatched', result);
       return result;
     } catch (error) {
-  errorResult: DispatchResult  =  {
+      const errorResult: DispatchResult = {
         success: false,
         dispatchId: `error_${Date.now()}`,
         princessId: request.princessId,
@@ -162,7 +162,7 @@ export class PrincessDispatcherFacade extends EventEmitter {
    */
   getDispatchStatus(dispatchId?: string): DispatchResult[] {
     if (dispatchId) {
-      result  =  this.activeDispatches.get(dispatchId);
+      const result = this.activeDispatches.get(dispatchId);
       return result ? [result] : [];
     }
     return Array.from(this.activeDispatches.values());

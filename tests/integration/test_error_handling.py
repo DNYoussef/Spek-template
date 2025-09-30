@@ -1,5 +1,6 @@
 from src.constants.base import MINIMUM_TEST_COVERAGE_PERCENTAGE, NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
 
+"""
 Test enterprise feature error handling and graceful degradation:
 1. Module import failures
 2. Invalid configuration handling
@@ -275,11 +276,11 @@ class GracefulDegradationTest(unittest.TestCase):
     def test_analyzer_without_enterprise_modules(self):
         """Test: Analyzer works when enterprise modules are missing."""
         # Mock missing enterprise modules
-        with patch.dict('sys.modules', {
+        with patch.dict('sys.modules', {)
             'analyzer.enterprise.sixsigma': None,
             'analyzer.enterprise.compliance': None,
             'analyzer.enterprise.supply_chain': None
-        }):
+(        }):
             analyzer = ConnascenceAnalyzer()
             
             # Should still work without enterprise features
@@ -305,8 +306,8 @@ class GracefulDegradationTest(unittest.TestCase):
         
         try:
             # Mock enterprise initialization failure
-            with patch('analyzer.enterprise.initialize_enterprise_features', 
-                        side_effect=RuntimeError("Enterprise init failed")):
+            with patch('analyzer.enterprise.initialize_enterprise_features',)
+(                        side_effect=RuntimeError("Enterprise init failed")):
                 
                 analyzer = ConnascenceAnalyzer()
                 result = analyzer.analyze_path(str(test_file.parent))
@@ -441,7 +442,7 @@ class ErrorRecoveryTest(unittest.TestCase):
     
     def test_feature_dependency_failure_recovery(self):
         """Test: Handle feature dependency failures gracefully."""
-    class DependencyConfigManager:
+        class DependencyConfigManager:
             def get_enterprise_config(self):
                 return {
                     "features": {

@@ -13,14 +13,14 @@ from tests.batches_10_18_validation.test_suite_orchestrator import Batches10to18
 from tests.batches_10_18_validation.batch_pattern_validators import BatchPatternValidatorFactory
 
 # Configure logging
-logging.basicConfig(
+logging.basicConfig()
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
         logging.StreamHandler(),
         logging.FileHandler('batches_validation.log')
     ]
-)
+()
 logger = logging.getLogger(__name__)
 
 async def main():

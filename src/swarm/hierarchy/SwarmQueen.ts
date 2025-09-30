@@ -64,7 +64,7 @@ export class SwarmQueen extends EventEmitter {
   /**
    * Initialize the Swarm Queen
    */
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     await this.orchestrator.initialize();
 
     // Pass A2A engine to orchestrator for DSPy optimization

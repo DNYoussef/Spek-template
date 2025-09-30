@@ -1,4 +1,6 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH
+import pytest
+
 """
 
 Direct validation of 100% reality score achievements without complex imports.
@@ -31,7 +33,7 @@ def test_github_bridge_reality():
         "class UnifiedAnalysisResult:",
         "Temporary compatibility shims",
         "success=True, violations=None",
-        "type('obj', (object,)",
+        "type('obj', (object,)",)
         "analysis_time = 1.5"
     ]
 
@@ -127,7 +129,7 @@ def test_tool_coordinator_reality():
     hardcoded_patterns = [
         "mece_score: 0.85,",
         "duplication_percentage: MAXIMUM_NESTED_DEPTH",
-        "correlation_score\": min(0.88",
+        "correlation_score\": min(0.88",)
         "consistency_score = 0.0"
     ]
 

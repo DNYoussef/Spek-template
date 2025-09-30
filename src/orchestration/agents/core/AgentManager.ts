@@ -107,9 +107,10 @@ export class AgentManager extends EventEmitter {
       assert(agentExecution.status === 'ready', 'Agent status must be ready after initialization');
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       agentExecution.status = 'failed';
       await this.transitionHub.transitionAgent(agentExecution.executionId, AgentEvent.ERROR_OCCURRED);
-      this.logAgent(agentExecution, 'error', `Agent initialization failed: ${error.message}`);
+      this.logAgent(agentExecution, 'error', `Agent initialization failed: ${errorMessage}`);
       throw error;
     }
   }

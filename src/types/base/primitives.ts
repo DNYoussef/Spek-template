@@ -37,6 +37,11 @@ export type Timestamp = Brand<number, 'Timestamp'>;
 export type Duration = Brand<number, 'Duration'>;
 export type Timeout = Brand<number, 'Timeout'>;
 
+// Additional primitives for compliance and utilities
+export type Percentage = Brand<number, 'Percentage'>;
+export type Score = Brand<number, 'Score'>;
+export type UUID = Brand<string, 'UUID'>;
+
 // Utility functions for creating branded types
 export const createConfigPath = (path: string): ConfigPath => path as ConfigPath;
 export const createValidationPath = (path: string): ValidationPath => path as ValidationPath;

@@ -4,7 +4,7 @@
  * Focus: Princess domains, drone capabilities, debug specializations
  */
 
-import { DebugSessionId, Timestamp, Duration, createTimestamp } from '../../base/primitives';
+import { DebugSessionId, Timestamp, Duration, createTimestamp } from '../../../types/base/primitives';
 import { DebugCapability, DebugContext, DebugEvidence, DebugStrategy } from '../../types/domains/debug-types';
 
 // FSM State Enums - NO STRING EVENTS

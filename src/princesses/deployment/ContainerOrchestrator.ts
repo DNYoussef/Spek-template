@@ -156,12 +156,13 @@ export class ContainerOrchestrator {
         healthCheckDuration
       };
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error(`Failed to scale ${deploymentName}`, error);
       return {
         success: false,
         currentReplicas: 0,
         targetReplicas: replicas,
-        error: error.message
+        error: errorMessage
       };
     }
   }

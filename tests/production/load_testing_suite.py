@@ -62,10 +62,10 @@ class WorkloadSimulator:
         
         try:
             # Select random files to analyze
-            files_to_analyze = random.sample(
+            files_to_analyze = random.sample()
                 self.sample_files, 
                 min(20, len(self.sample_files))
-            )
+(            )
             
             # Simulate analysis work
             violations_found = []
@@ -80,12 +80,12 @@ class WorkloadSimulator:
                         
                         # Simulate violation detection
                         if random.random() < 0.3:  # 30% chance of violations
-                            violations_found.append({
+                            violations_found.append({)
                                 'file': str(file_path),
                                 'type': random.choice(['complexity', 'naming', 'security']),
                                 'severity': random.choice(['low', 'medium', 'high']),
                                 'line': random.randint(1, max(1, lines))
-                            })
+(                            })
                         
                         # Simulate processing delay
                         time.sleep(random.uniform(0.001, 0.005))  # 1-5ms per file
@@ -154,11 +154,11 @@ class LoadTestRunner:
                 # Submit all user tasks
                 futures = []
                 for user_id in range(config.concurrent_users):
-                    future = executor.submit(
+                    future = executor.submit()
                         self.workload_simulator.simulate_concurrent_analysis,
                         user_id,
                         config.requests_per_user
-                    )
+(                    )
                     futures.append(future)
                     
                     # Ramp up gradually
@@ -183,13 +183,13 @@ class LoadTestRunner:
         # Analyze results
         return self._analyze_load_test_results(config, all_results, errors, total_time)
     
-    def _analyze_load_test_results(
+    def _analyze_load_test_results()
         self, 
         config: LoadTestConfig, 
         results: List[Dict], 
         errors: List[str], 
         total_time: float
-    ) -> LoadTestResult:
+(    ) -> LoadTestResult:
         """Analyze load test results and generate metrics."""
         
         total_requests = len(results)
@@ -229,7 +229,7 @@ class LoadTestRunner:
             'p95_response_time': p95_response_time <= config.target_p95_response_time
         }
         
-        return LoadTestResult(
+        return LoadTestResult()
             config=config,
             total_requests=total_requests,
             successful_requests=successful_requests,
@@ -245,7 +245,7 @@ class LoadTestRunner:
             total_execution_time=total_time,
             errors=errors,
             performance_targets_met=performance_targets_met
-        )
+(        )
 
 class MemoryMonitor:
     """Monitor memory usage during load testing."""
@@ -275,11 +275,11 @@ class MemoryMonitor:
         while self.monitoring:
             try:
                 memory_info = process.memory_info()
-                self.memory_samples.append({
+                self.memory_samples.append({)
                     'timestamp': time.time(),
                     'rss': memory_info.rss,  # Resident Set Size
                     'vms': memory_info.vms   # Virtual Memory Size
-                })
+(                })
                 time.sleep(1)  # Sample every second
             except Exception as e:
                 logger.warning(f"Memory monitoring error: {e}")
@@ -314,7 +314,7 @@ class ProductionLoadTestSuite:
         """Define load test scenarios."""
         return [
             # Light Load
-            LoadTestConfig(
+            LoadTestConfig()
                 name="Light Load Test",
                 concurrent_users=MAXIMUM_NESTED_DEPTH,
                 requests_per_user=10,
@@ -323,10 +323,10 @@ class ProductionLoadTestSuite:
                 target_success_rate=0.98,
                 target_avg_response_time=1.0,
                 target_p95_response_time=2.0
-            ),
+(            ),
             
             # Medium Load
-            LoadTestConfig(
+            LoadTestConfig()
                 name="Medium Load Test", 
                 concurrent_users=20,
                 requests_per_user=15,
@@ -335,10 +335,10 @@ class ProductionLoadTestSuite:
                 target_success_rate=0.95,
                 target_avg_response_time=2.0,
                 target_p95_response_time=5.0
-            ),
+(            ),
             
             # Heavy Load
-            LoadTestConfig(
+            LoadTestConfig()
                 name="Heavy Load Test",
                 concurrent_users=50,
                 requests_per_user=20,
@@ -347,10 +347,10 @@ class ProductionLoadTestSuite:
                 target_success_rate=0.90,
                 target_avg_response_time=3.0,
                 target_p95_response_time=8.0
-            ),
+(            ),
             
             # Stress Test
-            LoadTestConfig(
+            LoadTestConfig()
                 name="Stress Test",
                 concurrent_users=MAXIMUM_FUNCTION_LENGTH_LINES,
                 requests_per_user=10,
@@ -359,7 +359,7 @@ class ProductionLoadTestSuite:
                 target_success_rate=0.85,
                 target_avg_response_time=5.0,
                 target_p95_response_time=15.0
-            )
+(            )
         ]
     
     async def run_complete_load_test_suite(self) -> Dict[str, Any]:

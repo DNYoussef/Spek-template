@@ -1,6 +1,6 @@
 
 // DashboardBaseFSM.ts - Generated template for dashboard pattern
-import { StateDefinition, TransitionDefinition, FSMConfig } from '../../../types/fsm-types';
+import { StateDefinition, TransitionDefinition, FSMConfig } from '../../types/fsm-types';
 
 export enum DashboardState {
     IDLE = 'idle',

@@ -76,9 +76,10 @@ export class ReportGeneratorFacade {
       return framework;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Framework generation failed in facade', {
         assessmentId: request.assessmentId,
-        error: error.message
+        error: errorMessage
       });
       throw error;
     }

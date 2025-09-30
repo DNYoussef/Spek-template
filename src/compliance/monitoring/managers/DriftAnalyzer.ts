@@ -13,16 +13,16 @@ import {
   ImpactAssessment,
   RemediationPlan,
   DriftMetadata
-} from '../../types/domains/compliance-types';
+} from '../../../types/compliance-types';
 
 import {
   ComplianceScore,
   ComplianceRuleId,
   DriftThreshold,
   Timestamp
-} from '../../types/base/primitives';
+} from '../../../types/base/primitives';
 
-import { ComplianceBaseline, ComplianceScanResult } from '../../types/domains/compliance-types';
+import { ComplianceBaseline, ComplianceScanResult } from '../../../types/compliance-types';
 
 export class DriftAnalyzer {
   private driftHistory: Map<string, ComplianceDrift[]> = new Map();

@@ -16,13 +16,13 @@ import yaml
 import sys
 sys.path.append(str(Path(__file__).parent.parent.parent / "src"))
 
-from linter_integration.severity_mapping.unified_severity import (
+from linter_integration.severity_mapping.unified_severity import ()
     UnifiedSeverityMapper,
     UnifiedSeverity,
     ViolationCategory,
     SeverityRule,
     unified_mapper
-)
+()
 
 class TestUnifiedSeverityMapper:
     """Test suite for unified severity mapping system"""
@@ -451,7 +451,7 @@ class TestSeverityRule:
     
     def test_severity_rule_creation(self):
         """Test SeverityRule object creation"""
-        rule = SeverityRule(
+        rule = SeverityRule()
             tool_name="flake8",
             rule_pattern="E5*",
             rule_codes=["E501", "E502", "E503"],
@@ -460,7 +460,7 @@ class TestSeverityRule:
             description="Line length violations",
             rationale="Long lines reduce readability",
             examples=["E501: line too long", "E502: the backslash is redundant"]
-        )
+(        )
         
         assert rule.tool_name == "flake8"
         assert rule.rule_pattern == "E5*"

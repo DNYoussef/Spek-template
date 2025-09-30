@@ -114,7 +114,7 @@ export class MemoryVersionFacade extends EventEmitter {
     return await this.snapshots.createSnapshot(versions, description);
   }
 
-  async cleanup(): Promise<number> {
+  async destroy(): Promise<number> {
     await this.fsm.transition(VersionEvent.CLEANUP_REQUESTED);
 
     const versions = new Map(); // Would get from tracker

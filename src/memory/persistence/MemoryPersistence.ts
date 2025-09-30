@@ -298,7 +298,7 @@ export class MemoryPersistence extends EventEmitter {
   /**
    * Cleanup old backups and snapshots
    */
-  public async cleanup(): Promise<{ deletedSnapshots: number; deletedBackups: number }> {
+  public async destroy(): Promise<{ deletedSnapshots: number; deletedBackups: number }> {
     let deletedSnapshots = 0;
     let deletedBackups = 0;
     try {

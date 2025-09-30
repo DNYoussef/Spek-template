@@ -117,7 +117,8 @@ export class RollbackManager extends EventEmitter implements ComponentStateContr
       return result;
 
     } catch (error) {
-      errors.push(error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      errors.push(errorMessage);
 
       const result: RollbackResult = {
         success: false,
@@ -128,7 +129,7 @@ export class RollbackManager extends EventEmitter implements ComponentStateContr
 
       this.emit('rollback:failed', {
         executionId: execution.executionId,
-        error: error.message
+        error: errorMessage
       });
 
       return result;
@@ -204,7 +205,8 @@ export class RollbackManager extends EventEmitter implements ComponentStateContr
       });
 
     } catch (error) {
-      errors.push(`Phase rollback failed: ${phase.phaseName} - ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      errors.push(`Phase rollback failed: ${phase.phaseName} - ${errorMessage}`);
       this.emit('rollback:phase-failed', {
         phaseId: phase.phaseId,
         error: error.message
@@ -232,7 +234,8 @@ export class RollbackManager extends EventEmitter implements ComponentStateContr
       });
 
     } catch (error) {
-      errors.push(`Component rollback failed: ${component.componentName} - ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      errors.push(`Component rollback failed: ${component.componentName} - ${errorMessage}`);
       this.emit('rollback:component-failed', {
         componentId: component.componentId,
         error: error.message

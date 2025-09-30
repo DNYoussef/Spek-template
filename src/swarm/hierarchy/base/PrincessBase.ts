@@ -254,7 +254,7 @@ export abstract class PrincessBase extends EventEmitter {
 
   // ===== SwarmQueen Compatibility Methods =====
 
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     console.log(`[${this.domainName}] Princess initializing...`);
   }
 

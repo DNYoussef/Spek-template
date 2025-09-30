@@ -130,11 +130,12 @@ export class WorkflowValidator extends EventEmitter {
         const result = await rule.validator(workflowId, workflowMachine.context, this.transitionHub);
         results.push(result);
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         results.push({
           ruleId: rule.ruleId,
           passed: false,
           score: 0,
-          message: `Validation error: ${error.message}`,
+          message: `Validation error: ${errorMessage}`,
           timestamp: Date.now()
         });
       }
@@ -179,11 +180,12 @@ export class WorkflowValidator extends EventEmitter {
         const result = await rule.validator(workflowId, stepMachine.context, this.transitionHub);
         results.push(result);
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         results.push({
           ruleId: rule.ruleId,
           passed: false,
           score: 0,
-          message: `Step validation error: ${error.message}`,
+          message: `Step validation error: ${errorMessage}`,
           timestamp: Date.now()
         });
       }

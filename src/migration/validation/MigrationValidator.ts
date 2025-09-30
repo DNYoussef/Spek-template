@@ -116,8 +116,9 @@ export class MigrationValidator extends EventEmitter {
       const result = await this.analysisHub.executeAnalysis(analysisContext);
       return this.convertToValidationResult(result);
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       console.error('[MigrationValidator] Validation failed:', error);
-      throw new Error(`Migration validation failed: ${error.message}`);
+      throw new Error(`Migration validation failed: ${errorMessage}`);
     }
   }
 

@@ -23,19 +23,19 @@ import pytest
 import sys
 sys.path.append(str(Path(__file__).parent.parent.parent.parent / 'src'))
 
-from enterprise.security.sbom_generator import (
+from enterprise.security.sbom_generator import ()
     SBOMGenerator, Component, SBOMFormat
-)
+()
 
 class TestComponent:
     """Test Component dataclass"""
     
     def test_component_creation_minimal(self):
         """Test basic component creation with minimal data"""
-        component = Component(
+        component = Component()
             name="test-package",
             version="1.0.0"
-        )
+(        )
         
         assert component.name == "test-package"
         assert component.version == "1.0.0"
@@ -52,7 +52,7 @@ class TestComponent:
         
     def test_component_creation_full(self):
         """Test component creation with full data"""
-        component = Component(
+        component = Component()
             name="full-package",
             version="2.1.0",
             type="application",
@@ -65,7 +65,7 @@ class TestComponent:
             checksums={"sha256": "abc123"},
             external_refs=[{"type": "vcs", "url": "https://git.example.com"}],
             relationships=["DEPENDS_ON package-dep"]
-        )
+(        )
         
         assert component.name == "full-package"
         assert component.version == "2.1.0"
@@ -145,13 +145,13 @@ class TestDependencyAnalysis:
         """Test Python dependency analysis with requirements.txt"""
         # Create requirements.txt
         requirements_file = self.project_root / "requirements.txt"
-        requirements_file.write_text("""
+        requirements_file.write_text(""")
 requests>=2.25.0
 pytest==6.2.4
 # This is a comment
 numpy
 scipy>=1.7.0,<2.0.0
-""")
+(""")
         
         # Mock pkg_resources
         mock_package = Mock()
@@ -184,13 +184,13 @@ scipy>=1.7.0,<2.0.0
         """Test Python dependency analysis with pyproject.toml"""
         # Create pyproject.toml
         pyproject_file = self.project_root / "pyproject.toml"
-        pyproject_file.write_text("""
+        pyproject_file.write_text(""")
 [project]
 dependencies = [
     "requests>=2.25.0",
     "click>=8.0.0"
 ]
-""")
+(""")
         
         # Mock toml import and parsing
         with patch('enterprise.security.sbom_generator.toml') as mock_toml:
@@ -214,7 +214,7 @@ dependencies = [
         """Test JavaScript dependency analysis"""
         # Create package.json
         package_json = self.project_root / "package.json"
-        package_json.write_text(json.dumps({
+        package_json.write_text(json.dumps({))
             "name": "test-project",
             "version": "1.0.0",
             "dependencies": {
@@ -225,7 +225,7 @@ dependencies = [
                 "jest": "^27.0.0",
                 "eslint": "^8.0.0"
             }
-        }))
+((        }))
         
         await self.generator._analyze_javascript_dependencies()
         
@@ -277,7 +277,7 @@ dependencies = [
     async def test_parse_requirements_file_complex_requirements(self):
         """Test parsing complex requirements file"""
         req_file = self.project_root / "requirements.txt"
-        req_file.write_text("""
+        req_file.write_text(""")
 # Development dependencies
 pytest>=6.0.0,<7.0.0
 pytest-cov
@@ -295,7 +295,7 @@ git+https://github.com/user/repo.git@v1.0#egg=custom-package
 
 # Requirements file inclusion
 -r requirements-dev.txt
-""")
+(""")
         
         requirements = await self.generator._parse_requirements_file(req_file)
         
@@ -430,7 +430,7 @@ class TestSBOMGeneration:
         self.generator = SBOMGenerator(self.project_root)
         
         # Add some test components
-        self.generator.components["test-lib-1.0.0"] = Component(
+        self.generator.components["test-lib-1.0.0"] = Component()
             name="test-lib",
             version="1.0.0",
             type="library",
@@ -438,16 +438,16 @@ class TestSBOMGeneration:
             download_location="https://pypi.org/project/test-lib/",
             license_declared="MIT",
             checksums={"sha256": "abc123def456"}
-        )
+(        )
         
-        self.generator.components["another-lib-2.1.0"] = Component(
+        self.generator.components["another-lib-2.1.0"] = Component()
             name="another-lib",
             version="2.1.0",
             type="library",
             supplier="npm",
             download_location="https://npmjs.com/package/another-lib",
             license_declared="Apache-2.0"
-        )
+(        )
         
     def teardown_method(self):
         """Cleanup after each test"""
@@ -456,10 +456,10 @@ class TestSBOMGeneration:
     @pytest.mark.asyncio
     async def test_generate_sbom_spdx_json(self):
         """Test SPDX JSON SBOM generation"""
-        output_file = await self.generator.generate_sbom(
+        output_file = await self.generator.generate_sbom()
             format=SBOMFormat.SPDX_JSON,
             output_file=self.project_root / "test.spdx.json"
-        )
+(        )
         
         assert output_file.exists()
         assert output_file.suffix == ".json"
@@ -494,10 +494,10 @@ class TestSBOMGeneration:
     @pytest.mark.asyncio
     async def test_generate_sbom_cyclonedx_json(self):
         """Test CycloneDX JSON SBOM generation"""
-        output_file = await self.generator.generate_sbom(
+        output_file = await self.generator.generate_sbom()
             format=SBOMFormat.CYCLONEDX_JSON,
             output_file=self.project_root / "test.cyclonedx.json"
-        )
+(        )
         
         assert output_file.exists()
         assert output_file.suffix == ".json"
@@ -530,10 +530,10 @@ class TestSBOMGeneration:
     @pytest.mark.asyncio
     async def test_generate_sbom_spdx_tag(self):
         """Test SPDX tag-value format generation"""
-        output_file = await self.generator.generate_sbom(
+        output_file = await self.generator.generate_sbom()
             format=SBOMFormat.SPDX_TAG,
             output_file=self.project_root / "test.spdx"
-        )
+(        )
         
         assert output_file.exists()
         assert output_file.suffix == ".spdx"
@@ -548,10 +548,10 @@ class TestSBOMGeneration:
     @pytest.mark.asyncio
     async def test_generate_sbom_cyclonedx_xml(self):
         """Test CycloneDX XML format generation"""
-        output_file = await self.generator.generate_sbom(
+        output_file = await self.generator.generate_sbom()
             format=SBOMFormat.CYCLONEDX_XML,
             output_file=self.project_root / "test.cyclonedx.xml"
-        )
+(        )
         
         assert output_file.exists()
         assert output_file.suffix == ".xml"
@@ -582,10 +582,10 @@ class TestSBOMGeneration:
         """Test SBOM generation creates output directory if needed"""
         nested_output = self.project_root / "nested" / "dir" / "sbom.json"
         
-        output_file = await self.generator.generate_sbom(
+        output_file = await self.generator.generate_sbom()
             format=SBOMFormat.SPDX_JSON,
             output_file=nested_output
-        )
+(        )
         
         assert output_file.exists()
         assert output_file.parent.exists()
@@ -618,7 +618,7 @@ class TestSPDXGeneration:
     def test_generate_spdx_sbom_with_components(self):
         """Test SPDX SBOM generation with components"""
         # Add test component
-        self.generator.components["comp-1.0"] = Component(
+        self.generator.components["comp-1.0"] = Component()
             name="test-component",
             version="1.0",
             type="library",
@@ -629,7 +629,7 @@ class TestSPDXGeneration:
             copyright_text="Copyright 2023",
             checksums={"sha256": "abc123", "md5": "def456"},
             files_analyzed=["file1.py", "file2.py"]
-        )
+(        )
         
         sbom_data = self.generator._generate_spdx_sbom(SBOMFormat.SPDX_JSON)
         
@@ -693,14 +693,14 @@ class TestCycloneDXGeneration:
     def test_generate_cyclonedx_sbom_with_components(self):
         """Test CycloneDX SBOM generation with components"""
         # Add test component
-        self.generator.components["comp-1.0"] = Component(
+        self.generator.components["comp-1.0"] = Component()
             name="test-component",
             version="1.0", 
             type="library",
             supplier="TestSupplier",
             license_declared="Apache-2.0",
             checksums={"sha256": "abc123", "md5": "def456"}
-        )
+(        )
         
         sbom_data = self.generator._generate_cyclonedx_sbom(SBOMFormat.CYCLONEDX_JSON)
         
@@ -787,10 +787,10 @@ class TestErrorHandlingAndEdgeCases:
         
         with patch('builtins.open', side_effect=PermissionError("Access denied")):
             with pytest.raises(PermissionError):
-                await self.generator.generate_sbom(
+                await self.generator.generate_sbom()
                     format=SBOMFormat.SPDX_JSON,
                     output_file=readonly_file
-                )
+(                )
                 
     @pytest.mark.asyncio
     async def test_analyze_dependencies_with_exceptions(self):
@@ -810,7 +810,7 @@ class TestErrorHandlingAndEdgeCases:
     async def test_parse_requirements_file_with_various_formats(self):
         """Test parsing requirements files with various edge cases"""
         req_file = self.project_root / "edge_cases.txt"
-        req_file.write_text("""
+        req_file.write_text(""")
 # Empty lines and comments should be ignored
 
 # Package with extras
@@ -831,7 +831,7 @@ git+https://github.com/user/repo.git
 # Package with complex version specifiers
 package>=1.0,!=1.2,<2.0
 
-""")
+(""")
         
         requirements = await self.generator._parse_requirements_file(req_file)
         
@@ -842,12 +842,12 @@ package>=1.0,!=1.2,<2.0
         
     def test_component_with_unicode_names(self):
         """Test components with unicode names"""
-        unicode_component = Component(
+        unicode_component = Component()
             name="",
             version="1.0.0",
             description="Unicode test package [ROCKET]",
             supplier=""
-        )
+(        )
         
         self.generator.components["unicode-test"] = unicode_component
         
@@ -862,10 +862,10 @@ package>=1.0,!=1.2,<2.0
     def test_component_with_very_long_names(self):
         """Test components with very long names"""
         long_name = "very-" + "long-" * 100 + "package-name"
-        long_component = Component(
+        long_component = Component()
             name=long_name,
             version="1.0.0"
-        )
+(        )
         
         self.generator.components["long-test"] = long_component
         

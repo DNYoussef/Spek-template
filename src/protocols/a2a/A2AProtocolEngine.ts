@@ -92,7 +92,7 @@ export class A2AProtocolEngine extends EventEmitter {
     this.setupEventHandlers();
   }
 
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     this.logger.info('Initializing A2A Protocol Engine', {
       agentId: this.config.agentId.id,
       type: this.config.agentId.type
@@ -139,9 +139,10 @@ export class A2AProtocolEngine extends EventEmitter {
       this.emit('messageSent', fullMessage);
       return fullMessage.id;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Failed to send message', {
         messageId: fullMessage.id,
-        error: error.message
+        error: errorMessage
       });
       
       if (fullMessage.metadata.retryCount! < this.config.maxRetries) {
@@ -163,9 +164,10 @@ export class A2AProtocolEngine extends EventEmitter {
         });
         messageIds.push(messageId);
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         this.logger.error('Failed to broadcast to recipient', {
           recipient: recipient.id,
-          error: error.message
+          error: errorMessage
         });
       }
     }));
@@ -201,9 +203,10 @@ export class A2AProtocolEngine extends EventEmitter {
             self.emit('messageReceived', message);
             yield message;
           } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
             self.logger.error('Failed to process received message', {
               messageId: message.id,
-              error: error.message
+              error: errorMessage
             });
           }
         }
@@ -308,10 +311,11 @@ export class A2AProtocolEngine extends EventEmitter {
       try {
         await this.sendMessage(message);
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         this.logger.error('Retry failed', {
           messageId: message.id,
           retryCount: message.metadata.retryCount,
-          error: error.message
+          error: errorMessage
         });
       }
     }, delay);
@@ -355,9 +359,10 @@ export class A2AProtocolEngine extends EventEmitter {
           // Send heartbeat to maintain connection
           this.emit('heartbeat', { connectionId, timestamp: Date.now() });
         } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
           this.logger.warn('Heartbeat failed', {
             connectionId,
-            error: error.message
+            error: errorMessage
           });
         }
       }

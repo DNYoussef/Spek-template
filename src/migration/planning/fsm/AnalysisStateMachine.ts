@@ -65,8 +65,9 @@ export class AnalysisStateMachine extends EventEmitter {
 
       return analysisId;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Failed to start analysis', {
-        error: error.message
+        error: errorMessage
       });
       throw error;
     }
@@ -84,9 +85,10 @@ export class AnalysisStateMachine extends EventEmitter {
     try {
       await this.refactoredMachine.processEvent(event);
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Event processing failed', {
         event,
-        error: error.message
+        error: errorMessage
       });
       throw error;
     }
@@ -102,8 +104,9 @@ export class AnalysisStateMachine extends EventEmitter {
       assert(status.analysisId, 'Status must have analysis ID');
       return status;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Failed to get analysis status', {
-        error: error.message
+        error: errorMessage
       });
       throw error;
     }
@@ -119,8 +122,9 @@ export class AnalysisStateMachine extends EventEmitter {
     try {
       await this.refactoredMachine.cancelAnalysis();
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Failed to cancel analysis', {
-        error: error.message
+        error: errorMessage
       });
       throw error;
     }

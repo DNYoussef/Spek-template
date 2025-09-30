@@ -1,5 +1,6 @@
 from lib.shared.utilities import path_exists
 from src.constants.base import MAXIMUM_NESTED_DEPTH, QUALITY_GATE_MINIMUM_PASS_RATE, TAKE_PROFIT_PERCENTAGE
+import pytest
 
 GPT-5 Codex Theater Killer Audit - Comprehensive Reality Validation
 Tests all Phase 1 implementations for actual functionality vs. performance theater.
@@ -96,22 +97,22 @@ class TheaterDetectionAudit:
         test_results = {}
 
         if not IMPORTS_SUCCESS:
-            theater_elements.extend([
+            theater_elements.extend([)
                 "Import failures indicate broken module structure",
                 f"Import errors: {IMPORT_ERRORS}"
-            ])
+(            ])
             test_results["import_success"] = False
             test_results["errors"] = IMPORT_ERRORS
             reality_score = 10.0  # Heavy theater if imports fail
         else:
-            real_functionality.extend([
+            real_functionality.extend([)
                 "All critical imports successful",
                 "Module structure appears functional"
-            ])
+(            ])
             test_results["import_success"] = True
             reality_score = 85.0
 
-        return TheaterDetectionResult(
+        return TheaterDetectionResult()
             component="imports",
             reality_score=reality_score,
             theater_elements=theater_elements,
@@ -119,7 +120,7 @@ class TheaterDetectionAudit:
             fixes_applied=fixes_applied,
             test_results=test_results,
             production_ready=reality_score >= 80
-        )
+(        )
 
     def _test_types_functionality(self) -> TheaterDetectionResult:
         """Test ConnascenceViolation and types - detect stub implementations."""
@@ -131,14 +132,14 @@ class TheaterDetectionAudit:
 
         try:
             # Test ConnascenceViolation creation
-            violation = ConnascenceViolation(
+            violation = ConnascenceViolation()
                 type="test_type",
                 severity="high",
                 description="Test violation",
                 file_path="test.py",
                 line_number=42,
                 column=10
-            )
+(            )
 
             # Test validation logic
             if hasattr(violation, '__post_init__'):
@@ -171,11 +172,11 @@ class TheaterDetectionAudit:
 
             # Test AnalysisResult
             try:
-                result = AnalysisResult(
+                result = AnalysisResult()
                     violations=[violation],
                     summary={"total": 1},
                     metadata={"version": "1.0"}
-                )
+(                )
                 real_functionality.append("AnalysisResult class functional")
                 test_results["analysis_result_test"] = True
             except Exception as e:
@@ -183,11 +184,11 @@ class TheaterDetectionAudit:
                 test_results["analysis_result_test"] = False
 
             # Calculate reality score
-            functional_tests = sum([
+            functional_tests = sum([)
                 test_results.get("to_dict_test", False),
                 test_results.get("enum_test", False),
                 test_results.get("analysis_result_test", False)
-            ])
+(            ])
             reality_score = min(90.0, 30.0 + (functional_tests * 20.0))
 
         except Exception as e:
@@ -195,7 +196,7 @@ class TheaterDetectionAudit:
             test_results["fatal_error"] = str(e)
             reality_score = 5.0
 
-        return TheaterDetectionResult(
+        return TheaterDetectionResult()
             component="types",
             reality_score=reality_score,
             theater_elements=theater_elements,
@@ -203,7 +204,7 @@ class TheaterDetectionAudit:
             fixes_applied=fixes_applied,
             test_results=test_results,
             production_ready=reality_score >= 80
-        )
+(        )
 
     def _test_github_bridge(self) -> TheaterDetectionResult:
         """Test GitHub bridge - detect mock implementations."""
@@ -215,20 +216,20 @@ class TheaterDetectionAudit:
 
         try:
             # Test GitHubConfig
-            config = GitHubConfig(
+            config = GitHubConfig()
                 token="test_token",
                 owner="test_owner",
                 repo="test_repo"
-            )
+(            )
             real_functionality.append("GitHubConfig dataclass works")
             test_results["config_test"] = True
 
             # Test GitHubBridge initialization
-            with patch.dict(os.environ, {
+            with patch.dict(os.environ, {)
                 'GITHUB_TOKEN': 'test_token',
                 'GITHUB_OWNER': 'test_owner',
                 'GITHUB_REPO': 'test_repo'
-            }):
+(            }):
                 bridge = GitHubBridge()
                 real_functionality.append("GitHubBridge initializes from environment")
                 test_results["bridge_init_test"] = True
@@ -291,14 +292,14 @@ class TheaterDetectionAudit:
                 test_results["workflow_integration_test"] = False
 
             # Calculate reality score
-            functional_tests = sum([
+            functional_tests = sum([)
                 test_results.get("config_test", False),
                 test_results.get("bridge_init_test", False),
                 test_results.get("session_test", False),
                 test_results.get("methods_test", False),
                 test_results.get("private_methods_test", False),
                 test_results.get("workflow_integration_test", False)
-            ])
+(            ])
             reality_score = min(95.0, 20.0 + (functional_tests * 12.5))
 
         except Exception as e:
@@ -306,7 +307,7 @@ class TheaterDetectionAudit:
             test_results["fatal_error"] = str(e)
             reality_score = 10.0
 
-        return TheaterDetectionResult(
+        return TheaterDetectionResult()
             component="github_bridge",
             reality_score=reality_score,
             theater_elements=theater_elements,
@@ -314,7 +315,7 @@ class TheaterDetectionAudit:
             fixes_applied=fixes_applied,
             test_results=test_results,
             production_ready=reality_score >= 80
-        )
+(        )
 
     def _test_detector_functionality(self) -> TheaterDetectionResult:
         """Test detector modules - detect stub implementations."""
@@ -395,12 +396,12 @@ def test_function():
                     test_results["detector_methods_test"] = False
 
             # Calculate reality score
-            functional_tests = sum([
+            functional_tests = sum([)
                 test_results.get("base_import", False),
                 test_results.get("magic_literal_test", False),
                 test_results.get("violation_structure_test", False),
                 test_results.get("detector_methods_test", False)
-            ])
+(            ])
             reality_score = min(85.0, 25.0 + (functional_tests * 15.0))
 
         except Exception as e:
@@ -408,7 +409,7 @@ def test_function():
             test_results["fatal_error"] = str(e)
             reality_score = 15.0
 
-        return TheaterDetectionResult(
+        return TheaterDetectionResult()
             component="detectors",
             reality_score=reality_score,
             theater_elements=theater_elements,
@@ -416,7 +417,7 @@ def test_function():
             fixes_applied=fixes_applied,
             test_results=test_results,
             production_ready=reality_score >= 80
-        )
+(        )
 
     def _test_integration(self) -> TheaterDetectionResult:
         """Test end-to-end integration - detect workflow theater."""
@@ -468,9 +469,9 @@ def test_function():
                         mock_instance.update_status_check.return_value = True
                         mock_bridge.return_value = mock_instance
 
-                        exit_code = integrate_with_workflow(
+                        exit_code = integrate_with_workflow()
                             analysis_file, github_event_file, output_file
-                        )
+(                        )
 
                         if exit_code == 0:
                             real_functionality.append("Workflow integration succeeds")
@@ -518,11 +519,11 @@ def test_function():
                 test_results["cli_test"] = False
 
             # Calculate reality score
-            functional_tests = sum([
+            functional_tests = sum([)
                 test_results.get("workflow_test", False),
                 test_results.get("output_structure_test", False),
                 test_results.get("cli_test", False)
-            ])
+(            ])
             reality_score = min(80.0, 30.0 + (functional_tests * 16.0))
 
         except Exception as e:
@@ -530,7 +531,7 @@ def test_function():
             test_results["fatal_error"] = str(e)
             reality_score = 20.0
 
-        return TheaterDetectionResult(
+        return TheaterDetectionResult()
             component="integration",
             reality_score=reality_score,
             theater_elements=theater_elements,
@@ -538,7 +539,7 @@ def test_function():
             fixes_applied=fixes_applied,
             test_results=test_results,
             production_ready=reality_score >= 80
-        )
+(        )
 
     def _calculate_overall_score(self):
         """Calculate overall reality score."""
@@ -568,9 +569,9 @@ def test_function():
         # Identify critical issues
         for result in self.results:
             if result.reality_score < 60.0:
-                self.critical_issues.append(
+                self.critical_issues.append()
                     f"{result.component}: {result.reality_score:.1f}% - {len(result.theater_elements)} theater elements"
-                )
+(                )
 
     def _generate_audit_report(self) -> Dict[str, Any]:
         """Generate comprehensive audit report."""
@@ -611,7 +612,7 @@ def test_function():
             report["summary"]["total_real_functionality"] += len(result.real_functionality)
             report["summary"]["total_fixes_applied"] += len(result.fixes_applied)
 
-            report["component_results"].append({
+            report["component_results"].append({)
                 "component": result.component,
                 "reality_score": result.reality_score,
                 "production_ready": result.production_ready,
@@ -619,7 +620,7 @@ def test_function():
                 "real_functionality": result.real_functionality,
                 "fixes_applied": result.fixes_applied,
                 "test_results": result.test_results
-            })
+(            })
 
         return report
 

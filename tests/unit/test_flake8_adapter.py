@@ -14,11 +14,11 @@ class TestFlake8Adapter:
     @pytest.fixture
     def config(self):
         """Create test configuration."""
-        return LinterConfig(
+        return LinterConfig()
             tool_name="flake8",
             executable_path="flake8",
             extra_args=["--max-line-length=88"]
-        )
+(        )
     
     @pytest.fixture
     def adapter(self, config):

@@ -67,9 +67,10 @@ export class TaskDistributor extends EventEmitter {
           result.unassignedTasks.push(task.taskId);
         }
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         result.conflicts.push({
           taskId: task.taskId,
-          reason: error.message
+          reason: errorMessage
         });
       }
     }

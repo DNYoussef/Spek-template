@@ -71,11 +71,11 @@ class MockRealTimeLinterIngestionEngine:
             self.streaming_results.append(result)
             
             # Emit real-time event
-            self.event_emitter.emit("violation_detected", {
+            self.event_emitter.emit("violation_detected", {)
                 "correlation_id": correlation_id,
                 "tool": tool,
                 "violations": violations
-            })
+(            })
         
         return {
             "correlation_id": correlation_id,
@@ -90,7 +90,7 @@ class MockRealTimeLinterIngestionEngine:
         
         for file_path in file_paths:
             if tool == "flake8":
-                violations.extend([
+                violations.extend([)
                     {
                         "file": file_path,
                         "line": 1,
@@ -107,9 +107,9 @@ class MockRealTimeLinterIngestionEngine:
                         "message": "trailing whitespace",
                         "severity": "low"
                     }
-                ])
+(                ])
             elif tool == "pylint":
-                violations.extend([
+                violations.extend([)
                     {
                         "file": file_path,
                         "line": 1,
@@ -126,9 +126,9 @@ class MockRealTimeLinterIngestionEngine:
                         "message": "Unused argument 'param'",
                         "severity": "warning"
                     }
-                ])
+(                ])
             elif tool == "ruff":
-                violations.extend([
+                violations.extend([)
                     {
                         "file": file_path,
                         "line": 1,
@@ -145,7 +145,7 @@ class MockRealTimeLinterIngestionEngine:
                         "message": "'os' imported but unused",
                         "severity": "medium"
                     }
-                ])
+(                ])
         
         return violations
 
@@ -352,9 +352,9 @@ class TestRealTimeLinterIngestionEngine:
         # Start multiple linting operations concurrently
         tasks = []
         for i in range(5):
-            task = asyncio.create_task(
+            task = asyncio.create_task()
                 ingestion_engine.executeRealtimeLinting([sample_files[0]])
-            )
+(            )
             tasks.append(task)
         
         # Wait for all to complete
@@ -371,10 +371,10 @@ class TestRealTimeLinterIngestionEngine:
         """Test tool-specific violation generation"""
         # Test each tool individually
         for tool in ["flake8", "pylint", "ruff"]:
-            result = await ingestion_engine.executeRealtimeLinting(
+            result = await ingestion_engine.executeRealtimeLinting()
                 [sample_files[0]], 
                 {"tools": [tool]}
-            )
+(            )
             
             assert len(result["results"]) == 1
             tool_result = result["results"][0]
@@ -404,10 +404,10 @@ class TestRealTimeLinterIngestionEngine:
         ingestion_engine._generate_mock_violations = failing_generate
         
         # Should handle tool failure gracefully
-        result = await ingestion_engine.executeRealtimeLinting(
+        result = await ingestion_engine.executeRealtimeLinting()
             sample_files, 
             {"tools": ["flake8", "pylint", "ruff"]}
-        )
+(        )
         
         # Should still get results from working tools
         assert result["status"] == "completed"
@@ -585,7 +585,7 @@ class TestResultCorrelationFramework:
         # Generate large set of violations
         large_violations = []
         for i in range(100):
-            large_violations.extend([
+            large_violations.extend([)
                 {
                     "tool": "flake8",
                     "file": f"file_{i % 10}.py",
@@ -602,7 +602,7 @@ class TestResultCorrelationFramework:
                     "message": f"line too long in file {i}",
                     "severity": "convention"
                 }
-            ])
+(            ])
         
         start_time = time.time()
         result = await correlation_framework.correlateResults(large_violations)

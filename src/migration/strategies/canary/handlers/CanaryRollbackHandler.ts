@@ -132,7 +132,8 @@ export class CanaryRollbackHandler {
       
       return true;
     } catch (error) {
-      this.logger.error('Failed to redirect traffic', { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error('Failed to redirect traffic', { error: errorMessage });
       return false;
     }
   }
@@ -151,8 +152,9 @@ export class CanaryRollbackHandler {
       
       return true;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Failed to cleanup canary environment', {
-        error: error.message
+        error: errorMessage
       });
       return false;
     }

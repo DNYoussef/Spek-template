@@ -397,6 +397,7 @@ export class DSPyOptimizer {
         });
 
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         console.error('Candidate evaluation failed:', error);
         evaluationDetails.push({
           example_id: `example_${evaluationDetails.length}`,
@@ -404,7 +405,7 @@ export class DSPyOptimizer {
           criteria_score: 0,
           combined_score: 0,
           execution_time_ms: 0,
-          error: error.message
+          error: errorMessage
         });
       }
     }

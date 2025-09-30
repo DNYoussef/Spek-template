@@ -110,7 +110,8 @@ export class PhasePrerequisitesValidator {
     try {
       return await Promise.race([validationPromise, timeoutPromise]);
     } catch (error) {
-      throw new Error(`Prerequisite validation failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Prerequisite validation failed: ${errorMessage}`);
     }
   }
 
@@ -320,13 +321,14 @@ export class QualityGateCriteriaValidator {
         evidence: [`${criteria.metric}_report.json`]
       };
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       return {
         criteriaId: criteria.criteriaId,
         passed: false,
         score: 0.0,
         actualValue: 0,
         expectedValue: criteria.threshold,
-        message: `Criteria evaluation failed: ${error.message}`,
+        message: `Criteria evaluation failed: ${errorMessage}`,
         evidence: [`error_${criteria.criteriaId}.json`]
       };
     }
@@ -423,11 +425,12 @@ export class TransitionValidator {
         duration: Date.now() - startTime
       };
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       return {
         validationId: validation.validationId,
         passed: false,
         score: 0.0,
-        message: `Validation failed: ${error.message}`,
+        message: `Validation failed: ${errorMessage}`,
         evidence: [`error_${validation.validationId}.json`],
         timestamp: Date.now(),
         duration: Date.now() - startTime

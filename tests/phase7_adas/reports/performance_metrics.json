@@ -1,0 +1,82 @@
+[
+  {
+    "latency_ms": 15.02200000686571,
+    "throughput_ops_sec": 66.56903205584851,
+    "cpu_usage_percent": 0.0,
+    "memory_usage_mb": 491.296875,
+    "error_rate_percent": 0.0,
+    "timestamp": 1759241979.4832187
+  },
+  {
+    "latency_ms": 12.687599984928966,
+    "throughput_ops_sec": 78.81711286514829,
+    "cpu_usage_percent": 0.0,
+    "memory_usage_mb": 491.296875,
+    "error_rate_percent": 0.0,
+    "timestamp": 1759241979.4985628
+  },
+  {
+    "latency_ms": 11.816899990662932,
+    "throughput_ops_sec": 84.62456319255857,
+    "cpu_usage_percent": 0.0,
+    "memory_usage_mb": 491.296875,
+    "error_rate_percent": 0.0,
+    "timestamp": 1759241979.5135713
+  },
+  {
+    "latency_ms": 12.484199949540198,
+    "throughput_ops_sec": 80.10124830120418,
+    "cpu_usage_percent": 0.0,
+    "memory_usage_mb": 491.296875,
+    "error_rate_percent": 100.0,
+    "timestamp": 1759241979.5278058
+  },
+  {
+    "latency_ms": 13.382700039073825,
+    "throughput_ops_sec": 74.72333662715846,
+    "cpu_usage_percent": 0.0,
+    "memory_usage_mb": 491.296875,
+    "error_rate_percent": 0.0,
+    "timestamp": 1759241979.5448766
+  },
+  {
+    "latency_ms": 12.575100001413375,
+    "throughput_ops_sec": 79.52223043058149,
+    "cpu_usage_percent": 0.0,
+    "memory_usage_mb": 491.296875,
+    "error_rate_percent": 0.0,
+    "timestamp": 1759241979.5602853
+  },
+  {
+    "latency_ms": 12.213200039695948,
+    "throughput_ops_sec": 81.8786228629475,
+    "cpu_usage_percent": 0.0,
+    "memory_usage_mb": 491.296875,
+    "error_rate_percent": 0.0,
+    "timestamp": 1759241979.57455
+  },
+  {
+    "latency_ms": 12.597799999639392,
+    "throughput_ops_sec": 79.378939182129,
+    "cpu_usage_percent": 0.0,
+    "memory_usage_mb": 491.296875,
+    "error_rate_percent": 0.0,
+    "timestamp": 1759241979.5897887
+  },
+  {
+    "latency_ms": 12.59800000116229,
+    "throughput_ops_sec": 79.37767898934275,
+    "cpu_usage_percent": 0.0,
+    "memory_usage_mb": 491.296875,
+    "error_rate_percent": 0.0,
+    "timestamp": 1759241979.606016
+  },
+  {
+    "latency_ms": 13.105700025334954,
+    "throughput_ops_sec": 76.30267731344951,
+    "cpu_usage_percent": 0.0,
+    "memory_usage_mb": 491.296875,
+    "error_rate_percent": 0.0,
+    "timestamp": 1759241979.6218314
+  }
+]

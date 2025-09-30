@@ -21,14 +21,14 @@ with tempfile.TemporaryDirectory() as tmpdir:
     print("Original content hash:", hasher.compute_hash(original_content))
 
     # Update file with footer
-    updated = manager.update_file(
+    updated = manager.update_file()
         file_path=str(test_file),
         agent_meta="test@Python",
         change_summary="Added hello function",
         artifacts_changed=["test_file.py"],
         status="OK",
         cost_usd=0.5,
-    )
+(    )
 
     # Read back the file
     with open(test_file, 'r') as f:

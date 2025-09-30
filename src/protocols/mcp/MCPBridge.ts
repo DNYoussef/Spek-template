@@ -128,7 +128,7 @@ export class MCPBridge extends EventEmitter {
     this.setupEventHandlers();
   }
 
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     this.logger.info('Initializing MCP Bridge', {
       autoDiscovery: this.config.enableAutoDiscovery,
       supportedServers: this.config.supportedServers.length
@@ -161,9 +161,10 @@ export class MCPBridge extends EventEmitter {
           });
         }
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         this.logger.warn('Failed to probe server', {
           serverName,
-          error: error.message
+          error: errorMessage
         });
       }
     }
@@ -208,10 +209,11 @@ export class MCPBridge extends EventEmitter {
 
       return response;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('MCP request failed', {
         requestId: fullRequest.id,
         server: targetServer,
-        error: error.message
+        error: errorMessage
       });
 
       if (this.config.enableFailover) {
@@ -285,10 +287,11 @@ export class MCPBridge extends EventEmitter {
           );
           responses.push(...serverResponses);
         } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
           this.logger.error('Batch request failed for server', {
             server,
             requestCount: serverRequests.length,
-            error: error.message
+            error: errorMessage
           });
         }
       })
@@ -316,7 +319,8 @@ export class MCPBridge extends EventEmitter {
             await connection.close();
           }
         } catch (error) {
-          this.logger.warn('Failed to close connection', { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+          this.logger.warn('Failed to close connection', { error: errorMessage });
         }
       })
     );
@@ -360,9 +364,10 @@ export class MCPBridge extends EventEmitter {
         }
       };
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Server probe failed', {
         serverName,
-        error: error.message
+        error: errorMessage
       });
       return null;
     }
@@ -459,7 +464,8 @@ export class MCPBridge extends EventEmitter {
       try {
         await this.discoverServers();
       } catch (error) {
-        this.logger.error('Server discovery failed', { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+        this.logger.error('Server discovery failed', { error: errorMessage });
       }
     }, 60000); // Every minute
   }
@@ -469,7 +475,8 @@ export class MCPBridge extends EventEmitter {
       try {
         await this.serverRegistry.performHealthChecks();
       } catch (error) {
-        this.logger.error('Health check failed', { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+        this.logger.error('Health check failed', { error: errorMessage });
       }
     }, this.config.healthCheckInterval);
   }

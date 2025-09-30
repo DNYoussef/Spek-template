@@ -20,7 +20,7 @@ export class QualityPrincessCore extends EventEmitter {
     console.assert(typeof projectPath === 'string' || projectPath === undefined, 'Project path must be string or undefined');
   }
 
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     console.assert(!this.initialized, 'Core should not be already initialized');
     await this.domain.initialize();
     this.initialized = true;

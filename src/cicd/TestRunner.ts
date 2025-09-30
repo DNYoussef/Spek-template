@@ -360,7 +360,8 @@ export class TestRunner extends EventEmitter {
       return report;
 
     } catch (error) {
-      this.emit('error', { type: 'coverage_parse', error });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.emit('error', { type: 'coverage_parse', error: errorMessage });
       return {
         lines: { total: 0, covered: 0, percentage: 0 },
         statements: { total: 0, covered: 0, percentage: 0 },

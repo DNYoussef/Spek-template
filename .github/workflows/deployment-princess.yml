@@ -158,6 +158,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Build TypeScript
+        run: npm run build
+        continue-on-error: false
+
+      - name: Verify build artifacts
+        run: |
+          if [ ! -d "dist/src" ]; then
+            echo "ERROR: Build did not generate dist/ files"
+            exit 1
+          fi
+          echo "Build artifacts verified"
+
       - name: Run linting
         run: npm run lint
 

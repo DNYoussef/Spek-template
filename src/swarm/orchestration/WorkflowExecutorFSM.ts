@@ -121,10 +121,11 @@ export class WorkflowExecutorFSM extends EventEmitter {
       this.emit('stage:completed', { execution: swarmExecution });
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       swarmExecution.status = 'failed';
       swarmExecution.endTime = Date.now();
       
-      this.emit('stage:failed', { execution: swarmExecution, error: error.message });
+      this.emit('stage:failed', { execution: swarmExecution, error: errorMessage });
       throw error;
 
     } finally {
@@ -181,11 +182,12 @@ export class WorkflowExecutorFSM extends EventEmitter {
       return result;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       const duration = performance.now() - startTime;
       return {
         taskId: task.id,
         status: 'failed',
-        output: { error: error.message },
+        output: { error: errorMessage },
         duration,
         agent: 'unknown'
       };
@@ -229,7 +231,8 @@ export class WorkflowExecutorFSM extends EventEmitter {
       this.emit('rollback:completed', { executionId: execution.executionId, reason });
 
     } catch (error) {
-      this.emit('rollback:failed', { executionId: execution.executionId, error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.emit('rollback:failed', { executionId: execution.executionId, error: errorMessage });
       throw error;
     }
   }

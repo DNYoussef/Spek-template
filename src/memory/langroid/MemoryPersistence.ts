@@ -57,7 +57,8 @@ export class MemoryPersistence {
       this.startFlushTimer();
       this.isInitialized = true;
     } catch (error) {
-      throw new Error(`Failed to initialize persistence: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Failed to initialize persistence: ${errorMessage}`);
     }
   }
   /**

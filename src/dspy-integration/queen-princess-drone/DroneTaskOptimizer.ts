@@ -178,9 +178,10 @@ export class DroneTaskOptimizer extends EventEmitter {
       return optimized;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.setState(DroneState.ERROR);
       this.emit(DroneEvent.ERROR_OCCURRED, error);
-      throw new Error(`Task reception failed: ${error.message}`);
+      throw new Error(`Task reception failed: ${errorMessage}`);
     }
   }
 

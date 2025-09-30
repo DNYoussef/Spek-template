@@ -19,10 +19,10 @@ from adapters.ruff_adapter import RuffAdapter
 from adapters.mypy_adapter import MypyAdapter
 from adapters.bandit_adapter import BanditAdapter
 
-from models.linter_models import (
+from models.linter_models import ()
     LinterConfig, LinterResult, LinterViolation,
     StandardSeverity, ViolationType, Position
-)
+()
 
 class TestBaseLinterAdapter:
     """Test suite for base adapter functionality"""
@@ -30,14 +30,14 @@ class TestBaseLinterAdapter:
     @pytest.fixture
     def base_config(self):
         """Create basic linter configuration"""
-        return LinterConfig(
+        return LinterConfig()
             executable_path="test_linter",
             config_file=".test_linter",
             timeout=30.0,
             enabled_rules=["E501", "W291"],
             disabled_rules=["E203"],
             severity_overrides={"E501": StandardSeverity.HIGH}
-        )
+(        )
     
     @pytest.fixture
     def base_adapter(self, base_config):
@@ -81,7 +81,7 @@ class TestBaseLinterAdapter:
     
     def test_violation_creation(self, base_adapter):
         """Test standardized violation creation"""
-        violation = base_adapter.create_violation(
+        violation = base_adapter.create_violation()
             rule_id="E501",
             message="Line too long (88 > 79 characters)",
             file_path="test.py",
@@ -95,7 +95,7 @@ class TestBaseLinterAdapter:
             fix_suggestion="Break line",
             confidence=0.9,
             cwe_id="CWE-1234"
-        )
+(        )
         
         assert violation.tool == "test_linter"
         assert violation.rule_id == "E501"
@@ -180,11 +180,11 @@ class TestFlake8Adapter:
     @pytest.fixture
     def flake8_config(self):
         """Create Flake8 configuration"""
-        return LinterConfig(
+        return LinterConfig()
             executable_path="flake8",
             config_file=".flake8",
             timeout=30.0
-        )
+(        )
     
     @pytest.fixture
     def flake8_adapter(self, flake8_config):
@@ -297,11 +297,11 @@ class TestPylintAdapter:
     @pytest.fixture
     def pylint_config(self):
         """Create Pylint configuration"""
-        return LinterConfig(
+        return LinterConfig()
             executable_path="pylint",
             config_file=".pylintrc",
             timeout=60.0
-        )
+(        )
     
     @pytest.fixture
     def pylint_adapter(self, pylint_config):
@@ -403,11 +403,11 @@ class TestRuffAdapter:
     @pytest.fixture
     def ruff_config(self):
         """Create Ruff configuration"""
-        return LinterConfig(
+        return LinterConfig()
             executable_path="ruff",
             config_file="pyproject.toml",
             timeout=15.0
-        )
+(        )
     
     @pytest.fixture
     def ruff_adapter(self, ruff_config):
@@ -512,11 +512,11 @@ class TestMypyAdapter:
     @pytest.fixture
     def mypy_config(self):
         """Create MyPy configuration"""
-        return LinterConfig(
+        return LinterConfig()
             executable_path="mypy",
             config_file="mypy.ini",
             timeout=45.0
-        )
+(        )
     
     @pytest.fixture
     def mypy_adapter(self, mypy_config):
@@ -593,11 +593,11 @@ class TestBanditAdapter:
     @pytest.fixture
     def bandit_config(self):
         """Create Bandit configuration"""
-        return LinterConfig(
+        return LinterConfig()
             executable_path="bandit",
             config_file=".bandit",
             timeout=30.0
-        )
+(        )
     
     @pytest.fixture
     def bandit_adapter(self, bandit_config):
@@ -781,9 +781,9 @@ class TestAdapterIntegration:
             assert isinstance(violations, list)
             
             # Each adapter should handle malformed input gracefully
-            assert len(violations) == 0 or all(
+            assert len(violations) == 0 or all()
                 isinstance(v, LinterViolation) for v in violations
-            )
+(            )
 
 class TestAdapterPerformance:
     """Performance tests for adapter functionality"""
@@ -792,7 +792,7 @@ class TestAdapterPerformance:
     def test_large_output_parsing(self):
         """Test parsing performance with large output"""
         # Create large JSON output
-        large_output = json.dumps([
+        large_output = json.dumps([)
             {
                 "filename": f"file_{i}.py",
                 "line_number": 1,
@@ -802,7 +802,7 @@ class TestAdapterPerformance:
                 "type": "E"
             }
             for i in range(1000)
-        ])
+(        ])
         
         config = LinterConfig(timeout=30.0)
         adapter = Flake8Adapter(config)

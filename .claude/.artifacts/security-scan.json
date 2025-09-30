@@ -1,10 +1,6 @@
 {
   "errors": [
     {
-      "filename": "analyzer/architecture\\orchestrator.py",
-      "reason": "syntax error while parsing AST from file"
-    },
-    {
       "filename": "analyzer/architecture\\refactoring_audit_report.py",
       "reason": "syntax error while parsing AST from file"
     },
@@ -187,20 +183,24 @@
     {
       "filename": "analyzer/utils\\injection\\container.py",
       "reason": "syntax error while parsing AST from file"
+    },
+    {
+      "filename": "analyzer/violation_remediation_enhanced.py",
+      "reason": "syntax error while parsing AST from file"
     }
   ],
-  "generated_at": "2025-09-29T01:48:38Z",
+  "generated_at": "2025-09-30T14:01:39Z",
   "metrics": {
     "_totals": {
-      "CONFIDENCE.HIGH": 455,
+      "CONFIDENCE.HIGH": 471,
       "CONFIDENCE.LOW": 0,
       "CONFIDENCE.MEDIUM": 3,
       "CONFIDENCE.UNDEFINED": 0,
       "SEVERITY.HIGH": 0,
-      "SEVERITY.LOW": 456,
+      "SEVERITY.LOW": 472,
       "SEVERITY.MEDIUM": 2,
       "SEVERITY.UNDEFINED": 0,
-      "loc": 69507,
+      "loc": 69788,
       "nosec": 0,
       "skipped_tests": 0
     },
@@ -239,7 +239,7 @@
       "SEVERITY.LOW": 11,
       "SEVERITY.MEDIUM": 0,
       "SEVERITY.UNDEFINED": 0,
-      "loc": 467,
+      "loc": 486,
       "nosec": 0,
       "skipped_tests": 0
     },
@@ -478,7 +478,15 @@
       "skipped_tests": 0
     },
     "analyzer/architecture\\orchestrator.py": {
-      "loc": 513,
+      "CONFIDENCE.HIGH": 16,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 16,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 510,
       "nosec": 0,
       "skipped_tests": 0
     },
@@ -2869,11 +2877,16 @@
       "loc": 325,
       "nosec": 0,
       "skipped_tests": 0
+    },
+    "analyzer/violation_remediation_enhanced.py": {
+      "loc": 265,
+      "nosec": 0,
+      "skipped_tests": 0
     }
   },
   "results": [
     {
-      "code": "68         # NASA Rule 5: Input validation assertions\n69         assert config_manager is not None, \"config_manager cannot be None\"\n70         \n",
+      "code": "92         # NASA Rule 5: Input validation assertions\n93         assert config_manager is not None, \"config_manager cannot be None\"\n94         \n",
       "col_offset": 8,
       "end_col_offset": 74,
       "filename": "analyzer/analysis_orchestrator.py",
@@ -2884,16 +2897,16 @@
       },
       "issue_severity": "LOW",
       "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
-      "line_number": 69,
+      "line_number": 93,
       "line_range": [
-        69
+        93
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
       "test_id": "B101",
       "test_name": "assert_used"
     },
     {
-      "code": "87         # NASA Rule 5: Input validation\n88         assert isinstance(request, AnalysisRequest), \"request must be AnalysisRequest\"\n89         assert request.target_path.exists(), f\"Target path does not exist: {request.target_path}\"\n",
+      "code": "111         # NASA Rule 5: Input validation\n112         assert isinstance(request, AnalysisRequest), \"request must be AnalysisRequest\"\n113         assert request.target_path.exists(), f\"Target path does not exist: {request.target_path}\"\n",
       "col_offset": 8,
       "end_col_offset": 86,
       "filename": "analyzer/analysis_orchestrator.py",
@@ -2904,16 +2917,16 @@
       },
       "issue_severity": "LOW",
       "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
-      "line_number": 88,
+      "line_number": 112,
       "line_range": [
-        88
+        112
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
       "test_id": "B101",
       "test_name": "assert_used"
     },
     {
-      "code": "88         assert isinstance(request, AnalysisRequest), \"request must be AnalysisRequest\"\n89         assert request.target_path.exists(), f\"Target path does not exist: {request.target_path}\"\n90 \n",
+      "code": "112         assert isinstance(request, AnalysisRequest), \"request must be AnalysisRequest\"\n113         assert request.target_path.exists(), f\"Target path does not exist: {request.target_path}\"\n114 \n",
       "col_offset": 8,
       "end_col_offset": 97,
       "filename": "analyzer/analysis_orchestrator.py",
@@ -2924,16 +2937,16 @@
       },
       "issue_severity": "LOW",
       "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
-      "line_number": 89,
+      "line_number": 113,
       "line_range": [
-        89
+        113
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
       "test_id": "B101",
       "test_name": "assert_used"
     },
     {
-      "code": "148         # NASA Rule 5: Input validation\n149         assert isinstance(requests, list), \"requests must be a list\"\n150         # Parallel processing limits\n",
+      "code": "172         # NASA Rule 5: Input validation\n173         assert isinstance(requests, list), \"requests must be a list\"\n174         # Parallel processing limits\n",
       "col_offset": 8,
       "end_col_offset": 68,
       "filename": "analyzer/analysis_orchestrator.py",
@@ -2944,16 +2957,16 @@
       },
       "issue_severity": "LOW",
       "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
-      "line_number": 149,
+      "line_number": 173,
       "line_range": [
-        149
+        173
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
       "test_id": "B101",
       "test_name": "assert_used"
     },
     {
-      "code": "151         MAX_PARALLEL_REQUESTS = 10\n152         assert len(requests) <= MAX_PARALLEL_REQUESTS, f\"Too many parallel requests (max {MAX_PARALLEL_REQUESTS})\"\n153         assert all(isinstance(r, AnalysisRequest) for r in requests), \"All items must be AnalysisRequest\"\n",
+      "code": "175         MAX_PARALLEL_REQUESTS = 10\n176         assert len(requests) <= MAX_PARALLEL_REQUESTS, f\"Too many parallel requests (max {MAX_PARALLEL_REQUESTS})\"\n177         assert all(isinstance(r, AnalysisRequest) for r in requests), \"All items must be AnalysisRequest\"\n",
       "col_offset": 8,
       "end_col_offset": 114,
       "filename": "analyzer/analysis_orchestrator.py",
@@ -2964,16 +2977,16 @@
       },
       "issue_severity": "LOW",
       "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
-      "line_number": 152,
+      "line_number": 176,
       "line_range": [
-        152
+        176
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
       "test_id": "B101",
       "test_name": "assert_used"
     },
     {
-      "code": "152         assert len(requests) <= MAX_PARALLEL_REQUESTS, f\"Too many parallel requests (max {MAX_PARALLEL_REQUESTS})\"\n153         assert all(isinstance(r, AnalysisRequest) for r in requests), \"All items must be AnalysisRequest\"\n154 \n",
+      "code": "176         assert len(requests) <= MAX_PARALLEL_REQUESTS, f\"Too many parallel requests (max {MAX_PARALLEL_REQUESTS})\"\n177         assert all(isinstance(r, AnalysisRequest) for r in requests), \"All items must be AnalysisRequest\"\n178 \n",
       "col_offset": 8,
       "end_col_offset": 105,
       "filename": "analyzer/analysis_orchestrator.py",
@@ -2984,16 +2997,16 @@
       },
       "issue_severity": "LOW",
       "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
-      "line_number": 153,
+      "line_number": 177,
       "line_range": [
-        153
+        177
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
       "test_id": "B101",
       "test_name": "assert_used"
     },
     {
-      "code": "188         # NASA Rule 5: Input validation\n189         assert isinstance(request, AnalysisRequest), \"request must be AnalysisRequest\"\n190 \n",
+      "code": "212         # NASA Rule 5: Input validation\n213         assert isinstance(request, AnalysisRequest), \"request must be AnalysisRequest\"\n214 \n",
       "col_offset": 8,
       "end_col_offset": 86,
       "filename": "analyzer/analysis_orchestrator.py",
@@ -3004,16 +3017,16 @@
       },
       "issue_severity": "LOW",
       "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
-      "line_number": 189,
+      "line_number": 213,
       "line_range": [
-        189
+        213
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
       "test_id": "B101",
       "test_name": "assert_used"
     },
     {
-      "code": "207         # NASA Rule 5: Input validation\n208         assert isinstance(analysis_id, str), \"analysis_id must be string\"\n209         assert analysis_id, \"analysis_id cannot be empty\"\n",
+      "code": "231         # NASA Rule 5: Input validation\n232         assert isinstance(analysis_id, str), \"analysis_id must be string\"\n233         assert analysis_id, \"analysis_id cannot be empty\"\n",
       "col_offset": 8,
       "end_col_offset": 73,
       "filename": "analyzer/analysis_orchestrator.py",
@@ -3024,16 +3037,16 @@
       },
       "issue_severity": "LOW",
       "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
-      "line_number": 208,
+      "line_number": 232,
       "line_range": [
-        208
+        232
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
       "test_id": "B101",
       "test_name": "assert_used"
     },
     {
-      "code": "208         assert isinstance(analysis_id, str), \"analysis_id must be string\"\n209         assert analysis_id, \"analysis_id cannot be empty\"\n210 \n",
+      "code": "232         assert isinstance(analysis_id, str), \"analysis_id must be string\"\n233         assert analysis_id, \"analysis_id cannot be empty\"\n234 \n",
       "col_offset": 8,
       "end_col_offset": 57,
       "filename": "analyzer/analysis_orchestrator.py",
@@ -3044,16 +3057,16 @@
       },
       "issue_severity": "LOW",
       "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
-      "line_number": 209,
+      "line_number": 233,
       "line_range": [
-        209
+        233
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
       "test_id": "B101",
       "test_name": "assert_used"
     },
     {
-      "code": "242         # NASA Rule 5: Input validation\n243         assert isinstance(analysis_id, str), \"analysis_id must be string\"\n244         assert analysis_id, \"analysis_id cannot be empty\"\n",
+      "code": "266         # NASA Rule 5: Input validation\n267         assert isinstance(analysis_id, str), \"analysis_id must be string\"\n268         assert analysis_id, \"analysis_id cannot be empty\"\n",
       "col_offset": 8,
       "end_col_offset": 73,
       "filename": "analyzer/analysis_orchestrator.py",
@@ -3064,16 +3077,16 @@
       },
       "issue_severity": "LOW",
       "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
-      "line_number": 243,
+      "line_number": 267,
       "line_range": [
-        243
+        267
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
       "test_id": "B101",
       "test_name": "assert_used"
     },
     {
-      "code": "243         assert isinstance(analysis_id, str), \"analysis_id must be string\"\n244         assert analysis_id, \"analysis_id cannot be empty\"\n245 \n",
+      "code": "267         assert isinstance(analysis_id, str), \"analysis_id must be string\"\n268         assert analysis_id, \"analysis_id cannot be empty\"\n269 \n",
       "col_offset": 8,
       "end_col_offset": 57,
       "filename": "analyzer/analysis_orchestrator.py",
@@ -3084,9 +3097,9 @@
       },
       "issue_severity": "LOW",
       "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
-      "line_number": 244,
+      "line_number": 268,
       "line_range": [
-        244
+        268
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
       "test_id": "B101",
@@ -3994,6 +4007,326 @@
       "line_number": 43,
       "line_range": [
         43
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "48         # NASA Rule 5: Input validation assertions\n49         assert project_path is not None, \"project_path cannot be None\"\n50         assert isinstance(policy_preset, str), \"policy_preset must be string\"\n",
+      "col_offset": 8,
+      "end_col_offset": 70,
+      "filename": "analyzer/architecture\\orchestrator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 49,
+      "line_range": [
+        49
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "49         assert project_path is not None, \"project_path cannot be None\"\n50         assert isinstance(policy_preset, str), \"policy_preset must be string\"\n51         assert analyzers is not None, \"analyzers cannot be None\"\n",
+      "col_offset": 8,
+      "end_col_offset": 77,
+      "filename": "analyzer/architecture\\orchestrator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 50,
+      "line_range": [
+        50
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "50         assert isinstance(policy_preset, str), \"policy_preset must be string\"\n51         assert analyzers is not None, \"analyzers cannot be None\"\n52 \n",
+      "col_offset": 8,
+      "end_col_offset": 64,
+      "filename": "analyzer/architecture\\orchestrator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 51,
+      "line_range": [
+        51
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "91         # NASA Rule 5: Input validation\n92         assert project_path is not None, \"project_path cannot be None\"\n93         assert violations is not None, \"violations cannot be None\"\n",
+      "col_offset": 8,
+      "end_col_offset": 70,
+      "filename": "analyzer/architecture\\orchestrator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 92,
+      "line_range": [
+        92
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "92         assert project_path is not None, \"project_path cannot be None\"\n93         assert violations is not None, \"violations cannot be None\"\n94         \n",
+      "col_offset": 8,
+      "end_col_offset": 66,
+      "filename": "analyzer/architecture\\orchestrator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 93,
+      "line_range": [
+        93
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "119         # NASA Rule 5: Input validation\n120         assert project_path is not None, \"project_path cannot be None\"\n121         \n",
+      "col_offset": 8,
+      "end_col_offset": 70,
+      "filename": "analyzer/architecture\\orchestrator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 120,
+      "line_range": [
+        120
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "195         # NASA Rule 5: Input validation\n196         assert phase_name is not None, \"phase_name cannot be None\"\n197         assert phase_metadata is not None, \"phase_metadata cannot be None\"\n",
+      "col_offset": 8,
+      "end_col_offset": 66,
+      "filename": "analyzer/architecture\\orchestrator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 196,
+      "line_range": [
+        196
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "196         assert phase_name is not None, \"phase_name cannot be None\"\n197         assert phase_metadata is not None, \"phase_metadata cannot be None\"\n198         \n",
+      "col_offset": 8,
+      "end_col_offset": 74,
+      "filename": "analyzer/architecture\\orchestrator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 197,
+      "line_range": [
+        197
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "209         # NASA Rule 5: Input validation\n210         assert phase_name is not None, \"phase_name cannot be None\"\n211         assert violations_count >= 0, \"violations_count must be non-negative\"\n",
+      "col_offset": 8,
+      "end_col_offset": 66,
+      "filename": "analyzer/architecture\\orchestrator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 210,
+      "line_range": [
+        210
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "210         assert phase_name is not None, \"phase_name cannot be None\"\n211         assert violations_count >= 0, \"violations_count must be non-negative\"\n212         \n",
+      "col_offset": 8,
+      "end_col_offset": 77,
+      "filename": "analyzer/architecture\\orchestrator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 211,
+      "line_range": [
+        211
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "224         # NASA Rule 5: Input validation\n225         assert phase_name is not None, \"phase_name cannot be None\"\n226         assert error_message is not None, \"error_message cannot be None\"\n",
+      "col_offset": 8,
+      "end_col_offset": 66,
+      "filename": "analyzer/architecture\\orchestrator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 225,
+      "line_range": [
+        225
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "225         assert phase_name is not None, \"phase_name cannot be None\"\n226         assert error_message is not None, \"error_message cannot be None\"\n227         \n",
+      "col_offset": 8,
+      "end_col_offset": 72,
+      "filename": "analyzer/architecture\\orchestrator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 226,
+      "line_range": [
+        226
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "240         # NASA Rule 5: Input validation\n241         assert project_path is not None, \"project_path cannot be None\"\n242         assert analyzers is not None, \"analyzers cannot be None\"\n",
+      "col_offset": 8,
+      "end_col_offset": 70,
+      "filename": "analyzer/architecture\\orchestrator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 241,
+      "line_range": [
+        241
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "241         assert project_path is not None, \"project_path cannot be None\"\n242         assert analyzers is not None, \"analyzers cannot be None\"\n243         \n",
+      "col_offset": 8,
+      "end_col_offset": 64,
+      "filename": "analyzer/architecture\\orchestrator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 242,
+      "line_range": [
+        242
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "305         # NASA Rule 5: Input validation\n306         assert project_path is not None, \"project_path cannot be None\"\n307         assert nasa_analyzer is not None, \"nasa_analyzer cannot be None\"\n",
+      "col_offset": 8,
+      "end_col_offset": 70,
+      "filename": "analyzer/architecture\\orchestrator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 306,
+      "line_range": [
+        306
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "306         assert project_path is not None, \"project_path cannot be None\"\n307         assert nasa_analyzer is not None, \"nasa_analyzer cannot be None\"\n308         \n",
+      "col_offset": 8,
+      "end_col_offset": 72,
+      "filename": "analyzer/architecture\\orchestrator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 307,
+      "line_range": [
+        307
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
       "test_id": "B101",

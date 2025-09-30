@@ -123,11 +123,12 @@ export class IntegrationValidatorFSM extends EventEmitter implements ComponentSt
       return result;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       const result: ValidationResult = {
         passed: false,
         criticalErrors: [{
           code: 'VALIDATION_EXCEPTION',
-          message: error.message,
+          message: errorMessage,
           severity: 'critical'
         }],
         warnings: [],

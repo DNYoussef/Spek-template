@@ -51,7 +51,7 @@ export class StateEventDispatcher extends EventEmitter {
    * Initialize the event dispatcher with FSM delegation
    * NASA Rule 10: ≤60 lines, no recursion
    */
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     if (this.initialized) {
       return;
     }

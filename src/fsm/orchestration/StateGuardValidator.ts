@@ -216,9 +216,10 @@ export class StateGuardValidator {
       return result;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logError('Validation error', error);
       return this.createFailureResult(
-        `Validation error: ${error.message}`,
+        `Validation error: ${errorMessage}`,
         startTime
       );
     }

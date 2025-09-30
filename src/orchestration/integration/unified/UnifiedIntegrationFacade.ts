@@ -231,7 +231,8 @@ export class UnifiedIntegrationFacade extends EventEmitter {
       return true;
 
     } catch (error) {
-      this.emit('facade:stop_error', { integrationId, error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.emit('facade:stop_error', { integrationId, error: errorMessage });
       return false;
     }
   }
@@ -239,7 +240,7 @@ export class UnifiedIntegrationFacade extends EventEmitter {
   /**
    * Cleanup completed integrations (NASA Rule 10: ≤60 lines)
    */
-  public cleanup(): { hubCleaned: number; monitoringStats: any } {
+  public destroy(): { hubCleaned: number; monitoringStats: any } {
     const hubCleaned = this.hub.cleanup();
     const monitoringStats = this.monitor.getMonitoringStats();
 

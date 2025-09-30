@@ -60,7 +60,8 @@ export class AgentTemplateGenerator {
 
       console.log(`Loaded ${this.agentInventory.size} agents into inventory`);
     } catch (error) {
-      throw new Error(`Failed to load agent inventory: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Failed to load agent inventory: ${errorMessage}`);
     }
   }
 
@@ -739,7 +740,8 @@ TEMPLATE_METADATA = {
       await fs.writeFile(outputPath, fullTemplate, 'utf-8');
       console.log(`Template generated for ${agentId} at ${outputPath}`);
     } catch (error) {
-      throw new Error(`Failed to save template: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Failed to save template: ${errorMessage}`);
     }
   }
 }

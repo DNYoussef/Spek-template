@@ -63,7 +63,7 @@ export class QueenDebugStateMachine extends EventEmitter {
     this.session = {
       id: this.context.sessionId,
       target,
-      startTime: Date.now(),
+      startTime: Date.now() as Timestamp,
       status: 'active',
       assignedPrincess: '',
       deployedDrones: [],

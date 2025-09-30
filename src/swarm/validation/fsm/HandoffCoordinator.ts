@@ -103,9 +103,10 @@ export class HandoffCoordinator {
       };
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Handoff coordination failed', {
         handoffId,
-        error: error.message,
+        error: errorMessage,
         fromDomain,
         toDomain
       });
@@ -116,7 +117,7 @@ export class HandoffCoordinator {
         violations: [{
           violationType: 'dependency_conflict',
           severity: 'critical',
-          description: `Handoff coordination failed: ${error.message}`,
+          description: `Handoff coordination failed: ${errorMessage}`,
           affectedDomains: [fromDomain, toDomain],
           conflictingElements: [],
           resolutionRequired: true,

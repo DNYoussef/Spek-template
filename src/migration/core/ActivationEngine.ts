@@ -112,9 +112,10 @@ export class ActivationEngine extends EventEmitter {
       this.emit('protocolDeactivated', { protocolId, reason });
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Deactivation failed', {
         protocolId,
-        error: error.message
+        error: errorMessage
       });
       throw error;
     }

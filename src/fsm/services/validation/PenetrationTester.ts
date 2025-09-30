@@ -40,7 +40,8 @@ export class PenetrationTester {
 
       return { passed: true, details: 'No SQL injection vulnerabilities detected' };
     } catch (error) {
-      return { passed: false, details: `SQL injection test failed: ${error.message}` };
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      return { passed: false, details: `SQL injection test failed: ${errorMessage}` };
     }
   }
 
@@ -81,7 +82,8 @@ export class PenetrationTester {
 
       return { passed: true, details: 'No XSS vulnerabilities detected' };
     } catch (error) {
-      return { passed: false, details: `XSS test failed: ${error.message}` };
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      return { passed: false, details: `XSS test failed: ${errorMessage}` };
     }
   }
 
@@ -123,7 +125,8 @@ export class PenetrationTester {
 
       return { passed: false, details: 'No CSRF protection found' };
     } catch (error) {
-      return { passed: false, details: `CSRF test failed: ${error.message}` };
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      return { passed: false, details: `CSRF test failed: ${errorMessage}` };
     }
   }
 
@@ -164,7 +167,8 @@ export class PenetrationTester {
 
       return { passed: true, details: 'No authentication bypass vulnerabilities detected' };
     } catch (error) {
-      return { passed: false, details: `Authentication bypass test failed: ${error.message}` };
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      return { passed: false, details: `Authentication bypass test failed: ${errorMessage}` };
     }
   }
 }

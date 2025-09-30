@@ -104,7 +104,7 @@ export class RepositoryBaseFSM extends EventEmitter {
     });
   }
 
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     if (!this.transitionHub.canConnect()) {
       throw new Error('Repository already initialized');
     }

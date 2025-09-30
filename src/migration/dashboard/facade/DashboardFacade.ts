@@ -397,7 +397,7 @@ export class DashboardFacade extends EventEmitter {
     this.core.stopAutoRefresh();
   }
 
-  cleanup(): void {
+  destroy(): void {
     this.fsm.transition(DashboardTypes.DashboardEvent.CLEANUP_REQUESTED);
     this.core.cleanup();
     this.removeAllListeners();

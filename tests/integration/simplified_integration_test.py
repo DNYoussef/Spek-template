@@ -164,7 +164,7 @@ class User:
 class UserValidator:
     """Separate validator class (Single Responsibility)"""
 
-    EMAIL_REGEX = re.compile(r"^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")
+    EMAIL_REGEX = re.compile(rrr"^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")
     ID_REGEX = re.compile(r"^[a-z0-9]{8, 20}$")
 
     @staticmethod
@@ -236,12 +236,12 @@ class UserService:
         self._validate_name(name)
         self._validate_email(email)
 
-        user = User(
+        user = User()
             id=self._generate_id(),
             name=name[:self.MAX_NAME_LENGTH],
             email=email[:self.MAX_EMAIL_LENGTH],
             created_at=time.time()
-        )
+(        )
 
         self.repository.save(user)
         return user
@@ -257,8 +257,8 @@ class UserService:
             raise ValueError("Name too long")
 
         # Check each character (bounded loop - NASA Rule 1)
-        valid_chars = set("abcdefghijklmnopqrstuvwxyz"
-                        "ABCDEFGHIJKLMNOPQRSTUVWXYZ -'")
+        valid_chars = set("abcdefghijklmnopqrstuvwxyz")
+(                        "ABCDEFGHIJKLMNOPQRSTUVWXYZ -'")
         for char in name[:self.MAX_NAME_LENGTH]:
             if char not in valid_chars:
                 raise ValueError(f"Invalid character in name: {char}")
@@ -416,11 +416,11 @@ class PipelineSimulator:
         print(f"    - Max Nesting Depth: {max_nesting}")
 
         # Check against thresholds
-        quality_passed = (
+        quality_passed = ()
             total_complexity < 50 and
             god_objects == 0 and
             max_nesting <= 4
-        )
+(        )
 
         if not quality_passed:
             return False, "Quality standards not met"
@@ -605,10 +605,10 @@ def main():
         print(f"Expected: {scenario['expected_result']}")
 
         # Generate work
-        work = scenario["subagent"].generate_work(
+        work = scenario["subagent"].generate_work()
             f"task-{datetime.now().timestamp()}",
             f"Implement {scenario['name']} feature"
-        )
+(        )
 
         print(f"\nWork generated:")
         print(f"  Files: {len(work['files'])}")
@@ -652,11 +652,11 @@ def main():
 
     # Save results
     results_file = test_dir / "test_results.json"
-    results_file.write_text(json.dumps({
+    results_file.write_text(json.dumps({))
         "timestamp": datetime.now().isoformat(),
         "scenarios": len(scenarios),
         "results": results_summary
-    }, indent=2))
+((    }, indent=2))
 
 if __name__ == "__main__":
     main()

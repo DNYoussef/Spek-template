@@ -13,17 +13,17 @@ sys.path.insert(0, str(src_path))
 
 # Import the fixed modules
 from strategies.dpi_calculator import DistributionalPressureIndex, create_dpi_calculator
-from risk.kelly_criterion import (
+from risk.kelly_criterion import ()
     KellyCriterionCalculator,
     KellyInputs,
     create_kelly_calculator,
     calculate_position_from_returns
-)
-from risk.dynamic_position_sizing import (
+()
+from risk.dynamic_position_sizing import ()
     DynamicPositionSizer,
     create_position_sizer,
     RiskLevel
-)
+()
 
 class KellyDPIIntegrationTester:
     """Comprehensive tester for Kelly + DPI integration."""
@@ -81,14 +81,14 @@ class KellyDPIIntegrationTester:
             self.results['kelly_criterion']['evidence'].append("Kelly calculator instantiation successful")
 
             # Test calculation with realistic inputs
-            inputs = KellyInputs(
+            inputs = KellyInputs()
                 symbol="TEST",
                 win_rate=0.55,
                 average_win=0.25,
                 average_loss=0.18,
                 current_capital=Decimal('100000'),
                 max_position_size=0.1
-            )
+(            )
 
             start_time = time.perf_counter()
             result = kelly_calc.calculate_kelly_position(inputs)
@@ -129,11 +129,11 @@ class KellyDPIIntegrationTester:
             np.random.seed(42)  # Reproducible results
             returns = np.random.normal(0.2, 0.2, 252)  # 1 year of daily returns
 
-            result = calculate_position_from_returns(
+            result = calculate_position_from_returns()
                 symbol="INTEGRATION_TEST",
                 returns=returns,
                 current_capital=Decimal('500000')
-            )
+(            )
 
             self.results['integration']['evidence'].append("Returns-based calculation successful")
             self.results['integration']['evidence'].append(f"Calculated position: ${result.recommended_position_size}")
@@ -143,14 +143,14 @@ class KellyDPIIntegrationTester:
             for symbol in symbols:
                 dpi_value, _ = dpi_calc.calculate_dpi(symbol)
 
-                inputs = KellyInputs(
+                inputs = KellyInputs()
                     symbol=symbol,
                     win_rate=0.52 + np.random.uniform(-0.1, 0.1),
                     average_win=0.15 + np.random.uniform(0, 0.1),
                     average_loss=0.12 + np.random.uniform(0, 0.1),
                     current_capital=Decimal('100000'),
                     max_position_size=0.1
-                )
+(                )
 
                 kelly_result = kelly_calc.calculate_kelly_position(inputs)
 
@@ -184,14 +184,14 @@ class KellyDPIIntegrationTester:
             kelly_calc = create_kelly_calculator()
             kelly_times = []
 
-            test_inputs = KellyInputs(
+            test_inputs = KellyInputs()
                 symbol="PERF_TEST",
                 win_rate=0.55,
                 average_win=0.2,
                 average_loss=0.15,
                 current_capital=Decimal('100000'),
                 max_position_size=0.1
-            )
+(            )
 
             for _ in range(100):
                 start = time.perf_counter()
@@ -235,11 +235,11 @@ class KellyDPIIntegrationTester:
 
         try:
             # Create position sizer
-            sizer = create_position_sizer(
+            sizer = create_position_sizer()
                 risk_level=RiskLevel.MODERATE,
                 max_portfolio_risk=0.8,
                 max_single_position=0.1
-            )
+(            )
 
             self.results['position_sizing']['evidence'].append("Position sizer instantiation successful")
 
@@ -257,11 +257,11 @@ class KellyDPIIntegrationTester:
 
             # Test position calculation
             start_time = time.perf_counter()
-            recommendations = sizer.calculate_position_sizes(
+            recommendations = sizer.calculate_position_sizes()
                 symbols=symbols,
                 market_data=market_data,
                 portfolio_capital=Decimal('1000000')
-            )
+(            )
             calc_time = (time.perf_counter() - start_time) * 1000
 
             # Validate recommendations

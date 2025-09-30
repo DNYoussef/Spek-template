@@ -155,13 +155,14 @@ export class CanaryValidationHandler {
               return;
             }
           } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
             const failedResult: ValidationResult = {
               name: criteria.metric,
               type: 'criteria_validation',
               passed: false,
               value: null,
               threshold: criteria.threshold,
-              message: error.message,
+              message: errorMessage,
               timestamp: new Date()
             };
             results.push(failedResult);
@@ -196,13 +197,14 @@ export class CanaryValidationHandler {
         const result = await this.validateCriteria(criteria);
         results.push(result);
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         results.push({
           name: criteria.metric,
           type: 'final_validation',
           passed: false,
           value: null,
           threshold: criteria.threshold,
-          message: error.message,
+          message: errorMessage,
           timestamp: new Date()
         });
       }

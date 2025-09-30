@@ -79,8 +79,8 @@ class TestMLSystemIntegration:
                 'patterns': {}
             }
             # Label based on overall quality indicators
-            label = 1 if (sample['quality']['test_coverage'] > 0.8 and
-                        sample['metrics']['cyclomatic_complexity'] < 15) else 0
+            label = 1 if (sample['quality']['test_coverage'] > 0.8 and)
+(                        sample['metrics']['cyclomatic_complexity'] < 15) else 0
             quality_data.append(sample)
             quality_labels.append(label)
 
@@ -150,8 +150,8 @@ class TestMLSystemIntegration:
 
             # Generate drift and risk labels
             drift_label = np.random.normal(0, 0.05)
-            risk_score = (sample['current_metrics']['security_score'] +
-                        (1 - sample['violations']['critical_count'] / 10)) / 2
+            risk_score = (sample['current_metrics']['security_score'] +)
+(                        (1 - sample['violations']['critical_count'] / 10)) / 2
             risk_label = 1 if risk_score < THEATER_DETECTION_WARNING_THRESHOLD else 0
 
             compliance_data.append(sample)
@@ -171,46 +171,46 @@ class TestMLSystemIntegration:
     def test_model_training_integration(self, ml_models, sample_datasets):
         """Test integrated training of all ML models."""
         # Train quality predictor
-        quality_metrics = ml_models['quality_predictor'].train(
+        quality_metrics = ml_models['quality_predictor'].train()
             sample_datasets['quality']['data'],
             sample_datasets['quality']['labels']
-        )
+(        )
         assert quality_metrics['accuracy'] > 0.5
         assert ml_models['quality_predictor'].trained
 
         # Train theater classifier
-        theater_metrics = ml_models['theater_classifier'].train(
+        theater_metrics = ml_models['theater_classifier'].train()
             sample_datasets['theater']['data'],
             sample_datasets['theater']['labels']
-        )
+(        )
         assert theater_metrics['ensemble_accuracy'] > 0.5
         assert ml_models['theater_classifier'].trained
 
         # Train compliance forecaster
-        compliance_metrics = ml_models['compliance_forecaster'].train(
+        compliance_metrics = ml_models['compliance_forecaster'].train()
             sample_datasets['compliance']['data'],
             sample_datasets['compliance']['drift_labels'],
             sample_datasets['compliance']['risk_labels']
-        )
+(        )
         assert compliance_metrics['risk_accuracy'] > 0.5
         assert ml_models['compliance_forecaster'].trained
 
     def test_prediction_pipeline_integration(self, ml_models, sample_datasets):
         """Test integrated prediction pipeline."""
         # Train all models first
-        ml_models['quality_predictor'].train(
+        ml_models['quality_predictor'].train()
             sample_datasets['quality']['data'][:30],
             sample_datasets['quality']['labels'][:30]
-        )
-        ml_models['theater_classifier'].train(
+(        )
+        ml_models['theater_classifier'].train()
             sample_datasets['theater']['data'][:30],
             sample_datasets['theater']['labels'][:30]
-        )
-        ml_models['compliance_forecaster'].train(
+(        )
+        ml_models['compliance_forecaster'].train()
             sample_datasets['compliance']['data'][:30],
             sample_datasets['compliance']['drift_labels'][:30],
             sample_datasets['compliance']['risk_labels'][:30]
-        )
+(        )
 
         # Test integrated predictions
         test_quality_data = sample_datasets['quality']['data'][35]
@@ -260,14 +260,14 @@ class TestMLSystemIntegration:
     def test_validation_framework_integration(self, ml_models, sample_datasets, temp_directory):
         """Test ML validation framework integration."""
         # Train models first
-        ml_models['quality_predictor'].train(
+        ml_models['quality_predictor'].train()
             sample_datasets['quality']['data'],
             sample_datasets['quality']['labels']
-        )
-        ml_models['theater_classifier'].train(
+(        )
+        ml_models['theater_classifier'].train()
             sample_datasets['theater']['data'],
             sample_datasets['theater']['labels']
-        )
+(        )
 
         # Initialize validation framework
         framework = MLValidationFramework()
@@ -291,14 +291,14 @@ class TestMLSystemIntegration:
     def test_alert_system_integration(self, ml_models, sample_datasets, temp_directory):
         """Test ML alert system integration."""
         # Train models
-        ml_models['quality_predictor'].train(
+        ml_models['quality_predictor'].train()
             sample_datasets['quality']['data'],
             sample_datasets['quality']['labels']
-        )
-        ml_models['theater_classifier'].train(
+(        )
+        ml_models['theater_classifier'].train()
             sample_datasets['theater']['data'],
             sample_datasets['theater']['labels']
-        )
+(        )
 
         # Initialize alert system
         alert_system = MLAlertSystem()
@@ -460,9 +460,9 @@ class TestMLSystemIntegration:
         # 3. Train all models
         quality_metrics = quality_predictor.train(quality_samples, quality_labels)
         theater_metrics = theater_classifier.train(theater_samples, theater_labels)
-        compliance_metrics = compliance_forecaster.train(
+        compliance_metrics = compliance_forecaster.train()
             compliance_samples, drift_labels, risk_labels
-        )
+(        )
 
         # 4. Verify training success
         assert quality_metrics['accuracy'] > 0.5
@@ -604,11 +604,11 @@ class TestMLSystemIntegration:
             }
 
             # More sophisticated labeling
-            quality_score = (
+            quality_score = ()
                 sample['quality']['test_coverage'] * 0.4 +
                 (1 - sample['quality']['code_duplication']) * 0.3 +
                 (100 - sample['metrics']['cyclomatic_complexity']) / 100 * 0.3
-            )
+(            )
             label = 1 if quality_score > 0.7 else 0
 
             training_samples.append(sample)

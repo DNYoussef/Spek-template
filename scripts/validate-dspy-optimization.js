@@ -800,7 +800,9 @@ if (require.main === module) {
 
 module.exports = DSPyOptimizationValidator;
 
+/*
 <!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
+/*
 ## Version & Run Log
 | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
 |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
@@ -814,3 +816,4 @@ module.exports = DSPyOptimizationValidator;
 - tools_used: ["Write"]
 - versions: {"model":"claude-sonnet-4","prompt":"dspy-validation-v1.0"}
 <!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+*/

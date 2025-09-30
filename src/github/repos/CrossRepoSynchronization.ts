@@ -388,8 +388,9 @@ export class CrossRepoSynchronization {
       operation.progress = 100;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       operation.status = 'failed';
-      operation.error = error.message;
+      operation.error = errorMessage;
       operation.endTime = new Date().toISOString();
       this.logger.error('Synchronization execution failed', { error, operationId });
     }

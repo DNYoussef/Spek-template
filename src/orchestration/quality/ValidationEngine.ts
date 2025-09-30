@@ -78,10 +78,11 @@ export class ValidationEngine {
       return execution;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       execution.status = 'failed';
       execution.overallResult = {
         status: 'failed',
-        error: error.message
+        error: errorMessage
       };
       
       throw error;

@@ -45,10 +45,11 @@ export class ProtocolValidator {
       return await this.validateAgainstSchema(message, schema);
       
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       return {
         valid: false,
         error,
-        errors: [`Validation failed: ${error.message}`]
+        errors: [`Validation failed: ${errorMessage}`]
       };
     }
   }
@@ -235,7 +236,8 @@ export class ProtocolValidator {
       return { valid: true, error: '' };
       
     } catch (error) {
-      return { valid: false, error: `Constraint validation failed: ${error.message}` };
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      return { valid: false, error: `Constraint validation failed: ${errorMessage}` };
     }
   }
 
@@ -281,8 +283,9 @@ export class ProtocolValidator {
           return false;
       }
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Condition evaluation failed', { 
-        error: error.message, 
+        error: errorMessage, 
         condition: condition.field 
       });
       return false;
@@ -314,7 +317,8 @@ export class ProtocolValidator {
           errors.push(rule.errorMessage || `Validation failed for rule: ${rule.name}`);
         }
       } catch (error) {
-        errors.push(`Validation error for ${rule.name}: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+        errors.push(`Validation error for ${rule.name}: ${errorMessage}`);
       }
     }
     

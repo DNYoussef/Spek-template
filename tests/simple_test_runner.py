@@ -1,4 +1,6 @@
 from src.constants.base import QUALITY_GATE_MINIMUM_PASS_RATE
+import pytest
+
 """
 
 This test ensures basic functionality works and provides

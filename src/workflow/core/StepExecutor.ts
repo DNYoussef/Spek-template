@@ -185,10 +185,11 @@ export class StepExecutor extends EventEmitter {
         return executionResult;
 
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         lastError = error;
         retryCount++;
 
-        this.emit('step:retry', { workflowId, stepId, retryCount, error: error.message });
+        this.emit('step:retry', { workflowId, stepId, retryCount, error: errorMessage });
 
         if (retryCount <= maxRetries) {
           await this.transitionHub.transitionStep(workflowId, stepId, StepEvent.RETRY);
@@ -441,10 +442,11 @@ export class DefaultStepValidator {
       };
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       return {
         criterion,
         passed: false,
-        message: `Validation error: ${error.message}`,
+        message: `Validation error: ${errorMessage}`,
         details: error
       };
     }

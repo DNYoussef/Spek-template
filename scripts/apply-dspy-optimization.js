@@ -801,7 +801,9 @@ if (require.main === module) {
 
 module.exports = DSPyOptimizationRunner;
 
+/*
 <!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
+/*
 ## Version & Run Log
 | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
 |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
@@ -815,3 +817,4 @@ module.exports = DSPyOptimizationRunner;
 - tools_used: ["Write"]
 - versions: {"model":"claude-sonnet-4","prompt":"dspy-implementation-v1.0"}
 <!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+*/

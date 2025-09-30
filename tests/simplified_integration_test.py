@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Dict, List, Any
 import sys
 import os
+import pytest
 
 # Add analyzer to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -21,11 +22,11 @@ def test_baseline_functionality():
         # Create temporary test file
         temp_dir = Path(tempfile.mkdtemp())
         test_file = temp_dir / "test.py"
-        test_file.write_text("""
+        test_file.write_text(""")
 def test_function():
     magic_number = 42  # Magic literal
     return magic_number * 2
-""")
+(""")
         
         start_time = time.time()
         
@@ -221,7 +222,7 @@ def test_performance_impact():
         
         temp_dir = Path(tempfile.mkdtemp())
         test_file = temp_dir / "perf_test.py"
-        test_file.write_text("""
+        test_file.write_text(""")
 # Performance test file
 class TestClass:
     def __init__(self):
@@ -232,7 +233,7 @@ class TestClass:
         for item in self.data:
             result += item * 2
         return result
-""")
+(""")
         
         # Baseline measurement
         analyzer = ConnascenceAnalyzer()
@@ -300,7 +301,7 @@ def test_error_handling():
         # Test MAXIMUM_RETRY_ATTEMPTS: Malformed file
         temp_dir = Path(tempfile.mkdtemp())
         bad_file = temp_dir / "bad.py"
-        bad_file.write_text("def incomplete(\n# Missing closing paren")
+        bad_file.write_text("def incomplete(\n# Missing closing paren"))
         
         result3 = analyzer.analyze_path(str(bad_file), policy="standard")
         syntax_handling = True  # Should not crash
@@ -408,11 +409,11 @@ def main():
             result = test_func()
             test_results.append(result)
         except Exception as e:
-            test_results.append({
+            test_results.append({)
                 "test": test_func.__name__,
                 "status": "FAIL",
                 "error": str(e)
-            })
+(            })
     
     # Generate comprehensive report
     generate_integration_report(test_results)

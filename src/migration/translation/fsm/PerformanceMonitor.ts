@@ -83,7 +83,8 @@ export class PerformanceMonitor {
         return 0; // Fallback for environments without memory monitoring
       }
     } catch (error) {
-      this.logger.warn('Failed to get memory usage', { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.warn('Failed to get memory usage', { error: errorMessage });
       return 0;
     }
   }

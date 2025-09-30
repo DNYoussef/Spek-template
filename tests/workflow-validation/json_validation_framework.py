@@ -36,7 +36,7 @@ class JsonValidationFramework:
         schemas = {}
         
         # Architecture Analysis Schema
-        schemas['architecture_analysis'] = JsonSchema(
+        schemas['architecture_analysis'] = JsonSchema()
             name="architecture_analysis.json",
             schema={
                 "type": "object",
@@ -70,10 +70,10 @@ class JsonValidationFramework:
             required_fields=["timestamp", "system_overview", "metrics"],
             optional_fields=["architectural_hotspots", "recommendations", "fallback"],
             description="Architecture analysis results with health metrics and hotspots"
-        )
+(        )
         
         # Connascence Analysis Schema
-        schemas['connascence_full'] = JsonSchema(
+        schemas['connascence_full'] = JsonSchema()
             name="connascence_full.json",
             schema={
                 "type": "object",
@@ -120,10 +120,10 @@ class JsonValidationFramework:
             required_fields=["violations", "summary", "nasa_compliance"],
             optional_fields=["god_objects", "timestamp", "fallback"],
             description="Comprehensive connascence analysis with NASA compliance metrics"
-        )
+(        )
         
         # Cache Optimization Schema
-        schemas['cache_optimization'] = JsonSchema(
+        schemas['cache_optimization'] = JsonSchema()
             name="cache_optimization.json",
             schema={
                 "type": "object",
@@ -153,10 +153,10 @@ class JsonValidationFramework:
             required_fields=["cache_health", "timestamp"],
             optional_fields=["performance_metrics", "recommendations", "fallback"],
             description="Cache optimization analysis with health and performance metrics"
-        )
+(        )
         
         # Security Pipeline Schema
-        schemas['security_gates_report'] = JsonSchema(
+        schemas['security_gates_report'] = JsonSchema()
             name="security_gates_report.json",
             schema={
                 "type": "object",
@@ -209,10 +209,10 @@ class JsonValidationFramework:
             required_fields=["consolidated_timestamp", "security_summary", "overall_security_score"],
             optional_fields=["quality_gates", "nasa_compliance_status"],
             description="Consolidated security analysis with multi-tool results"
-        )
+(        )
         
         # Performance Monitoring Schema
-        schemas['performance_monitor'] = JsonSchema(
+        schemas['performance_monitor'] = JsonSchema()
             name="performance_monitor.json",
             schema={
                 "type": "object",
@@ -245,10 +245,10 @@ class JsonValidationFramework:
             required_fields=["resource_utilization", "timestamp"],
             optional_fields=["metrics", "optimization_recommendations", "cache_health", "fallback"],
             description="Performance monitoring with resource utilization metrics"
-        )
+(        )
         
         # Quality Gates Report Schema
-        schemas['quality_gates_report'] = JsonSchema(
+        schemas['quality_gates_report'] = JsonSchema()
             name="quality_gates_report.json",
             schema={
                 "type": "object",
@@ -302,10 +302,10 @@ class JsonValidationFramework:
             required_fields=["timestamp", "multi_tier_results", "comprehensive_metrics"],
             optional_fields=["overall_status", "recommendations"],
             description="Comprehensive quality gates report with multi-tier validation"
-        )
+(        )
         
         # MECE Analysis Schema
-        schemas['mece_analysis'] = JsonSchema(
+        schemas['mece_analysis'] = JsonSchema()
             name="mece_analysis.json",
             schema={
                 "type": "object",
@@ -339,7 +339,7 @@ class JsonValidationFramework:
             required_fields=["mece_score", "duplications"],
             optional_fields=["analysis_summary", "recommendations", "timestamp", "fallback"],
             description="MECE duplication analysis with similarity scoring"
-        )
+(        )
         
         return schemas
         
@@ -381,14 +381,14 @@ class JsonValidationFramework:
                 
             # Collect issues
             if validation_result['critical_issues']:
-                results['critical_issues'].extend(
+                results['critical_issues'].extend()
                     f"{schema_def.name}: {issue}" for issue in validation_result['critical_issues']
-                )
+(                )
                 
             if validation_result['warnings']:
-                results['warnings'].extend(
+                results['warnings'].extend()
                     f"{schema_def.name}: {warning}" for warning in validation_result['warnings']
-                )
+(                )
                 
         # Test cross-workflow compatibility
         compatibility_result = self.test_cross_workflow_compatibility()
@@ -466,14 +466,14 @@ class JsonValidationFramework:
             result['unexpected_fields'] = list(data_fields - expected_fields)
             
             if result['missing_required_fields']:
-                result['critical_issues'].append(
+                result['critical_issues'].append()
                     f"Missing required fields: {result['missing_required_fields']}"
-                )
+(                )
                 
             if result['unexpected_fields']:
-                result['warnings'].append(
+                result['warnings'].append()
                     f"Unexpected fields found: {result['unexpected_fields']}"
-                )
+(                )
                 
         # Data quality checks
         quality_issues = self.check_data_quality(data, schema_def)
@@ -563,9 +563,9 @@ class JsonValidationFramework:
             
             # Check for inconsistencies
             if len(set(found_fields.values())) > 1:
-                result['issues'].append(
+                result['issues'].append()
                     f"Field naming inconsistency for {pattern_name}: {found_fields}"
-                )
+(                )
                 result['compatible'] = False
                 
         # Check value ranges consistency
@@ -586,9 +586,9 @@ class JsonValidationFramework:
             if len(values) > 1:
                 scores = [v[1] for v in values]
                 if max(scores) - min(scores) > 0.5:  # Large variation
-                    result['issues'].append(
+                    result['issues'].append()
                         f"Large score variation in {score_field}: {dict(values)}"
-                    )
+(                    )
                     
         return result
         
@@ -624,9 +624,9 @@ class JsonValidationFramework:
         
         # Missing artifacts
         if summary['missing_artifacts'] > 0:
-            recommendations.append(
+            recommendations.append()
                 f"Ensure {summary['missing_artifacts']} missing artifacts are generated by workflows"
-            )
+(            )
             
         # Invalid JSON
         invalid_count = summary['validated_artifacts'] - summary['valid_artifacts']
@@ -666,8 +666,8 @@ def main():
     
     parser = argparse.ArgumentParser(description="Validate JSON artifacts from workflows")
     parser.add_argument("--repo-root", default=".", help="Repository root directory")
-    parser.add_argument("--output", default="tests/workflow-validation/json_validation_results.json",
-                        help="Output file for validation results")
+    parser.add_argument("--output", default="tests/workflow-validation/json_validation_results.json",)
+(                        help="Output file for validation results")
     parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
     
     args = parser.parse_args()

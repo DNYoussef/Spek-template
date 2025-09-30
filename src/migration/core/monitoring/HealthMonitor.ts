@@ -22,7 +22,7 @@ export class HealthMonitor extends EventEmitter {
    * Initialize health monitor.
    * NASA Rule 10 compliant: initialization logic.
    */
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     this.logger.info('Initializing health monitor');
     // Setup initial monitoring state
   }
@@ -187,9 +187,10 @@ export class HealthMonitor extends EventEmitter {
       try {
         await this.checkProtocolHealth(health.protocolId);
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         this.logger.error('Health check failed', {
           protocolId: health.protocolId,
-          error: error.message
+          error: errorMessage
         });
       }
     }
@@ -248,11 +249,12 @@ export class HealthMonitor extends EventEmitter {
               metrics: health.metrics
             };
           } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
             return {
               protocolId: protocol.id,
               status: 'error',
               metrics: {},
-              error: error.message
+              error: errorMessage
             };
           }
         })
@@ -287,13 +289,14 @@ export class HealthMonitor extends EventEmitter {
         });
 
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         const duration = Date.now() - testStart;
         results.push({
           protocolId: protocol.id,
           success: false,
           duration,
           metrics: {},
-          errors: [error.message]
+          errors: [errorMessage]
         });
       }
     }

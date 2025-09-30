@@ -14,9 +14,9 @@ from enum import Enum
 import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'analyzer', 'enterprise', 'core'))
-from feature_flags import (
+from feature_flags import ()
     FeatureState, FeatureFlag, EnterpriseFeatureManager
-)
+()
 
 class TestFeatureState:
     """Test FeatureState enum"""
@@ -33,11 +33,11 @@ class TestFeatureFlag:
     
     def test_feature_flag_creation(self):
         """Test basic feature flag creation"""
-        flag = FeatureFlag(
+        flag = FeatureFlag()
             name="test_feature",
             state=FeatureState.ENABLED,
             description="Test feature for unit testing"
-        )
+(        )
         
         assert flag.name == "test_feature"
         assert flag.state == FeatureState.ENABLED
@@ -48,14 +48,14 @@ class TestFeatureFlag:
     
     def test_feature_flag_with_all_fields(self):
         """Test feature flag creation with all fields"""
-        flag = FeatureFlag(
+        flag = FeatureFlag()
             name="advanced_feature",
             state=FeatureState.BETA,
             description="Advanced feature in beta",
             dependencies=["basic_feature", "auth_module"],
             performance_impact="medium",
             min_nasa_compliance=NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
-        )
+(        )
         
         assert flag.name == "advanced_feature"
         assert flag.state == FeatureState.BETA
@@ -67,53 +67,53 @@ class TestFeatureFlag:
     def test_feature_flag_validation_valid_impact(self):
         """Test feature flag validation with valid performance impact"""
         # Should not raise exception
-        flag = FeatureFlag(
+        flag = FeatureFlag()
             name="test",
             state=FeatureState.ENABLED,
             description="Test",
             performance_impact="low"
-        )
+(        )
         assert flag.performance_impact == "low"
     
     def test_feature_flag_validation_invalid_impact(self):
         """Test feature flag validation with invalid performance impact"""
         with pytest.raises(AssertionError, match="Invalid performance impact"):
-            FeatureFlag(
+            FeatureFlag()
                 name="test",
                 state=FeatureState.ENABLED,
                 description="Test",
                 performance_impact="invalid"
-            )
+(            )
     
     def test_feature_flag_validation_valid_nasa_compliance(self):
         """Test feature flag validation with valid NASA compliance"""
-        flag = FeatureFlag(
+        flag = FeatureFlag()
             name="test",
             state=FeatureState.ENABLED,
             description="Test",
             min_nasa_compliance=0.9
-        )
+(        )
         assert flag.min_nasa_compliance == 0.9
     
     def test_feature_flag_validation_invalid_nasa_compliance_high(self):
         """Test feature flag validation with invalid NASA compliance (too high)"""
         with pytest.raises(AssertionError, match="NASA compliance must be between 0.0 and 1.0"):
-            FeatureFlag(
+            FeatureFlag()
                 name="test",
                 state=FeatureState.ENABLED,
                 description="Test",
                 min_nasa_compliance=1.1
-            )
+(            )
     
     def test_feature_flag_validation_invalid_nasa_compliance_low(self):
         """Test feature flag validation with invalid NASA compliance (too low)"""
         with pytest.raises(AssertionError, match="NASA compliance must be between 0.0 and 1.0"):
-            FeatureFlag(
+            FeatureFlag()
                 name="test",
                 state=FeatureState.ENABLED,
                 description="Test",
                 min_nasa_compliance=-0.1
-            )
+(            )
 
 class TestEnterpriseFeatureManager:
     """Test EnterpriseFeatureManager main class"""
@@ -217,12 +217,12 @@ class TestEnterpriseFeatureManager:
     def test_is_enabled_with_dependencies_unsatisfied(self):
         """Test is_enabled with unsatisfied dependencies"""
         # Create a feature that depends on a disabled feature
-        self.manager.features['test_feature'] = FeatureFlag(
+        self.manager.features['test_feature'] = FeatureFlag()
             name='test_feature',
             state=FeatureState.ENABLED,
             description='Test feature with dependency',
             dependencies=['dfars_compliance']  # This is disabled
-        )
+(        )
         
         # Clear cache to force recalculation
         self.manager.clear_cache()
@@ -460,12 +460,12 @@ class TestPerformanceImpactAnalysis:
         """Test performance recommendations with many features"""
         # Add many features to trigger quantity recommendation
         for i in range(10):
-            self.manager.features[f'feature_{i}'] = FeatureFlag(
+            self.manager.features[f'feature_{i}'] = FeatureFlag()
                 name=f'feature_{i}',
                 state=FeatureState.ENABLED,
                 description=f'Feature {i}',
                 performance_impact='low'
-            )
+(            )
         
         self.manager.clear_cache()
         
@@ -534,11 +534,11 @@ class TestCacheManagement:
     def test_cache_multiple_features(self):
         """Test cache with multiple features"""
         # Add another feature
-        self.manager.features['another_feature'] = FeatureFlag(
+        self.manager.features['another_feature'] = FeatureFlag()
             name='another_feature',
             state=FeatureState.DISABLED,
             description='Another test feature'
-        )
+(        )
         
         # Access both features
         result1 = self.manager.is_enabled('test_feature')
@@ -796,19 +796,19 @@ class TestErrorHandlingAndEdgeCases:
     def test_circular_dependencies(self):
         """Test handling of circular dependencies"""
         # Create circular dependency: A -> B -> A
-        self.manager.features['feature_a'] = FeatureFlag(
+        self.manager.features['feature_a'] = FeatureFlag()
             name='feature_a',
             state=FeatureState.ENABLED,
             description='Feature A',
             dependencies=['feature_b']
-        )
+(        )
         
-        self.manager.features['feature_b'] = FeatureFlag(
+        self.manager.features['feature_b'] = FeatureFlag()
             name='feature_b',
             state=FeatureState.ENABLED,
             description='Feature B',
             dependencies=['feature_a']
-        )
+(        )
         
         self.manager.clear_cache()
         
@@ -836,12 +836,12 @@ class TestErrorHandlingAndEdgeCases:
         }
         
         for name, deps in dependencies.items():
-            self.manager.features[name] = FeatureFlag(
+            self.manager.features[name] = FeatureFlag()
                 name=name,
                 state=FeatureState.ENABLED,
                 description=f'{name} description',
                 dependencies=deps
-            )
+(            )
         
         self.manager.clear_cache()
         
@@ -863,12 +863,12 @@ class TestErrorHandlingAndEdgeCases:
     
     def test_invalid_dependency_references(self):
         """Test handling of invalid dependency references"""
-        self.manager.features['feature_with_invalid_dep'] = FeatureFlag(
+        self.manager.features['feature_with_invalid_dep'] = FeatureFlag()
             name='feature_with_invalid_dep',
             state=FeatureState.ENABLED,
             description='Feature with invalid dependency',
             dependencies=['nonexistent_feature']
-        )
+(        )
         
         self.manager.clear_cache()
         
@@ -885,11 +885,11 @@ class TestErrorHandlingAndEdgeCases:
         """Test handling of unicode feature names"""
         # Add unicode feature name
         unicode_name = 'feature__[ROCKET]'
-        self.manager.features[unicode_name] = FeatureFlag(
+        self.manager.features[unicode_name] = FeatureFlag()
             name=unicode_name,
             state=FeatureState.ENABLED,
             description='Unicode test feature'
-        )
+(        )
         
         # Should handle unicode names properly
         result = self.manager.is_enabled(unicode_name)
@@ -903,11 +903,11 @@ class TestErrorHandlingAndEdgeCases:
     def test_very_long_feature_names(self):
         """Test handling of very long feature names"""
         long_name = 'feature_' + 'x' * 1000  # Very long name
-        self.manager.features[long_name] = FeatureFlag(
+        self.manager.features[long_name] = FeatureFlag()
             name=long_name,
             state=FeatureState.ENABLED,
             description='Long name test feature'
-        )
+(        )
         
         # Should handle long names properly
         result = self.manager.is_enabled(long_name)

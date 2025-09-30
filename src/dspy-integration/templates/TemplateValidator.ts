@@ -302,7 +302,8 @@ export class TemplateValidator {
           report.complianceMatrix[rule.id] = result.passed;
 
         } catch (error) {
-          console.warn(`Rule ${rule.id} failed to execute: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+          console.warn(`Rule ${rule.id} failed to execute: ${errorMessage}`);
           report.detailedResults[rule.id] = {
             passed: false,
             score: 0,
@@ -333,7 +334,8 @@ export class TemplateValidator {
       return report;
 
     } catch (error) {
-      throw new Error(`Template validation failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Template validation failed: ${errorMessage}`);
     }
   }
 

@@ -73,7 +73,8 @@ export class SecurityValidationHandler extends RequestHandler {
 
       return this.createResponse(request.id, true, validationResult);
     } catch (error) {
-      return this.createResponse(request.id, false, null, error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      return this.createResponse(request.id, false, null, errorMessage);
     }
   }
 
@@ -155,7 +156,8 @@ export class SecurityValidationHandler extends RequestHandler {
           return { passed: true, details: 'Test not implemented' };
       }
     } catch (error) {
-      return { passed: false, details: `Test failed: ${error.message}` };
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      return { passed: false, details: `Test failed: ${errorMessage}` };
     }
   }
 

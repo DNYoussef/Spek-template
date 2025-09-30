@@ -38,10 +38,11 @@ export class CertifiedState {
         await this.certificationManager.issueCertificate(certificationStatus.certificationId);
       }
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       updatedContext.errors.push({
         errorId: `certified-${Date.now()}`,
         errorType: 'CERTIFICATION_ERROR',
-        message: error.message,
+        message: errorMessage,
         timestamp: Date.now(),
         recoverable: true
       });

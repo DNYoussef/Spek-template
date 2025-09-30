@@ -76,7 +76,8 @@ export class MonitoringOrchestrator {
       
       return success;
     } catch (error) {
-      console.error('Failed to start monitoring:', error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('Failed to start monitoring:', errorMessage);
       this.context.error = error;
       await this.fsm.processEvent(MonitoringEvent.ERROR_OCCURRED);
       return false;
@@ -156,7 +157,8 @@ export class MonitoringOrchestrator {
 
       return { drift, alert, recovery };
     } catch (error) {
-      console.error('Transfer monitoring failed:', error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('Transfer monitoring failed:', errorMessage);
       this.context.error = error;
       await this.fsm.processEvent(MonitoringEvent.ERROR_OCCURRED);
       
@@ -187,13 +189,14 @@ export class MonitoringOrchestrator {
       
       return result;
     } catch (error) {
-      console.error('Recovery execution failed:', error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('Recovery execution failed:', errorMessage);
       this.context.error = error;
       await this.fsm.processEvent(MonitoringEvent.ERROR_OCCURRED);
-      
+
       return {
         success: false,
-        error: error.message
+        error: errorMessage
       };
     }
   }

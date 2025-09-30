@@ -15,10 +15,10 @@ from concurrent.futures import ThreadPoolExecutor
 import logging
 
 # Configure logging
-logging.basicConfig(
+logging.basicConfig()
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+()
 logger = logging.getLogger(__name__)
 
 @dataclass
@@ -106,7 +106,7 @@ class Batches10to18TestSuite:
 
     def __init__(self, base_path: Optional[str] = None):
         """Initialize test suite."""
-        self.base_path = Path(base_path or "C:\\Users\\17175\\Desktop\\spek template")
+        self.base_path = Path(base_path or rr"C:\\Users\\17175\\Desktop\\spek template")
         self.test_results_path = self.base_path / "tests" / "batches_10_18_validation"
         self.artifacts_path = self.base_path / ".claude" / ".artifacts"
 
@@ -138,9 +138,9 @@ class Batches10to18TestSuite:
             # Run validation for each batch in parallel
             batch_tasks = []
             for batch_id, config in batch_configs.items():
-                task = asyncio.create_task(
+                task = asyncio.create_task()
                     self._validate_batch(batch_id, config)
-                )
+(                )
                 batch_tasks.append(task)
 
             # Wait for all batch validations to complete
@@ -153,14 +153,14 @@ class Batches10to18TestSuite:
                 if isinstance(result, Exception):
                     logger.error(f"Batch {batch_id} validation failed: {result}")
                     # Create failed result
-                    result = BatchTestResult(
+                    result = BatchTestResult()
                         batch_id=batch_id,
                         batch_name=batch_configs[batch_id]['name'],
                         pattern_types=batch_configs[batch_id]['patterns'],
                         test_timestamp=time.time(),
                         overall_status="FAIL",
                         critical_issues=[f"Validation exception: {str(result)}"]
-                    )
+(                    )
 
                 self.validation_report.batch_results[batch_id] = result
 
@@ -290,12 +290,12 @@ class Batches10to18TestSuite:
         """
         logger.info(f"Validating Batch {batch_id}: {config['name']}")
 
-        result = BatchTestResult(
+        result = BatchTestResult()
             batch_id=batch_id,
             batch_name=config['name'],
             pattern_types=config['patterns'],
             test_timestamp=time.time()
-        )
+(        )
 
         try:
             # 1. Pattern Compliance Testing
@@ -538,8 +538,8 @@ class Batches10to18TestSuite:
                     content = file_path.read_text(encoding='utf-8', errors='ignore')
 
                     # Check for observer pattern
-                    if ('notify' in content or 'observer' in content.lower() or
-                        'subscribe' in content or 'listen' in content):
+                    if ('notify' in content or 'observer' in content.lower() or)
+(                        'subscribe' in content or 'listen' in content):
                         results['passed'] += 1
                         results['details'][f'{trading_file}_observer'] = 'PASS'
                     else:
@@ -568,8 +568,8 @@ class Batches10to18TestSuite:
                 # Check for chain of responsibility pattern
                 for file in safety_path.rglob("*.py"):
                     content = file.read_text(encoding='utf-8', errors='ignore')
-                    if ('chain' in content.lower() or 'handle' in content or
-                        'escalate' in content.lower()):
+                    if ('chain' in content.lower() or 'handle' in content or)
+(                        'escalate' in content.lower()):
                         results['passed'] += 1
                         results['details'][f'{file.name}_chain'] = 'PASS'
                         break

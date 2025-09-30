@@ -55,11 +55,12 @@ export class InitializationState extends BaseStateHandler {
       };
 
     } catch (error) {
-      this.addError(context, `Initialization failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.addError(context, `Initialization failed: ${errorMessage}`);
       return {
         success: false,
         nextEvent: ValidationEvent.VALIDATION_FAILED,
-        errors: [`Initialization error: ${error.message}`]
+        errors: [`Initialization error: ${errorMessage}`]
       };
     }
   }

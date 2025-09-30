@@ -253,7 +253,8 @@ export class ValidationReporter {
     try {
       return JSON.stringify(reportData, null, 2);
     } catch (error) {
-      throw new Error(`ValidationReporter: JSON export failed - ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`ValidationReporter: JSON export failed - ${errorMessage}`);
     }
   }
 

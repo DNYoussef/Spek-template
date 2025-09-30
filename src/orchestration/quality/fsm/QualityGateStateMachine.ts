@@ -244,7 +244,8 @@ export class QualityGateStateMachine {
       try {
         await validTransition.action(this.context);
       } catch (error) {
-        this.context.errors.push(`Transition action failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+        this.context.errors.push(`Transition action failed: ${errorMessage}`);
         await this.processEvent(QualityGateEvent.ERROR_OCCURRED);
         return false;
       }
@@ -260,7 +261,8 @@ export class QualityGateStateMachine {
       try {
         await stateHandler(this.context);
       } catch (error) {
-        this.context.errors.push(`State handler failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+        this.context.errors.push(`State handler failed: ${errorMessage}`);
         await this.processEvent(QualityGateEvent.ERROR_OCCURRED);
         return false;
       }

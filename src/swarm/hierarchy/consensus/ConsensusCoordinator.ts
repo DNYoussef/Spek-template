@@ -42,7 +42,7 @@ export class ConsensusCoordinator extends EventEmitter {
   /**
    * Initialize consensus system with princesses
    */
-  async initialize(princesses: Map<string, HivePrincess>): Promise<void> {
+  async initializeComponent(princesses: Map<string, HivePrincess>): Promise<void> {
     console.log(' Initializing Consensus Coordinator...');
 
     this.consensus = new PrincessConsensus(princesses);

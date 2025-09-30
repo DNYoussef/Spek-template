@@ -123,11 +123,12 @@ export class ComponentIntegrator extends EventEmitter implements ComponentStateC
       }
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       result.status = 'failed';
-      result.errors.push(error.message);
+      result.errors.push(errorMessage);
       this.emit('component:integration-error', {
         componentId: component.componentId,
-        error: error.message
+        error: errorMessage
       });
     } finally {
       result.endTime = Date.now();
@@ -152,7 +153,8 @@ export class ComponentIntegrator extends EventEmitter implements ComponentStateC
         }
 
       } catch (error) {
-        result.errors.push(`Integration point error: ${point.pointId} - ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+        result.errors.push(`Integration point error: ${point.pointId} - ${errorMessage}`);
       }
     }
   }
@@ -196,9 +198,10 @@ export class ComponentIntegrator extends EventEmitter implements ComponentStateC
       return result;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.emit('point:integration-failed', {
         pointId: point.pointId,
-        error: error.message
+        error: errorMessage
       });
 
       return {
@@ -244,11 +247,12 @@ export class ComponentIntegrator extends EventEmitter implements ComponentStateC
       };
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       return {
         healthy: false,
         status: 'failed',
         lastCheck: Date.now(),
-        details: error.message
+        details: errorMessage
       };
     }
   }

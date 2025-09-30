@@ -108,11 +108,11 @@ def run_quality_gates():
         full_path = project_root / file_path
         if full_path.exists():
             try:
-                subprocess.run(
+                subprocess.run()
                     [sys.executable, "-m", "py_compile", str(full_path)],
                     check=True,
                     capture_output=True
-                )
+(                )
                 files_checked += 1
             except subprocess.CalledProcessError:
                 compile_errors += 1

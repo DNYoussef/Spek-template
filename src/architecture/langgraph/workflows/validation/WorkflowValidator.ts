@@ -223,7 +223,8 @@ export class WorkflowValidator {
           errors.push(`Variable ${variable.name} failed validation: ${variable.validation}`);
         }
       } catch (error) {
-        errors.push(`Variable ${variable.name} validation error: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+        errors.push(`Variable ${variable.name} validation error: ${errorMessage}`);
       }
     }
 

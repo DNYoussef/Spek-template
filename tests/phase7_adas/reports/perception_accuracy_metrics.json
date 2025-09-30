@@ -1,0 +1,49 @@
+{
+  "test_configuration": {
+    "performance_thresholds": {
+      "map_threshold": 85.0,
+      "tracking_consistency": 90.0,
+      "false_positive_rate_max": 5.0,
+      "false_negative_rate_max": 10.0,
+      "detection_confidence_min": 0.7,
+      "tracking_distance_threshold_m": 2.0,
+      "min_detection_size_pixels": 20,
+      "max_detection_latency_ms": 50.0
+    },
+    "object_types": [
+      "vehicle",
+      "pedestrian",
+      "cyclist",
+      "motorcycle",
+      "truck",
+      "bus",
+      "traffic_sign",
+      "traffic_light",
+      "barrier",
+      "unknown"
+    ],
+    "weather_conditions": [
+      "clear",
+      "rain",
+      "fog",
+      "snow",
+      "cloudy",
+      "night"
+    ],
+    "scenario_types": [
+      "highway",
+      "urban",
+      "residential",
+      "parking",
+      "construction",
+      "emergency"
+    ]
+  },
+  "system_configuration": {
+    "detection_confidence_base": 0.85,
+    "tracking_enabled": true,
+    "processing_latency_ms": 30.0
+  },
+  "test_results": {},
+  "timestamp": 1759239956.7186573
+}

@@ -95,8 +95,9 @@ export class ProtocolFacade extends EventEmitter {
       return result;
       
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Translation failed in facade', {
-        error: error.message,
+        error: errorMessage,
         messageId: message.id
       });
       throw error;
@@ -140,7 +141,8 @@ export class ProtocolFacade extends EventEmitter {
       return batchResult;
       
     } catch (error) {
-      this.logger.error('Batch translation failed', { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error('Batch translation failed', { error: errorMessage });
       throw error;
     }
   }

@@ -321,7 +321,8 @@ ${keyExamples.join('\n\n')}
       }
 
     } catch (error) {
-      console.warn('Could not load I/O examples:', error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.warn('Could not load I/O examples:', errorMessage);
     }
 
     return content;
@@ -356,7 +357,8 @@ ${keyExamples.join('\n\n')}
       console.log(`Backup created: ${backupFile}`);
 
     } catch (error) {
-      console.warn('Backup creation failed:', error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.warn('Backup creation failed:', errorMessage);
     }
   }
 

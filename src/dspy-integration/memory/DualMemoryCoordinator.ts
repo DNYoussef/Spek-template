@@ -74,7 +74,7 @@ export class DualMemoryCoordinator extends EventEmitter {
    * Initialize dual memory system
    * NASA Rule 10: Sequential initialization, no recursion
    */
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     if (this.initialized) return;
 
     console.log('Initializing Dual Memory Coordinator...');
@@ -101,7 +101,8 @@ export class DualMemoryCoordinator extends EventEmitter {
       console.log('Dual Memory Coordinator initialized successfully');
 
     } catch (error) {
-      throw new Error(`Memory initialization failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Memory initialization failed: ${errorMessage}`);
     }
   }
 
@@ -145,11 +146,12 @@ export class DualMemoryCoordinator extends EventEmitter {
       return { mcpId, snapshotId };
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       // Partial failure handling
       if (!mcpId || !snapshotId) {
         await this.handlePartialFailure(mcpId, snapshotId);
       }
-      throw new Error(`Dual storage failed: ${error.message}`);
+      throw new Error(`Dual storage failed: ${errorMessage}`);
     }
   }
 
@@ -259,7 +261,8 @@ export class DualMemoryCoordinator extends EventEmitter {
       console.log(`Cleaned ${cleanedCount} agent-forge references from dual memory`);
 
     } catch (error) {
-      console.error('Agent-forge cleanup failed:', error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('Agent-forge cleanup failed:', errorMessage);
     }
   }
 
@@ -291,7 +294,8 @@ export class DualMemoryCoordinator extends EventEmitter {
       this.emit('memory:synchronized', this.metrics);
 
     } catch (error) {
-      console.error('Memory synchronization failed:', error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('Memory synchronization failed:', errorMessage);
     } finally {
       this.syncInProgress = false;
     }
@@ -321,7 +325,8 @@ export class DualMemoryCoordinator extends EventEmitter {
       }
 
     } catch (error) {
-      console.error('Pattern loading failed:', error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('Pattern loading failed:', errorMessage);
     }
   }
 

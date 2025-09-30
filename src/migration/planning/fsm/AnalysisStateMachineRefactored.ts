@@ -91,9 +91,10 @@ export class AnalysisStateMachine extends EventEmitter {
       this.metrics.incrementAnalysisCount();
       return analysisId;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Failed to start analysis workflow', {
         analysisId,
-        error: error.message
+        error: errorMessage
       });
 
       await this.handleWorkflowError(error);
@@ -146,10 +147,11 @@ export class AnalysisStateMachine extends EventEmitter {
         duration
       });
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Event processing failed', {
         analysisId: this.context?.analysisId,
         event,
-        error: error.message
+        error: errorMessage
       });
 
       await this.handleWorkflowError(error);
@@ -204,9 +206,10 @@ export class AnalysisStateMachine extends EventEmitter {
         finalState: this.currentState
       });
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Failed to cancel analysis', {
         analysisId: this.context?.analysisId,
-        error: error.message
+        error: errorMessage
       });
       throw error;
     }
@@ -240,11 +243,12 @@ export class AnalysisStateMachine extends EventEmitter {
 
         stepCount++;
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         this.logger.error('Workflow step failed', {
           analysisId: this.context.analysisId,
           state: this.currentState,
           step: stepCount,
-          error: error.message
+          error: errorMessage
         });
 
         await this.handleWorkflowError(error);

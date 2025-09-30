@@ -49,7 +49,8 @@ export class MemorySerializer {
         payloadBuffer
       ]);
     } catch (error) {
-      throw new Error(`Serialization failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Serialization failed: ${errorMessage}`);
     }
   }
   /**
@@ -67,7 +68,8 @@ export class MemorySerializer {
       const serialized = payloadBuffer.toString(metadata.encoding);
       return this.deserializeValue(serialized, metadata.type);
     } catch (error) {
-      throw new Error(`Deserialization failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Deserialization failed: ${errorMessage}`);
     }
   }
   /**
@@ -79,7 +81,8 @@ export class MemorySerializer {
       const metadataBuffer = buffer.slice(4, 4 + metadataLength);
       return JSON.parse(metadataBuffer.toString('utf8'));
     } catch (error) {
-      throw new Error(`Failed to read metadata: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Failed to read metadata: ${errorMessage}`);
     }
   }
   /**

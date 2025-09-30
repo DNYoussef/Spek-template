@@ -361,10 +361,11 @@ export class DataValidator extends EventEmitter {
           });
         }
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         violations.push({
           ruleId: rule.id,
           ruleName: rule.name,
-          message: `Rule evaluation failed: ${error.message}`,
+          message: `Rule evaluation failed: ${errorMessage}`,
           severity: 'error'
         });
       }

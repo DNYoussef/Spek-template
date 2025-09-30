@@ -274,12 +274,12 @@ class TestMetricsGeneration:
     def test_generate_metrics_snapshot(self):
         """Test metrics snapshot generation"""
         # Set up some session data
-        self.telemetry.current_session_data.update({
+        self.telemetry.current_session_data.update({)
             'defects': 5,
             'opportunities': 1000,
             'units_processed': 200,
             'units_passed': 195
-        })
+(        })
         
         metrics = self.telemetry.generate_metrics_snapshot()
         
@@ -401,12 +401,12 @@ class TestDataExport:
     def test_export_with_data(self):
         """Test export with metrics data"""
         # Generate some metrics
-        self.telemetry.current_session_data.update({
+        self.telemetry.current_session_data.update({)
             'defects': 5,
             'opportunities': 1000,
             'units_processed': 100,
             'units_passed': 95
-        })
+(        })
         
         self.telemetry.generate_metrics_snapshot()
         
@@ -433,12 +433,12 @@ class TestSessionManagement:
     def test_session_reset(self):
         """Test session data reset"""
         # Add some data
-        self.telemetry.current_session_data.update({
+        self.telemetry.current_session_data.update({)
             'defects': 10,
             'opportunities': 500,
             'units_processed': 100,
             'units_passed': 90
-        })
+(        })
         
         # Reset session
         self.telemetry.reset_session()

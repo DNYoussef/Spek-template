@@ -98,9 +98,10 @@ export class A2ACommunicationEngine {
       return optimizedResult;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.stateMachine.processEvent(A2ACommEvent.ERROR_DETECTED, { error });
       this.performanceTracker.errorRate++;
-      throw new Error(`Communication optimization failed: ${error.message}`);
+      throw new Error(`Communication optimization failed: ${errorMessage}`);
     }
   }
 

@@ -49,6 +49,32 @@ export interface EscalationData {
   timestamp: number;
 }
 /**
+ * Princess Configuration Interface
+ */
+export interface PrincessConfiguration {
+  princessId: string;
+  domain: string;
+  maxDrones: number;
+  timeout: number;
+  retryAttempts: number;
+  capabilities: string[];
+  metadata?: Record<string, any>;
+}
+
+/**
+ * Task Definition Interface
+ */
+export interface TaskDefinition {
+  id: string;
+  type: string;
+  priority: 'low' | 'medium' | 'high' | 'critical';
+  payload: any;
+  deadline?: number;
+  requirements?: string[];
+  metadata?: Record<string, any>;
+}
+
+/**
  * Princess State Machine Facade
  * NASA Rule 10: Single responsibility, bounded operations
  */
@@ -71,7 +97,7 @@ export class PrincessStateMachineFacade extends EventEmitter {
    * Initialize Princess Facade
    * NASA Rule 10: ≤60 lines, ≥2 assertions
    */
-  async initialize(princessId: string, domain: string): Promise<PrincessOperationResult> {
+  async initializeComponent(princessId: string, domain: string): Promise<PrincessOperationResult> {
     if (!princessId || typeof princessId !== 'string') {
       throw new Error('Princess ID must be a non-empty string');
     }

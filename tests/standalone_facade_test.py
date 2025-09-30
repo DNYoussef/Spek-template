@@ -1,3 +1,5 @@
+import pytest
+
 #!/usr/bin/env python3
 """
 Standalone Facade Test for Enhanced Incident Response System

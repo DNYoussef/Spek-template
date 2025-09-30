@@ -144,7 +144,7 @@ export class IntegrationHub extends EventEmitter {
   }
 
   /**
-   * Complete integration cleanup (NASA Rule 10: ≤60 lines)
+   * Complete integration destroy(NASA Rule 10: ≤60 lines)
    */
   public completeIntegration(integrationId: string): void {
     const context = this.contexts.get(integrationId);
@@ -189,7 +189,7 @@ export class IntegrationHub extends EventEmitter {
   /**
    * Cleanup completed integrations (NASA Rule 10: ≤60 lines)
    */
-  public cleanup(): number {
+  public destroy(): number {
     let cleaned = 0;
     const cutoff = Date.now() - (24 * 60 * 60 * 1000); // 24 hours
 

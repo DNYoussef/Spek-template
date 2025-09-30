@@ -79,7 +79,7 @@ export class QueenCommandProcessorFacade extends EventEmitter {
    * Initialize Command Processor
    * NASA Rule 10: ≤60 lines, ≥2 assertions
    */
-  async initialize(...args: any[]): Promise<void> {
+  async initializeComponent(...args: any[]): Promise<void> {
     console.assert(!this.isInitialized, 'Command processor must not be already initialized');
     console.assert(this.commandQueue.size === 0, 'Command queue must be empty during initialization');
     try {

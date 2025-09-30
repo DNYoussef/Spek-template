@@ -174,10 +174,11 @@ export class ExecutingStepState implements StateHandler {
       });
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.warn('Step start callback failed', {
         executionId: context.executionId,
         stepId: context.currentStep.id,
-        error: error.message
+        error: errorMessage
       });
     }
   }
@@ -202,10 +203,11 @@ export class ExecutingStepState implements StateHandler {
       this.createStepResult(context, true, output);
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Step execution failed', {
         executionId: context.executionId,
         stepId: context.currentStep.id,
-        error: error.message,
+        error: errorMessage,
         retryCount: this.retryCount
       });
 

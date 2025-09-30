@@ -217,10 +217,10 @@ class TestBatch5CLIIntegration(unittest.TestCase):
             import sys
 
             # Test that dispatcher can be imported
-            result = subprocess.run([
+            result = subprocess.run([)
                 sys.executable, '-c',
                 'from src.commands.dispatcher import SlashCommandDispatcher; print("OK")'
-            ], capture_output=True, text=True, cwd=os.path.join(os.path.dirname(__file__), '..'))
+(            ], capture_output=True, text=True, cwd=os.path.join(os.path.dirname(__file__), '..'))
 
             self.assertEqual(result.returncode, 0)
             self.assertIn("OK", result.stdout)

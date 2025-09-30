@@ -28,7 +28,7 @@ export class FallbackStateMachine extends EventEmitter {
    * Initialize state machine.
    * NASA Rule 10 compliant: single responsibility.
    */
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     this.currentState = ProtocolStates.IDLE;
     this.logger.info('FallbackStateMachine initialized', {
       initialState: this.currentState
@@ -121,11 +121,12 @@ export class FallbackStateMachine extends EventEmitter {
       return context;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('State transition failed', {
         from: sourceState,
         to: targetState,
         event,
-        error: error.message
+        error: errorMessage
       });
 
       // Transition to error state if not already there

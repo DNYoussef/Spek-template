@@ -4,6 +4,7 @@ import sys
 import os
 import subprocess
 from pathlib import Path
+import pytest
 
 def setup_environment():
     """Set up the testing environment with proper Python path."""

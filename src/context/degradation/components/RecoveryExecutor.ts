@@ -78,11 +78,12 @@ export class RecoveryExecutor implements IRecoveryExecutor {
       };
     } catch (error) {
       const executionTime = Date.now() - startTime;
+      const errorMessage = error instanceof Error ? error.message : String(error);
       console.error(`Recovery execution failed for ${action.type}:`, error);
 
       return {
         success: false,
-        error: error.message,
+        error: errorMessage,
         metrics: {
           executionTime,
           recoveryScore: 0,
@@ -203,7 +204,8 @@ export class RecoveryExecutor implements IRecoveryExecutor {
         throw new Error(`Rollback failed: ${rollbackResult.error || 'Unknown error'}`);
       }
     } catch (error) {
-      throw new Error(`Rollback execution failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Rollback execution failed: ${errorMessage}`);
     }
   }
 
@@ -245,7 +247,8 @@ export class RecoveryExecutor implements IRecoveryExecutor {
         sources: sources.length
       };
     } catch (error) {
-      throw new Error(`Context reconstruction failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Context reconstruction failed: ${errorMessage}`);
     }
   }
 
@@ -304,7 +307,8 @@ export class RecoveryExecutor implements IRecoveryExecutor {
         };
       }
     } catch (error) {
-      throw new Error(`Escalation failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Escalation failed: ${errorMessage}`);
     }
   }
 
@@ -356,7 +360,8 @@ export class RecoveryExecutor implements IRecoveryExecutor {
         isolated: true
       };
     } catch (error) {
-      throw new Error(`Quarantine failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Quarantine failed: ${errorMessage}`);
     }
   }
 

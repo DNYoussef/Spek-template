@@ -160,7 +160,7 @@ export class RemediationOrchestratorFacade extends EventEmitter {
     });
   }
 
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     await this.repository.initialize();
     this.emit('remediationOrchestratorInitialized');
   }
@@ -344,7 +344,7 @@ export class RemediationOrchestratorFacade extends EventEmitter {
     };
   }
 
-  async cleanup(): Promise<void> {
+  async destroy(): Promise<void> {
     // Cancel active remediations
     for (const [resultId, result] of this.activeRemediations.entries()) {
       if (result.status === 'running') {

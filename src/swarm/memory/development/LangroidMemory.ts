@@ -350,8 +350,9 @@ export class LangroidMemory extends EventEmitter {
       await fs.writeFile('./memory/langroid_memories.json', JSON.stringify(memoryArray, null, 2));
       this.logger.info(`Persisted ${memoryArray.length} memory entries to disk`);
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Failed to persist memory:', error);
-      throw new Error(`Memory persistence failed: ${error.message}`);
+      throw new Error(`Memory persistence failed: ${errorMessage}`);
     }
   }
 

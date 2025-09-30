@@ -103,8 +103,9 @@ export class IntegrationValidator {
       }
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       result.passed = false;
-      result.errors.push(`Requirement validation error: ${requirement.name} - ${error.message}`);
+      result.errors.push(`Requirement validation error: ${requirement.name} - ${errorMessage}`);
     }
 
     return result;
@@ -141,9 +142,10 @@ export class IntegrationValidator {
       };
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       return {
         passed: false,
-        errors: [`Rule validation error: ${rule.name} - ${error.message}`],
+        errors: [`Rule validation error: ${rule.name} - ${errorMessage}`],
         warnings: []
       };
     }
@@ -190,8 +192,9 @@ export class IntegrationValidator {
       }
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       result.passed = false;
-      result.errors.push(`Connection validation error: ${error.message}`);
+      result.errors.push(`Connection validation error: ${errorMessage}`);
     }
 
     return result;

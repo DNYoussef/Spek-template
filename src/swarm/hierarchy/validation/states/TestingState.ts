@@ -72,7 +72,8 @@ export class TestingState extends BaseStateHandler {
           consoleOutput.push(...testResult.output);
 
         } catch (error) {
-          runtimeErrors.push(`Test execution failed for ${testFile}: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+          runtimeErrors.push(`Test execution failed for ${testFile}: ${errorMessage}`);
           testsFailed++;
         }
       }
@@ -102,11 +103,12 @@ export class TestingState extends BaseStateHandler {
       };
 
     } catch (error) {
-      this.addError(context, `Testing process failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.addError(context, `Testing process failed: ${errorMessage}`);
       return {
         success: false,
         nextEvent: ValidationEvent.TESTING_FAILED,
-        errors: [`Testing error: ${error.message}`]
+        errors: [`Testing error: ${errorMessage}`]
       };
     }
   }

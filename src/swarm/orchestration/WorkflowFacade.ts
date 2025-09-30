@@ -253,9 +253,10 @@ export class WorkflowOrchestrator extends EventEmitter {
       return execution;
       
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Workflow execution failed via facade', {
         workflowId,
-        error: error.message,
+        error: errorMessage,
         component: 'WorkflowOrchestrator'
       });
       throw error;

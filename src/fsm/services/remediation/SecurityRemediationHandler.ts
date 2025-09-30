@@ -61,7 +61,8 @@ export class SecurityRemediationHandler extends RequestHandler {
 
       return this.createResponse(request.id, true, remediationSummary);
     } catch (error) {
-      return this.createResponse(request.id, false, null, error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      return this.createResponse(request.id, false, null, errorMessage);
     }
   }
 

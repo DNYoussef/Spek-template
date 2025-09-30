@@ -82,8 +82,9 @@ export class MessageRouter extends EventEmitter {
 
   /**
    * Initialize message router
+   * Renamed from initialize() to avoid EventEmitter property conflict
    */
-  async initialize(): Promise<void> {
+  async initializeRouter(): Promise<void> {
     this.logger.info('Initializing Message Router', {
       loadBalancing: this.config.enableLoadBalancing,
       circuitBreaker: this.config.enableCircuitBreaker,
@@ -111,9 +112,10 @@ export class MessageRouter extends EventEmitter {
       await this.facade.route(message);
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Message routing failed', {
         messageId: message.id,
-        error: error.message,
+        error: errorMessage,
         latency: Date.now() - startTime
       });
       throw error;

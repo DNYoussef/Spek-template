@@ -500,3 +500,6 @@ if __name__ == "__main__":
     success = eliminator.run_full_elimination()
 
     sys.exit(0 if success else 1)
+"""
+
+'''

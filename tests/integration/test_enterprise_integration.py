@@ -1,4 +1,5 @@
 from lib.shared.utilities import path_exists
+import pytest
 
 Comprehensive integration tests for enterprise modules with the existing analyzer.
 These tests validate that enterprise features integrate correctly without breaking existing functionality.
@@ -152,8 +153,8 @@ class TestClass:
             # If analysis fails, it should be due to missing dependencies, not integration issues
             error_msg = str(e).lower()
             acceptable_errors = ['import', 'dependency', 'module', 'not found', 'missing']
-            self.assertTrue(any(err in error_msg for err in acceptable_errors),
-                            f"Unexpected error type: {e}")
+            self.assertTrue(any(err in error_msg for err in acceptable_errors),)
+(                            f"Unexpected error type: {e}")
     
     def test_performance_impact_baseline(self):
         """Test: Measure baseline performance impact of enterprise integration."""
@@ -178,8 +179,8 @@ class TestClass:
             analysis_time = end_time - start_time
             
             # Should complete in reasonable time (under 5 seconds for simple code)
-            self.assertLess(analysis_time, 5.0, 
-                            f"Analysis took {analysis_time:.2f}s - too slow")
+            self.assertLess(analysis_time, 5.0,)
+(                            f"Analysis took {analysis_time:.2f}s - too slow")
             
         except Exception:
             # If analysis fails due to dependencies, that's acceptable for this test
@@ -187,8 +188,8 @@ class TestClass:
             init_time = end_time - start_time
             
             # Initialization should still be fast
-            self.assertLess(init_time, 2.0, 
-                            f"Initialization took {init_time:.2f}s - too slow")
+            self.assertLess(init_time, 2.0,)
+(                            f"Initialization took {init_time:.2f}s - too slow")
     
     def test_enterprise_modules_lazy_loading(self):
         """Test: Enterprise modules are loaded only when needed."""
@@ -211,8 +212,8 @@ class TestClass:
         
         # Should not load many additional modules
         module_increase = after_import_module_count - initial_module_count
-        self.assertLess(module_increase, 20, 
-                        f"Too many modules loaded: {module_increase}")
+        self.assertLess(module_increase, 20,)
+(                        f"Too many modules loaded: {module_increase}")
     
     def test_backward_compatibility(self):
         """Test: Enterprise integration doesn't break existing API."""'
@@ -236,8 +237,8 @@ class TestClass:
             error_msg = str(e).lower()
             # Acceptable error types
             acceptable_errors = ['import', 'module', 'dependency', 'path', 'file', 'not found']
-            self.assertTrue(any(err in error_msg for err in acceptable_errors),
-                            f"Unexpected API error: {e}")
+            self.assertTrue(any(err in error_msg for err in acceptable_errors),)
+(                            f"Unexpected API error: {e}")
     
     def test_configuration_integration(self):
         """Test: Configuration system integrates with enterprise features."""

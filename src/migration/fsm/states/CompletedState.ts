@@ -320,9 +320,10 @@ export class CompletedState implements StateHandler {
       });
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.warn('Completion notification failed', {
         executionId: context.executionId,
-        error: error.message
+        error: errorMessage
       });
     }
   }

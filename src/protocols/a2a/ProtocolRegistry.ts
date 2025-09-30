@@ -41,7 +41,7 @@ export class ProtocolRegistry extends EventEmitter {
   private activeProtocols = new Set<string>();
   private protocolMetrics = new Map<string, any>();
 
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     this.logger.info('Initializing Protocol Registry');
     
     // Register built-in protocol handlers
@@ -152,9 +152,10 @@ export class ProtocolRegistry extends EventEmitter {
           discovered.push(protocolModule.descriptor);
         }
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         this.logger.debug('Protocol module not found', {
           path: searchPath,
-          error: error.message
+          error: errorMessage
         });
       }
     }

@@ -196,10 +196,11 @@ export class ExecutingPhaseState implements StateHandler {
       });
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.warn('Phase start callback failed', {
         executionId: context.executionId,
         phaseId: context.currentPhase.id,
-        error: error.message
+        error: errorMessage
       });
     }
   }

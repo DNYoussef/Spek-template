@@ -62,7 +62,7 @@ export class CLAUDEMDEnforcer extends EventEmitter {
    * Initialize enforcer with agent configurations
    * NASA Rule 10: Bounded initialization
    */
-  async initialize(agents: AgentConfiguration[]): Promise<void> {
+  async initializeComponent(agents: AgentConfiguration[]): Promise<void> {
     if (this.initialized) return;
 
     assert(agents.length > 0, 'Agents required');
@@ -169,11 +169,12 @@ export class CLAUDEMDEnforcer extends EventEmitter {
       return result;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       const result: EnforcementResult = {
         agentId,
         status: 'failed',
         qualityScore: 0,
-        violations: [`Enforcement error: ${error.message}`],
+        violations: [`Enforcement error: ${errorMessage}`],
         timestamp: Date.now()
       };
 

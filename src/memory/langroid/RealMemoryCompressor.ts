@@ -73,8 +73,9 @@ export class RealMemoryCompressor {
 
       return result;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('LZ4 compression failed:', error);
-      throw new Error(`LZ4 compression failed: ${error.message}`);
+      throw new Error(`LZ4 compression failed: ${errorMessage}`);
     }
   }
 
@@ -96,8 +97,9 @@ export class RealMemoryCompressor {
 
       return data;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('LZ4 decompression failed:', error);
-      throw new Error(`LZ4 decompression failed: ${error.message}`);
+      throw new Error(`LZ4 decompression failed: ${errorMessage}`);
     }
   }
 

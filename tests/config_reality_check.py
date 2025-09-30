@@ -1,6 +1,4 @@
-from src.constants.base import MAXIMUM_NESTED_DEPTH
 """
-
 Direct test of configuration loading and detector behavior to identify root causes.
 """
 
@@ -9,7 +7,8 @@ import sys
 import yaml
 import tempfile
 from pathlib import Path
-"""
+from src.constants.base import MAXIMUM_NESTED_DEPTH
+import pytest
 
 # Add analyzer to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "analyzer"))
@@ -55,7 +54,7 @@ def test_basic_config_loading():
     enterprise_config = {
         'sixSigma': {
             'targetSigma': 4.0,
-            'sigmaShift': 1.MAXIMUM_NESTED_DEPTH
+            'sigmaShift': 1.5
         },
         'compliance': {
             'nasaPOT10': 95,
@@ -197,5 +196,8 @@ def main():
     else:
         print("STATUS: Configuration system is mostly theater")
 
+    return reality_score >= 50
+
 if __name__ == '__main__':
-    main()
+    success = main()
+    sys.exit(0 if success else 1)

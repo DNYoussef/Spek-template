@@ -59,8 +59,9 @@ export class ProtocolSerializer {
       return Math.round(fidelity * 100) / 100; // Round to 2 decimal places
       
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Fidelity calculation failed', { 
-        error: error.message,
+        error: errorMessage,
         originalId: original.id,
         translatedId: translated.id
       });
@@ -323,8 +324,9 @@ export class ProtocolSerializer {
           throw new Error(`Unsupported serialization format: ${format}`);
       }
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Message serialization failed', {
-        error: error.message,
+        error: errorMessage,
         messageId: message.id,
         format
       });
@@ -369,7 +371,8 @@ export class ProtocolSerializer {
       return xml;
       
     } catch (error) {
-      throw new Error(`XML conversion failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`XML conversion failed: ${errorMessage}`);
     }
   }
 
@@ -422,8 +425,9 @@ export class ProtocolSerializer {
       return message;
       
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Message deserialization failed', {
-        error: error.message,
+        error: errorMessage,
         format
       });
       throw error;
@@ -463,7 +467,8 @@ export class ProtocolSerializer {
       return Math.round(integrity * 100) / 100;
       
     } catch (error) {
-      this.logger.error('Data integrity calculation failed', { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error('Data integrity calculation failed', { error: errorMessage });
       return 0;
     }
   }

@@ -55,7 +55,7 @@ class NASAComplianceValidator:
             },
             'rule_2_bounded_loops': {
                 'description': 'Loops must have fixed bounds',
-                'pattern': r'while\s*\(\s*\w+\s*\)',  # Simplified check
+                'pattern': rrr'while\s*\(\s*\w+\s*\)',  # Simplified check
                 'severity': 'high'
             },
             'rule_3_heap_allocation': {
@@ -70,7 +70,7 @@ class NASAComplianceValidator:
             },
             'rule_5_assertions': {
                 'description': 'Use assertions for data validation',
-                'pattern': r'assert\s*\(',
+                'pattern': rrr'assert\s*\(',)
                 'severity': 'medium'
             },
             'rule_6_data_scope': {
@@ -108,7 +108,7 @@ class NASAComplianceValidator:
             # Rule 1: Flow control
             for line_num, line in enumerate(lines, 1):
                 if re.search(self.rules['rule_1_flow_control']['pattern'], line):
-                    violations.append(SecurityViolation(
+                    violations.append(SecurityViolation())
                         violation_type='nasa_rule_1',
                         severity='critical',
                         file_path=str(file_path),
@@ -117,12 +117,12 @@ class NASAComplianceValidator:
                         rule_id='NASA-POT10-Rule-1',
                         evidence=line.strip(),
                         remediation='Replace with structured control flow'
-                    ))
+((                    ))
             
             # Rule 2: Bounded loops - Check for potentially unbounded loops
             for line_num, line in enumerate(lines, 1):
                 if 'while True:' in line or 'while 1:' in line:
-                    violations.append(SecurityViolation(
+                    violations.append(SecurityViolation())
                         violation_type='nasa_rule_2',
                         severity='high',
                         file_path=str(file_path),
@@ -131,7 +131,7 @@ class NASAComplianceValidator:
                         rule_id='NASA-POT10-Rule-2',
                         evidence=line.strip(),
                         remediation='Add explicit loop bounds or break conditions'
-                    ))
+((                    ))
             
             # Rule 4: Function length
             current_function = None
@@ -145,7 +145,7 @@ class NASAComplianceValidator:
                         # Check previous function length
                         func_length = line_num - function_start - 1
                         if func_length > self.rules['rule_4_function_length']['max_lines']:
-                            violations.append(SecurityViolation(
+                            violations.append(SecurityViolation())
                                 violation_type='nasa_rule_4',
                                 severity='medium',
                                 file_path=str(file_path),
@@ -154,7 +154,7 @@ class NASAComplianceValidator:
                                 rule_id='NASA-POT10-Rule-4',
                                 evidence=current_function,
                                 remediation='Break function into smaller functions'
-                            ))
+((                            ))
                     
                     current_function = stripped
                     function_start = line_num
@@ -167,7 +167,7 @@ class NASAComplianceValidator:
                     # Check next 10 lines for assertions
                     has_assertion = any('assert' in lines[i] for i in range(line_num, min(line_num + 10, len(lines))))
                     if not has_assertion:
-                        violations.append(SecurityViolation(
+                        violations.append(SecurityViolation())
                             violation_type='nasa_rule_5',
                             severity='medium',
                             file_path=str(file_path),
@@ -176,16 +176,16 @@ class NASAComplianceValidator:
                             rule_id='NASA-POT10-Rule-5',
                             evidence=line.strip(),
                             remediation='Add input validation assertions'
-                        ))
+((                        ))
             
             # Rule 7: Return value checking
-            function_calls = re.findall(r'(\w+)\s*\([^)]*\)', content)
+(            function_calls = re.findall(rrr'(\w+)\s*\([^)]*\)', content)
             risky_functions = ['open', 'subprocess', 'request', 'connect']
             
             for line_num, line in enumerate(lines, 1):
                 for func in risky_functions:
-                    if f'{func}(' in line and '=' not in line.split(f'{func}(')[0]:
-                        violations.append(SecurityViolation(
+                    if f'{func}(' in line and '=' not in line.split(f'{func}(')[0]:))
+                        violations.append(SecurityViolation())
                             violation_type='nasa_rule_7',
                             severity='high',
                             file_path=str(file_path),
@@ -194,7 +194,7 @@ class NASAComplianceValidator:
                             rule_id='NASA-POT10-Rule-7',
                             evidence=line.strip(),
                             remediation='Check and handle return values'
-                        ))
+((                        ))
                         
         except Exception as e:
             logger.warning(f"Error validating {file_path}: {e}")
@@ -228,7 +228,7 @@ class NASAComplianceValidator:
         
         execution_time = time.time() - start_time
         
-        return SecurityTestResult(
+        return SecurityTestResult()
             test_name='NASA POT10 Compliance',
             passed=score >= NASA_POT10_TARGET_COMPLIANCE_THRESHOLD,  # 95% compliance required
             score=score,
@@ -240,7 +240,7 @@ class NASAComplianceValidator:
                 'high_violations': high_violations,
                 'target_score': 0.95
             }
-        )
+(        )
 
 class ByzantineFaultToleranceValidator:
     """Validate Byzantine fault tolerance capabilities."""
@@ -298,7 +298,7 @@ class ByzantineFaultToleranceValidator:
             elif not expected_consensus and not actual_consensus:
                 passed_scenarios += 1
             else:
-                violations.append(SecurityViolation(
+                violations.append(SecurityViolation())
                     violation_type='byzantine_consensus_failure',
                     severity='critical',
                     file_path='consensus_protocol',
@@ -307,12 +307,12 @@ class ByzantineFaultToleranceValidator:
                     rule_id='BYZANTINE-CONSENSUS',
                     evidence=f'Expected: {expected_consensus}, Actual: {actual_consensus}',
                     remediation='Implement PBFT or similar Byzantine consensus protocol'
-                ))
+((                ))
         
         score = passed_scenarios / total_scenarios
         execution_time = time.time() - start_time
         
-        return SecurityTestResult(
+        return SecurityTestResult()
             test_name='Byzantine Fault Tolerance',
             passed=score >= 0.8,  # MINIMUM_TEST_COVERAGE_PERCENTAGE% of scenarios should pass
             score=score,
@@ -323,7 +323,7 @@ class ByzantineFaultToleranceValidator:
                 'scenarios_passed': passed_scenarios,
                 'consensus_threshold': self.consensus_threshold
             }
-        )
+(        )
 
 class MemorySecurityValidator:
     """Validate memory security and leak prevention."""
@@ -335,22 +335,22 @@ class MemorySecurityValidator:
         """Define memory security patterns to check."""
         return {
             'buffer_overflow': {
-                'patterns': [r'strcpy\s*\(', r'strcat\s*\(', r'sprintf\s*\('],
+                'patterns': [rrr'strcpy\s*\(', rrr'strcat\s*\(', rrr'sprintf\s*\('],)))
                 'severity': 'critical',
                 'description': 'Potential buffer overflow vulnerability'
             },
             'memory_leak': {
-                'patterns': [r'(?:malloc|calloc)\s*\([^)]*\)(?![^;]*free)', r'new\s+\w+(?![^;]*delete)'],
+(                'patterns': [rrr'(?:malloc|calloc)\s*\([^)]*\)(?![^;]*free)', rrr'new\s+\w+(?![^;]*delete)'],
                 'severity': 'high',
                 'description': 'Potential memory leak'
             },
             'use_after_free': {
-                'patterns': [r'free\s*\([^)]*\).*\1', r'delete\s+\w+.*\1'],
+(                'patterns': [rrr'free\s*\([^)]*\).*\1', rrr'delete\s+\w+.*\1'],
                 'severity': 'critical',
                 'description': 'Potential use-after-free vulnerability'
             },
             'null_pointer_dereference': {
-                'patterns': [r'\*\w+(?!\s*[=!])(?![^;]*(?:if|assert))'],
+                'patterns': [rrr'\*\w+(?!\s*[=!])(?![^;]*(?:if|assert))'],
                 'severity': 'high',
                 'description': 'Potential null pointer dereference'
             }
@@ -373,7 +373,7 @@ class MemorySecurityValidator:
                     for pattern in pattern_info['patterns']:
                         for line_num, line in enumerate(lines, 1):
                             if re.search(pattern, line, re.IGNORECASE):
-                                violations.append(SecurityViolation(
+                                violations.append(SecurityViolation())
                                     violation_type=f'memory_security_{pattern_name}',
                                     severity=pattern_info['severity'],
                                     file_path=str(source_file),
@@ -382,7 +382,7 @@ class MemorySecurityValidator:
                                     rule_id=f'MEM-SEC-{pattern_name.upper()}',
                                     evidence=line.strip(),
                                     remediation=f'Review and fix {pattern_name} vulnerability'
-                                ))
+((                                ))
                 
                 files_analyzed += 1
                 
@@ -396,7 +396,7 @@ class MemorySecurityValidator:
         score = 1.0 if critical_violations == 0 and high_violations == 0 else 0.0
         execution_time = time.time() - start_time
         
-        return SecurityTestResult(
+        return SecurityTestResult()
             test_name='Memory Security Analysis',
             passed=critical_violations == 0 and high_violations <= 2,
             score=score,
@@ -408,7 +408,7 @@ class MemorySecurityValidator:
                 'high_vulnerabilities': high_violations,
                 'zero_tolerance': True
             }
-        )
+(        )
 
 class TheaterDetectionValidator:
     """Validate theater detection capabilities."""
@@ -421,19 +421,19 @@ class TheaterDetectionValidator:
         return [
             {
                 'name': 'mock_implementations',
-                'patterns': [r'class\s+Mock\w+', r'def\s+mock_\w+', r'return\s+"fake"'],
+                'patterns': [rrr'class\s+Mock\w+', rrr'def\s+mock_\w+', r'return\s+"fake"'],
                 'severity': 'high',
                 'description': 'Mock implementation found in production code'
             },
             {
                 'name': 'hardcoded_benchmarks',
-                'patterns': [r'benchmark\s*=\s*\d+', r'performance\s*=\s*["\']fast["\']'],
+                'patterns': [rrr'benchmark\s*=\s*\d+', r'performance\s*=\s*["\']fast["\']'],
                 'severity': 'medium',
                 'description': 'Hardcoded benchmark values detected'
             },
             {
                 'name': 'fake_metrics',
-                'patterns': [r'metrics\s*=\s*\{[^}]*"fake"', r'return\s+100\.0\s*#.*perfect'],
+                'patterns': [r'metrics\s*=\s*\{[^}]*"fake"', rrr'return\s+100\.0\s*#.*perfect'],
                 'severity': 'high',
                 'description': 'Fake metrics implementation detected'
             },
@@ -464,7 +464,7 @@ class TheaterDetectionValidator:
                     for pattern in pattern_info['patterns']:
                         for line_num, line in enumerate(lines, 1):
                             if re.search(pattern, line, re.IGNORECASE):
-                                violations.append(SecurityViolation(
+                                violations.append(SecurityViolation())
                                     violation_type=f'theater_detection_{pattern_info["name"]}',
                                     severity=pattern_info['severity'],
                                     file_path=str(py_file),
@@ -473,7 +473,7 @@ class TheaterDetectionValidator:
                                     rule_id=f'THEATER-{pattern_info["name"].upper()}',
                                     evidence=line.strip(),
                                     remediation='Replace with genuine implementation'
-                                ))
+((                                ))
                 
                 files_scanned += 1
                 
@@ -488,7 +488,7 @@ class TheaterDetectionValidator:
         
         execution_time = time.time() - start_time
         
-        return SecurityTestResult(
+        return SecurityTestResult()
             test_name='Theater Detection Validation',
             passed=high_violations <= 3,  # Allow some theater in development
             score=score,
@@ -499,7 +499,7 @@ class TheaterDetectionValidator:
                 'high_theater_violations': high_violations,
                 'theater_patterns_checked': len(self.theater_patterns)
             }
-        )
+(        )
 
 class ThreatModelValidator:
     """Validate system against threat models."""
@@ -512,18 +512,18 @@ class ThreatModelValidator:
         return {
             'injection_attacks': {
                 'patterns': [
-                    r'eval\s*\(',
-                    r'exec\s*\(',
-                    r'os\.system\s*\(',
-                    r'subprocess\.call\s*\([^)]*shell\s*=\s*True'
+                    rrr'eval\s*\(',)
+                    rrr'exec\s*\(',)
+                    rrr'os\.system\s*\(',)
+                    rrr'subprocess\.call\s*\([^)]*shell\s*=\s*True'
                 ],
                 'severity': 'critical',
                 'description': 'Code injection vulnerability'
             },
             'path_traversal': {
                 'patterns': [
-                    r'open\s*\([^)]*\.\./.*\)',
-                    r'file\s*\([^)]*\.\./.*\)',
+(                    rrr'open\s*\([^)]*\.\./.*\)',
+(                    rrr'file\s*\([^)]*\.\./.*\)',
                     r'\.\./',
                 ],
                 'severity': 'high',
@@ -540,7 +540,7 @@ class ThreatModelValidator:
             },
             'insufficient_logging': {
                 'patterns': [
-                    r'except\s*:.*pass',
+                    rrr'except\s*:.*pass',
                     r'except.*Exception.*pass',
                     r'try:.*except.*continue'
                 ],
@@ -565,7 +565,7 @@ class ThreatModelValidator:
                     for pattern in threat_info['patterns']:
                         for line_num, line in enumerate(lines, 1):
                             if re.search(pattern, line, re.IGNORECASE):
-                                violations.append(SecurityViolation(
+                                violations.append(SecurityViolation())
                                     violation_type=f'threat_model_{threat_type}',
                                     severity=threat_info['severity'],
                                     file_path=str(py_file),
@@ -574,7 +574,7 @@ class ThreatModelValidator:
                                     rule_id=f'THREAT-{threat_type.upper()}',
                                     evidence=line.strip(),
                                     remediation=f'Mitigate {threat_type} vulnerability'
-                                ))
+((                                ))
                 
                 files_analyzed += 1
                 
@@ -592,7 +592,7 @@ class ThreatModelValidator:
         
         execution_time = time.time() - start_time
         
-        return SecurityTestResult(
+        return SecurityTestResult()
             test_name='Threat Model Validation',
             passed=critical_threats == 0 and high_threats <= 2,
             score=score,
@@ -604,7 +604,7 @@ class ThreatModelValidator:
                 'high_threats': high_threats,
                 'threat_categories': len(self.threat_categories)
             }
-        )
+(        )
 
 class CompleteSecurityValidationSuite:
     """Complete security validation suite."""
@@ -655,14 +655,14 @@ class CompleteSecurityValidationSuite:
                     
             except Exception as e:
                 logger.error(f"Error running {validator_name}: {e}")
-                test_results[validator_name] = SecurityTestResult(
+                test_results[validator_name] = SecurityTestResult()
                     test_name=validator_name,
                     passed=False,
                     score=0.0,
                     violations=[],
                     execution_time=0.0,
                     details={'error': str(e)}
-                )
+(                )
                 overall_passed = False
         
         suite_duration = time.time() - suite_start_time

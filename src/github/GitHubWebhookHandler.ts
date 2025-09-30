@@ -21,7 +21,7 @@ export class GitHubWebhookHandler extends EventEmitter {
     this.setupDefaultProcessors();
   }
 
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     console.log('GitHub Webhook Handler initialized');
   }
 
@@ -379,7 +379,7 @@ export class GitHubWebhookHandler extends EventEmitter {
   /**
    * Cleanup webhook handler
    */
-  async cleanup(): Promise<void> {
+  async destroy(): Promise<void> {
     this.removeAllListeners();
     this.eventProcessors.clear();
     console.log('GitHub Webhook Handler cleaned up');

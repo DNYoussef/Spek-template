@@ -31,7 +31,7 @@
             """Extract Python scripts from workflow content"""        scripts = []
                 # Pattern 1: python -c "# SECURITY FIX: exec() replaced - use subprocess for external commands"        # Original: # SECURITY FIX: exec() usage disabled        pass  # TODO: Implement safe alternative
 
-        pattern1 = r'python\s+-c\s+"exec\([\'\"]{3)(.*?)[\'\"]{3)\)"'
+((        pattern1 = r'python\s+-c\s+"exec\([\'\"]{3)(.*?)[\'\"]{3)\)"'
         matches1 = re.findall(pattern1, content, re.MULTILINE | re.DOTALL)
         scripts.extend(matches1)
                 # Pattern 2: python -c "..."        pattern2 = r'python\s+-c\s+"([^"]*(?:\\.[^"]*)*)"'
@@ -39,7 +39,7 @@
         scripts.extend(matches2)
                 # Pattern 3: # SECURITY FIX: exec() replaced - use subprocess for external commands        # Original: # SECURITY FIX: exec() usage disabled        pass  # TODO: Implement safe alternative
 
-        pattern3 = r"exec\(['\"]([^'\"]*(?:\\.[^'\"]*)*)['\"]"
+        pattern3 = r"exec\(['\"]([^'\"]*(?:\\.[^'\"]*)*)['\"]")
         matches3 = re.findall(pattern3, content, re.MULTILINE | re.DOTALL)
         scripts.extend(matches3)
                 # Clean and filter scripts        cleaned_scripts = []
@@ -77,10 +77,10 @@
         }
                 # Test 1: Syntax validation        try:
                 ast.parse(script)                result['syntax_valid'] = True        except SyntaxError as e:
-                    result['syntax_errors'].append(f"Line {e.lineno): {e.msg)")                    result['critical_issues'].append(f"Syntax error: {e.msg)")                except Exception as e:                        result['syntax_errors'].append(f"Parse error: {e)")                        result['critical_issues'].append(f"Parse error: {e)")                                    if not result['syntax_valid']:                            return result                    # Test 2: Import analysis                            result['imports_detected'] = self.analyze_imports(script)                # Test 3: Execution simulation                            if self.should_test_execution(script):                                result['execution_tested'] = True                                execution_result = self.simulate_execution(script, script_name)                                            result['execution_successful'] = execution_result['success']                                result['runtime_errors'] = execution_result['errors']                                result['warnings'].extend(execution_result['warnings'])                                result['outputs_generated'] = execution_result['outputs']                                            if not execution_result['success']:                                    result['critical_issues'].extend(execution_result['errors'])                        # Test 4: Output validation                                    if 'json.dump' in script or '.json' in script:                                        json_validation = self.validate_json_output_logic(script)                                        if not json_validation['valid']:                                            result['warnings'].extend(json_validation['issues'])                        # Test 5: CI/CD compatibility                                            ci_issues = self.check_ci_compatibility(script)                                            if ci_issues:                                                result['warnings'].extend(ci_issues)                                                            return result            def analyze_imports(self, script: str) -> List[str]:
+(((((                    result['syntax_errors'].append(f"Line {e.lineno): {e.msg)")                    result['critical_issues'].append(f"Syntax error: {e.msg)")                except Exception as e:                        result['syntax_errors'].append(f"Parse error: {e)")                        result['critical_issues'].append(f"Parse error: {e)")                                    if not result['syntax_valid']:                            return result                    # Test 2: Import analysis                            result['imports_detected'] = self.analyze_imports(script)                # Test 3: Execution simulation                            if self.should_test_execution(script):                                result['execution_tested'] = True                                execution_result = self.simulate_execution(script, script_name)                                            result['execution_successful'] = execution_result['success']                                result['runtime_errors'] = execution_result['errors']                                result['warnings'].extend(execution_result['warnings'])                                result['outputs_generated'] = execution_result['outputs']                                            if not execution_result['success']:                                    result['critical_issues'].extend(execution_result['errors'])                        # Test 4: Output validation                                    if 'json.dump' in script or '.json' in script:                                        json_validation = self.validate_json_output_logic(script)                                        if not json_validation['valid']:                                            result['warnings'].extend(json_validation['issues'])                        # Test 5: CI/CD compatibility                                            ci_issues = self.check_ci_compatibility(script)                                            if ci_issues:                                                result['warnings'].extend(ci_issues)                                                            return result            def analyze_imports(self, script: str) -> List[str]:
             """Analyze imports in the script"""        imports = []
                 try:
-                tree = ast.parse(script)                for node in ast.walk(tree):                    if isinstance(node, ast.Import):                        for alias in node.names:                            imports.append(alias.name)                        elif isinstance(node, ast.ImportFrom):                                module = node.module or ''                                for alias in node.names:                                    imports.append(f"{module).{alias.name)" if module else alias.name)                                except:                                        pass                                                    return imports            def should_test_execution(self, script: str) -> bool:
+((                tree = ast.parse(script)                for node in ast.walk(tree):                    if isinstance(node, ast.Import):                        for alias in node.names:                            imports.append(alias.name)                        elif isinstance(node, ast.ImportFrom):                                module = node.module or ''                                for alias in node.names:                                    imports.append(f"{module).{alias.name)" if module else alias.name)                                except:                                        pass                                                    return imports            def should_test_execution(self, script: str) -> bool:
             """Determine if script should be execution tested"""        # Don't test scripts that:'        # - Have risky operations        pass  # Auto-fixed: empty block
                 pass  # Auto-fixed: empty block
 
@@ -133,14 +133,14 @@
         'setattr': setattr,
         }
         }
-                # Mock common modules        safe_globals.update({
+                # Mock common modules        safe_globals.update({)
         'json': MockJson(),
         'datetime': MockDateTime(),
         'os': MockOs(),
         'sys': MockSys(),
         'Path': MockPath,
-        'pathlib': type('MockPathlib', (), {'Path': MockPath))()
-        })
+(        'pathlib': type('MockPathlib', (), {'Path': MockPath))()
+(        })
                 try:
         # Execute in safe environment
                 pass  # Auto-fixed: empty block
@@ -156,13 +156,13 @@
         # SECURITY FIX: exec() replaced - use subprocess for external commands
 
         result['success'] = True
-                except ImportError as e:                result['warnings'].append(f"Import not available in test environment: {e)")                result['success'] = True  # Not critical for testing        except Exception as e:
+(                except ImportError as e:                result['warnings'].append(f"Import not available in test environment: {e)")                result['success'] = True  # Not critical for testing        except Exception as e:
                     pass
 
-                    result['errors'].append(f"Runtime error: {e)")                                return result            def validate_json_output_logic(self, script: str) -> Dict[str, Any]:
+(                    result['errors'].append(f"Runtime error: {e)")                                return result            def validate_json_output_logic(self, script: str) -> Dict[str, Any]:
             """Validate JSON output logic in script"""        result = {'valid': True, 'issues': []}
                 # Check for proper JSON structure        json_patterns = [
-        (r'json\.dump\([^,]+,\s*[^,]+\)', 'JSON dump with file'),
+        (rrr'json\.dump\([^,]+,\s*[^,]+\)', 'JSON dump with file'),
         (r'\.json"', 'JSON file extension'),"
         (r'{[^}]*}', 'Dictionary structure'),
         (r'\[[^\]]*\]', 'List structure')
@@ -182,7 +182,7 @@
             """Generate recommendations based on test results"""        recommendations = []
                 summary = results['summary']
                 if summary['syntax_valid'] < summary['total_scripts']:
-                failed_syntax = summary['total_scripts'] - summary['syntax_valid']                recommendations.append(f"Fix {failed_syntax) Python syntax errors before deployment")                            if summary['execution_tested'] > 0:                    success_rate = summary['execution_successful'] / summary['execution_tested'] * 100                    if success_rate < 80:                        recommendations.append(f"Improve Python script reliability ({success_rate:.1f)% success rate)")                                        critical_count = len(results['critical_issues'])                        if critical_count > 0:                            recommendations.append(f"Address {critical_count) critical Python script issues")                    # Specific recommendations for common issues                            all_issues = ' '.join(results['critical_issues'])                            if 'import' in all_issues.lower():                                recommendations.append("Review import statements - ensure all dependencies are available in CI")                                            if 'syntax error' in all_issues.lower():                                    recommendations.append("Run local Python syntax validation before committing")                                                if not recommendations:                                        recommendations.append("All Python scripts validated successfully")                                        recommendations.append("Consider adding unit tests for complex embedded scripts")                                                    return recommendations# Mock classes for safe executionclass MockJson:        """Mock JSON module for safe testing"""    def dump(self, obj, fp, *args, **kwargs):
+(((                failed_syntax = summary['total_scripts'] - summary['syntax_valid']                recommendations.append(f"Fix {failed_syntax) Python syntax errors before deployment")                            if summary['execution_tested'] > 0:                    success_rate = summary['execution_successful'] / summary['execution_tested'] * 100                    if success_rate < 80:                        recommendations.append(f"Improve Python script reliability ({success_rate:.1f)% success rate)")                                        critical_count = len(results['critical_issues'])                        if critical_count > 0:                            recommendations.append(f"Address {critical_count) critical Python script issues")                    # Specific recommendations for common issues                            all_issues = ' '.join(results['critical_issues'])                            if 'import' in all_issues.lower():                                recommendations.append("Review import statements - ensure all dependencies are available in CI")                                            if 'syntax error' in all_issues.lower():                                    recommendations.append("Run local Python syntax validation before committing")                                                if not recommendations:                                        recommendations.append("All Python scripts validated successfully")                                        recommendations.append("Consider adding unit tests for complex embedded scripts")                                                    return recommendations# Mock classes for safe executionclass MockJson:        """Mock JSON module for safe testing"""    def dump(self, obj, fp, *args, **kwargs):
                 if hasattr(fp, 'write'):
                     pass
 
@@ -190,15 +190,15 @@
                 return str(obj)
 
             def load(self, fp):
-                return {'mock': True)
+(                return {'mock': True)
 
             def loads(self, s):
-                return {'mock': True)
+(                return {'mock': True)
 
         class MockDateTime:        """Mock datetime module"""    class datetime:            @staticmethod    def now():
                 return type('MockDateTime', (), {                'isoformat': lambda: '2023-01-01T00:00:00Z'                })()        class MockOs:        """Mock os module"""        @staticmethod    def makedirs(path, exist_ok=False):
         pass
-                path = type('path', (), {'exists': lambda p: True))()
+(                path = type('path', (), {'exists': lambda p: True))()
 class MockSys:        """Mock sys module"""        path = ['.']            @staticmethod    def exit(code):
         raise SystemExit(code)
     class MockPath:        """Mock Path class"""    def __init__(self, path=''):

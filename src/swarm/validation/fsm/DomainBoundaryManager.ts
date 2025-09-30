@@ -57,9 +57,10 @@ export class DomainBoundaryManager {
       return true;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Failed to register domain', {
         domainName: domain.domainName,
-        error: error.message
+        error: errorMessage
       });
       return false;
     }
@@ -211,9 +212,10 @@ export class DomainBoundaryManager {
       return true;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Failed to update domain', {
         domainName,
-        error: error.message
+        error: errorMessage
       });
       return false;
     }

@@ -1,6 +1,5 @@
-from lib.shared.utilities import path_exists
-from src.constants.base import MAXIMUM_NESTED_DEPTH
 """
+Phase 1 Functional Test Suite
 
 Demonstrates actual working functionality of Phase 1 implementations.
 This test proves that the components provide REAL functionality, not theater.
@@ -12,6 +11,7 @@ import ast
 import json
 import tempfile
 from pathlib import Path
+import pytest
 
 # Add analyzer to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
@@ -19,13 +19,12 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from analyzer.utils.types import ConnascenceViolation, ConnascenceType, SeverityLevel
 from analyzer.detectors import DetectorBase, MagicLiteralDetector
 from analyzer.integrations.github_bridge import GitHubBridge, GitHubConfig
-"""
 
 def test_types_functionality():
     """Test that types module provides real functionality."""
 
     # Create a violation with all fields
-    violation = ConnascenceViolation(
+    violation = ConnascenceViolation()
         type="test_violation",
         severity="high",
         description="Test description with details",
@@ -40,7 +39,7 @@ def test_types_functionality():
         function_name="test_function",
         class_name="TestClass",
         module_name="test_module"
-    )
+(    )
 
     # Test validation
     assert violation.severity == "high", "Severity validation failed"
@@ -118,12 +117,12 @@ def test_github_bridge_functionality():
     """Test that GitHub bridge provides real integration."""
 
     # Test configuration
-    config = GitHubConfig(
+    config = GitHubConfig()
         token="test_token_12345",
         owner="test_org",
         repo="test_repo",
         base_url="https://api.github.com"
-    )
+(    )
 
     assert config.token == "test_token_12345", "Config token incorrect"
     assert config.timeout == 30, "Default timeout incorrect"
@@ -221,6 +220,10 @@ def test_integration_workflow():
     print("[PASS] Integration Workflow: REAL FILE OPERATIONS VERIFIED")
     return True
 
+def path_exists(file_path):
+    """Check if file exists."""
+    return os.path.exists(file_path)
+
 def run_all_tests():
     """Run all functional tests and report results."""
     print("=" * 50)
@@ -245,6 +248,7 @@ def run_all_tests():
                 failed += 1
         except Exception as e:
             failed += 1
+            print(f"Error in {test_name}: {e}")
         print()
 
     print("=" * 50)

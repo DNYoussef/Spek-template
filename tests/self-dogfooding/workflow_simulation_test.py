@@ -160,13 +160,13 @@ def run_complete_workflow_test():
             print(f"[FAIL] UNEXPECTED RESULT: Expected {'PASS' if expected_pass else 'FAIL'}, got {'PASS' if passed else 'FAIL'}")
             result_status = "UNEXPECTED"
         
-        results.append({
+        results.append({)
             "scenario": scenario_name,
             "expected": expected_pass,
             "actual": passed,
             "status": result_status,
             "warnings": warnings
-        })
+(        })
     
     # Final summary
     print("\n" + "=" * 60)

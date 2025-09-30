@@ -13,13 +13,13 @@ import {
   ScanMetadata,
   ToolInfo,
   DocumentationReference
-} from '../../types/domains/compliance-types';
+} from '../../../types/compliance-types';
 
 import {
   ComplianceRuleId,
   ComplianceScore,
   Timestamp
-} from '../../types/base/primitives';
+} from '../../../types/base/primitives';
 
 export class ComplianceRuleScanner {
 

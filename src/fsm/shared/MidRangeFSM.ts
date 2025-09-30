@@ -132,8 +132,9 @@ export abstract class MidRangeFSM {
 
       return true;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.metrics.errorCount++;
-      this.log(`Transition action failed: ${error.message}`);
+      this.log(`Transition action failed: ${errorMessage}`);
       await this.processEvent(ComponentEvent.ERROR_OCCURRED);
       return false;
     }

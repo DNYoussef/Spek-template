@@ -49,7 +49,7 @@ export class ComplianceValidator extends EventEmitter {
   /**
    * Initialize compliance validator (NASA Rule 10: ≤60 lines)
    */
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     // Assertion: Logger exists
     if (!this.logger) {
       throw new Error('ComplianceValidator: Logger required');
@@ -118,11 +118,12 @@ export class ComplianceValidator extends EventEmitter {
       };
 
     } catch (error) {
-      this.logger.error('Comprehensive audit failed', { auditId, error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error('Comprehensive audit failed', { auditId, error: errorMessage });
       
       return {
         complianceScore: 0,
-        findings: [{ severity: 'CRITICAL', description: `Audit failed: ${error.message}` }],
+        findings: [{ severity: 'CRITICAL', description: `Audit failed: ${errorMessage}` }],
         recommendations: ['Fix audit system errors and retry'],
         reportId: auditId
       };

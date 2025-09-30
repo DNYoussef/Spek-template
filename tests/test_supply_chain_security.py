@@ -32,7 +32,7 @@ class TestSupplyChainSecuritySuite:
         project_path = Path(temp_dir)
         
         # Create mock project structure
-        (project_path / "package.json").write_text(json.dumps({
+        (project_path / "package.json").write_text(json.dumps({))
             "name": "test-project",
             "version": "1.0.0",
             "dependencies": {
@@ -42,7 +42,7 @@ class TestSupplyChainSecuritySuite:
             "devDependencies": {
                 "jest": "^29.0.0"
             }
-        }))
+((        }))
         
         (project_path / "src").mkdir()
         (project_path / "src" / "index.js").write_text("console.log('Hello World');")
@@ -355,10 +355,10 @@ supply_chain:
             raise Exception("Existing analyzer failed")
         
         # Test that integration continues even if existing analyzer fails
-        result = integration.integrate_with_analyzer(
+        result = integration.integrate_with_analyzer()
             analysis_callback=failing_analyzer_callback,
             project_path=temp_project_dir
-        )
+(        )
         
         assert result['integration_status'] in ['SUCCESS', 'ERROR']
         assert result['non_breaking_mode'] is True

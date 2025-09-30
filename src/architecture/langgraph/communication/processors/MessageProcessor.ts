@@ -59,7 +59,7 @@ export class MessageProcessor extends EventEmitter {
   /**
    * Cleanup resources
    */
-  async cleanup(): Promise<void> {
+  async destroy(): Promise<void> {
     await this.facade.cleanup();
     this.removeAllListeners();
   }

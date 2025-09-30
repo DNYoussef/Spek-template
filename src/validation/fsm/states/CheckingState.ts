@@ -94,11 +94,12 @@ export class CheckingState {
       updatedContext.reportData.summary.failedChecks = failedChecks;
       
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       // Add error to context
       updatedContext.errors.push({
         errorId: `checking-${Date.now()}`,
         errorType: 'CHECKING_ERROR',
-        message: error.message,
+        message: errorMessage,
         timestamp: Date.now(),
         recoverable: true
       });
@@ -219,13 +220,14 @@ export class CheckingState {
         results.push(result);
         
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         // Create failure result
         const failureResult: CheckResult = {
           checkId: spec.specId,
           checkType: spec.checkType,
           status: 'FAIL',
           timestamp: Date.now(),
-          details: `Check failed: ${error.message}`,
+          details: `Check failed: ${errorMessage}`,
           metrics: { executionTime: 0, errors: 1 }
         };
         

@@ -59,7 +59,8 @@ export class RiskAssessmentCore extends EventEmitter {
 
       return success;
     } catch (error) {
-      this.emit('assessmentError', { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.emit('assessmentError', { error: errorMessage });
       return false;
     }
   }
@@ -92,8 +93,9 @@ export class RiskAssessmentCore extends EventEmitter {
 
       return success && dataCollected;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       await this.stateMachine.processEvent(RiskAssessmentEvent.DATA_COLLECTION_FAILED);
-      this.emit('dataCollectionError', { error: error.message });
+      this.emit('dataCollectionError', { error: errorMessage });
       return false;
     }
   }
@@ -126,8 +128,9 @@ export class RiskAssessmentCore extends EventEmitter {
 
       return success && analysisComplete;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       await this.stateMachine.processEvent(RiskAssessmentEvent.ANALYSIS_FAILED);
-      this.emit('analysisError', { error: error.message });
+      this.emit('analysisError', { error: errorMessage });
       return false;
     }
   }
@@ -159,8 +162,9 @@ export class RiskAssessmentCore extends EventEmitter {
 
       return success && validationPassed;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       await this.stateMachine.processEvent(RiskAssessmentEvent.VALIDATION_FAILED);
-      this.emit('validationError', { error: error.message });
+      this.emit('validationError', { error: errorMessage });
       return false;
     }
   }

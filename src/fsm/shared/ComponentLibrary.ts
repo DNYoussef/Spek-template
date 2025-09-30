@@ -220,8 +220,9 @@ export class GenericComponentFacade extends ComponentFacade {
         const result = await this.executeOperation('process', item);
         results.push(result);
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         console.error(`Failed to process item:`, error);
-        results.push({ error: error.message, item });
+        results.push({ error: errorMessage, item });
       }
     }
 

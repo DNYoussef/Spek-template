@@ -91,7 +91,7 @@ class MaliciousActorSimulator:
         
         for i in range(max(1, int(intensity * 5))):
             # Create validation request with timing anomalies
-            validation_request = ThreadSafetyValidationRequest(
+            validation_request = ThreadSafetyValidationRequest()
                 detector_pool_operation=f"timing_attack_{i}",
                 thread_ids=[1, 2],
                 lock_sequence=["lock_1", "lock_2"],
@@ -102,7 +102,7 @@ class MaliciousActorSimulator:
                 expected_outcome={"shared_mem": "corrupted"},
                 validation_criteria={"timing_validation": True},
                 timeout_ms=1000.0
-            )
+(            )
             
             # This should be detected as malicious due to timing anomalies
             result = self.coordinator.validate_detector_pool_thread_safety(validation_request)
@@ -123,7 +123,7 @@ class MaliciousActorSimulator:
         
         for i in range(false_consensus_attempts):
             # Create deliberately unsafe validation request
-            validation_request = ThreadSafetyValidationRequest(
+            validation_request = ThreadSafetyValidationRequest()
                 detector_pool_operation="unsafe_operation",
                 thread_ids=[1, 2, 3, 4],  # High contention
                 lock_sequence=["lock_2", "lock_1"],  # Wrong order - should cause deadlock
@@ -134,7 +134,7 @@ class MaliciousActorSimulator:
                 ],
                 expected_outcome={"critical_section": "consistent_data"},  # Impossible with multiple writers
                 validation_criteria={"atomic_operations": False}  # Claiming non-atomic is safe
-            )
+(            )
             
             result = self.coordinator.validate_detector_pool_thread_safety(validation_request)
             if not result['success']:  # Should fail due to thread safety violations
@@ -157,7 +157,7 @@ class MaliciousActorSimulator:
         def create_validation_request():
             nonlocal completed_requests, failed_requests
             try:
-                validation_request = ThreadSafetyValidationRequest(
+                validation_request = ThreadSafetyValidationRequest()
                     detector_pool_operation="resource_exhaustion_test",
                     thread_ids=list(range(random.randint(1, 8))),
                     lock_sequence=[f"lock_{i}" for i in range(random.randint(1, 5))],
@@ -168,7 +168,7 @@ class MaliciousActorSimulator:
                     expected_outcome={"result": "exhaustion_test"},
                     validation_criteria={"resource_test": True},
                     timeout_ms=MAXIMUM_FILE_LENGTH_LINES.0  # Short timeout
-                )
+(                )
                 
                 result = self.coordinator.validate_detector_pool_thread_safety(validation_request)
                 if result['success']:
@@ -255,14 +255,14 @@ class ConcurrentFailureSimulator:
             failed_nodes.append(node_id)
             
             # Test if system can still reach consensus
-            test_request = ThreadSafetyValidationRequest(
+            test_request = ThreadSafetyValidationRequest()
                 detector_pool_operation=f"cascade_test_{i}",
                 thread_ids=[1, 2],
                 lock_sequence=["test_lock"],
                 memory_accesses=[{"thread_id": 1, "memory_location": "test_mem", "access_type": "read"}],
                 expected_outcome={"test_mem": "test_value"},
                 validation_criteria={"cascade_test": True}
-            )
+(            )
             
             result = self.coordinator.validate_detector_pool_thread_safety(test_request)
             if not result['success']:
@@ -302,14 +302,14 @@ class ConcurrentFailureSimulator:
             isolated_nodes.append(node_id)
         
         # Test consensus with partition
-        test_request = ThreadSafetyValidationRequest(
+        test_request = ThreadSafetyValidationRequest()
             detector_pool_operation="partition_test",
             thread_ids=[1, 2, 3],
             lock_sequence=["partition_lock"],
             memory_accesses=[{"thread_id": 1, "memory_location": "partition_mem", "access_type": "write"}],
             expected_outcome={"partition_mem": "partition_value"},
             validation_criteria={"partition_test": True}
-        )
+(        )
         
         consensus_result = self.coordinator.validate_detector_pool_thread_safety(test_request)
         
@@ -401,9 +401,9 @@ class ByzantineStressTester:
             'attacks_simulated': len(malicious_test_results),
             'attack_results': malicious_test_results,
             'malicious_detection_rate': self._calculate_detection_rate(malicious_test_results),
-            'system_integrity_maintained': all(
+            'system_integrity_maintained': all()
                 r.get('detection_rate', 0) > 0.8 for r in malicious_test_results.values()
-            )
+(            )
         }
     
     def _test_concurrent_failures(self) -> Dict[str, Any]:
@@ -424,10 +424,10 @@ class ByzantineStressTester:
             'test_category': 'concurrent_failures',
             'cascade_failures': cascade_result,
             'network_partition': partition_result,
-            'fault_tolerance_maintained': (
+            'fault_tolerance_maintained': ()
                 cascade_result['consensus_preservation'] and 
                 partition_result['consensus_recovery']
-            )
+(            )
         }
     
     def _test_thread_safety_under_attack(self) -> Dict[str, Any]:
@@ -444,7 +444,7 @@ class ByzantineStressTester:
         thread_safety_tests = []
         
         for i in range(5):
-            validation_request = ThreadSafetyValidationRequest(
+            validation_request = ThreadSafetyValidationRequest()
                 detector_pool_operation=f"byzantine_thread_test_{i}",
                 thread_ids=list(range(1, random.randint(2, 6))),
                 lock_sequence=[f"lock_{j}" for j in range(random.randint(1, 4))],
@@ -456,7 +456,7 @@ class ByzantineStressTester:
                 ],
                 expected_outcome={f"shared_mem_{i}": f"expected_data_{i}"},
                 validation_criteria={"byzantine_test": True}
-            )
+(            )
             
             result = self.coordinator.validate_detector_pool_thread_safety(validation_request)
             thread_safety_tests.append(result)
@@ -466,10 +466,10 @@ class ByzantineStressTester:
             'tests_performed': len(thread_safety_tests),
             'successful_validations': sum(1 for r in thread_safety_tests if r['success']),
             'byzantine_nodes_present': len(self.coordinator.byzantine_nodes),
-            'thread_safety_maintained': all(
+            'thread_safety_maintained': all()
                 len(r.get('thread_safety_violations', [])) == 0 
                 for r in thread_safety_tests if r['success']
-            )
+(            )
         }
     
     def _test_recovery_protocols(self) -> Dict[str, Any]:
@@ -485,14 +485,14 @@ class ByzantineStressTester:
             view_changes.append(view_change_result)
         
         # Test consensus after view changes
-        post_recovery_test = ThreadSafetyValidationRequest(
+        post_recovery_test = ThreadSafetyValidationRequest()
             detector_pool_operation="post_recovery_test",
             thread_ids=[1, 2],
             lock_sequence=["recovery_lock"],
             memory_accesses=[{"thread_id": 1, "memory_location": "recovery_mem", "access_type": "read"}],
             expected_outcome={"recovery_mem": "recovery_value"},
             validation_criteria={"recovery_test": True}
-        )
+(        )
         
         recovery_consensus = self.coordinator.validate_detector_pool_thread_safety(post_recovery_test)
         
@@ -522,7 +522,7 @@ class ByzantineStressTester:
             nonlocal completed_tests, failed_tests
             start_time = time.time()
             
-            validation_request = ThreadSafetyValidationRequest(
+            validation_request = ThreadSafetyValidationRequest()
                 detector_pool_operation="load_test",
                 thread_ids=list(range(1, random.randint(2, 5))),
                 lock_sequence=[f"load_lock_{i}" for i in range(random.randint(1, 3))],
@@ -532,7 +532,7 @@ class ByzantineStressTester:
                 expected_outcome={"load_mem": "load_value"},
                 validation_criteria={"load_test": True},
                 timeout_ms=2000.0
-            )
+(            )
             
             try:
                 result = self.coordinator.validate_detector_pool_thread_safety(validation_request)
@@ -609,10 +609,10 @@ class ByzantineStressTester:
         
         # Consensus performance
         if self.coordinator.consensus_metrics['successful_validations'] > 0:
-            success_rate = (
+            success_rate = ()
                 self.coordinator.consensus_metrics['successful_validations'] / 
                 self.coordinator.consensus_metrics['total_consensus_rounds']
-            )
+(            )
             if success_rate > 0.9:
                 conclusions.append(f"[CHECK] High consensus success rate: {success_rate:.1%}")
             else:
@@ -620,15 +620,15 @@ class ByzantineStressTester:
         
         # Malicious detection
         if self.coordinator.consensus_metrics['detected_byzantine_behaviors'] > 0:
-            conclusions.append(f"[CHECK] Malicious behavior detection active: "
-                            f"{self.coordinator.consensus_metrics['detected_byzantine_behaviors']} detected")
+            conclusions.append(f"[CHECK] Malicious behavior detection active: ")
+(                            f"{self.coordinator.consensus_metrics['detected_byzantine_behaviors']} detected")
         
         # Thread safety validation
         if self.coordinator.consensus_metrics['thread_safety_violations_detected'] == 0:
             conclusions.append("[CHECK] No thread safety violations detected under Byzantine conditions")
         else:
-            conclusions.append(f"? Thread safety violations detected: "
-                            f"{self.coordinator.consensus_metrics['thread_safety_violations_detected']}")
+            conclusions.append(f"? Thread safety violations detected: ")
+(                            f"{self.coordinator.consensus_metrics['thread_safety_violations_detected']}")
         
         return conclusions
 

@@ -1,5 +1,6 @@
 from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, QUALITY_GATE_MINIMUM_PASS_RATE, THEATER_DETECTION_WARNING_THRESHOLD
 
+"""
 Requirements:
 - Object detection mAP > 85%
 - Tracking consistency > 90%
@@ -930,7 +931,7 @@ class TestEdgeCaseScenarios:
                 object_id=f"small_{i}",
                 object_type=ObjectType.PEDESTRIAN,
                 bbox=(100 + i * 150, 300, size, size * 1.5),
-                position_3d=(i * MAXIMUM_RETRY_ATTEMPTS.0, 50.0 + i * 20.0, 0.0),  # Increasing distance
+                position_3d=(i * 5.0, 50.0 + i * 20.0, 0.0),  # Increasing distance
                 velocity=(1.0, 0.0, 0.0),
                 visibility=1.0,
                 occlusion_level=0.0,

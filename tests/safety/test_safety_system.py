@@ -19,14 +19,14 @@ import os
 # Add src to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
 
-from safety import (
+from safety import ()
     SafetyManager,
     FailoverManager,
     RecoverySystem,
     AvailabilityMonitor,
     RedundancyValidator,
     create_safety_system
-)
+()
 from safety.core.safety_manager import SafetyState, SystemComponent
 from safety.core.failover_manager import FailoverStrategy, FailoverInstance
 from safety.recovery.recovery_system import RecoveryAction, RecoveryPlan, RecoveryStrategy
@@ -84,12 +84,12 @@ class TestSafetyManager:
         availability_monitor = Mock(spec=AvailabilityMonitor)
         redundancy_validator = Mock(spec=RedundancyValidator)
 
-        manager.initialize_subsystems(
+        manager.initialize_subsystems()
             failover_manager,
             recovery_system,
             availability_monitor,
             redundancy_validator
-        )
+(        )
 
         return manager
 
@@ -103,10 +103,10 @@ class TestSafetyManager:
     def mock_health_check():
             return True
 
-        safety_manager.register_health_check(
+        safety_manager.register_health_check()
             SystemComponent.TRADING_ENGINE,
             mock_health_check
-        )
+(        )
 
         assert SystemComponent.TRADING_ENGINE in safety_manager._health_checks
 
@@ -124,10 +124,10 @@ class TestSafetyManager:
         # Mock successful failover
         safety_manager.failover_manager.execute_failover.return_value = True
 
-        result = safety_manager.trigger_failover(
+        result = safety_manager.trigger_failover()
             SystemComponent.TRADING_ENGINE,
             "Test failover"
-        )
+(        )
 
         assert result is True
         safety_manager.failover_manager.execute_failover.assert_called_once()
@@ -142,10 +142,10 @@ class TestSafetyManager:
         safety_manager.failover_manager.execute_failover = slow_failover
 
         start_time = time.time()
-        result = safety_manager.trigger_failover(
+        result = safety_manager.trigger_failover()
             SystemComponent.TRADING_ENGINE,
             "Test recovery time"
-        )
+(        )
 
         # Should still succeed but metrics should track the time
         assert len(safety_manager.metrics.recovery_times) > 0
@@ -166,13 +166,13 @@ class TestFailoverManager:
 
     @pytest.fixture
     def failover_instance(self):
-        return FailoverInstance(
+        return FailoverInstance()
             primary_endpoint="http://primary:8080",
             backup_endpoints=["http://backup1:8080", "http://backup2:8080"],
             strategy=FailoverStrategy.ACTIVE_PASSIVE,
             max_recovery_time=30.0,
             health_check_url="http://primary:8080/health"
-        )
+(        )
 
     def test_failover_registration(self, failover_manager, failover_instance):
         """Test failover instance registration."""
@@ -225,27 +225,27 @@ class TestRecoverySystem:
     @pytest.fixture
     def recovery_plan(self):
         actions = [
-            RecoveryAction(
+            RecoveryAction()
                 name="restart_service",
                 strategy=RecoveryStrategy.RESTART_SERVICE,
                 command="systemctl restart test-service",
                 timeout_seconds=30.0,
                 retry_count=2
-            ),
-            RecoveryAction(
+(            ),
+            RecoveryAction()
                 name="reload_config",
                 strategy=RecoveryStrategy.RELOAD_CONFIG,
                 timeout_seconds=15.0,
                 retry_count=1
-            )
+(            )
         ]
 
-        return RecoveryPlan(
+        return RecoveryPlan()
             component_name="test_component",
             actions=actions,
             max_total_time=60.0,
             parallel_execution=False
-        )
+(        )
 
     def test_recovery_plan_registration(self, recovery_system, recovery_plan):
         """Test recovery plan registration."""
@@ -272,12 +272,12 @@ class TestRecoverySystem:
         mock_result.returncode = 0
         mock_subprocess.return_value = mock_result
 
-        action = RecoveryAction(
+        action = RecoveryAction()
             name="test_restart",
             strategy=RecoveryStrategy.RESTART_SERVICE,
             command="systemctl restart test",
             timeout_seconds=30.0
-        )
+(        )
 
         result = recovery_system._execute_single_action(action, 30.0)
         assert result is True
@@ -336,12 +336,12 @@ class TestAvailabilityMonitor:
         availability_monitor.register_component("test_component", failing_check)
 
         # Simulate state transition to unavailable
-        availability_monitor._handle_state_transition(
+        availability_monitor._handle_state_transition()
             "test_component",
             AvailabilityState.AVAILABLE,
             AvailabilityState.UNAVAILABLE,
             datetime.utcnow()
-        )
+(        )
 
         assert "test_component" in availability_monitor._active_incidents
 
@@ -363,32 +363,32 @@ class TestRedundancyValidator:
     @pytest.fixture
     def redundancy_group(self):
         nodes = [
-            RedundantNode(
+            RedundantNode()
                 node_id="node1",
                 endpoint="http://node1:8080",
                 is_primary=True,
                 health_check_url="http://node1:8080/health"
-            ),
-            RedundantNode(
+(            ),
+            RedundantNode()
                 node_id="node2",
                 endpoint="http://node2:8080",
                 health_check_url="http://node2:8080/health"
-            ),
-            RedundantNode(
+(            ),
+            RedundantNode()
                 node_id="node3",
                 endpoint="http://node3:8080",
                 health_check_url="http://node3:8080/health"
-            )
+(            )
         ]
 
-        return RedundancyGroup(
+        return RedundancyGroup()
             group_name="test_cluster",
             redundancy_type=RedundancyType.ACTIVE_ACTIVE,
             required_level=RedundancyLevel.DOUBLE,
             nodes=nodes,
             min_active_nodes=2,
             max_failure_tolerance=1
-        )
+(        )
 
     def test_redundancy_group_registration(self, redundancy_validator, redundancy_group):
         """Test redundancy group registration."""
@@ -442,12 +442,12 @@ class TestTradingSafetyBridge:
 
     @pytest.fixture
     def circuit_breaker_config(self):
-        return CircuitBreakerConfig(
+        return CircuitBreakerConfig()
             name="trading_api",
             failure_threshold=MAXIMUM_RETRY_ATTEMPTS,
             timeout_seconds=300,
             half_open_max_calls=2
-        )
+(        )
 
     def test_circuit_breaker_registration(self, trading_bridge, circuit_breaker_config):
         """Test circuit breaker registration."""
@@ -477,12 +477,12 @@ class TestTradingSafetyBridge:
         from safety.integration.trading_safety_bridge import PositionLimit
 
         # Set position limit
-        limit = PositionLimit(
+        limit = PositionLimit()
             symbol="AAPL",
             max_position_size=1000,
             max_daily_loss=10000,
             max_exposure=150000
-        )
+(        )
         trading_bridge.set_position_limit(limit)
 
         # Test trade within limits
@@ -530,10 +530,10 @@ class TestIntegrationScenarios:
     def mock_health_check():
             return False  # Simulate failure
 
-        integrated_safety_system.register_health_check(
+        integrated_safety_system.register_health_check()
             SystemComponent.TRADING_ENGINE,
             mock_health_check
-        )
+(        )
 
         # The system should detect the failure and attempt recovery
         assert integrated_safety_system.get_system_state() in [

@@ -1,6 +1,6 @@
 """Tests for Agent Database Builder"""
 
-from src.coordination.agent_database_builder import (
+from src.coordination.agent_database_builder import ()
 import pytest
 
 class TestAgentConfigBuilder:
@@ -8,14 +8,14 @@ class TestAgentConfigBuilder:
 
     def test_builder_creates_valid_agent(self):
         """Test builder creates valid agent configuration."""
-        agent = (
+        agent = ()
             AgentConfigBuilder("development")
             .with_specialties("coding", "testing")
             .with_complexity("high")
             .parallel_capable(True)
             .with_skills("python", "javascript")
             .build()
-        )
+(        )
 
         assert agent.agent_type == "development"
         assert len(agent.specialties) == 2
@@ -61,11 +61,11 @@ class TestMCPCompatibilityBuilder:
 
     def test_builder_creates_compatibility(self):
         """Test builder creates MCP compatibility."""
-        compat = (
+        compat = ()
             MCPCompatibilityBuilder("development")
             .with_mcp_servers("context7", "ref")
             .build()
-        )
+(        )
 
         assert compat.agent_type == "development"
         assert "memory" in compat.mcp_servers  # Default
@@ -73,11 +73,11 @@ class TestMCPCompatibilityBuilder:
 
     def test_builder_removes_duplicates(self):
         """Test builder removes duplicate MCP servers."""
-        compat = (
+        compat = ()
             MCPCompatibilityBuilder("test")
             .with_mcp_servers("memory", "memory", "ref")
             .build()
-        )
+(        )
 
         assert compat.mcp_servers.count("memory") == 1
 

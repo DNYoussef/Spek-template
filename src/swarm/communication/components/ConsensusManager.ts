@@ -192,7 +192,7 @@ export class ConsensusManager extends EventEmitter {
     };
   }
 
-  public cleanup(): void {
+  public destroy(): void {
     this.activeConsensus.clear();
     this.consensusHistory = [];
   }

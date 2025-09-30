@@ -4,7 +4,7 @@
  * Provides simplified access to all Queen-level operations
  */
 import { EventEmitter } from 'events';
-import { QueenFSMStates, QueenFSMEvents } from './fsm/QueenFSMTypes';
+import { QueenState, QueenEvent, QueenFSMStates } from './fsm/QueenFSMTypes';
 /**
  * Queen Operation Types
  * NASA Rule 10: Fixed operation vocabulary
@@ -73,18 +73,19 @@ export class QueenFacadeFacade extends EventEmitter {
     this.operationQueue  =  new Map();
     this.operationResults  =  new Map();
     this.activeOperations  =  new Set();
-    this.currentState  =  QueenFSMStates.INITIALIZING;
+    this.currentState  =  QueenState.INITIALIZING;
   }
   /**
    * Initialize Queen Facade
    * NASA Rule 10: ≤60 lines, ≥2 assertions
+   * Renamed from initialize() to avoid EventEmitter property conflict
    */
-  async initialize(...args: any[]): Promise<QueenOperationResult> {
+  async initializeComponent(...args: any[]): Promise<QueenOperationResult> {
     console.assert(!this.isInitialized, 'Queen facade must not be already initialized');
     console.assert(this.operationQueue.size === 0, 'Operation queue must be empty during initialization');
     try {
       this.isInitialized  =  true;
-      this.currentState  =  QueenFSMStates.IDLE;
+      this.currentState  =  QueenState.IDLE;
       const result: QueenOperationResult = {
         operationId: 'init_' + Date.now(),
         success: true,
@@ -96,7 +97,8 @@ export class QueenFacadeFacade extends EventEmitter {
       this.emit('initialized', result);
       return result;
     } catch (error) {
-      this.currentState  =  QueenFSMStates.ERROR;  errorResult: QueenOperationResult  =  {
+      this.currentState = QueenState.ERROR;
+      const errorResult: QueenOperationResult  =  {
         operationId: 'init_error_' + Date.now(),
         success: false,
         error: (error as Error).message,
@@ -129,9 +131,10 @@ export class QueenFacadeFacade extends EventEmitter {
       // Add const to queue and execute
       this.operationQueue.set(request.id, request);
       this.activeOperations.add(request.id);
-      startTime  =  Date.now();
-      result  =  await this.processOperation(request);
-      const executionTime  =  Date.now() - startTime;  operationResult: QueenOperationResult  =  {
+      const startTime = Date.now();
+      const result = await this.processOperation(request);
+      const executionTime = Date.now() - startTime;
+      const operationResult: QueenOperationResult  =  {
         operationId: request.id,
         success: true,
         result,
@@ -145,7 +148,8 @@ export class QueenFacadeFacade extends EventEmitter {
       this.emit('operationCompleted', operationResult);
       return operationResult;
     } catch (error) {
-      this.activeOperations.delete(request.id);  errorResult: QueenOperationResult  =  {
+      this.activeOperations.delete(request.id);
+      const errorResult: QueenOperationResult  =  {
         operationId: request.id,
         success: false,
         error: (error as Error).message,
@@ -222,7 +226,7 @@ export class QueenFacadeFacade extends EventEmitter {
       };
     }
     try {
-      this.currentState  =  QueenFSMStates.SHUTDOWN;
+      this.currentState  =  QueenState.SHUTDOWN;
       this.isInitialized  =  false;
       this.operationQueue.clear();
       this.operationResults.clear();
@@ -237,7 +241,8 @@ export class QueenFacadeFacade extends EventEmitter {
       };
       this.emit('shutdown', result);
       return result;
-    } catch (error) {  errorResult: QueenOperationResult  =  {
+    } catch (error) {
+      const errorResult: QueenOperationResult  =  {
         operationId: 'shutdown_error_' + Date.now(),
         success: false,
         error: (error as Error).message,
@@ -273,10 +278,10 @@ export class QueenFacadeFacade extends EventEmitter {
     }
   }
   private handleRegisterPrincess(payload: any): any {
-    this.currentState  =  QueenFSMStates.REGISTERING_PRINCESS;
+    this.currentState  =  QueenState.REGISTERING_PRINCESS;
     // Simulate princess registration
     setTimeout(() => {
-      this.currentState  =  QueenFSMStates.ACTIVE;
+      this.currentState  =  QueenState.ACTIVE;
     }, 100);
     return {
       princessId: payload.princessId || 'princess_' + Date.now(),
@@ -285,10 +290,10 @@ export class QueenFacadeFacade extends EventEmitter {
     };
   }
   private handleDefineObjective(payload: any): any {
-    this.currentState  =  QueenFSMStates.DEFINING_OBJECTIVE;
+    this.currentState  =  QueenState.DEFINING_OBJECTIVE;
     // Simulate objective definition
     setTimeout(() => {
-      this.currentState  =  QueenFSMStates.ACTIVE;
+      this.currentState  =  QueenState.ACTIVE;
     }, 100);
     return {
       objectiveId: 'obj_' + Date.now(),
@@ -297,10 +302,10 @@ export class QueenFacadeFacade extends EventEmitter {
     };
   }
   private handleExecuteObjective(payload: any): any {
-    this.currentState  =  QueenFSMStates.EXECUTING_OBJECTIVE;
+    this.currentState  =  QueenState.EXECUTING_OBJECTIVE;
     // Simulate objective execution
     setTimeout(() => {
-      this.currentState  =  QueenFSMStates.ACTIVE;
+      this.currentState  =  QueenState.ACTIVE;
     }, 2000);
     return {
       executionId: 'exec_' + Date.now(),
@@ -309,10 +314,10 @@ export class QueenFacadeFacade extends EventEmitter {
     };
   }
   private handleDelegateTask(payload: any): any {
-    this.currentState  =  QueenFSMStates.DELEGATING_TASK;
+    this.currentState  =  QueenState.DELEGATING_TASK;
     // Simulate task delegation
     setTimeout(() => {
-      this.currentState  =  QueenFSMStates.ACTIVE;
+      this.currentState  =  QueenState.ACTIVE;
     }, 100);
     return {
       taskId: 'task_' + Date.now(),
@@ -321,8 +326,8 @@ export class QueenFacadeFacade extends EventEmitter {
     };
   }
   private calculateSystemHealth(): QueenStatus['systemHealth'] {
-    if (this.currentState === QueenFSMStates.ERROR) return 'critical';
-    if (this.currentState === QueenFSMStates.SHUTDOWN) return 'poor';
+    if (this.currentState === QueenState.ERROR) return 'critical';
+    if (this.currentState === QueenState.SHUTDOWN) return 'poor';
     if (this.activeOperations.size > QueenFacadeFacade.MAX_CONCURRENT_OPERATIONS) return 'fair';
     return 'good';
   }

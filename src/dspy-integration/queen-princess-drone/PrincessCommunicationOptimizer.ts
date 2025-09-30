@@ -207,8 +207,9 @@ export class PrincessCommunicationOptimizer extends EventEmitter {
       return enhanced;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.setState(PrincessState.ERROR);
-      throw new Error(`Princess directive processing failed: ${error.message}`);
+      throw new Error(`Princess directive processing failed: ${errorMessage}`);
     }
   }
 

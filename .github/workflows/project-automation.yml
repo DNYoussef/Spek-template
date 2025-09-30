@@ -36,6 +36,15 @@ jobs:
 
       - name: Build project
         run: npm run build
+        continue-on-error: false
+
+      - name: Verify build artifacts
+        run: |
+          if [ ! -d "dist/src" ]; then
+            echo "ERROR: Build did not generate dist/ files"
+            exit 1
+          fi
+          echo "Build artifacts verified"
 
       - name: Sync Item to Project
         if: github.event_name != 'workflow_dispatch'

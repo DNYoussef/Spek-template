@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
+import pytest
 
 Comprehensive test suite to verify that ComponentIntegrator achieves 100% reality
 by testing:
@@ -46,12 +47,12 @@ class TestPhase3ComponentIntegrator100PercentReality(unittest.TestCase):
     def test_01_component_integrator_class_export(self):
         """Test that ComponentIntegrator class is properly exported."""
         try:
-            from component_integrator import (
+            from component_integrator import ()
                 UnifiedComponentIntegrator,
                 get_component_integrator,
                 initialize_components,
                 shutdown_components
-            )
+(            )
 
             # Test that we can create an instance
             integrator = UnifiedComponentIntegrator()
@@ -244,11 +245,11 @@ def test_end_to_end_integration():
 
         # Create a temporary test file
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
-            f.write('''
+            f.write(''')
 def problematic_function(arg1, arg2, arg3, arg4, arg5, arg6):
     magic_number = 12345
     return magic_number * 2
-''')
+(''')
             temp_file = f.name
 
         try:

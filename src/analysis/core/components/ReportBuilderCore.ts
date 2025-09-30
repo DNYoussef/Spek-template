@@ -60,7 +60,7 @@ export class ReportBuilderCore extends ComponentCore {
     const report: AnalysisReport = {
       id: reportId,
       analysisId: analysisResult.analysisId,
-      format,
+      format: format as 'json' | 'html' | 'markdown' | 'pdf' | 'csv' | 'xml',
       content: await this.generateContent(analysisResult, template),
       summary: this.generateSummary(analysisResult),
       sections: await this.generateSections(analysisResult, template),

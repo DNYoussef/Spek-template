@@ -54,15 +54,15 @@ class ImportResolutionTester:
             try:
                 self._test_file_imports(file_path)
             except Exception as e:
-                failed_imports.append({
+                failed_imports.append({)
                     "file": str(file_path),
                     "error": str(e)
-                })
+(                })
 
         execution_time = time.time() - start_time
         passed = len(failed_imports) == 0
 
-        return TestResult(
+        return TestResult()
             test_name="import_resolution",
             passed=passed,
             execution_time=execution_time,
@@ -72,7 +72,7 @@ class ImportResolutionTester:
                 "failed_imports": failed_imports[:10],  # Limit for readability
                 "total_failures": len(failed_imports)
             }
-        )
+(        )
 
     def _test_file_imports(self, file_path: Path):
         """Test imports for a single file."""
@@ -138,7 +138,7 @@ class FunctionalityTester:
         passed_count = sum(1 for r in test_results if r["passed"])
         all_passed = passed_count == len(test_results)
 
-        return TestResult(
+        return TestResult()
             test_name="core_functionality",
             passed=all_passed,
             execution_time=execution_time,
@@ -148,7 +148,7 @@ class FunctionalityTester:
                 "modules_passed": passed_count,
                 "test_results": test_results
             }
-        )
+(        )
 
     def _test_analyzer_core(self, module_name: str) -> str:
         """Test analyzer core module."""
@@ -206,7 +206,7 @@ class ConfigurationTester:
         valid_count = sum(1 for r in test_results if r["valid"])
         all_valid = valid_count == len(test_results)
 
-        return TestResult(
+        return TestResult()
             test_name="json_configuration",
             passed=all_valid,
             execution_time=execution_time,
@@ -216,7 +216,7 @@ class ConfigurationTester:
                 "valid_files": valid_count,
                 "results": test_results[:10]  # Limit for readability
             }
-        )
+(        )
 
     def _should_test_config(self, file_path: Path) -> bool:
         """Determine if config file should be tested."""
@@ -245,17 +245,17 @@ class PerformanceTester:
         results = []
         for module in import_tests:
             import_time = self._measure_import_time(module)
-            results.append({
+            results.append({)
                 "module": module,
                 "import_time": import_time,
                 "acceptable": import_time < 2.0  # 2 second threshold
-            })
+(            })
 
         execution_time = time.time() - start_time
         acceptable_count = sum(1 for r in results if r["acceptable"])
         all_acceptable = acceptable_count == len(results)
 
-        return TestResult(
+        return TestResult()
             test_name="import_performance",
             passed=all_acceptable,
             execution_time=execution_time,
@@ -265,7 +265,7 @@ class PerformanceTester:
                 "acceptable_performance": acceptable_count,
                 "import_times": results
             }
-        )
+(        )
 
     def _measure_import_time(self, module_name: str) -> float:
         """Measure time to import a module."""

@@ -55,7 +55,7 @@ class TestFullPipelineIntegration(unittest.TestCase):
         """Create sample Python files for realistic testing."""
         # Main module
         main_file = self.test_project_root / "main.py"
-        main_file.write_text("""
+        main_file.write_text(""")
 def main():
     processor = DataProcessor()
     result = processor.process(42, "test")
@@ -63,11 +63,11 @@ def main():
 
 if __name__ == "__main__":
     main()
-""")
+(""")
 
         # Data processor module
         processor_file = self.test_project_root / "processor.py"
-        processor_file.write_text("""
+        processor_file.write_text(""")
 class DataProcessor:
     def process(self, value, mode):
         if value > 100:  # Magic number
@@ -79,11 +79,11 @@ class DataProcessor:
     
     def _process_small(self, value, mode):
         return value + 1 if mode == "increment" else value
-""")
+(""")
 
         # Utils module
         utils_file = self.test_project_root / "utils.py"
-        utils_file.write_text("""
+        utils_file.write_text(""")
 def validate_data(data, validator_type):
     if validator_type == "strict":  # String matching
         return len(data) > 0 and data.isalnum()
@@ -93,14 +93,14 @@ def validate_data(data, validator_type):
 
 def calculate_score(base, multiplier):
     return base * multiplier
-""")
+(""")
 
     def _create_comprehensive_violations(self) -> List[Violation]:
         """Create a comprehensive set of violations covering all scenarios."""
         violations = []
         
         # Connascence of Name violations
-        violations.append(Violation(
+        violations.append(Violation())
             id="integration_test_name_001",
             type=ConnascenceType.NAME,
             severity=Severity.MEDIUM,
@@ -120,10 +120,10 @@ def calculate_score(base, multiplier):
                 "coupled_class": "DataProcessor",
                 "coupling_strength": "direct_instantiation"
             }
-        ))
+((        ))
         
         # Connascence of Meaning violations
-        violations.append(Violation(
+        violations.append(Violation())
             id="integration_test_meaning_001",
             type=ConnascenceType.MEANING,
             severity=Severity.HIGH,
@@ -144,10 +144,10 @@ def calculate_score(base, multiplier):
                 "suggested_constant": "MAX_SMALL_VALUE",
                 "usage_context": "threshold_comparison"
             }
-        ))
+((        ))
         
         # Connascence of Type violations
-        violations.append(Violation(
+        violations.append(Violation())
             id="integration_test_type_001",
             type=ConnascenceType.TYPE,
             severity=Severity.MEDIUM,
@@ -168,10 +168,10 @@ def calculate_score(base, multiplier):
                 "risk_level": "medium",
                 "type_validation_missing": True
             }
-        ))
+((        ))
         
         # Connascence of Position violations
-        violations.append(Violation(
+        violations.append(Violation())
             id="integration_test_position_001",
             type=ConnascenceType.POSITION,
             severity=Severity.LOW,
@@ -192,10 +192,10 @@ def calculate_score(base, multiplier):
                 "positional_args": True,
                 "keyword_args_recommended": True
             }
-        ))
+((        ))
         
         # Cross-module violations
-        violations.append(Violation(
+        violations.append(Violation())
             id="integration_test_cross_module_001",
             type=ConnascenceType.EXECUTION,
             severity=Severity.CRITICAL,
@@ -216,13 +216,13 @@ def calculate_score(base, multiplier):
                 "execution_order_critical": True,
                 "initialization_required": True
             }
-        ))
+((        ))
         
         return violations
 
     def _create_comprehensive_analysis_result(self) -> AnalysisResult:
         """Create a comprehensive analysis result for integration testing."""
-        return AnalysisResult(
+        return AnalysisResult()
             violations=self.comprehensive_violations,
             file_stats={
                 "total_files": 3,
@@ -253,7 +253,7 @@ def calculate_score(base, multiplier):
                 "critical_weight": sum(v.weight for v in self.comprehensive_violations if v.severity == Severity.CRITICAL),
                 "complexity_score": 0.75
             }
-        )
+(        )
 
     # Full Pipeline Integration Tests
     def test_complete_json_generation_pipeline(self):
@@ -317,7 +317,7 @@ def calculate_score(base, multiplier):
                 violation_type = violation_types[(i + j) % len(violation_types)]
                 severity = severities[(i + j) % len(severities)]
                 
-                violation = Violation(
+                violation = Violation()
                     id=f"prod_sim_{i:02d}_{j:02d}_{violation_type.value}",
                     type=violation_type,
                     severity=severity,
@@ -339,10 +339,10 @@ def calculate_score(base, multiplier):
                         "violation_index": j,
                         "realistic_context": True
                     }
-                )
+(                )
                 production_violations.append(violation)
         
-        production_result = AnalysisResult(
+        production_result = AnalysisResult()
             violations=production_violations,
             file_stats={
                 "total_files": len(file_patterns),
@@ -359,7 +359,7 @@ def calculate_score(base, multiplier):
             budget_status={"within_budget": True, "budget_used": 0.85},
             baseline_comparison={"improved": True, "regression_count": 0},
             summary_metrics={"total_weight": sum(v.weight for v in production_violations)}
-        )
+(        )
         
         # Test both JSON and SARIF generation
         json_output = self.json_reporter.generate(production_result)
@@ -407,7 +407,7 @@ def calculate_score(base, multiplier):
         # Create large violation set (simulate 1000-file codebase)
         large_violations = []
         for i in range(5000):  # 5000 violations across 1000 files
-            violation = Violation(
+            violation = Violation()
                 id=f"stress_{i:05d}",
                 type=list(ConnascenceType)[i % len(ConnascenceType)],
                 severity=list(Severity)[i % len(Severity)],
@@ -419,10 +419,10 @@ def calculate_score(base, multiplier):
                 description=f"Stress test violation {i}",
                 recommendation=f"Fix stress violation {i}",
                 context={"stress_test": True, "index": i}
-            )
+(            )
             large_violations.append(violation)
         
-        large_result = AnalysisResult(
+        large_result = AnalysisResult()
             violations=large_violations,
             file_stats={"total_files": 1000, "analyzed_files": 1000},
             timestamp="2024-01-01T16:00:00Z",
@@ -433,7 +433,7 @@ def calculate_score(base, multiplier):
             budget_status={},
             baseline_comparison={},
             summary_metrics={"total_weight": sum(v.weight for v in large_violations)}
-        )
+(        )
         
         # Test performance under load
         start_time = time.perf_counter()
@@ -499,8 +499,8 @@ def calculate_score(base, multiplier):
     def _validate_sarif_compliance(self, sarif_dict: Dict):
         """Validate SARIF 2.1.0 compliance."""
         # Schema compliance
-        self.assertEqual(sarif_dict.get("$schema"), 
-                        "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json")
+        self.assertEqual(sarif_dict.get("$schema"),)
+(                        "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json")
         self.assertEqual(sarif_dict.get("version"), "2.1.0")
         
         # Required structure
@@ -587,8 +587,8 @@ def calculate_score(base, multiplier):
             first_violation_keys = set(violations[0].keys())
             for i, violation in enumerate(violations[1:], 1):
                 violation_keys = set(violation.keys())
-                self.assertEqual(first_violation_keys, violation_keys,
-                                f"Violation {i} has inconsistent structure")
+                self.assertEqual(first_violation_keys, violation_keys,)
+(                                f"Violation {i} has inconsistent structure")
 
     def _validate_policy_field_standardization(self, result_dict: Dict):
         """Validate policy field standardization."""

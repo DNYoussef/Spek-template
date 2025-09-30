@@ -194,11 +194,12 @@ export class WorkflowFacade extends EventEmitter {
       return workflow;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       await this.transitionHub.transitionWorkflow(workflowId, WorkflowEvent.FAIL);
       workflow.state = WorkflowState.FAILED;
       workflow.endTime = Date.now();
 
-      this.emit('workflow:failed', { workflowId, error: error.message });
+      this.emit('workflow:failed', { workflowId, error: errorMessage });
       throw error;
     }
   }

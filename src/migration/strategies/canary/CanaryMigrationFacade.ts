@@ -93,7 +93,8 @@ export class CanaryMigrationFacade extends EventEmitter {
       return result;
       
     } catch (error) {
-      this.logger.error('Migration failed', { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error('Migration failed', { error: errorMessage });
       const result = await this.handleMigrationFailure(error, startTime);
       this.emit('canaryFailed', result, error);
       return result;

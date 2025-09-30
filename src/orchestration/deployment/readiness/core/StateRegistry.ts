@@ -160,7 +160,8 @@ export class StateRegistry {
         const handler = new module.default();
         this.registerHandler(state as ReadinessState, handler);
       } catch (error) {
-        console.warn(`Failed to register handler for state ${state}:`, error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+        console.warn(`Failed to register handler for state ${state}:`, errorMessage);
         // Continue with other handlers
       }
     }

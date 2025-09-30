@@ -293,10 +293,11 @@ export class RollingBackState implements StateHandler {
       this.recordActionSuccess(context, action);
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Rollback action failed', {
         executionId: context.executionId,
         actionId: action.id,
-        error: error.message
+        error: errorMessage
       });
 
       this.recordActionFailure(context, action, error);

@@ -238,8 +238,9 @@ export class WebSocketStateMachine {
       }
       
     } catch (error) {
-      await stateMachine.transition('error', { error: error.message });
-      this.sendError(connectionId, 'Message processing error', error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      await stateMachine.transition('error', { error: errorMessage });
+      this.sendError(connectionId, 'Message processing error', errorMessage);
     }
   }
 

@@ -281,9 +281,10 @@ export class AuthenticationStateMachine {
       }
       
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       return {
         authenticated: false,
-        error: error.message
+        error: errorMessage
       };
     }
   }

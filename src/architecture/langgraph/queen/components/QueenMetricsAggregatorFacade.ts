@@ -104,7 +104,7 @@ export class QueenMetricsAggregatorFacade extends EventEmitter {
    * Initialize Metrics Aggregator
    * NASA Rule 10: ≤60 lines, ≥2 assertions
    */
-  async initialize(...args: any[]): Promise<void> {
+  async initializeComponent(...args: any[]): Promise<void> {
     console.assert(!this.isInitialized, 'Metrics aggregator must not be already initialized');
     console.assert(this.metricHistory.size === 0, 'Metric history must be empty during initialization');
 
@@ -156,7 +156,7 @@ export class QueenMetricsAggregatorFacade extends EventEmitter {
       throw new Error('Metrics aggregator must be initialized before getting metrics');
     }
     const endTime  =  Date.now();
-    startTime  =  timeRangeMs ? endTime - timeRangeMs : endTime - QueenMetricsAggregatorFacade.MAX_AGGREGATION_WINDOW;
+    const startTime = timeRangeMs ? endTime - timeRangeMs : endTime - QueenMetricsAggregatorFacade.MAX_AGGREGATION_WINDOW;
     const filteredMetrics  =  Array.from(this.metricHistory.values()).filter(metric => {
     const matchesType  =  !type || metric.type === type;
       const inTimeRange  =  metric.timestamp >= startTime && metric.timestamp <= endTime;
@@ -187,7 +187,7 @@ const results: AggregatedMetric[]   = [];
       throw new Error('Metrics aggregator must be initialized before getting summary');
     }
     const endTime  =  Date.now();
-    startTime  =  timeRangeMs ? endTime - timeRangeMs : endTime - QueenMetricsAggregatorFacade.MAX_AGGREGATION_WINDOW;
+    const startTime = timeRangeMs ? endTime - timeRangeMs : endTime - QueenMetricsAggregatorFacade.MAX_AGGREGATION_WINDOW;
     const aggregatedMetrics  =  this.getAggregatedMetrics(undefined, timeRangeMs);
 const aggregatedMetricsMap: Record<MetricType, AggregatedMetric>   = {} as Record<MetricType, AggregatedMetric>;
     aggregatedMetrics.forEach(metric => {

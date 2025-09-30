@@ -10,12 +10,12 @@ import {
   ComplianceDrift,
   RollbackSnapshot,
   ComplianceStandard
-} from '../../types/domains/compliance-types';
+} from '../../../types/compliance-types';
 
 import {
   ComplianceRuleId,
   Timestamp
-} from '../../types/base/primitives';
+} from '../../../types/base/primitives';
 
 export class ComplianceAuditLogger {
   private sessionId: string;

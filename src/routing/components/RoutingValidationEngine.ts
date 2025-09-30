@@ -100,10 +100,11 @@ export class RoutingValidationEngine {
         }
 
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         console.warn(`Rule ${rule.id} failed:`, error);
         warnings.push(this.createWarning(
           rule,
-          `Rule execution failed: ${error.message}`,
+          `Rule execution failed: ${errorMessage}`,
           { error: error.message }
         ));
       }
@@ -155,11 +156,12 @@ export class RoutingValidationEngine {
       };
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       return {
         isViolation: false,
         warnings: [{
-          message: `Rule condition failed: ${error.message}`,
-          context: { ruleId: rule.id, error: error.message }
+          message: `Rule condition failed: ${errorMessage}`,
+          context: { ruleId: rule.id, error: errorMessage }
         }]
       };
     }

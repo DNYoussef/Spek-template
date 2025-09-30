@@ -14,7 +14,7 @@ import numpy as np
 import pytest
 
 # Test configuration
-pytest_plugins = ["pytest_asyncio"]
+# NOTE: pytest_plugins moved to tests/conftest.py (top-level)
 
 def pytest_configure(config):
     """Configure pytest for ADAS testing"""

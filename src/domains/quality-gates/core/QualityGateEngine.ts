@@ -190,15 +190,16 @@ export class QualityGateEngine extends EventEmitter {
       return result;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       const errorResult: QualityGateResult = {
         passed: false,
         gateId,
         timestamp: new Date(),
-        metrics: { error: error.message },
+        metrics: { error: errorMessage },
         violations: [{
           severity: 'critical',
           category: 'six-sigma',
-          description: `Quality gate execution failed: ${error.message}`,
+          description: `Quality gate execution failed: ${errorMessage}`,
           impact: 'Gate validation incomplete',
           remediation: 'Review gate configuration and retry',
           autoRemediable: false

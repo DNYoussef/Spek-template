@@ -76,11 +76,13 @@ export abstract class BaseController extends EventEmitter {
 
       return response;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      const errorStack = error instanceof Error ? error.stack : undefined;
       const controllerError: ControllerError = {
         code: 'REQUEST_PROCESSING_FAILED',
-        message: `Request processing failed: ${error.message}`,
+        message: `Request processing failed: ${errorMessage}`,
         details: { error },
-        stack: error.stack
+        stack: errorStack
       };
 
       this.logger.logError(controllerError);
@@ -156,9 +158,10 @@ export abstract class BaseController extends EventEmitter {
             context.response = this.responseBuilder.buildSuccess(result, context.requestId);
             return UnifiedControllerState.RESPONDING;
           } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : String(error);
             const controllerError: ControllerError = {
               code: 'PROCESSING_FAILED',
-              message: `Processing failed: ${error.message}`,
+              message: `Processing failed: ${errorMessage}`,
               details: { error }
             };
             context.errors.push(controllerError);

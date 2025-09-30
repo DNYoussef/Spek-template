@@ -201,11 +201,12 @@ export class ValidatingStepState implements StateHandler {
       this.recordValidationResult(context, validationResult);
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Validation check failed', {
         executionId: context.executionId,
         stepId: context.currentStep.id,
         checkType: validationCheck.type,
-        error: error.message
+        error: errorMessage
       });
 
       this.recordValidationError(context, validationCheck, error);

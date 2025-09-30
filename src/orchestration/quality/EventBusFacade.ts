@@ -75,7 +75,7 @@ export class EventBusFacade extends EventEmitter {
     });
   }
 
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     await this.repository.initialize();
     this.emit('eventBusInitialized');
   }

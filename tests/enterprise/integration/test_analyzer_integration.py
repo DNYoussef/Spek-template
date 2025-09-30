@@ -120,10 +120,10 @@ class TestEnterpriseAnalyzerIntegration:
             "async": MockAsyncAnalyzer()
         }
         
-        integration = EnterpriseAnalyzerIntegration(
+        integration = EnterpriseAnalyzerIntegration()
             self.project_root,
             existing_analyzers=existing_analyzers
-        )
+(        )
         
         assert integration.existing_analyzers == existing_analyzers
         assert "simple" in integration.existing_analyzers
@@ -229,16 +229,16 @@ class TestAnalyzerWrapping:
         assert 'nist_compliance' in compliance_status
         
         # Test security analysis (mock the supply chain report)
-        with patch.object(self.integration.supply_chain, 'generate_comprehensive_security_report', 
-                        new_callable=AsyncMock) as mock_security:
-            mock_security.return_value = Mock(
+        with patch.object(self.integration.supply_chain, 'generate_comprehensive_security_report',)
+(                        new_callable=AsyncMock) as mock_security:
+            mock_security.return_value = Mock()
                 security_level=Mock(value="high"),
                 risk_score=0.2,
                 vulnerabilities_found=0,
                 sbom_generated=True,
                 slsa_level=Mock(value="level3"),
                 recommendations=["Enable additional monitoring"]
-            )
+(            )
             
             security_analysis = await wrapped_instance.get_security_analysis()
             assert isinstance(security_analysis, dict)
@@ -371,23 +371,23 @@ class TestUnifiedAnalysisInterface:
         self.integration.wrap_analyzer("unified_test", MockComplexAnalyzer)
         
         # Mock security report for security analysis
-        with patch.object(self.integration.supply_chain, 'generate_comprehensive_security_report',
-                        new_callable=AsyncMock) as mock_security:
-            mock_security.return_value = Mock(
+        with patch.object(self.integration.supply_chain, 'generate_comprehensive_security_report',)
+(                        new_callable=AsyncMock) as mock_security:
+            mock_security.return_value = Mock()
                 security_level=Mock(value="high"),
                 risk_score=TAKE_PROFIT_PERCENTAGE,
                 vulnerabilities_found=0,
                 sbom_generated=True,
                 slsa_level=Mock(value="level3"),
                 recommendations=["Continue monitoring"]
-            )
+(            )
             
             # Run unified analysis
-            result = await self.integration.analyze_with_enterprise_features(
+            result = await self.integration.analyze_with_enterprise_features()
                 "unified_test",
                 "test_data",
                 options={"complexity": "high"}
-            )
+(            )
             
         # Verify result structure
         assert isinstance(result, dict)
@@ -436,10 +436,10 @@ class TestUnifiedAnalysisInterface:
         
         self.integration.wrap_analyzer("disabled_test", MockSimpleAnalyzer)
         
-        result = await self.integration.analyze_with_enterprise_features(
+        result = await self.integration.analyze_with_enterprise_features()
             "disabled_test",
             "test_data"
-        )
+(        )
         
         # Security and compliance should be None when disabled
         assert result['security_analysis'] is None
@@ -459,10 +459,10 @@ class TestUnifiedAnalysisInterface:
     async def test_analyze_nonexistent_analyzer(self):
         """Test unified analysis with nonexistent analyzer"""
         with pytest.raises(ValueError, match="Analyzer nonexistent not found"):
-            await self.integration.analyze_with_enterprise_features(
+            await self.integration.analyze_with_enterprise_features()
                 "nonexistent",
                 "test_data"
-            )
+(            )
 
 class TestIntegrationStatus:
     """Test integration status and reporting"""
@@ -531,7 +531,7 @@ class TestIntegrationStatus:
         self.integration.wrap_analyzer("report_test", MockSimpleAnalyzer)
         
         # Generate sample history
-        self.integration.analysis_history.extend([
+        self.integration.analysis_history.extend([)
             {
                 'id': 'test_1',
                 'analyzer': 'report_test',
@@ -550,7 +550,7 @@ class TestIntegrationStatus:
                 'result_size': 0,
                 'error': "Test error"
             }
-        ])
+(        ])
         
         with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
             output_file = Path(f.name)
@@ -621,10 +621,10 @@ class TestNonBreakingIntegration:
                     mock_module2: ['AdvancedAnalyzer', '_private_class', '__name__']
                 }[obj]
                 
-                integration = EnterpriseAnalyzerIntegration.create_non_breaking_integration(
+                integration = EnterpriseAnalyzerIntegration.create_non_breaking_integration()
                     self.project_root,
                     existing_analyzer_modules=mock_modules
-                )
+(                )
                 
         # Verify analyzers were wrapped
         assert len(integration.wrapped_analyzers) == 2
@@ -636,10 +636,10 @@ class TestNonBreakingIntegration:
         mock_modules = ["nonexistent_module", "invalid_module"]
         
         with patch('builtins.__import__', side_effect=ImportError("Module not found")):
-            integration = EnterpriseAnalyzerIntegration.create_non_breaking_integration(
+            integration = EnterpriseAnalyzerIntegration.create_non_breaking_integration()
                 self.project_root,
                 existing_analyzer_modules=mock_modules
-            )
+(            )
             
         # Should complete without crashing, but no analyzers wrapped
         assert len(integration.wrapped_analyzers) == 0
@@ -689,7 +689,7 @@ class TestPerformanceAndConcurrency:
         """Test memory efficiency with large analysis history"""
         # Generate large history
         for i in range(1500):  # More than the 1000 limit
-            self.integration.analysis_history.append({
+            self.integration.analysis_history.append({)
                 'id': f'test_{i}',
                 'analyzer': 'memory_test',
                 'timestamp': datetime.now(),
@@ -697,7 +697,7 @@ class TestPerformanceAndConcurrency:
                 'success': True,
                 'result_size': 100,
                 'error': None
-            })
+(            })
             
         # History should be limited to 1000 entries
         assert len(self.integration.analysis_history) == 1000
@@ -799,12 +799,12 @@ class TestErrorHandlingAndEdgeCases:
         instance = wrapped_class()
         
         # Test with various parameter combinations
-        result = await instance.analyze(
+        result = await instance.analyze()
             "test_data", 
             "extra_arg",
             param1="custom",
             custom_kwarg="value"
-        )
+(        )
         
         assert result["data"] == "test_data"
         assert result["args"] == ("extra_arg",)

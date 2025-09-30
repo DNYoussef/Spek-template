@@ -56,9 +56,10 @@ export class ProtocolParser {
         }
         
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         result.errors.push({
           code: 'RULE_EXCEPTION',
-          message: `Exception applying rule ${rule.id}: ${error.message}`,
+          message: `Exception applying rule ${rule.id}: ${errorMessage}`,
           cause: error,
           recoverable: true,
           suggestions: [`Debug rule ${rule.id}`, 'Check transformation implementation']
@@ -122,7 +123,8 @@ export class ProtocolParser {
       return result;
       
     } catch (error) {
-      result.error = error.message;
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      result.error = errorMessage;
       return result;
     }
   }
@@ -392,11 +394,12 @@ class TransformationEngine {
       };
       
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       return {
         success: false,
         transformedMessage: message,
         warnings: [],
-        error: error.message
+        error: errorMessage
       };
     }
   }
@@ -425,7 +428,8 @@ class TransformationEngine {
       return result;
       
     } catch (error) {
-      throw new Error(`Transformation execution failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Transformation execution failed: ${errorMessage}`);
     }
   }
 

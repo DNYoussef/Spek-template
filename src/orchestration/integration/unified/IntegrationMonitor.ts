@@ -135,7 +135,8 @@ export class IntegrationMonitor extends EventEmitter {
       this.emit('health:checked', healthCheck);
 
     } catch (error) {
-      this.emit('health:error', { integrationId, error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.emit('health:error', { integrationId, error: errorMessage });
     }
   }
 
@@ -278,10 +279,11 @@ export class IntegrationMonitor extends EventEmitter {
       }
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.emit('alert:error', {
         integrationId: healthCheck.integrationId,
         alert: alert.name,
-        error: error.message
+        error: errorMessage
       });
     }
   }

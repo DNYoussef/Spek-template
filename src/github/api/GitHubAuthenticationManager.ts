@@ -200,7 +200,8 @@ export class GitHubAuthenticationManager {
         }
       };
     } catch (error) {
-      throw new Error(`Token validation failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Token validation failed: ${errorMessage}`);
     }
   }
 
@@ -228,7 +229,8 @@ export class GitHubAuthenticationManager {
         installation
       };
     } catch (error) {
-      throw new Error(`App validation failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`App validation failed: ${errorMessage}`);
     }
   }
 
@@ -245,7 +247,8 @@ export class GitHubAuthenticationManager {
         }
       };
     } catch (error) {
-      throw new Error(`OAuth validation failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`OAuth validation failed: ${errorMessage}`);
     }
   }
 
@@ -262,7 +265,8 @@ export class GitHubAuthenticationManager {
         graphql: rateLimit.graphql.remaining
       };
     } catch (error) {
-      this.logger.warn('Failed to get rate limits', { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.warn('Failed to get rate limits', { error: errorMessage });
       return { core: 0, search: 0, graphql: 0 };
     }
   }
@@ -370,7 +374,8 @@ export class GitHubAuthenticationManager {
       await this.authenticatedOctokit.rest.rateLimit.get();
       return true;
     } catch (error) {
-      this.logger.warn('Authentication validation failed', { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.warn('Authentication validation failed', { error: errorMessage });
       return false;
     }
   }

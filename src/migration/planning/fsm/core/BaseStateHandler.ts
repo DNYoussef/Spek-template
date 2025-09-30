@@ -82,11 +82,12 @@ export abstract class BaseStateHandler implements StateHandler {
 
       return nextEvent;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Event processing failed', {
         analysisId: context.analysisId,
         state: this.stateName,
         event,
-        error: error.message
+        error: errorMessage
       });
       throw error;
     }

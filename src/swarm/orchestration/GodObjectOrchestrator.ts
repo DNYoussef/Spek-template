@@ -79,7 +79,7 @@ export class GodObjectOrchestrator extends EventEmitter {
   /**
    * Initialize orchestrator and swarm infrastructure
    */
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     const startTime = performance.now();
     this.logger.info('God Object Orchestrator initialization starting', {
       component: 'GodObjectOrchestrator',

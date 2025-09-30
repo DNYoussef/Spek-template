@@ -34,10 +34,11 @@ export class ReportingState {
       const reportData = await this.reporter.generateReport(context);
       updatedContext.reportData = reportData;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       updatedContext.errors.push({
         errorId: `reporting-${Date.now()}`,
         errorType: 'REPORTING_ERROR',
-        message: error.message,
+        message: errorMessage,
         timestamp: Date.now(),
         recoverable: true
       });

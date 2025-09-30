@@ -68,7 +68,7 @@ export class MessageQueueManager extends EventEmitter {
   /**
    * Cleanup resources
    */
-  async cleanup(): Promise<void> {
+  async destroy(): Promise<void> {
     this.queues.clear();
     await this.facade.cleanup();
     this.removeAllListeners();

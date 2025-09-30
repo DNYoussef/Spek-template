@@ -26,7 +26,7 @@ export class ValidationTestExecutor extends TestExecutor {
   /**
    * Initialize validation test - NASA Rule 10: ≤60 lines
    */
-  protected async initialize(context: TestContext): Promise<void> {
+  protected async initializeComponent(context: TestContext): Promise<void> {
     // Assertion 1: Valid context
     console.assert(context && context.testId, 'Valid context required');
     // Assertion 2: Assertion engine initialized

@@ -92,13 +92,14 @@ export class TransitionHub extends EventEmitter {
       return true;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       // Rollback state on failure
       this.currentState = previousState;
       this.emit('transition:failed', {
         from: previousState,
         to: transition.to,
         event,
-        error: error.message
+        error: errorMessage
       });
       return false;
     }

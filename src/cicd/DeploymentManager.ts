@@ -156,8 +156,9 @@ export class DeploymentManager extends EventEmitter {
       this.emit('deploymentSucceeded', deployment);
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       deployment.status = 'failed';
-      deployment.logs.push(`Deployment failed: ${error.message}`);
+      deployment.logs.push(`Deployment failed: ${errorMessage}`);
       this.emit('deploymentFailed', { deployment, error });
 
       // Rollback if configured
@@ -213,7 +214,8 @@ export class DeploymentManager extends EventEmitter {
         const { stdout } = await execAsync(command);
         deployment.logs.push(stdout);
       } catch (error) {
-        deployment.logs.push(`Batch ${i + 1} failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+        deployment.logs.push(`Batch ${i + 1} failed: ${errorMessage}`);
         throw error;
       }
 
@@ -335,7 +337,8 @@ export class DeploymentManager extends EventEmitter {
           return;
         }
       } catch (error) {
-        deployment.logs.push(`Health check attempt ${i + 1} failed: ${error.message}`);
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        deployment.logs.push(`Health check attempt ${i + 1} failed: ${errorMessage}`);
       }
 
       if (i < healthCheck.retries - 1) {

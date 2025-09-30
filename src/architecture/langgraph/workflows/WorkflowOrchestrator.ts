@@ -50,7 +50,7 @@ export class WorkflowOrchestrator extends EventEmitter {
    * Initialize the workflow orchestration system
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     // NASA Assertion 1: Validate facade state
     console.assert(this.facade !== null && this.facade !== undefined, 'Facade must be initialized');
 

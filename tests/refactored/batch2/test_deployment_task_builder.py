@@ -1,6 +1,6 @@
 """Tests for Deployment Task Builder"""
 
-from scripts.dfars_deployment_task_builder import (
+from scripts.dfars_deployment_task_builder import ()
 import pytest
 
 class TestDeploymentTaskBuilder:
@@ -8,7 +8,7 @@ class TestDeploymentTaskBuilder:
 
     def test_builder_creates_valid_task(self):
         """Test builder creates valid deployment task."""
-        task = (
+        task = ()
             DeploymentTaskBuilder()
             .with_id("task_001")
             .with_name("Test Task")
@@ -16,7 +16,7 @@ class TestDeploymentTaskBuilder:
             .in_phase(DeploymentPhase.PREPARATION)
             .with_duration(15)
             .build()
-        )
+(        )
 
         assert task.task_id == "task_001"
         assert task.name == "Test Task"
@@ -36,7 +36,7 @@ class TestDeploymentTaskBuilder:
 
     def test_builder_handles_dependencies(self):
         """Test builder handles task dependencies."""
-        task = (
+        task = ()
             DeploymentTaskBuilder()
             .with_id("task_002")
             .with_name("Dependent Task")
@@ -44,7 +44,7 @@ class TestDeploymentTaskBuilder:
             .in_phase(DeploymentPhase.FOUNDATION)
             .depends_on("task_001", "task_000")
             .build()
-        )
+(        )
 
         assert len(task.dependencies) == 2
         assert "task_001" in task.dependencies
@@ -52,7 +52,7 @@ class TestDeploymentTaskBuilder:
 
     def test_builder_marks_critical_tasks(self):
         """Test builder marks tasks as critical."""
-        task = (
+        task = ()
             DeploymentTaskBuilder()
             .with_id("critical_task")
             .with_name("Critical Task")
@@ -60,7 +60,7 @@ class TestDeploymentTaskBuilder:
             .in_phase(DeploymentPhase.SECURITY_CONTROLS)
             .as_critical()
             .build()
-        )
+(        )
 
         assert task.critical is True
 

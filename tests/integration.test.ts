@@ -3,6 +3,8 @@
  * NASA Rule 10 Compliant: Functions ≤60 lines, 2+ assertions, no recursion
  */
 
+import { describe, it, expect } from '@jest/globals';
+
 describe('System Integration Tests', () => {
   describe('Environment Validation', () => {
     it('should have valid Node.js environment', () => {

@@ -81,6 +81,7 @@ export class StateTransitionEngine {
       return result;
       
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.activeTransitions.delete(transitionId);
       this.errorCount++;
       
@@ -93,7 +94,7 @@ export class StateTransitionEngine {
         toState: transition.to,
         event: transition.event,
         duration,
-        error: error.message
+        error: errorMessage
       };
     }
   }

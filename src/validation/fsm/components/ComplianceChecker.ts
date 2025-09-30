@@ -67,6 +67,7 @@ export class ComplianceChecker {
       return result;
       
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       // Record failure metrics
       const duration = Date.now() - startTime;
       this.recordCheckMetric(checkSpec.checkType, duration, false);
@@ -76,7 +77,7 @@ export class ComplianceChecker {
         checkType: checkSpec.checkType,
         status: 'FAIL',
         timestamp: Date.now(),
-        details: `Check failed: ${error.message}`,
+        details: `Check failed: ${errorMessage}`,
         metrics: { executionTime: duration, errors: 1 }
       };
     }

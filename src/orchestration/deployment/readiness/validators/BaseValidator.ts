@@ -75,6 +75,7 @@ export abstract class BaseValidator {
       }
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       check.status = 'failed';
       check.score = 0;
       
@@ -82,7 +83,7 @@ export abstract class BaseValidator {
         check.evidence.push({
           type: 'command_output',
           source: config.command,
-          content: error.message,
+          content: errorMessage,
           timestamp: Date.now(),
           valid: false
         });
@@ -118,9 +119,10 @@ export abstract class BaseValidator {
       return output.toString().trim();
       
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       // Re-throw with more context
       throw new ReadinessValidationError(
-        `Command failed: ${command}\nError: ${error.message}`,
+        `Command failed: ${command}\nError: ${errorMessage}`,
         undefined,
         undefined,
         'major'

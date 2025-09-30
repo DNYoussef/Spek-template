@@ -81,7 +81,8 @@ export class StrategySelectionState implements StateHandler {
         sideEffects
       };
     } catch (error) {
-      this.logger.error('Strategy selection failed', { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error('Strategy selection failed', { error: errorMessage });
       
       return {
         nextEvent: MigrationPlanningEvent.STRATEGY_FAILED,

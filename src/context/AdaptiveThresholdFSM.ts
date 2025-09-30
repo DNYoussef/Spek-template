@@ -153,7 +153,7 @@ export class AdaptiveThresholdFSM extends EventEmitter {
   /**
    * Public API methods
    */
-  async initialize(): Promise<boolean> {
+  async initializeComponent(): Promise<boolean> {
     return await this.transition(ThresholdEvents.INITIALIZE);
   }
 

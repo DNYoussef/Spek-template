@@ -120,8 +120,9 @@ export class KnowledgeGraphEngine {
       this.isConnected = true;
       console.log(`Knowledge graph engine initialized with database: ${this.config.database}`);
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       console.error('Failed to initialize knowledge graph engine:', error);
-      throw new Error(`Knowledge graph initialization failed: ${error.message}`);
+      throw new Error(`Knowledge graph initialization failed: ${errorMessage}`);
     }
   }
 
@@ -204,8 +205,9 @@ export class KnowledgeGraphEngine {
         _rev: result._rev
       };
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       console.error('Failed to add knowledge node:', error);
-      throw new Error(`Failed to add node: ${error.message}`);
+      throw new Error(`Failed to add node: ${errorMessage}`);
     }
   }
 
@@ -231,8 +233,9 @@ export class KnowledgeGraphEngine {
         _rev: result._rev
       };
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       console.error('Failed to add knowledge edge:', error);
-      throw new Error(`Failed to add edge: ${error.message}`);
+      throw new Error(`Failed to add edge: ${errorMessage}`);
     }
   }
 
@@ -253,8 +256,9 @@ export class KnowledgeGraphEngine {
 
       return this.processTraversalResults(results, traversalTime);
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       console.error('Graph traversal failed:', error);
-      throw new Error(`Traversal failed: ${error.message}`);
+      throw new Error(`Traversal failed: ${errorMessage}`);
     }
   }
 
@@ -351,8 +355,9 @@ export class KnowledgeGraphEngine {
       const cursor = await this.db.query(aqlQuery);
       return await cursor.all();
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       console.error('Semantic search failed:', error);
-      throw new Error(`Semantic search failed: ${error.message}`);
+      throw new Error(`Semantic search failed: ${errorMessage}`);
     }
   }
 
@@ -374,8 +379,9 @@ export class KnowledgeGraphEngine {
       const cursor = await this.db.query(aqlQuery);
       return await cursor.all();
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       console.error('Recommendation generation failed:', error);
-      throw new Error(`Recommendation failed: ${error.message}`);
+      throw new Error(`Recommendation failed: ${errorMessage}`);
     }
   }
 
@@ -396,8 +402,9 @@ export class KnowledgeGraphEngine {
 
       return result.new as KnowledgeNode;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       console.error('Node update failed:', error);
-      throw new Error(`Node update failed: ${error.message}`);
+      throw new Error(`Node update failed: ${errorMessage}`);
     }
   }
 
@@ -418,8 +425,9 @@ export class KnowledgeGraphEngine {
       // Delete the node
       await this.vertexCollection.remove(nodeId);
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       console.error('Node deletion failed:', error);
-      throw new Error(`Node deletion failed: ${error.message}`);
+      throw new Error(`Node deletion failed: ${errorMessage}`);
     }
   }
 
@@ -448,8 +456,9 @@ export class KnowledgeGraphEngine {
         averageDegree
       };
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       console.error('Statistics calculation failed:', error);
-      throw new Error(`Statistics failed: ${error.message}`);
+      throw new Error(`Statistics failed: ${errorMessage}`);
     }
   }
 

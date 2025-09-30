@@ -143,12 +143,13 @@ export class Phase9Orchestrator {
       };
 
     } catch (error) {
-      console.error('[Phase 9] Integration failed:', error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('[Phase 9] Integration failed:', errorMessage);
       return {
         success: false,
         readinessScore: 0,
         productionReady: false,
-        report: { error: error.message }
+        report: { error: errorMessage }
       };
     }
   }

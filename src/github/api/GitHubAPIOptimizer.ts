@@ -313,6 +313,7 @@ export class GitHubAPIOptimizer {
         const response = await this.executeRequest(request);
         return response;
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         lastError = error;
 
         if (attempt < maxRetries && this.isRetryableError(error)) {
@@ -320,7 +321,7 @@ export class GitHubAPIOptimizer {
           this.logger.warn('Request failed, retrying', {
             attempt,
             delay,
-            error: error.message
+            error: errorMessage
           });
           await this.sleep(delay);
         }
@@ -408,7 +409,8 @@ export class GitHubAPIOptimizer {
         const result = await this.optimizedRequest(operation.request);
         return { operation: operation.id, success: true, result };
       } catch (error) {
-        return { operation: operation.id, success: false, error: error.message };
+      const errorMessage = error instanceof Error ? error.message : String(error);
+        return { operation: operation.id, success: false, error: errorMessage };
       }
     });
 

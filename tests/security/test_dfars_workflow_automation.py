@@ -18,7 +18,7 @@ import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
 
-from security.dfars_workflow_automation import (
+from security.dfars_workflow_automation import ()
     DFARSWorkflowAutomation,
     CryptographicManager,
     AccessControlManager,
@@ -33,7 +33,7 @@ from security.dfars_workflow_automation import (
     SecurityIncident,
     CUIAsset,
     AuditRecord
-)
+()
 
 class TestCryptographicManager(unittest.TestCase):
     """Test cryptographic operations for audit integrity"""
@@ -238,12 +238,12 @@ class TestIncidentResponseManager(unittest.TestCase):
 
     def test_incident_creation(self):
         """Test security incident creation"""
-        incident_id = self.incident_manager.create_incident(
+        incident_id = self.incident_manager.create_incident()
             IncidentSeverity.HIGH,
             DFARSControl.ACCESS_CONTROL,
             "Unauthorized access attempt",
             ["authentication_system"]
-        )
+(        )
 
         self.assertIsInstance(incident_id, str)
         self.assertIn("DFARS-", incident_id)
@@ -256,12 +256,12 @@ class TestIncidentResponseManager(unittest.TestCase):
 
     def test_critical_incident_response_workflow(self):
         """Test critical incident response workflow"""
-        incident_id = self.incident_manager.create_incident(
+        incident_id = self.incident_manager.create_incident()
             IncidentSeverity.CRITICAL,
             DFARSControl.SYSTEM_INFO_INTEGRITY,
             "Data integrity violation detected",
             ["database_system"]
-        )
+(        )
 
         incident = self.incident_manager.incidents[incident_id]
 
@@ -273,34 +273,34 @@ class TestIncidentResponseManager(unittest.TestCase):
     def test_incident_severity_workflows(self):
         """Test different incident severity workflows"""
         # Test HIGH severity
-        high_incident_id = self.incident_manager.create_incident(
+        high_incident_id = self.incident_manager.create_incident()
             IncidentSeverity.HIGH,
             DFARSControl.AUDIT_ACCOUNTABILITY,
             "Audit log tampering detected",
             ["audit_system"]
-        )
+(        )
         high_incident = self.incident_manager.incidents[high_incident_id]
         self.assertIn("Containment within 4 hours", high_incident.response_actions)
 
         # Test MEDIUM severity
-        medium_incident_id = self.incident_manager.create_incident(
+        medium_incident_id = self.incident_manager.create_incident()
             IncidentSeverity.MEDIUM,
             DFARSControl.CONFIGURATION_MGMT,
             "Configuration drift detected",
             ["config_system"]
-        )
+(        )
         medium_incident = self.incident_manager.incidents[medium_incident_id]
         self.assertIn("Assessment within 24 hours", medium_incident.response_actions)
 
     @patch('logging.critical')
     def test_dod_notification_preparation(self, mock_log):
         """Test DoD notification preparation for critical incidents"""
-        incident_id = self.incident_manager.create_incident(
+        incident_id = self.incident_manager.create_incident()
             IncidentSeverity.CRITICAL,
             DFARSControl.INCIDENT_RESPONSE,
             "Critical security breach",
             ["network_infrastructure"]
-        )
+(        )
 
         # Verify DoD notification is prepared
         mock_log.assert_called()
@@ -317,13 +317,13 @@ class TestAuditTrailManager(unittest.TestCase):
 
     def test_audit_record_creation(self):
         """Test creation of tamper-proof audit records"""
-        record_id = self.audit_manager.create_audit_record(
+        record_id = self.audit_manager.create_audit_record()
             user_id="test_user",
             action="FILE_ACCESS",
             resource="/sensitive/file.txt",
             result="SUCCESS",
             ip_address="192.168.1.100"
-        )
+(        )
 
         self.assertIsInstance(record_id, str)
         self.assertIn("AUDIT-", record_id)
@@ -341,12 +341,12 @@ class TestAuditTrailManager(unittest.TestCase):
         """Test audit trail integrity verification"""
         # Create multiple audit records
         for i in range(3):
-            self.audit_manager.create_audit_record(
+            self.audit_manager.create_audit_record()
                 user_id=f"user_{i}",
                 action="TEST_ACTION",
                 resource=f"resource_{i}",
                 result="SUCCESS"
-            )
+(            )
 
         # Verify integrity
         is_valid, errors = self.audit_manager.verify_audit_integrity()
@@ -356,12 +356,12 @@ class TestAuditTrailManager(unittest.TestCase):
     def test_audit_integrity_detection_of_tampering(self):
         """Test detection of audit trail tampering"""
         # Create audit record
-        self.audit_manager.create_audit_record(
+        self.audit_manager.create_audit_record()
             user_id="test_user",
             action="TEST_ACTION",
             resource="test_resource",
             result="SUCCESS"
-        )
+(        )
 
         # Tamper with the record
         record = self.audit_manager.audit_records[0]
@@ -378,12 +378,12 @@ class TestAuditTrailManager(unittest.TestCase):
         # Create multiple records
         record_ids = []
         for i in range(5):
-            record_id = self.audit_manager.create_audit_record(
+            record_id = self.audit_manager.create_audit_record()
                 user_id=f"user_{i}",
                 action=f"ACTION_{i}",
                 resource=f"resource_{i}",
                 result="SUCCESS"
-            )
+(            )
             record_ids.append(record_id)
 
         # Verify each record has proper hash chain
@@ -408,12 +408,12 @@ class TestComplianceMonitor(unittest.TestCase):
         self.incident_manager = IncidentResponseManager(self.crypto_manager)
         self.audit_manager = AuditTrailManager(self.crypto_manager)
 
-        self.compliance_monitor = ComplianceMonitor({
+        self.compliance_monitor = ComplianceMonitor({)
             'access': self.access_manager,
             'cui': self.cui_manager,
             'incident': self.incident_manager,
             'audit': self.audit_manager
-        })
+(        })
 
     async def test_access_control_compliance_check(self):
         """Test access control compliance checking"""
@@ -439,12 +439,12 @@ class TestComplianceMonitor(unittest.TestCase):
     async def test_incident_response_compliance_check(self):
         """Test incident response compliance checking"""
         # Create a critical incident
-        incident_id = self.incident_manager.create_incident(
+        incident_id = self.incident_manager.create_incident()
             IncidentSeverity.CRITICAL,
             DFARSControl.INCIDENT_RESPONSE,
             "Test critical incident",
             ["test_system"]
-        )
+(        )
 
         check_result = await self.compliance_monitor._check_control_compliance(DFARSControl.INCIDENT_RESPONSE)
 
@@ -454,12 +454,12 @@ class TestComplianceMonitor(unittest.TestCase):
     async def test_72_hour_reporting_compliance(self):
         """Test 72-hour reporting requirement compliance"""
         # Create a critical incident and manually set old timestamp
-        incident_id = self.incident_manager.create_incident(
+        incident_id = self.incident_manager.create_incident()
             IncidentSeverity.CRITICAL,
             DFARSControl.INCIDENT_RESPONSE,
             "Old critical incident",
             ["test_system"]
-        )
+(        )
 
         # Manually age the incident beyond 72 hours
         incident = self.incident_manager.incidents[incident_id]
@@ -538,12 +538,12 @@ class TestDFARSWorkflowAutomation(unittest.TestCase):
         """Test comprehensive compliance report generation"""
         # Create some test data
         self.dfars_system.audit_manager.create_audit_record("user1", "TEST", "resource1", "SUCCESS")
-        self.dfars_system.incident_manager.create_incident(
+        self.dfars_system.incident_manager.create_incident()
             IncidentSeverity.MEDIUM,
             DFARSControl.ACCESS_CONTROL,
             "Test incident",
             ["test_system"]
-        )
+(        )
 
         report = self.dfars_system.generate_compliance_report()
 
@@ -633,12 +633,12 @@ class TestIntegrationScenarios(unittest.TestCase):
         """Test complete compliance monitoring and reporting cycle"""
         # 1. Perform various system activities
         self.dfars_system.authenticate_user("admin", "ComplexPassword123!", "123456")
-        self.dfars_system.incident_manager.create_incident(
+        self.dfars_system.incident_manager.create_incident()
             IncidentSeverity.LOW,
             DFARSControl.CONFIGURATION_MGMT,
             "Configuration change detected",
             ["config_system"]
-        )
+(        )
 
         # 2. Generate compliance dashboard
         dashboard = self.dfars_system.get_compliance_dashboard()

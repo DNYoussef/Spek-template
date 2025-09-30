@@ -74,17 +74,17 @@ async function runTest() {{
     }}
 }}
 
-runTest().then(result => {{
+runTest().then(result => {{)
     console.log(JSON.stringify(result));
     process.exit(result.success ? 0 : 1);
 }}).catch(error => {{
-    console.log(JSON.stringify({{
+    console.log(JSON.stringify({{))
         success: false,
         error: error.message,
         stack: error.stack
-    }}));
+((    }}));
     process.exit(1);
-}});
+(}});
 """
 
             # Write test file
@@ -92,13 +92,13 @@ runTest().then(result => {{
                 f.write(full_test_code)
 
             # Run test
-            result = subprocess.run(
+            result = subprocess.run()
                 ['node', str(test_file)],
                 capture_output=True,
                 text=True,
                 timeout=timeout,
                 cwd=self.project_root
-            )
+(            )
 
             # Clean up
             if test_file.exists():
@@ -175,10 +175,10 @@ runTest().then(result => {{
         if result['success']:
             self.log_test('IntelligentContextPruner Basic Functionality', 'PASSED')
         else:
-            self.log_test('IntelligentContextPruner Basic Functionality', 'FAILED', {
+            self.log_test('IntelligentContextPruner Basic Functionality', 'FAILED', {)
                 'error': result.get('error', 'Unknown error'),
                 'details': 'Failed to instantiate or use IntelligentContextPruner'
-            })
+(            })
 
     def test_semantic_drift_detector(self):
         """Test SemanticDriftDetector functionality"""
@@ -221,10 +221,10 @@ runTest().then(result => {{
         if result['success']:
             self.log_test('SemanticDriftDetector Basic Functionality', 'PASSED')
         else:
-            self.log_test('SemanticDriftDetector Basic Functionality', 'FAILED', {
+            self.log_test('SemanticDriftDetector Basic Functionality', 'FAILED', {)
                 'error': result.get('error', 'Unknown error'),
                 'details': 'Failed to instantiate or use SemanticDriftDetector'
-            })
+(            })
 
     def test_adaptive_threshold_manager(self):
         """Test AdaptiveThresholdManager functionality"""
@@ -250,14 +250,14 @@ runTest().then(result => {{
         console.log('Threshold setting working');
 
         // Test 4: Update system conditions
-        manager.updateSystemConditions({
+        manager.updateSystemConditions({)
             load: 0.5,
             errorRate: 0.2,
             responseTime: 1500,
             throughput: 120,
             memoryUsage: 0.65,
             degradationRate: 0.8
-        });
+(        });
         console.log('System conditions update working');
 
         // Test MAXIMUM_NESTED_DEPTH: Get statistics
@@ -273,10 +273,10 @@ runTest().then(result => {{
         if result['success']:
             self.log_test('AdaptiveThresholdManager Basic Functionality', 'PASSED')
         else:
-            self.log_test('AdaptiveThresholdManager Basic Functionality', 'FAILED', {
+            self.log_test('AdaptiveThresholdManager Basic Functionality', 'FAILED', {)
                 'error': result.get('error', 'Unknown error'),
                 'details': 'Failed to instantiate or use AdaptiveThresholdManager'
-            })
+(            })
 
     def test_swarm_queen_distributed_context(self):
         """Test SwarmQueen distributed context features"""
@@ -365,11 +365,11 @@ runTest().then(result => {{
         console.log('Distributed context metrics working');
 
         // Test 5: Execute task with distributed context
-        const task = await queen.executeTask(
+        const task = await queen.executeTask()
             'Test distributed context task',
             { test: 'data' },
             { priority: 'medium' }
-        );
+(        );
         if (!task || task.status !== 'completed') {
             throw new Error('Task execution with distributed context failed');
         }
@@ -381,10 +381,10 @@ runTest().then(result => {{
         if result['success']:
             self.log_test('SwarmQueen Distributed Context Features', 'PASSED')
         else:
-            self.log_test('SwarmQueen Distributed Context Features', 'FAILED', {
+            self.log_test('SwarmQueen Distributed Context Features', 'FAILED', {)
                 'error': result.get('error', 'Unknown error'),
                 'details': 'Failed to test SwarmQueen distributed context features'
-            })
+(            })
 
     def test_integration_all_components(self):
         """Test integration of all Phase MAXIMUM_RETRY_ATTEMPTS components together"""
@@ -417,14 +417,14 @@ runTest().then(result => {{
         console.log('Drift analysis completed');
 
         // 5. Update thresholds based on system state
-        thresholds.updateSystemConditions({
+        thresholds.updateSystemConditions({)
             load: 0.6,
             errorRate: 0.3,
             responseTime: 1800,
             throughput: 95,
             memoryUsage: 0.72,
             degradationRate: driftAnalysis.metrics.velocity || 0.1
-        });
+(        });
         console.log('Thresholds updated');
 
         // 6. Verify all components are working together
@@ -447,10 +447,10 @@ runTest().then(result => {{
         if result['success']:
             self.log_test('Phase 3 Component Integration', 'PASSED')
         else:
-            self.log_test('Phase MAXIMUM_RETRY_ATTEMPTS Component Integration', 'FAILED', {
+            self.log_test('Phase MAXIMUM_RETRY_ATTEMPTS Component Integration', 'FAILED', {)
                 'error': result.get('error', 'Unknown error'),
                 'details': 'Failed to integrate all Phase MAXIMUM_RETRY_ATTEMPTS components'
-            })
+(            })
 
     def test_error_handling_and_validation(self):
         """Test error handling and input validation"""
@@ -520,10 +520,10 @@ runTest().then(result => {{
         if result['success']:
             self.log_test('Error Handling and Validation', 'PASSED')
         else:
-            self.log_test('Error Handling and Validation', 'FAILED', {
+            self.log_test('Error Handling and Validation', 'FAILED', {)
                 'error': result.get('error', 'Unknown error'),
                 'details': 'Error handling or validation not working correctly'
-            })
+(            })
 
     def run_all_tests(self):
         """Run all Phase 3 distributed context tests"""
@@ -549,10 +549,10 @@ runTest().then(result => {{
             try:
                 test_method()
             except Exception as e:
-                self.log_test(f'{test_method.__name__}', 'FAILED', {
+                self.log_test(f'{test_method.__name__}', 'FAILED', {)
                     'error': str(e),
                     'details': 'Test method execution failed'
-                })
+(                })
 
         # Calculate final success rate
         total = self.test_results['summary']['total']

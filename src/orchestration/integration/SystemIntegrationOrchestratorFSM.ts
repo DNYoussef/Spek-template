@@ -170,17 +170,18 @@ export class SystemIntegrationOrchestratorFSM extends EventEmitter {
       });
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       execution.status = 'failed';
       execution.endTime = Date.now();
 
       // Attempt rollback through FSM
-      await this.executeRollbackThroughFSM(execution, plan, error.message);
+      await this.executeRollbackThroughFSM(execution, plan, errorMessage);
 
       this.emit('integration:completed', {
         execution,
         plan,
         success: false,
-        error: error.message
+        error: errorMessage
       });
 
     } finally {
@@ -394,7 +395,8 @@ export class SystemIntegrationOrchestratorFSM extends EventEmitter {
 
       await this.transitionHub.processEvent(IntegrationEvent.ROLLBACK_COMPLETED, { rollbackResult });
     } catch (error) {
-      console.error('Rollback failed:', error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('Rollback failed:', errorMessage);
     }
   }
 

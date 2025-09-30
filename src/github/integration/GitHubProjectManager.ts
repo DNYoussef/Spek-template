@@ -40,8 +40,9 @@ export class GitHubProjectManager {
 
       this.logger.info('GitHub Project Manager initialized with real authentication');
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Failed to initialize GitHub Project Manager', { error });
-      throw new Error(`Authentication failed: ${error.message}`);
+      throw new Error(`Authentication failed: ${errorMessage}`);
     }
   }
 
@@ -72,8 +73,9 @@ export class GitHubProjectManager {
       return projectBoard;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Failed to create intelligent project', { error, context });
-      throw new Error(`Real project creation failed: ${error.message}`);
+      throw new Error(`Real project creation failed: ${errorMessage}`);
     }
   }
 
@@ -179,8 +181,9 @@ export class GitHubProjectManager {
       return metrics;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Failed to get real project metrics', { error, projectId });
-      throw new Error(`Real metrics calculation failed: ${error.message}`);
+      throw new Error(`Real metrics calculation failed: ${errorMessage}`);
     }
   }
 
@@ -216,8 +219,9 @@ export class GitHubProjectManager {
       this.logger.info('Project optimization completed with real implementation', { projectId });
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Failed to optimize project with real implementation', { error, projectId });
-      throw new Error(`Real project optimization failed: ${error.message}`);
+      throw new Error(`Real project optimization failed: ${errorMessage}`);
     }
   }
 

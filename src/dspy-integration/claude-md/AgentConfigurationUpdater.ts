@@ -234,10 +234,11 @@ export class AgentConfigurationUpdater {
       return { success: true, skipped: false };
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       return {
         success: false,
         skipped: false,
-        error: error.message
+        error: errorMessage
       };
     }
   }

@@ -134,7 +134,8 @@ export class BatchOptimizationEngine {
       return result;
 
     } catch (error) {
-      console.error('Batch optimization failed:', error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('Batch optimization failed:', errorMessage);
       throw error;
     }
   }
@@ -274,8 +275,9 @@ export class BatchOptimizationEngine {
           successCount++;
           console.log(`✓ ${agentId} optimized successfully`);
         } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
           failureCount++;
-          issues.push(`${agentId}: ${error.message}`);
+          issues.push(`${agentId}: ${errorMessage}`);
           console.error(`✗ ${agentId} optimization failed: ${error.message}`);
         }
       });

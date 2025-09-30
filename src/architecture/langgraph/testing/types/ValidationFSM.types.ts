@@ -3,7 +3,41 @@
  * Type definitions for FSM-based LangGraph validation system
  */
 
-import { ValidationState, ValidationEvent } from '../ValidationSuite';
+// FSM-First: Export ValidationState and ValidationEvent enums
+export enum ValidationState {
+  IDLE = 'IDLE',
+  INITIALIZING = 'INITIALIZING',
+  RUNNING_CORE = 'RUNNING_CORE',
+  RUNNING_STATE_MACHINES = 'RUNNING_STATE_MACHINES',
+  RUNNING_INTEGRATION = 'RUNNING_INTEGRATION',
+  RUNNING_EDGE_CASES = 'RUNNING_EDGE_CASES',
+  RUNNING_RECOVERY = 'RUNNING_RECOVERY',
+  RUNNING_CONCURRENCY = 'RUNNING_CONCURRENCY',
+  COMPLETED = 'COMPLETED',
+  ERROR = 'ERROR',
+  CLEANUP = 'CLEANUP',
+  VALIDATING = 'VALIDATING',
+  PASSED = 'PASSED',
+  FAILED = 'FAILED',
+  SKIPPED = 'SKIPPED'
+}
+
+export enum ValidationEvent {
+  START = 'START',
+  CORE_COMPLETE = 'CORE_COMPLETE',
+  STATE_MACHINES_COMPLETE = 'STATE_MACHINES_COMPLETE',
+  INTEGRATION_COMPLETE = 'INTEGRATION_COMPLETE',
+  EDGE_CASES_COMPLETE = 'EDGE_CASES_COMPLETE',
+  RECOVERY_COMPLETE = 'RECOVERY_COMPLETE',
+  CONCURRENCY_COMPLETE = 'CONCURRENCY_COMPLETE',
+  CLEANUP_REQUESTED = 'CLEANUP_REQUESTED',
+  ERROR_OCCURRED = 'ERROR_OCCURRED',
+  VALIDATE = 'VALIDATE',
+  PASS = 'PASS',
+  FAIL = 'FAIL',
+  SKIP = 'SKIP',
+  RESET = 'RESET'
+}
 
 export interface ValidationTransition {
   fromState: ValidationState;
@@ -19,6 +53,19 @@ export interface ValidationFSMConfig {
   maxConcurrentOperations: number;
   fixedTimeoutMs: number;
   enableBoundedExecution: boolean;
+}
+
+export interface ValidationConfig {
+  enableIntegrationTests: boolean;
+  enableStressTests: boolean;
+  enableEdgeCaseTests: boolean;
+  enableRecoveryTests: boolean;
+  timeout: number;
+  maxRetries: number;
+}
+
+export interface ValidationResult extends FSMValidationResult {
+  // Alias for backward compatibility
 }
 
 export interface ValidationExecutionContext {
@@ -231,5 +278,7 @@ export interface IValidationStateMachine {
 
   // Cleanup
   cleanup(): Promise<void>;
+  destroy(): Promise<void>; // Alternative to cleanup to avoid EventEmitter conflicts
   reset(): void;
+  initialize(): Promise<void>; // Add explicit initialize method
 }

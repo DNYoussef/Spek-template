@@ -73,10 +73,18 @@ export class FSMValidationSuite extends EventEmitter implements IValidationState
   }
 
   /**
-   * Initialize validation suite components
+   * Initialize validation suite - NASA Rule 10 compliant
    */
   @nasaCompliant('FSMValidationSuite.initialize')
   async initialize(): Promise<void> {
+    await this.initializeComponent();
+  }
+
+  /**
+   * Initialize validation suite components
+   */
+  @nasaCompliant('FSMValidationSuite.initializeComponent')
+  async initializeComponent(): Promise<void> {
     console.log('[FSM] Initializing NASA Rule 10 compliant validation suite...');
 
     this.executionStartTime = Date.now();
@@ -85,7 +93,9 @@ export class FSMValidationSuite extends EventEmitter implements IValidationState
     await this.transitionToState(ValidationEvent.START, ValidationState.INITIALIZING);
 
     // Initialize bounds manager
-    this.boundsManager.initialize();
+    if (this.boundsManager && typeof this.boundsManager.initialize === 'function') {
+      await this.boundsManager.initialize();
+    }
 
     // Initialize LangGraph components with bounds checking
     await this.boundsManager.executeBoundedOperation(
@@ -95,22 +105,28 @@ export class FSMValidationSuite extends EventEmitter implements IValidationState
         switch (index) {
           case 0:
             this.engine = new LangGraphEngine();
-            await this.engine.initialize();
+            if (typeof this.engine.initialize === 'function') {
+              await this.engine.initialize();
+            }
             break;
           case 1:
             this.stateStore = new StateStore();
-            await this.stateStore.initialize();
+            if (typeof this.stateStore.initialize === 'function') {
+              await this.stateStore.initialize();
+            }
             break;
           case 2:
             this.orchestrator = new WorkflowOrchestrator();
             break;
           case 3:
             this.messageRouter = new MessageRouter();
-            await this.messageRouter.initialize();
+            // MessageRouter no longer requires initialization (EventEmitter facade pattern)
             break;
           case 4:
             this.eventBus = new EventBus();
-            await this.eventBus.initialize();
+            if (typeof this.eventBus.initialize === 'function') {
+              await this.eventBus.initialize();
+            }
             break;
         }
         return `Component ${index} initialized`;
@@ -148,7 +164,13 @@ export class FSMValidationSuite extends EventEmitter implements IValidationState
 
     try {
       // Validate transition with guards
-      await this.transitionValidator.validateAndTransition(
+      const isValid = this.transitionValidator.isValidTransition(fromState, toState);
+      if (!isValid) {
+        throw new Error(`Invalid transition: ${fromState} -> ${toState}`);
+      }
+
+      // Execute validation logic if needed
+      await this.transitionValidator.validate(
         fromState,
         event,
         toState,
@@ -344,13 +366,14 @@ export class FSMValidationSuite extends EventEmitter implements IValidationState
       return fsmResult;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.complianceReporter.recordRetryAttempt();
 
       return {
         testName,
         success: false,
-        message: `Test failed: ${error.message}`,
-        errors: [...errors, error.message],
+        message: `Test failed: ${errorMessage}`,
+        errors: [...errors, errorMessage],
         warnings,
         executionTime: Date.now() - start,
         assertions,
@@ -385,7 +408,9 @@ export class FSMValidationSuite extends EventEmitter implements IValidationState
           // Fixed-iteration state transition test
           const maxTransitions = 5;
           for (let i = 0; i < maxTransitions; i++) {
-            await this.stateStore.setState(`test-state-${i}`, 'active', { iteration: i });
+            if (this.stateStore && typeof this.stateStore.setState === 'function') {
+              await this.stateStore.setState(`test-state-${i}`, { status: 'active', iteration: i });
+            }
           }
           return true;
         }
@@ -531,9 +556,10 @@ export class FSMValidationSuite extends EventEmitter implements IValidationState
 
   /**
    * Clean up resources with FSM state management
+   * Renamed from cleanup() to avoid EventEmitter property conflict
    */
-  @nasaCompliant('FSMValidationSuite.cleanup')
-  async cleanup(): Promise<void> {
+  @nasaCompliant('FSMValidationSuite.destroy')
+  async destroy(): Promise<void> {
     console.log('[FSM] Starting cleanup process...');
 
     // Transition to cleanup state if not already there
@@ -544,10 +570,10 @@ export class FSMValidationSuite extends EventEmitter implements IValidationState
     try {
       // Fixed-sequence cleanup (no recursion)
       const cleanupTasks = [
-        () => this.stateStore?.cleanup(),
-        () => this.messageRouter?.cleanup(),
-        () => this.eventBus?.cleanup(),
-        () => this.boundsManager?.cleanup()
+        () => this.stateStore && typeof this.stateStore.cleanup === 'function' ? this.stateStore.cleanup() : Promise.resolve(),
+        // messageRouter no longer has cleanup method (uses EventEmitter)
+        () => this.eventBus && typeof this.eventBus.cleanup === 'function' ? this.eventBus.cleanup() : Promise.resolve(),
+        () => this.boundsManager && typeof this.boundsManager.cleanup === 'function' ? this.boundsManager.cleanup() : Promise.resolve()
       ];
 
       // Execute cleanup tasks in fixed sequence

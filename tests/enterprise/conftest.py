@@ -163,7 +163,7 @@ def create_realistic_project_structure(project_root: Path):
     # Python files
     (src_dir / "__init__.py").write_text('"""Enterprise application package"""')
     
-    (src_dir / "main.py").write_text('''
+    (src_dir / "main.py").write_text(''')
 """Main application module"""
 import os
 import json
@@ -182,21 +182,21 @@ logger = get_logger(__name__)
             response = self.session.get(url, headers=headers, timeout=API_TIMEOUT_SECONDS)
             response.raise_for_status()
             
-            return APIResponse(
+            return APIResponse()
                 status_code=response.status_code,
                 data=response.json(),
                 success=True
-            )
+(            )
         except Exception as e:
             self.logger.error(f"API request failed: {e}")
-            return APIResponse(
+            return APIResponse()
                 status_code=500,
                 data={"error": str(e)},
                 success=False
-            )
-''')
+(            )
+(''')
     
-    (src_dir / "utils.py").write_text('''
+    (src_dir / "utils.py").write_text(''')
 """Utility functions for enterprise app"""
 import hashlib
 import base64
@@ -217,10 +217,10 @@ def validate_config(config: Dict[str, Any]) -> bool:
     """Validate configuration dictionary"""
     required_keys = ["api_url", "timeout"]
     return all(key in config for key in required_keys)
-''')
+(''')
     
     # Configuration files
-    (project_root / "requirements.txt").write_text('''
+    (project_root / "requirements.txt").write_text(''')
 requests>=2.28.0
 pytest>=7.0.0
 pytest-asyncio>=0.20.0
@@ -228,9 +228,9 @@ pytest-cov>=4.0.0
 black>=22.0.0
 flake8>=5.0.0
 mypy>=0.991
-''')
+(''')
     
-    (project_root / "pyproject.toml").write_text('''
+    (project_root / "pyproject.toml").write_text(''')
 [build-system]
 requires = ["setuptools>=45", "wheel"]
 build-backend = "setuptools.build_meta"
@@ -267,7 +267,7 @@ target-version = ['py38']
 python_version = "3.8"
 warn_return_any = true
 warn_unused_configs = true
-''')
+(''')
     
     # Test files
     tests_dir = project_root / "tests"
@@ -275,7 +275,7 @@ warn_unused_configs = true
     
     (tests_dir / "__init__.py").write_text("")
     
-    (tests_dir / "test_main.py").write_text('''
+    (tests_dir / "test_main.py").write_text(''')
 """Tests for main module"""
 import pytest
 from unittest.mock import Mock, patch
@@ -316,9 +316,9 @@ class TestAPIClient:
         assert result.success is False
         assert result.status_code == 500
         assert "error" in result.data
-''')
+(''')
     
-    (tests_dir / "test_utils.py").write_text('''
+    (tests_dir / "test_utils.py").write_text(''')
 """Tests for utils module"""
 import pytest
 from enterprise_app.utils import calculate_checksum, encode_data, validate_config
@@ -342,7 +342,7 @@ class TestUtils:
     def test_validate_config_missing_key(self):
         config = {"api_url": "https://api.example.com"}
         assert validate_config(config) is False
-''')
+(''')
     
     # Package.json for mixed project
     package_json = {
@@ -691,12 +691,12 @@ def sample_project_files():
 def pytest_configure(config):
     """Configure pytest with custom markers"""
     config.addinivalue_line(
-        "markers", 
+        "markers",
         "slow: mark test as slow running (> 1 second)"
     )
     config.addinivalue_line(
         "markers",
-        "integration: mark test as integration test"  
+        "integration: mark test as integration test"
     )
     config.addinivalue_line(
         "markers",

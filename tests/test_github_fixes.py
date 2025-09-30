@@ -3,6 +3,7 @@ from src.constants.base import MAXIMUM_NESTED_DEPTH
 import sys
 import os
 from pathlib import Path
+import pytest
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent))

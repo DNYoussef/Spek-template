@@ -142,11 +142,12 @@ export class ContainerOrchestrator {
           throw new Error(`Scaling not supported for: ${this.orchestrator}`);
       }
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       return {
         success: false,
         currentReplicas: 0,
         targetReplicas,
-        error: error.message
+        error: errorMessage
       };
     }
   }

@@ -122,9 +122,10 @@ export async function verifyTrafficDistribution(
     return { success: true };
 
   } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
     return {
       success: false,
-      error: `Traffic verification failed: ${error.message}`
+      error: `Traffic verification failed: ${errorMessage}`
     };
   }
 }

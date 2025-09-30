@@ -1,0 +1,124 @@
+{
+  "sensor_count": 6,
+  "active_sensors": 6,
+  "fusion_engine_config": {
+    "sync_tolerance_ms": 100.0,
+    "min_sensors_for_fusion": 2
+  },
+  "sensor_specifications": {
+    "camera_front": {
+      "type": "camera",
+      "position": [
+        0.0,
+        0.0,
+        1.5
+      ],
+      "status": "active",
+      "confidence": 0.95,
+      "field_of_view": {
+        "horizontal_deg": 60.0,
+        "vertical_deg": 40.0
+      },
+      "detection_range_m": 150.0,
+      "resolution": {
+        "spatial_cm": 5.0,
+        "temporal_ms": 33.3
+      }
+    },
+    "lidar_roof": {
+      "type": "lidar",
+      "position": [
+        0.0,
+        0.0,
+        2.0
+      ],
+      "status": "active",
+      "confidence": 0.95,
+      "field_of_view": {
+        "horizontal_deg": 360.0,
+        "vertical_deg": 30.0
+      },
+      "detection_range_m": 200.0,
+      "resolution": {
+        "spatial_cm": 2.0,
+        "temporal_ms": 100.0
+      }
+    },
+    "radar_front": {
+      "type": "radar",
+      "position": [
+        2.0,
+        0.0,
+        0.5
+      ],
+      "status": "active",
+      "confidence": 0.95,
+      "field_of_view": {
+        "horizontal_deg": 20.0,
+        "vertical_deg": 10.0
+      },
+      "detection_range_m": 250.0,
+      "resolution": {
+        "spatial_cm": 10.0,
+        "temporal_ms": 50.0
+      }
+    },
+    "radar_rear": {
+      "type": "radar",
+      "position": [
+        -2.0,
+        0.0,
+        0.5
+      ],
+      "status": "active",
+      "confidence": 0.95,
+      "field_of_view": {
+        "horizontal_deg": 20.0,
+        "vertical_deg": 10.0
+      },
+      "detection_range_m": 250.0,
+      "resolution": {
+        "spatial_cm": 10.0,
+        "temporal_ms": 50.0
+      }
+    },
+    "ultrasonic_fl": {
+      "type": "ultrasonic",
+      "position": [
+        1.5,
+        0.8,
+        0.3
+      ],
+      "status": "active",
+      "confidence": 0.95,
+      "field_of_view": {
+        "horizontal_deg": 15.0,
+        "vertical_deg": 15.0
+      },
+      "detection_range_m": 5.0,
+      "resolution": {
+        "spatial_cm": 1.0,
+        "temporal_ms": 100.0
+      }
+    },
+    "ultrasonic_fr": {
+      "type": "ultrasonic",
+      "position": [
+        1.5,
+        -0.8,
+        0.3
+      ],
+      "status": "active",
+      "confidence": 0.95,
+      "field_of_view": {
+        "horizontal_deg": 15.0,
+        "vertical_deg": 15.0
+      },
+      "detection_range_m": 5.0,
+      "resolution": {
+        "spatial_cm": 1.0,
+        "temporal_ms": 100.0
+      }
+    }
+  }
+}

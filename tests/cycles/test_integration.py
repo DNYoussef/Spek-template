@@ -108,12 +108,12 @@ class TestWeeklyCycleIntegration(unittest.TestCase):
         self.market_data = MarketDataProvider(simulation_mode=True)
         
         # Create WeeklyCycle with dependencies
-        self.weekly_cycle = WeeklyCycle(
+        self.weekly_cycle = WeeklyCycle()
             portfolio_manager=self.portfolio_manager,
             trade_executor=self.trade_executor,
             market_data=self.market_data,
             config=self.config
-        )
+(        )
     
     def test_weekly_cycle_initialization(self):
         """Test WeeklyCycle initializes correctly with dependencies."""
@@ -169,15 +169,15 @@ class TestSiphonAutomatorIntegration(unittest.TestCase):
         self.siphon_config.min_profit_threshold = 60.0
         
         # Create profit calculator
-        self.profit_calculator = ProfitCalculator(
+        self.profit_calculator = ProfitCalculator()
             ProfitSplitConfig(split_ratio=0.50, min_threshold=60.0)
-        )
+(        )
         
         # Create siphon automator
-        self.siphon_automator = WeeklySiphonAutomator(
+        self.siphon_automator = WeeklySiphonAutomator()
             profit_calculator=self.profit_calculator,
             config=self.siphon_config
-        )
+(        )
     
     def test_siphon_automator_initialization(self):
         """Test siphon automator initializes correctly."""
@@ -220,11 +220,11 @@ class TestProfitCalculatorIntegration(unittest.TestCase):
         """Setup test environment."""
         from cycles.profit_calculator import ProfitCalculator, ProfitSplitConfig
         
-        self.config = ProfitSplitConfig(
+        self.config = ProfitSplitConfig()
             split_ratio=0.50,
             min_threshold=100.0,
             max_siphon_amount=10000.0
-        )
+(        )
         
         self.calculator = ProfitCalculator(self.config)
     

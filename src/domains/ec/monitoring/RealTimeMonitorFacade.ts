@@ -147,7 +147,7 @@ export class RealTimeMonitorFacade extends EventEmitter {
     this.updateStats();
   }
 
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     await this.repository.initialize();
     this.startMonitoring();
     this.emit('monitorInitialized');
@@ -471,7 +471,7 @@ export class RealTimeMonitorFacade extends EventEmitter {
     };
   }
 
-  async cleanup(): Promise<void> {
+  async destroy(): Promise<void> {
     if (this.monitoringInterval) {
       clearInterval(this.monitoringInterval);
     }

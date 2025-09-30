@@ -80,8 +80,9 @@ export class VersionValidator extends DependencyValidator {
       });
 
     } catch (error) {
-      this.emit('validation:failed', { requirementId: requirement.requirementId, error: error.message });
-      return this.createValidationResult(requirement, false, 0.0, `Version validation error: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.emit('validation:failed', { requirementId: requirement.requirementId, error: errorMessage });
+      return this.createValidationResult(requirement, false, 0.0, `Version validation error: ${errorMessage}`);
     }
   }
 
@@ -146,8 +147,9 @@ export class AvailabilityValidator extends DependencyValidator {
       });
 
     } catch (error) {
-      this.emit('validation:failed', { requirementId: requirement.requirementId, error: error.message });
-      return this.createValidationResult(requirement, false, 0.0, `Availability check error: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.emit('validation:failed', { requirementId: requirement.requirementId, error: errorMessage });
+      return this.createValidationResult(requirement, false, 0.0, `Availability check error: ${errorMessage}`);
     }
   }
 
@@ -204,8 +206,9 @@ export class HealthValidator extends DependencyValidator {
       });
 
     } catch (error) {
-      this.emit('validation:failed', { requirementId: requirement.requirementId, error: error.message });
-      return this.createValidationResult(requirement, false, 0.0, `Health check error: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.emit('validation:failed', { requirementId: requirement.requirementId, error: errorMessage });
+      return this.createValidationResult(requirement, false, 0.0, `Health check error: ${errorMessage}`);
     }
   }
 
@@ -260,8 +263,9 @@ export class CompatibilityValidator extends DependencyValidator {
       });
 
     } catch (error) {
-      this.emit('validation:failed', { requirementId: requirement.requirementId, error: error.message });
-      return this.createValidationResult(requirement, false, 0.0, `Compatibility check error: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.emit('validation:failed', { requirementId: requirement.requirementId, error: errorMessage });
+      return this.createValidationResult(requirement, false, 0.0, `Compatibility check error: ${errorMessage}`);
     }
   }
 
@@ -325,8 +329,9 @@ export class PerformanceValidator extends DependencyValidator {
       });
 
     } catch (error) {
-      this.emit('validation:failed', { requirementId: requirement.requirementId, error: error.message });
-      return this.createValidationResult(requirement, false, 0.0, `Performance validation error: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.emit('validation:failed', { requirementId: requirement.requirementId, error: errorMessage });
+      return this.createValidationResult(requirement, false, 0.0, `Performance validation error: ${errorMessage}`);
     }
   }
 
@@ -381,8 +386,9 @@ export class SecurityValidator extends DependencyValidator {
       });
 
     } catch (error) {
-      this.emit('validation:failed', { requirementId: requirement.requirementId, error: error.message });
-      return this.createValidationResult(requirement, false, 0.0, `Security validation error: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.emit('validation:failed', { requirementId: requirement.requirementId, error: errorMessage });
+      return this.createValidationResult(requirement, false, 0.0, `Security validation error: ${errorMessage}`);
     }
   }
 

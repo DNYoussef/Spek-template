@@ -137,7 +137,8 @@ export class SecurityAuthenticationService {
         }
 
       } catch (error) {
-        this.log(`Could not analyze file ${file}: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+        this.log(`Could not analyze file ${file}: ${errorMessage}`);
       }
     }
 

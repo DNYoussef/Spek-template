@@ -18,25 +18,25 @@ import time
 sys.path.append('./src')
 sys.path.append('.')
 
-from quiet_star.algorithms import (
+from quiet_star.algorithms import ()
     QuietSTaRConfig,
     ThoughtGenerator,
     CoherenceScorer,
     MixingHead,
     QuietSTaRComponent,
     FastQuietSTaRCurriculum
-)
+()
 
 class Phase3ValidationSuite:
     """Comprehensive validation suite for Phase 3 enhanced Quiet Star."""
 
     def __init__(self):
         self.results = {}
-        self.config = QuietSTaRConfig(
+        self.config = QuietSTaRConfig()
             thought_length=8,
             num_thoughts=4,  # Reduced for testing
             coherence_threshold=0.7
-        )
+(        )
 
     def run_all_validations(self) -> Dict[str, Any]:
         """Run all validation tests."""
@@ -173,9 +173,9 @@ class Phase3ValidationSuite:
             class MockModel:
                 def __call__(self, input_ids):
                     vocab_size = 1000
-                    return type('obj', (object,), {
+                    return type('obj', (object,), {)
                         'logits': torch.randn(input_ids.size(0), input_ids.size(1), vocab_size)
-                    })
+(                    })
 
             mock_model = MockModel()
 
@@ -300,9 +300,9 @@ class Phase3ValidationSuite:
             # Test Phase 3 processing
             class MockModel:
                 def __call__(self, input_ids):
-                    return type('obj', (object,), {
+                    return type('obj', (object,), {)
                         'logits': torch.randn(input_ids.size(0), input_ids.size(1), 1000)
-                    })
+(                    })
 
             mock_model = MockModel()
             phase3_output = component.process_sequence(phase2_output, mock_model)
@@ -354,9 +354,9 @@ class Phase3ValidationSuite:
             # Mock model
             class MockModel:
                 def __call__(self, input_ids):
-                    return type('obj', (object,), {
+                    return type('obj', (object,), {)
                         'logits': torch.randn(input_ids.size(0), input_ids.size(1), 1000)
-                    })
+(                    })
 
             mock_model = MockModel()
 
@@ -440,9 +440,9 @@ class Phase3ValidationSuite:
 
             class MockModel:
                 def __call__(self, input_ids):
-                    return type('obj', (object,), {
+                    return type('obj', (object,), {)
                         'logits': torch.randn(input_ids.size(0), input_ids.size(1), 1000)
-                    })
+(                    })
 
             mock_model = MockModel()
             output = component.process_sequence(mock_input, mock_model)

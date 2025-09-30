@@ -1,3 +1,5 @@
+import pytest
+
 #!/usr/bin/env python3
 """
 Test script to verify analyzer fixes are working correctly.

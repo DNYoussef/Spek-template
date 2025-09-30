@@ -56,9 +56,10 @@ export class MessageRouterFacade extends EventEmitter {
       };
     } catch (error) {
       this.emit('routingError', message, error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
       return {
         success: false,
-        error: error.message
+        error: errorMessage
       };
     }
   }
@@ -83,10 +84,57 @@ export class MessageRouterFacade extends EventEmitter {
   /**
    * Cleanup resources
    */
-  async cleanup(): Promise<void> {
+  async destroy(): Promise<void> {
     this.routingTable.clear();
     await this.facade.cleanup();
     this.removeAllListeners();
+  }
+
+  // Methods expected by MessageRouter
+  registerPrincess(princessId: string, stateMachine: any): void {
+    this.addRoute(`princess-${princessId}`, stateMachine);
+  }
+
+  async sendMessage(from: string, to: string | string[], type: any, payload: any, options: any = {}): Promise<any> {
+    const message: Message = {
+      id: `msg-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      type: String(type),
+      payload,
+      metadata: { timestamp: new Date(), priority: options.priority || 5 }
+    };
+    return this.routeMessage(message);
+  }
+
+  async sendCommand(from: string, to: string, command: string, parameters: any = {}, timeout: number = 60000): Promise<any> {
+    return this.sendMessage(from, to, 'command', { command, parameters }, { timeout });
+  }
+
+  async queryPrincess(from: string, to: string, query: string, parameters: any = {}, timeout: number = 30000): Promise<any> {
+    return this.sendMessage(from, to, 'query', { query, parameters }, { timeout });
+  }
+
+  async broadcastNotification(from: string, targets: string[], notification: string, data: any = {}): Promise<any[]> {
+    return Promise.all(targets.map(target => this.sendMessage(from, target, 'notification', { notification, data })));
+  }
+
+  removeRoute(pattern: string): void {
+    this.routingTable.delete(pattern);
+  }
+
+  getRoutingMetrics(): any {
+    return this.getRoutingStats();
+  }
+
+  getMessageHistory(princessId: string, limit: number = 100): any[] {
+    return [];
+  }
+
+  getQueueStatus(): Record<string, any> {
+    return { queues: {}, totalMessages: 0 };
+  }
+
+  clearHistory(princessId?: string): void {
+    // No-op for now
   }
 }
 

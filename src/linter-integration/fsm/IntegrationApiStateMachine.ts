@@ -24,7 +24,7 @@ import {
  * Generic State Machine Implementation
  * NASA Rule 10 Compliant: <60 lines per function
  */
-export class StateMachine<TState extends string, TEvent extends string, TContext> extends EventEmitter {
+export class StateMachine<TState extends string, TStateEvent extends string, TContext> extends EventEmitter {
   private currentState: TState;
   private readonly config: StateMachineConfig<TState, TEvent, TContext>;
   private readonly stateMetrics: Map<string, StateMetrics> = new Map();
@@ -305,7 +305,8 @@ export class StateMachine<TState extends string, TEvent extends string, TContext
         this.emit('recovery_action', { action, timestamp: Date.now() });
         // Recovery actions would be implemented by subclasses
       } catch (error) {
-        this.emit('recovery_error', { action, error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+        this.emit('recovery_error', { action, error: errorMessage });
       }
     }
     

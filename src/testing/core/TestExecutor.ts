@@ -202,7 +202,7 @@ export abstract class TestExecutor extends EventEmitter {
   }
 
   // Abstract methods to be implemented by subclasses
-  protected abstract initialize(context: TestContext): Promise<void>;
+  protected abstract initializeComponent(context: TestContext): Promise<void>;
   protected abstract setup(context: TestContext): Promise<void>;
   protected abstract execute(context: TestContext): Promise<void>;
   protected abstract assert(context: TestContext): Promise<void>;

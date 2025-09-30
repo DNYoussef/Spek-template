@@ -10,13 +10,13 @@ import {
   ComplianceScanResult,
   BaselineMetadata,
   BaselineEvidence
-} from '../../types/domains/compliance-types';
+} from '../../../types/compliance-types';
 
 import {
   ComplianceScore,
   Timestamp,
   ComplianceRuleId
-} from '../../types/base/primitives';
+} from '../../../types/base/primitives';
 
 import { ComplianceRuleScanner } from '../scanners/ComplianceRuleScanner';
 import { ComplianceAuditLogger } from '../audit/ComplianceAuditLogger';

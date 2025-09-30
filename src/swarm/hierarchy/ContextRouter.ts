@@ -109,7 +109,7 @@ export class ContextRouter extends EventEmitter {
   /**
    * Initialize the router
    */
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     await this.facade.initializeSpecificRouter();
   }
 

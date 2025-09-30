@@ -11,9 +11,9 @@ import {
   ComplianceSeverity,
   AlertMetadata,
   AlertRecipient
-} from '../../types/domains/compliance-types';
+} from '../../../types/compliance-types';
 
-import { Timestamp } from '../../types/base/primitives';
+import { Timestamp } from '../../../types/base/primitives';
 import { ComplianceAuditLogger } from '../audit/ComplianceAuditLogger';
 
 export class AlertManager {

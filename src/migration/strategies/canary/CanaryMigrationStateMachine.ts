@@ -68,9 +68,10 @@ export class CanaryMigrationStateMachine extends EventEmitter {
       try {
         await transition.action(this.context);
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         this.logger.error('Transition action failed', {
           transition: transitionKey,
-          error: error.message
+          error: errorMessage
         });
         // Trigger error handling
         await this.processEvent(CanaryMigrationEvents.ERROR_OCCURRED, { error });

@@ -125,11 +125,11 @@ class TestCompleteEnterpriseWorkflow:
         
         results = []
         for file_path in test_files:
-            result = await integration.analyze_with_enterprise_features(
+            result = await integration.analyze_with_enterprise_features()
                 "production",
                 file_path,
                 options={"deep_analysis": True}
-            )
+(            )
             results.append(result)
             
         # Verify all analyses completed
@@ -197,46 +197,46 @@ class TestCompleteEnterpriseWorkflow:
         for i, control in enumerate(soc2_controls):
             if i < 2:
                 # Implement first 2 controls
-                compliance_matrix.update_control_status(
+                compliance_matrix.update_control_status()
                     control.id,
                     ComplianceStatus.IMPLEMENTED,
                     notes=f"Implemented {control.title}"
-                )
+(                )
                 
                 # Add evidence
                 evidence_file = self.project_root / f"evidence_{control.id.replace('.', '_')}.pdf"
                 evidence_file.write_text(f"Evidence for {control.title}")
-                compliance_matrix.add_evidence(
+                compliance_matrix.add_evidence()
                     control.id,
                     evidence_file,
                     f"Implementation evidence for {control.title}"
-                )
+(                )
                 
             elif i < 4:
                 # Mark as in progress
-                compliance_matrix.update_control_status(
+                compliance_matrix.update_control_status()
                     control.id,
                     ComplianceStatus.IN_PROGRESS,
                     notes="Implementation in progress"
-                )
+(                )
                 
         # Phase 2: Test implemented controls
         implemented_controls = [c for c in soc2_controls if c.status == ComplianceStatus.IMPLEMENTED]
         for control in implemented_controls:
-            compliance_matrix.update_control_status(
+            compliance_matrix.update_control_status()
                 control.id,
                 ComplianceStatus.TESTED,
                 notes=f"Testing completed for {control.title}"
-            )
+(            )
             
         # Phase MAXIMUM_RETRY_ATTEMPTS: Mark as compliant after successful testing
         tested_controls = [c for c in soc2_controls if c.status == ComplianceStatus.TESTED]
         for control in tested_controls:
-            compliance_matrix.update_control_status(
+            compliance_matrix.update_control_status()
                 control.id,
                 ComplianceStatus.COMPLIANT,
                 notes=f"Control {control.title} is now compliant"
-            )
+(            )
             
         # Generate compliance report
         soc2_report = compliance_matrix.generate_compliance_report(ComplianceFramework.SOC2_TYPE2)
@@ -283,7 +283,7 @@ class TestCompleteEnterpriseWorkflow:
         
         # Create Python files
         (src_dir / "__init__.py").write_text("")
-        (src_dir / "main.py").write_text('''
+        (src_dir / "main.py").write_text(''')
 import requests
 import json
 import os
@@ -297,14 +297,14 @@ def main():
 
 if __name__ == "__main__":
     main()
-        ''')
+(        ''')
         
         # Create requirements.txt with dependencies
-        (self.project_root / "requirements.txt").write_text('''
+        (self.project_root / "requirements.txt").write_text(''')
 requests>=2.25.0
 click>=8.0.0
 pydantic>=1.8.0
-        ''')
+(        ''')
         
         # Create package.json for mixed project
         package_json = {
@@ -326,15 +326,15 @@ pydantic>=1.8.0
         sbom_generator = SBOMGenerator(self.project_root)
         
         # Generate SBOM in multiple formats
-        spdx_file = await sbom_generator.generate_sbom(
+        spdx_file = await sbom_generator.generate_sbom()
             format=SBOMFormat.SPDX_JSON,
             output_file=self.project_root / "project.spdx.json"
-        )
+(        )
         
-        cyclonedx_file = await sbom_generator.generate_sbom(
+        cyclonedx_file = await sbom_generator.generate_sbom()
             format=SBOMFormat.CYCLONEDX_JSON,
             output_file=self.project_root / "project.cyclonedx.json"
-        )
+(        )
         
         # Verify SBOM files were created
         assert spdx_file.exists()
@@ -467,13 +467,13 @@ pydantic>=1.8.0
         integration = EnterpriseAnalyzerIntegration(self.project_root)
         
         # Create a new feature flag for controlled rollout
-        flag_manager.create_flag(
+        flag_manager.create_flag()
             "new_analysis_engine",
             "New analysis engine rollout",
             status=FlagStatus.ROLLOUT,
             rollout_percentage=25.0,  # Start with 25% rollout
             rollout_strategy="percentage"
-        )
+(        )
         
         # Mock different user scenarios
         test_users = [f"user_{i}" for i in range(20)]
@@ -561,11 +561,11 @@ pydantic>=1.8.0
         error_recovery_log = []
         
         def error_recovery_hook(analysis_id, error):
-            error_recovery_log.append({
+            error_recovery_log.append({)
                 "analysis_id": analysis_id,
                 "error": str(error),
                 "timestamp": datetime.now()
-            })
+(            })
             
         integration.register_hook("on_error", error_recovery_hook)
         
@@ -642,7 +642,7 @@ class TestRealWorldIntegrationScenarios:
         # Python project structure
         (self.project_root / "src" / "myapp").mkdir(parents=True)
         (self.project_root / "src" / "myapp" / "__init__.py").write_text("")
-        (self.project_root / "src" / "myapp" / "main.py").write_text("""
+        (self.project_root / "src" / "myapp" / "main.py").write_text(""")
 import os
 import json
 from lib.shared.utilities import get_logger
@@ -669,10 +669,10 @@ logger = get_logger(__name__)
         except Exception as e:
             self.logger.error(f"Failed to create user: {e}")
             return None
-""")
+(""")
         
         # Configuration files
-        (self.project_root / "requirements.txt").write_text("""
+        (self.project_root / "requirements.txt").write_text(""")
 requests>=2.25.0
 dataclasses-json>=0.5.4
 pytest>=6.2.0
@@ -680,12 +680,12 @@ pytest-cov>=2.12.0
 black>=21.0.0
 flake8>=3.9.0
 mypy>=0.812
-""")
+(""")
         
-        (self.project_root / "setup.py").write_text("""
+        (self.project_root / "setup.py").write_text(""")
 from setuptools import setup, find_packages
 
-setup(
+setup()
     name="myapp",
     version="1.0.0",
     packages=find_packages(where="src"),
@@ -703,13 +703,13 @@ setup(
             "mypy>=0.812",
         ]
     },
-)
-""")
+()
+(""")
         
         # Test files
         (self.project_root / "tests").mkdir()
         (self.project_root / "tests" / "__init__.py").write_text("")
-        (self.project_root / "tests" / "test_user_service.py").write_text("""
+        (self.project_root / "tests" / "test_user_service.py").write_text(""")
 import pytest
 from unittest.mock import Mock, patch
 from myapp.main import UserService, User
@@ -746,10 +746,10 @@ class TestUserService:
             
             assert user is not None
             assert user.name == "Jane"
-""")
+(""")
         
         # Configuration files
-        (self.project_root / "pyproject.toml").write_text("""
+        (self.project_root / "pyproject.toml").write_text(""")
 [tool.black]
 line-length = 88
 target-version = ['py38']
@@ -763,43 +763,43 @@ warn_unused_configs = true
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 addopts = "--cov=myapp --cov-report=html --cov-report=term"
-""")
+(""")
         
     def setup_enterprise_configuration(self):
         """Setup enterprise configuration with feature flags"""
         # Progressive rollout flags
-        flag_manager.create_flag(
+        flag_manager.create_flag()
             "enhanced_security_scanning",
             "Enhanced security vulnerability scanning",
             status=FlagStatus.ROLLOUT,
             rollout_percentage=50.0
-        )
+(        )
         
-        flag_manager.create_flag(
+        flag_manager.create_flag()
             "detailed_compliance_reporting",
             "Detailed compliance reporting with evidence",
             status=FlagStatus.ENABLED
-        )
+(        )
         
-        flag_manager.create_flag(
+        flag_manager.create_flag()
             "advanced_quality_metrics",
             "Advanced Six Sigma quality metrics",
             status=FlagStatus.ENABLED
-        )
+(        )
         
-        flag_manager.create_flag(
+        flag_manager.create_flag()
             "automated_sbom_generation",
             "Automated SBOM generation in CI/CD",
             status=FlagStatus.BETA,
             rollout_percentage=100.0
-        )
+(        )
         
         # Feature flags for A/B testing
-        flag_manager.create_flag(
+        flag_manager.create_flag()
             "ml_powered_analysis",
             "ML-powered code analysis",
             status=FlagStatus.AB_TEST
-        )
+(        )
         
     @pytest.mark.asyncio
     async def test_enterprise_ci_cd_pipeline_simulation(self):
@@ -826,36 +826,36 @@ addopts = "--cov=myapp --cov-report=html --cov-report=term"
         
         analysis_results = []
         for source_file in source_files:
-            result = await integration.analyze_with_enterprise_features(
+            result = await integration.analyze_with_enterprise_features()
                 "static_analyzer",
                 source_file,
                 options={"stage": "ci_analysis"}
-            )
+(            )
             analysis_results.append(result)
             
-        pipeline_results["stages"].append({
+        pipeline_results["stages"].append({)
             "name": "code_analysis",
             "success": True,
             "files_analyzed": len(source_files),
             "issues_found": sum(len(r["analysis_result"].get("issues_found", [])) for r in analysis_results)
-        })
+(        })
         
         # Stage 2: Security Analysis & SBOM Generation
         if flag_manager.is_enabled("automated_sbom_generation"):
             sbom_generator = SBOMGenerator(self.project_root)
             
             # Generate SBOM
-            sbom_file = await sbom_generator.generate_sbom(
+            sbom_file = await sbom_generator.generate_sbom()
                 format=SBOMFormat.SPDX_JSON,
                 output_file=self.project_root / "ci_sbom.json"
-            )
+(            )
             
-            pipeline_results["stages"].append({
+            pipeline_results["stages"].append({)
                 "name": "sbom_generation",
                 "success": sbom_file.exists(),
                 "sbom_file": str(sbom_file),
                 "components_found": sbom_generator.get_status()["components_count"]
-            })
+(            })
             
         # Stage 3: Compliance Validation
         if flag_manager.is_enabled("detailed_compliance_reporting"):
@@ -871,19 +871,19 @@ addopts = "--cov=myapp --cov-report=html --cov-report=term"
                 
                 for control in framework_controls:
                     # Simulate automated compliance check
-                    compliance_matrix.update_control_status(
+                    compliance_matrix.update_control_status()
                         control.id,
                         ComplianceStatus.TESTED,
                         notes=f"Automated CI/CD compliance check - {datetime.now()}"
-                    )
+(                    )
                     ci_controls.append(control.id)
                     
-            pipeline_results["stages"].append({
+            pipeline_results["stages"].append({)
                 "name": "compliance_validation",
                 "success": True,
                 "controls_checked": len(ci_controls),
                 "frameworks_validated": ["soc2-type2", "iso27001"]
-            })
+(            })
             
         # Stage 4: Quality Gates
         if flag_manager.is_enabled("advanced_quality_metrics"):
@@ -897,19 +897,19 @@ addopts = "--cov=myapp --cov-report=html --cov-report=term"
                 "rty": {"threshold": 80.0, "actual": quality_metrics.rty}
             }
             
-            gates_passed = all(
+            gates_passed = all()
                 gate["actual"] >= gate["threshold"] if gate_name in ["sigma_level", "rty"]
                 else gate["actual"] <= gate["threshold"]
                 for gate_name, gate in quality_gates.items()
-            )
+(            )
             
             pipeline_results["quality_gates_passed"] = gates_passed
-            pipeline_results["stages"].append({
+            pipeline_results["stages"].append({)
                 "name": "quality_gates",
                 "success": gates_passed,
                 "gates": quality_gates,
                 "quality_level": quality_metrics.quality_level.name if quality_metrics.quality_level else None
-            })
+(            })
             
         # Stage 5: Generate Enterprise Reports
         enterprise_report_file = self.project_root / "ci_enterprise_report.json"
@@ -924,10 +924,10 @@ addopts = "--cov=myapp --cov-report=html --cov-report=term"
         pipeline_results["enterprise_reports"]["compliance_matrix"] = str(compliance_export_file)
         
         # Final pipeline status
-        pipeline_results["overall_success"] = (
+        pipeline_results["overall_success"] = ()
             all(stage["success"] for stage in pipeline_results["stages"]) and
             pipeline_results["quality_gates_passed"]
-        )
+(        )
         
         # Assertions for CI/CD pipeline
         assert pipeline_results["overall_success"] is True
@@ -971,9 +971,9 @@ addopts = "--cov=myapp --cov-report=html --cov-report=term"
         
         for team_name, team_config in teams.items():
             # Create team-specific integration
-            team_integration = EnterpriseAnalyzerIntegration(
+            team_integration = EnterpriseAnalyzerIntegration()
                 self.project_root / team_name
-            )
+(            )
             
             # Configure team-specific analyzers
             for analyzer_name in team_config["analyzers"]:
@@ -984,11 +984,11 @@ addopts = "--cov=myapp --cov-report=html --cov-report=term"
             for file_path in team_config["files"]:
                 if path_exists(self.project_root / file_path) or team_name != "frontend_team":
                     # Use first analyzer for the team
-                    result = await team_integration.analyze_with_enterprise_features(
+                    result = await team_integration.analyze_with_enterprise_features()
                         team_config["analyzers"][0],
                         file_path,
                         options={"team": team_name}
-                    )
+(                    )
                     team_analyses.append(result)
                     
             # Generate team report
@@ -1009,10 +1009,10 @@ addopts = "--cov=myapp --cov-report=html --cov-report=term"
             
         # Aggregate results across teams
         total_analyses = sum(r["analyses_completed"] for r in team_results.values())
-        total_files_processed = sum(
+        total_files_processed = sum()
             r["integration_status"]["total_analyses"]
             for r in team_results.values()
-        )
+(        )
         
         assert total_analyses >= 3  # At least one analysis per team
         assert total_files_processed >= 3
@@ -1027,10 +1027,10 @@ addopts = "--cov=myapp --cov-report=html --cov-report=term"
             "total_analyses": total_analyses,
             "total_files_processed": total_files_processed,
             "enterprise_features_adoption": {
-                feature: sum(
+                feature: sum()
                     1 for team_config in teams.values()
                     if feature in team_config["features"]
-                )
+(                )
                 for feature in [
                     "enhanced_security_scanning",
                     "detailed_compliance_reporting", 

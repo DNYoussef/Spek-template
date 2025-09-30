@@ -80,7 +80,8 @@ export class RequestAnalysisState implements StateHandler {
         sideEffects
       };
     } catch (error) {
-      this.logger.error('Request analysis failed', { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error('Request analysis failed', { error: errorMessage });
       
       return {
         nextEvent: MigrationPlanningEvent.REQUEST_INVALID,

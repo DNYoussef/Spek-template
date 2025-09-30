@@ -1,6 +1,6 @@
 """Tests for Test Pattern Builder"""
 
-from src.analysis.test_pattern_builder import (
+from src.analysis.test_pattern_builder import ()
 import pytest
 
 class TestTestPatternBuilder:
@@ -10,13 +10,13 @@ class TestTestPatternBuilder:
         """Test builder creates valid test pattern."""
         from src.analysis.test_pattern_builder import TestPatternBuilder as TPB
 
-        pattern = (
+        pattern = ()
             TPB()
             .with_patterns(["error1", "error2"])
             .with_category("unit_testing", "unit")
             .with_causes(["cause1", "cause2"])
             .build("test_pattern", "medium", "strategy1")
-        )
+(        )
 
         assert pattern.pattern_type == "test_pattern"
         assert len(pattern.patterns) == 2
@@ -38,12 +38,12 @@ class TestTestPatternBuilder:
 
         builder = TPB()
 
-        result = (
+        result = ()
             builder
             .with_patterns(["p1"])
             .with_category("test", "unit")
             .with_causes(["c1"])
-        )
+(        )
 
         assert result is builder
 
@@ -75,12 +75,12 @@ class TestTestPatternBuilder:
             if len(builder._patterns) < 2:
                 raise ValueError("Need at least 2 patterns")
 
-        builder = (
+        builder = ()
             TPB()
             .with_patterns(["p1", "p2", "p3"])
             .with_category("test", "unit")
             .add_validator(validate_patterns)
-        )
+(        )
 
         config = builder.build("test", "low", "strategy")
         assert len(config.patterns) == 3
@@ -92,12 +92,12 @@ class TestTestPatternBuilder:
         def error_handler(error):
             return f"Handled: {error}"
 
-        builder = (
+        builder = ()
             TPB()
             .with_patterns(["p1"])
             .with_category("test", "unit")
             .with_error_handler(error_handler)
-        )
+(        )
 
         config = builder.build("test", "low", "strategy")
         assert config is not None

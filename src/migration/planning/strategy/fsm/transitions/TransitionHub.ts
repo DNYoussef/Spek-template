@@ -114,7 +114,8 @@ export class TransitionHub extends EventEmitter {
         await this.processEvent(MigrationPlanningEvent.ABORT_PLANNING);
       }
     } catch (error) {
-      this.logger.error('Event processing failed', { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error('Event processing failed', { error: errorMessage });
       this.context.error = error;
       await this.transitionToErrorState(error);
     }

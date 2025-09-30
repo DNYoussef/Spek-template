@@ -26,8 +26,9 @@ export class WorkflowCore extends EventEmitter implements IWorkflowCore {
   /**
    * Initialize the workflow core engine
    * NASA Rule 10: ≤60 lines, 2+ assertions
+   * Renamed from initialize() to avoid EventEmitter property conflict
    */
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     // NASA Assertion 1: Validate initialization state
     console.assert(!this.isInitialized, 'Core should not be initialized multiple times');
 

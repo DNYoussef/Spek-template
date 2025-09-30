@@ -1,0 +1,2745 @@
+{
+  "totalScripts": 302,
+  "tested": 302,
+  "passed": 280,
+  "failed": 22,
+  "skipped": 0,
+  "byType": {
+    "sh": 84,
+    "js": 58,
+    "py": 160
+  },
+  "byCategory": {
+    "workflow": 18,
+    "utility": 144,
+    "compliance": 9,
+    "fixes": 64,
+    "build": 3,
+    "analysis": 14,
+    "optimization": 5,
+    "agent-coordination": 10,
+    "testing": 22,
+    "deployment": 7,
+    "security": 6
+  },
+  "inventory": [
+    {
+      "name": "3-loop-orchestrator.sh",
+      "type": "sh",
+      "category": "workflow",
+      "size": 26371,
+      "status": "valid",
+      "error": null,
+      "description": "3-Loop System Orchestrator"
+    },
+    {
+      "name": "achieve_perfection.py",
+      "type": "py",
+      "category": "utility",
+      "size": 11695,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "add-nasa-assertions.js",
+      "type": "js",
+      "category": "compliance",
+      "size": 7398,
+      "status": "valid",
+      "error": null,
+      "description": "NASA Rule 10 Compliance Assertion Injector"
+    },
+    {
+      "name": "add_assertions_report.py",
+      "type": "py",
+      "category": "utility",
+      "size": 11422,
+      "status": "valid",
+      "error": null,
+      "description": "Target files with highest violations"
+    },
+    {
+      "name": "add_return_checks.py",
+      "type": "py",
+      "category": "utility",
+      "size": 11543,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\add_return_checks.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\add_return_checks.py\", line 16\r\n    \"\"\"Represents a function call with unchecked return value.\"\"\"\r\n       ^^^^^^^^^^\r\nSyntaxError: invalid syntax\r\n",
+      "description": "No description available"
+    },
+    {
+      "name": "aggressive_syntax_fixer.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 4589,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "analyze-build-errors.js",
+      "type": "js",
+      "category": "build",
+      "size": 6537,
+      "status": "valid",
+      "error": null,
+      "description": "Build Error Analyzer"
+    },
+    {
+      "name": "analyzer_improvement_loop.sh",
+      "type": "sh",
+      "category": "analysis",
+      "size": 23719,
+      "status": "valid",
+      "error": null,
+      "description": "Analyzer Improvement Loop - Comprehensive quality improvement using the 70-file analyzer system"
+    },
+    {
+      "name": "analyze_connascence.py",
+      "type": "py",
+      "category": "analysis",
+      "size": 6811,
+      "status": "valid",
+      "error": null,
+      "description": "Statistics tracking"
+    },
+    {
+      "name": "analyze_file.py",
+      "type": "py",
+      "category": "analysis",
+      "size": 2720,
+      "status": "valid",
+      "error": null,
+      "description": "Add project root to path"
+    },
+    {
+      "name": "analyze_full_project.py",
+      "type": "py",
+      "category": "analysis",
+      "size": 3525,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "apply-dspy-optimization.js",
+      "type": "js",
+      "category": "optimization",
+      "size": 26143,
+      "status": "valid",
+      "error": null,
+      "description": "DSPy Optimization Application Script"
+    },
+    {
+      "name": "apply_improvements.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 7294,
+      "status": "valid",
+      "error": null,
+      "description": "Apply pre-mortem improvements to SPEC.md and plan.json"
+    },
+    {
+      "name": "apply_real_fixes.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 5678,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "audit_swarm.sh",
+      "type": "sh",
+      "category": "agent-coordination",
+      "size": 19889,
+      "status": "valid",
+      "error": null,
+      "description": "Audit Swarm Script - Post-deployment theater detection and validation"
+    },
+    {
+      "name": "audit_workflows.py",
+      "type": "py",
+      "category": "workflow",
+      "size": 3366,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "automated_docstring_generator.py",
+      "type": "py",
+      "category": "utility",
+      "size": 18769,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "batch_god_object_processor.py",
+      "type": "py",
+      "category": "utility",
+      "size": 15421,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "batch_indentation_fixer.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 3843,
+      "status": "valid",
+      "error": null,
+      "description": "Fix functions that are over-indented (should be at module level)"
+    },
+    {
+      "name": "batch_syntax_fixer.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 9562,
+      "status": "valid",
+      "error": null,
+      "description": "Pattern: starts with import, then description without opening quotes"
+    },
+    {
+      "name": "batch_update_agents.sh",
+      "type": "sh",
+      "category": "agent-coordination",
+      "size": 7114,
+      "status": "valid",
+      "error": null,
+      "description": "SPEK-AUGMENT v1: Batch Agent Update Script"
+    },
+    {
+      "name": "calculate_consensus.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 5955,
+      "status": "valid",
+      "error": null,
+      "description": "Calculate consensus failure rate across all agents"
+    },
+    {
+      "name": "capture-all-phases.js",
+      "type": "js",
+      "category": "utility",
+      "size": 11096,
+      "status": "valid",
+      "error": null,
+      "description": "Set viewport for consistent screenshots"
+    },
+    {
+      "name": "capture-phase-screenshots.js",
+      "type": "js",
+      "category": "utility",
+      "size": 7212,
+      "status": "valid",
+      "error": null,
+      "description": "Navigate to main dashboard"
+    },
+    {
+      "name": "check-task-prerequisites.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 1907,
+      "status": "valid",
+      "error": null,
+      "description": "Check that implementation plan exists and find optional design documents"
+    },
+    {
+      "name": "check_workflows.py",
+      "type": "py",
+      "category": "workflow",
+      "size": 2158,
+      "status": "valid",
+      "error": null,
+      "description": "Find all workflow files"
+    },
+    {
+      "name": "cicd_performance_tester.py",
+      "type": "py",
+      "category": "testing",
+      "size": 36977,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "cicd_quality_enforcer.py",
+      "type": "py",
+      "category": "utility",
+      "size": 47051,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "clean-unicode-memory.js",
+      "type": "js",
+      "category": "utility",
+      "size": 3816,
+      "status": "valid",
+      "error": null,
+      "description": "Unicode Cleaner for Memory System Files"
+    },
+    {
+      "name": "cleanup-commons.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 44,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "clean_workflows.py",
+      "type": "py",
+      "category": "workflow",
+      "size": 3772,
+      "status": "valid",
+      "error": null,
+      "description": "Read file with null bytes"
+    },
+    {
+      "name": "codebase-remediation.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 20868,
+      "status": "valid",
+      "error": null,
+      "description": "Codebase Remediation Script"
+    },
+    {
+      "name": "codex_apply.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 1279,
+      "status": "valid",
+      "error": null,
+      "description": "Use globally-installed Codex binary; override via env if needed."
+    },
+    {
+      "name": "common.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 2065,
+      "status": "valid",
+      "error": null,
+      "description": "Common functions and variables for all scripts"
+    },
+    {
+      "name": "compare_baselines.py",
+      "type": "py",
+      "category": "utility",
+      "size": 2562,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "compare_self_analysis.py",
+      "type": "py",
+      "category": "utility",
+      "size": 2576,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "complete-refactors.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 1816,
+      "status": "valid",
+      "error": null,
+      "description": "Complete Refactoring Script"
+    },
+    {
+      "name": "complexity_reduction.py",
+      "type": "py",
+      "category": "utility",
+      "size": 9429,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\complexity_reduction.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\complexity_reduction.py\", line 16\r\n    \"\"\"Represents a function with excessive complexity.\"\"\"\r\n       ^^^^^^^^^^\r\nSyntaxError: invalid syntax\r\n",
+      "description": "No description available"
+    },
+    {
+      "name": "comprehensive_syntax_fixer.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 8994,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "comprehensive_test_runner.py",
+      "type": "py",
+      "category": "testing",
+      "size": 34659,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\comprehensive_test_runner.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\comprehensive_test_runner.py\", line 694\r\n    f\"estimated duration: {execution_plan.total_estimated_duration:.1f}s\")\r\n                                                                         ^\r\nSyntaxError: unmatched ')'\r\n",
+      "description": "No description available"
+    },
+    {
+      "name": "comprehensive_theater_scan.py",
+      "type": "py",
+      "category": "utility",
+      "size": 9310,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "comprehensive_verification_pipeline.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 33919,
+      "status": "valid",
+      "error": null,
+      "description": "Comprehensive Testing and Verification Pipeline"
+    },
+    {
+      "name": "contextual_loop.sh",
+      "type": "sh",
+      "category": "workflow",
+      "size": 36150,
+      "status": "valid",
+      "error": null,
+      "description": "Contextual Understanding Loop - Theater Detection and Remediation"
+    },
+    {
+      "name": "continuous-type-monitoring.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 14452,
+      "status": "valid",
+      "error": null,
+      "description": "Continuous Type Safety Monitoring Script"
+    },
+    {
+      "name": "core_analyzer_rescue.py",
+      "type": "py",
+      "category": "analysis",
+      "size": 2207,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "create-missing-modules.js",
+      "type": "js",
+      "category": "utility",
+      "size": 5592,
+      "status": "valid",
+      "error": null,
+      "description": "Create Missing Modules Script"
+    },
+    {
+      "name": "create-new-feature.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 2490,
+      "status": "valid",
+      "error": null,
+      "description": "Create a new feature with branch, directory structure, and template"
+    },
+    {
+      "name": "create-test-suite.js",
+      "type": "js",
+      "category": "testing",
+      "size": 17612,
+      "status": "valid",
+      "error": null,
+      "description": "Create Basic Test Suite - Production Readiness Script"
+    },
+    {
+      "name": "critical_security_fixes.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 11890,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "debug-threejs-animations.js",
+      "type": "js",
+      "category": "utility",
+      "size": 10648,
+      "status": "valid",
+      "error": null,
+      "description": "Enable console logging"
+    },
+    {
+      "name": "debug_unified_analyzer.py",
+      "type": "py",
+      "category": "analysis",
+      "size": 2370,
+      "status": "valid",
+      "error": null,
+      "description": "Create analyzer"
+    },
+    {
+      "name": "demo-working-system.js",
+      "type": "js",
+      "category": "utility",
+      "size": 11061,
+      "status": "valid",
+      "error": null,
+      "description": "Working System Demonstration"
+    },
+    {
+      "name": "demonstrate_loop3.py",
+      "type": "py",
+      "category": "workflow",
+      "size": 6580,
+      "status": "valid",
+      "error": null,
+      "description": "Add coordination module to path"
+    },
+    {
+      "name": "deploy-blue-green.sh",
+      "type": "sh",
+      "category": "deployment",
+      "size": 8483,
+      "status": "valid",
+      "error": null,
+      "description": "Blue-Green Deployment Script for SPEK Platform"
+    },
+    {
+      "name": "deploy-canary.sh",
+      "type": "sh",
+      "category": "deployment",
+      "size": 13460,
+      "status": "valid",
+      "error": null,
+      "description": "Canary Deployment Script for SPEK Platform"
+    },
+    {
+      "name": "deploy-dspy-optimization.sh",
+      "type": "sh",
+      "category": "optimization",
+      "size": 22187,
+      "status": "valid",
+      "error": null,
+      "description": "DSPy Optimization Deployment Script"
+    },
+    {
+      "name": "deploy-emergency-ci.sh",
+      "type": "sh",
+      "category": "deployment",
+      "size": 3686,
+      "status": "valid",
+      "error": null,
+      "description": "Change to project directory"
+    },
+    {
+      "name": "deploy_dfars_security.py",
+      "type": "py",
+      "category": "security",
+      "size": 41823,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "deploy_queen_loop3_real_failures.py",
+      "type": "py",
+      "category": "workflow",
+      "size": 20031,
+      "status": "valid",
+      "error": null,
+      "description": "Import Queen Coordinator"
+    },
+    {
+      "name": "deploy_real_queen_swarm.py",
+      "type": "py",
+      "category": "agent-coordination",
+      "size": 21876,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "dfars_compliance_fixer.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 19054,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\dfars_compliance_fixer.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\dfars_compliance_fixer.py\", line 3\r\n    Implements encryption for sensitive data and comprehensive audit trails.\r\n               ^^^^^^^^^^\r\nSyntaxError: invalid syntax\r\n",
+      "description": "No description available"
+    },
+    {
+      "name": "dfars_deployment_task_builder.py",
+      "type": "py",
+      "category": "build",
+      "size": 4887,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "diff_coverage.js",
+      "type": "js",
+      "category": "utility",
+      "size": 2960,
+      "status": "valid",
+      "error": null,
+      "description": "Diff coverage analysis for changed files"
+    },
+    {
+      "name": "diff_coverage.py",
+      "type": "py",
+      "category": "utility",
+      "size": 2761,
+      "status": "valid",
+      "error": null,
+      "description": "Try to get changes from origin/main, fallback to HEAD~1"
+    },
+    {
+      "name": "doc_validator.py",
+      "type": "py",
+      "category": "utility",
+      "size": 17316,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "e2e_validation_suite.py",
+      "type": "py",
+      "category": "utility",
+      "size": 28349,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "eliminate_theater.py",
+      "type": "py",
+      "category": "utility",
+      "size": 12690,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\eliminate_theater.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\eliminate_theater.py\", line 218\r\n    '''\r\n    ^\r\nSyntaxError: unterminated triple-quoted string literal (detected at line 372)\r\n",
+      "description": "No description available"
+    },
+    {
+      "name": "enhance-nasa-compliance.js",
+      "type": "js",
+      "category": "compliance",
+      "size": 11570,
+      "status": "valid",
+      "error": null,
+      "description": "Enhanced NASA Rule 10 Compliance Script - Production Readiness"
+    },
+    {
+      "name": "enhanced_loop3_with_video_insights.py",
+      "type": "py",
+      "category": "workflow",
+      "size": 17085,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "enhanced_return_value_fixer.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 7728,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "execute_remediation_plan.py",
+      "type": "py",
+      "category": "utility",
+      "size": 22332,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\execute_remediation_plan.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\execute_remediation_plan.py\", line 453\r\n    Overall Progress: {report['overall_progress']:.1f}%\r\n                                                   ^\r\nSyntaxError: invalid decimal literal\r\n",
+      "description": "No description available"
+    },
+    {
+      "name": "file-organizer.js",
+      "type": "js",
+      "category": "utility",
+      "size": 6879,
+      "status": "valid",
+      "error": null,
+      "description": "Configuration"
+    },
+    {
+      "name": "final-cleanup.js",
+      "type": "js",
+      "category": "utility",
+      "size": 4597,
+      "status": "valid",
+      "error": null,
+      "description": "Configuration"
+    },
+    {
+      "name": "final-production-assessment.js",
+      "type": "js",
+      "category": "utility",
+      "size": 19719,
+      "status": "valid",
+      "error": null,
+      "description": "Final Production Assessment Tool"
+    },
+    {
+      "name": "final_syntax_elimination.py",
+      "type": "py",
+      "category": "utility",
+      "size": 10220,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "final_syntax_fix.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 3839,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "final_theater_validation.py",
+      "type": "py",
+      "category": "utility",
+      "size": 5486,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "final_unicode_cleanup.py",
+      "type": "py",
+      "category": "utility",
+      "size": 12382,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "fix-analyzer-imports.py",
+      "type": "py",
+      "category": "analysis",
+      "size": 3424,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\fix-analyzer-imports.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\fix-analyzer-imports.py\", line 94\r\n    | 1.0.0   | 2025-09-29T08:35:00-04:00 | import-resolver@Sonnet-4 | Created automated import fixer script | fix-analyzer-imports.py | OK | Fixed 104 out of 207 analyzer files with import issues | 0.02 | f7c9b1a |\r\n                     ^\r\nSyntaxError: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers\r\n",
+      "description": "Fix src.constants.base imports"
+    },
+    {
+      "name": "fix-enum-const-keywords.js",
+      "type": "js",
+      "category": "fixes",
+      "size": 2177,
+      "status": "valid",
+      "error": null,
+      "description": "Fix 'const' keywords in enum members across all TypeScript files"
+    },
+    {
+      "name": "fix-fsm-naming.sh",
+      "type": "sh",
+      "category": "fixes",
+      "size": 1668,
+      "status": "valid",
+      "error": null,
+      "description": "Fix FSM naming: Numeric identifiers → Valid TypeScript identifiers"
+    },
+    {
+      "name": "fix-fsm-references.sh",
+      "type": "sh",
+      "category": "fixes",
+      "size": 2563,
+      "status": "valid",
+      "error": null,
+      "description": "Fix remaining FSM references in method bodies and facades"
+    },
+    {
+      "name": "fix-malformed-assertions.js",
+      "type": "js",
+      "category": "fixes",
+      "size": 7469,
+      "status": "valid",
+      "error": null,
+      "description": "Malformed Assertion Cleanup Script"
+    },
+    {
+      "name": "fix-python-imports.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 10721,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "fix-script-syntax-errors.js",
+      "type": "js",
+      "category": "fixes",
+      "size": 7936,
+      "status": "valid",
+      "error": null,
+      "description": "Automated Script Syntax Error Fixer"
+    },
+    {
+      "name": "fix-security-fsm-embedded.js",
+      "type": "js",
+      "category": "fixes",
+      "size": 1625,
+      "status": "valid",
+      "error": null,
+      "description": "Fix embedded declarations in Security FSM state files"
+    },
+    {
+      "name": "fix-stategraph-embedded-declarations.js",
+      "type": "js",
+      "category": "fixes",
+      "size": 3265,
+      "status": "valid",
+      "error": null,
+      "description": "Fix embedded declarations in StateGraphFacade"
+    },
+    {
+      "name": "fix-stategraph-pass2.js",
+      "type": "js",
+      "category": "fixes",
+      "size": 6302,
+      "status": "valid",
+      "error": null,
+      "description": "Fix remaining embedded declarations in StateGraphFacade - Pass 2"
+    },
+    {
+      "name": "fix-stategraph-precise.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 921,
+      "status": "valid",
+      "error": null,
+      "description": "Fix 1: Line 151 - embedded declaration after assignment"
+    },
+    {
+      "name": "fix-stategraph-wave5.js",
+      "type": "js",
+      "category": "fixes",
+      "size": 1723,
+      "status": "valid",
+      "error": null,
+      "description": "Wave 5: Fix remaining StateGraphFacade embedded declarations"
+    },
+    {
+      "name": "fix-ts18046-errors.js",
+      "type": "js",
+      "category": "fixes",
+      "size": 2998,
+      "status": "valid",
+      "error": null,
+      "description": "Automated TS18046 Error Fix Script"
+    },
+    {
+      "name": "fix-type-files.js",
+      "type": "js",
+      "category": "fixes",
+      "size": 2663,
+      "status": "valid",
+      "error": null,
+      "description": "Fix Type Augmentation Files - Wave 3.3"
+    },
+    {
+      "name": "fix_73_syntax_errors.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 10999,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "fix_all_fstring_v3.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 1309,
+      "status": "valid",
+      "error": null,
+      "description": "Pattern to find {variable) and replace with {variable}"
+    },
+    {
+      "name": "fix_all_nasa_syntax.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 3833,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "fix_all_syntax_comprehensive.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 6147,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "fix_all_syntax_errors.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 10021,
+      "status": "valid",
+      "error": null,
+      "description": "Error patterns and their fixes"
+    },
+    {
+      "name": "fix_analyzer_comprehensive.py",
+      "type": "py",
+      "category": "analysis",
+      "size": 8257,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "fix_analyzer_docstrings.py",
+      "type": "py",
+      "category": "analysis",
+      "size": 5128,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "fix_analyzer_syntax.py",
+      "type": "py",
+      "category": "analysis",
+      "size": 9319,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "fix_cicd_accelerator.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 2269,
+      "status": "valid",
+      "error": null,
+      "description": "Remove any leading spaces before class definitions"
+    },
+    {
+      "name": "fix_ci_cd_corruption.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 2014,
+      "status": "valid",
+      "error": null,
+      "description": "Read the file"
+    },
+    {
+      "name": "fix_core_complete.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 1319,
+      "status": "valid",
+      "error": null,
+      "description": "Fix ALL method indentation issues by ensuring:"
+    },
+    {
+      "name": "fix_core_py.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 660,
+      "status": "valid",
+      "error": null,
+      "description": "Fix all function definitions that start with 4+ spaces"
+    },
+    {
+      "name": "fix_dict_errors.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 856,
+      "status": "valid",
+      "error": null,
+      "description": "Pattern: finds dicts with ) instead of } before comma"
+    },
+    {
+      "name": "fix_dynamic_memory.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 9774,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "fix_fstring_errors.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 1233,
+      "status": "valid",
+      "error": null,
+      "description": "Pattern: finds f-strings with ) before closing quote"
+    },
+    {
+      "name": "fix_fstring_v2.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 876,
+      "status": "valid",
+      "error": null,
+      "description": "This pattern finds {variable_name) and replaces with {variable_name}"
+    },
+    {
+      "name": "fix_function_size.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 4713,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "fix_indentation.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 1343,
+      "status": "valid",
+      "error": null,
+      "description": "Check if current line starts with 'patterns.append' or similar and previous line was an if"
+    },
+    {
+      "name": "fix_literal_newlines_direct.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 1289,
+      "status": "valid",
+      "error": null,
+      "description": "Fix quadruple quotes first"
+    },
+    {
+      "name": "fix_literal_newlines_manual.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 6544,
+      "status": "valid",
+      "error": null,
+      "description": "Files identified as having literal \\n issues"
+    },
+    {
+      "name": "fix_malformed_assertions.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 3005,
+      "status": "valid",
+      "error": null,
+      "description": "Regex patterns for malformed assertions"
+    },
+    {
+      "name": "fix_phase2_deep_cleanup.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 12046,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "fix_phase2_final.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 9627,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "fix_pointer_patterns.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 10141,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "fix_remaining_workflows.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 4885,
+      "status": "valid",
+      "error": null,
+      "description": "Find the line before \"Verify rollback success\""
+    },
+    {
+      "name": "fix_return_values.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 9947,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "fix_syntax_errors.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 3707,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "fix_unicode_violations.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 5846,
+      "status": "valid",
+      "error": null,
+      "description": "Unicode replacement mapping"
+    },
+    {
+      "name": "fix_workflow_unicode.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 5176,
+      "status": "valid",
+      "error": null,
+      "description": "Unicode replacements"
+    },
+    {
+      "name": "focused_naming_standardizer.py",
+      "type": "py",
+      "category": "utility",
+      "size": 11601,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "focused_syntax_fixer.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 8448,
+      "status": "valid",
+      "error": null,
+      "description": "Filter out temporary/generated files"
+    },
+    {
+      "name": "gate_fail_reason.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 8923,
+      "status": "valid",
+      "error": null,
+      "description": "Extract and format the top failing gate from gate.json for PR comments"
+    },
+    {
+      "name": "generate-handoff-docs.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 2544,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "generate-missing-facades.js",
+      "type": "js",
+      "category": "utility",
+      "size": 9456,
+      "status": "valid",
+      "error": null,
+      "description": "Batch Facade File Generator"
+    },
+    {
+      "name": "generate-optimization-report.js",
+      "type": "js",
+      "category": "optimization",
+      "size": 32178,
+      "status": "valid",
+      "error": null,
+      "description": "DSPy Optimization Deployment Report Generator"
+    },
+    {
+      "name": "generate_comprehensive_reports.py",
+      "type": "py",
+      "category": "utility",
+      "size": 14216,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "generate_real_reports_efficient.py",
+      "type": "py",
+      "category": "utility",
+      "size": 9503,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "get-feature-paths.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 609,
+      "status": "valid",
+      "error": null,
+      "description": "Get paths for current feature branch without creating anything"
+    },
+    {
+      "name": "github_integration.py",
+      "type": "py",
+      "category": "utility",
+      "size": 60031,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "github_webhook_feedback.py",
+      "type": "py",
+      "category": "utility",
+      "size": 34865,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "github_workflow_test.py",
+      "type": "py",
+      "category": "testing",
+      "size": 7219,
+      "status": "valid",
+      "error": null,
+      "description": "Add analyzer to path"
+    },
+    {
+      "name": "god-object-eliminator.py",
+      "type": "py",
+      "category": "utility",
+      "size": 12834,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "god-object-mass-eliminator.py",
+      "type": "py",
+      "category": "utility",
+      "size": 14223,
+      "status": "valid",
+      "error": null,
+      "description": "Target god objects over 1000 lines"
+    },
+    {
+      "name": "god_object_counter.py",
+      "type": "py",
+      "category": "utility",
+      "size": 5029,
+      "status": "valid",
+      "error": null,
+      "description": "Configurable thresholds"
+    },
+    {
+      "name": "god_object_decomposer.py",
+      "type": "py",
+      "category": "utility",
+      "size": 13973,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "impact_quickcheck.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 11557,
+      "status": "valid",
+      "error": null,
+      "description": "Impact Quickcheck - Validate Gemini impact maps against code reality"
+    },
+    {
+      "name": "initialize-dspy-system.js",
+      "type": "js",
+      "category": "optimization",
+      "size": 11992,
+      "status": "valid",
+      "error": null,
+      "description": "DSPy System Initialization Script"
+    },
+    {
+      "name": "intelligent_failure_analysis.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 20315,
+      "status": "valid",
+      "error": null,
+      "description": "Intelligent Failure Analysis System with Architectural Context"
+    },
+    {
+      "name": "interface_segregator.py",
+      "type": "py",
+      "category": "utility",
+      "size": 17734,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\interface_segregator.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\interface_segregator.py\", line 459\r\n    \"\"\"\r\n    ^\r\nSyntaxError: unterminated triple-quoted string literal (detected at line 459)\r\n",
+      "description": "No description available"
+    },
+    {
+      "name": "investigate-navigation.js",
+      "type": "js",
+      "category": "utility",
+      "size": 5567,
+      "status": "valid",
+      "error": null,
+      "description": "Navigate to main dashboard"
+    },
+    {
+      "name": "iterative_improvement_loop.sh",
+      "type": "sh",
+      "category": "workflow",
+      "size": 35102,
+      "status": "valid",
+      "error": null,
+      "description": "Iterative Improvement Loop with GitHub Integration"
+    },
+    {
+      "name": "json_schema_migrator.py",
+      "type": "py",
+      "category": "utility",
+      "size": 12802,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "json_validator.py",
+      "type": "py",
+      "category": "utility",
+      "size": 19243,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "lint_agents.sh",
+      "type": "sh",
+      "category": "agent-coordination",
+      "size": 2850,
+      "status": "valid",
+      "error": null,
+      "description": "Agent Lint Script - Validates SPEK-AUGMENT v1 compliance"
+    },
+    {
+      "name": "live-phase5-ui-test.js",
+      "type": "js",
+      "category": "testing",
+      "size": 29310,
+      "status": "valid",
+      "error": null,
+      "description": "Live Phase 5 Training Dashboard UI Testing Script - Port 3001"
+    },
+    {
+      "name": "loop1-planning.sh",
+      "type": "sh",
+      "category": "workflow",
+      "size": 7183,
+      "status": "valid",
+      "error": null,
+      "description": "Loop 1: Planning & Discovery Phase"
+    },
+    {
+      "name": "loop2-development.sh",
+      "type": "sh",
+      "category": "workflow",
+      "size": 9409,
+      "status": "valid",
+      "error": null,
+      "description": "Loop 2: Development & Implementation Phase"
+    },
+    {
+      "name": "loop3_recursive_fix.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 10474,
+      "status": "valid",
+      "error": null,
+      "description": "Add coordination module to path"
+    },
+    {
+      "name": "manual_critical_fixes.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 5741,
+      "status": "valid",
+      "error": null,
+      "description": "Fix analyzer/core.py - indentation issue"
+    },
+    {
+      "name": "mass-elimination-validator.py",
+      "type": "py",
+      "category": "utility",
+      "size": 17650,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "massive-elimination-campaign.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 3789,
+      "status": "valid",
+      "error": null,
+      "description": "MASSIVE ELIMINATION CAMPAIGN - TOP 25 GOD OBJECTS"
+    },
+    {
+      "name": "mcp-auto-init-enhanced.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 27478,
+      "status": "valid",
+      "error": null,
+      "description": "SPEK Enhanced MCP Auto-Initialization with AI-Powered Debugging"
+    },
+    {
+      "name": "mcp-auto-init.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 30752,
+      "status": "valid",
+      "error": null,
+      "description": "SPEK MCP Auto-Initialization Script"
+    },
+    {
+      "name": "memory_bridge.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 18948,
+      "status": "valid",
+      "error": null,
+      "description": "Memory Bridge - Unified Memory Coordination Script"
+    },
+    {
+      "name": "milestone_validation.py",
+      "type": "py",
+      "category": "utility",
+      "size": 10487,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "naming_import_updater.py",
+      "type": "py",
+      "category": "utility",
+      "size": 9760,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "naming_standardization_analyzer.py",
+      "type": "py",
+      "category": "analysis",
+      "size": 20225,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "naming_standardization_applier.py",
+      "type": "py",
+      "category": "utility",
+      "size": 19512,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "naming_violation_reviewer.py",
+      "type": "py",
+      "category": "utility",
+      "size": 11310,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "nasa-pot10-compliance.js",
+      "type": "js",
+      "category": "compliance",
+      "size": 7441,
+      "status": "valid",
+      "error": null,
+      "description": "NASA POT10 Compliance Checker"
+    },
+    {
+      "name": "nasa_compliance_analyzer.py",
+      "type": "py",
+      "category": "analysis",
+      "size": 20806,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\nasa_compliance_analyzer.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\nasa_compliance_analyzer.py\", line 3\r\n    Implements NASA POT10 rules enforcement:\r\n               ^^^^\r\nSyntaxError: invalid syntax\r\n",
+      "description": "No description available"
+    },
+    {
+      "name": "nasa_quick_compliance_booster.py",
+      "type": "py",
+      "category": "compliance",
+      "size": 5703,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "ops_tripwires.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 7845,
+      "status": "valid",
+      "error": null,
+      "description": "Operational Tripwires - CF v2 Alpha Integration"
+    },
+    {
+      "name": "performance-alert-monitor.js",
+      "type": "js",
+      "category": "utility",
+      "size": 19168,
+      "status": "valid",
+      "error": null,
+      "description": "Performance Alert Monitor"
+    },
+    {
+      "name": "performance-monitor.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 2015,
+      "status": "valid",
+      "error": null,
+      "description": "Performance Monitoring for Cleanup System"
+    },
+    {
+      "name": "performance-validator.js",
+      "type": "js",
+      "category": "utility",
+      "size": 5156,
+      "status": "valid",
+      "error": null,
+      "description": "Performance Validation Script"
+    },
+    {
+      "name": "performance_monitor.py",
+      "type": "py",
+      "category": "utility",
+      "size": 42603,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\performance_monitor.py\"\nSorry: IndentationError: unexpected indent (performance_monitor.py, line 3)",
+      "description": "Extract metric values (simplified extraction)"
+    },
+    {
+      "name": "performance_regression_detector.py",
+      "type": "py",
+      "category": "utility",
+      "size": 37111,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "phase2_validation.py",
+      "type": "py",
+      "category": "utility",
+      "size": 24928,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "phase3_deployment_validator.py",
+      "type": "py",
+      "category": "deployment",
+      "size": 25537,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "phase5-ui-testing.js",
+      "type": "js",
+      "category": "testing",
+      "size": 22734,
+      "status": "valid",
+      "error": null,
+      "description": "Phase 5 Training Dashboard UI Testing Script"
+    },
+    {
+      "name": "phase_4_validation_demo.py",
+      "type": "py",
+      "category": "utility",
+      "size": 11617,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\phase_4_validation_demo.py\"\nSorry: IndentationError: unexpected indent (phase_4_validation_demo.py, line 81)",
+      "description": "No description available"
+    },
+    {
+      "name": "post-completion-cleanup.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 59345,
+      "status": "valid",
+      "error": null,
+      "description": "Post-Completion Cleanup Orchestrator"
+    },
+    {
+      "name": "post-edit-scan.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 329,
+      "status": "valid",
+      "error": null,
+      "description": "Post-Edit Validation Script"
+    },
+    {
+      "name": "pre-commit-quality-gate.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 5743,
+      "status": "valid",
+      "error": null,
+      "description": "Pre-commit Quality Gate Validation"
+    },
+    {
+      "name": "premortem_convergence.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 13627,
+      "status": "valid",
+      "error": null,
+      "description": "Pre-mortem convergence logic with iterative improvement"
+    },
+    {
+      "name": "production-fixes.sh",
+      "type": "sh",
+      "category": "fixes",
+      "size": 14350,
+      "status": "valid",
+      "error": null,
+      "description": "Production Fixes for Post-Completion Cleanup System"
+    },
+    {
+      "name": "production-validation-pipeline.js",
+      "type": "js",
+      "category": "utility",
+      "size": 11992,
+      "status": "valid",
+      "error": null,
+      "description": "Production Validation Pipeline"
+    },
+    {
+      "name": "production_deployment_validation.py",
+      "type": "py",
+      "category": "deployment",
+      "size": 31566,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "python_syntax_fixer.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 6124,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "quality-check.py",
+      "type": "py",
+      "category": "utility",
+      "size": 7089,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "quality-gates-check.js",
+      "type": "js",
+      "category": "utility",
+      "size": 13431,
+      "status": "valid",
+      "error": null,
+      "description": "DSPy Quality Gates Validation System"
+    },
+    {
+      "name": "quality_gate_check.py",
+      "type": "py",
+      "category": "utility",
+      "size": 3237,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "quality_gate_integrator.py",
+      "type": "py",
+      "category": "utility",
+      "size": 18645,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "quality_loop_github.sh",
+      "type": "sh",
+      "category": "workflow",
+      "size": 18010,
+      "status": "valid",
+      "error": null,
+      "description": "SPEK Quality Improvement Loop with GitHub Integration"
+    },
+    {
+      "name": "quality_measurement_reality_validation.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 47724,
+      "status": "valid",
+      "error": null,
+      "description": "Quality Measurement and Reality Validation System"
+    },
+    {
+      "name": "quality_metrics_dashboard.py",
+      "type": "py",
+      "category": "utility",
+      "size": 36491,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "quality_monitor.py",
+      "type": "py",
+      "category": "utility",
+      "size": 12674,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "queen_debug_test_failures.py",
+      "type": "py",
+      "category": "testing",
+      "size": 13926,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\queen_debug_test_failures.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\queen_debug_test_failures.py\", line 22\r\n    \"\"\"Queen Debug Orchestrator for test failure remediation\"\"\"\r\n       ^^^^^\r\nSyntaxError: invalid syntax\r\n",
+      "description": "Add src to path for imports"
+    },
+    {
+      "name": "quick-regression-check.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 1670,
+      "status": "valid",
+      "error": null,
+      "description": "Quick Regression Check (Lightweight Version)"
+    },
+    {
+      "name": "range-based-eliminator.py",
+      "type": "py",
+      "category": "utility",
+      "size": 19949,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "reality_audit_perfection.py",
+      "type": "py",
+      "category": "security",
+      "size": 6231,
+      "status": "valid",
+      "error": null,
+      "description": "Import our real analyzer"
+    },
+    {
+      "name": "reality_validator.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 37866,
+      "status": "valid",
+      "error": null,
+      "description": "Reality Validator Script - End-user functionality and deployment testing"
+    },
+    {
+      "name": "real_analysis_test.py",
+      "type": "py",
+      "category": "testing",
+      "size": 6543,
+      "status": "valid",
+      "error": null,
+      "description": "Add project root to path"
+    },
+    {
+      "name": "regression-alert.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 2668,
+      "status": "valid",
+      "error": null,
+      "description": "Regression Alert System"
+    },
+    {
+      "name": "regression-monitor.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 6847,
+      "status": "valid",
+      "error": null,
+      "description": "Regression Detection Monitor for Assertion Cleanup"
+    },
+    {
+      "name": "remove_all_unicode.py",
+      "type": "py",
+      "category": "utility",
+      "size": 6929,
+      "status": "valid",
+      "error": null,
+      "description": "Common Unicode replacements"
+    },
+    {
+      "name": "remove_literal_newlines.py",
+      "type": "py",
+      "category": "utility",
+      "size": 3119,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "remove_unicode.py",
+      "type": "py",
+      "category": "utility",
+      "size": 3900,
+      "status": "valid",
+      "error": null,
+      "description": "Replace common unicode characters with ASCII equivalents"
+    },
+    {
+      "name": "replace_magic_numbers.py",
+      "type": "py",
+      "category": "utility",
+      "size": 8715,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\replace_magic_numbers.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\replace_magic_numbers.py\", line 140\r\n    def should_replace_i, NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, SESSION_TIMEOUT_SECONDS, TAKE_PROFIT_PERCENTAGE, THEATER_DETECTION_FAILURE_THRESHOLDnstants import '), content)\r\n                                                                                                                                                                                                              ^\r\nSyntaxError: unterminated string literal (detected at line 140)\r\n",
+      "description": "Magic number mappings based on intelligent analysis"
+    },
+    {
+      "name": "reproduce_enterprise_demo.py",
+      "type": "py",
+      "category": "utility",
+      "size": 1997,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "run-cicd-performance-test.js",
+      "type": "js",
+      "category": "testing",
+      "size": 22023,
+      "status": "valid",
+      "error": null,
+      "description": "Phase 4 Step 8: Simplified CI/CD Performance Validation"
+    },
+    {
+      "name": "run-coverage-analysis.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 10714,
+      "status": "valid",
+      "error": null,
+      "description": "Coverage Analysis and Quality Gate Automation Script"
+    },
+    {
+      "name": "run-type-safety-tests.sh",
+      "type": "sh",
+      "category": "testing",
+      "size": 9836,
+      "status": "valid",
+      "error": null,
+      "description": "Phase 4 Week 10: Type Safety Test Execution Script"
+    },
+    {
+      "name": "run_baseline_scan.py",
+      "type": "py",
+      "category": "utility",
+      "size": 2799,
+      "status": "valid",
+      "error": null,
+      "description": "Add analyzer to path"
+    },
+    {
+      "name": "run_complete_quality_loop.sh",
+      "type": "sh",
+      "category": "workflow",
+      "size": 26935,
+      "status": "valid",
+      "error": null,
+      "description": "Complete SPEK Quality Loop Orchestration"
+    },
+    {
+      "name": "run_full_analyzer_scan.py",
+      "type": "py",
+      "category": "analysis",
+      "size": 8871,
+      "status": "valid",
+      "error": null,
+      "description": "Add project root to path"
+    },
+    {
+      "name": "run_god_object_analysis.py",
+      "type": "py",
+      "category": "utility",
+      "size": 10016,
+      "status": "valid",
+      "error": null,
+      "description": "Add analyzer path"
+    },
+    {
+      "name": "run_intelligent_com_analysis.py",
+      "type": "py",
+      "category": "utility",
+      "size": 9387,
+      "status": "valid",
+      "error": null,
+      "description": "Add analyzer to path"
+    },
+    {
+      "name": "run_loop3_cascade_analysis.py",
+      "type": "py",
+      "category": "workflow",
+      "size": 10310,
+      "status": "valid",
+      "error": null,
+      "description": "Add coordination module to path"
+    },
+    {
+      "name": "run_nasa_compliance_validation.py",
+      "type": "py",
+      "category": "compliance",
+      "size": 15597,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\run_nasa_compliance_validation.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\run_nasa_compliance_validation.py\", line 3\r\n    Enhanced runner script that integrates all NASA POT10 compliance tools:\r\n             ^^^^^^\r\nSyntaxError: invalid syntax\r\n",
+      "description": "No description available"
+    },
+    {
+      "name": "run_performance_validation.py",
+      "type": "py",
+      "category": "utility",
+      "size": 16102,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\run_performance_validation.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\run_performance_validation.py\", line 339\r\n    \"feature_flag_overhead_percent\": {\"warning\": 2.0, \"critical\": 3, MAXIMUM_NESTED_DEPTH},\r\n                                                                                        ^\r\nSyntaxError: ':' expected after dictionary key\r\n",
+      "description": "Add project root to path for imports"
+    },
+    {
+      "name": "run_qa.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 369,
+      "status": "valid",
+      "error": null,
+      "description": "Node/TS default; extend if python/mixed"
+    },
+    {
+      "name": "sandbox_janitor.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 7276,
+      "status": "valid",
+      "error": null,
+      "description": "Sandbox Janitor - TTL cleanup and disk management"
+    },
+    {
+      "name": "security-audit.sh",
+      "type": "sh",
+      "category": "security",
+      "size": 5845,
+      "status": "valid",
+      "error": null,
+      "description": "Comprehensive Security Audit Script"
+    },
+    {
+      "name": "security-validation.sh",
+      "type": "sh",
+      "category": "security",
+      "size": 11553,
+      "status": "valid",
+      "error": null,
+      "description": "Security Princess Domain - Comprehensive Security Validation Script"
+    },
+    {
+      "name": "security_compliance_auditor.py",
+      "type": "py",
+      "category": "compliance",
+      "size": 31256,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\security_compliance_auditor.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\security_compliance_auditor.py\", line 18\r\n    class SecurityComplia, QUALITY_GATE_MINIMUM_PASS_RATE, TAKE_PROFIT_PERCENTAGEnceAuditor:\r\n                         ^\r\nSyntaxError: invalid syntax\r\n",
+      "description": "No description available"
+    },
+    {
+      "name": "security_dashboard_generator.py",
+      "type": "py",
+      "category": "security",
+      "size": 38574,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\security_dashboard_generator.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\security_dashboard_generator.py\", line 673\r\n    body { font-family: Arial, sans-serif; margin: 20px; }\r\n                                                    ^\r\nSyntaxError: invalid decimal literal\r\n",
+      "description": "No description available"
+    },
+    {
+      "name": "security_validator.py",
+      "type": "py",
+      "category": "security",
+      "size": 33893,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "self_correct.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 13062,
+      "status": "valid",
+      "error": null,
+      "description": "Self-correct until quality gates pass (bounded attempts)"
+    },
+    {
+      "name": "service_extractor.py",
+      "type": "py",
+      "category": "utility",
+      "size": 16735,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "setup-deployment-monitoring.js",
+      "type": "js",
+      "category": "deployment",
+      "size": 15131,
+      "status": "valid",
+      "error": null,
+      "description": "Production Deployment Monitoring Setup"
+    },
+    {
+      "name": "setup-plan.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 1155,
+      "status": "valid",
+      "error": null,
+      "description": "Setup implementation plan structure for current branch"
+    },
+    {
+      "name": "setup-validation-infrastructure.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 3367,
+      "status": "valid",
+      "error": null,
+      "description": "Setup Validation Infrastructure"
+    },
+    {
+      "name": "simple-syntax-fixer.js",
+      "type": "js",
+      "category": "fixes",
+      "size": 2719,
+      "status": "valid",
+      "error": null,
+      "description": "Simple Syntax Fixer - Targeted regex patterns for known issues"
+    },
+    {
+      "name": "simple-ui-capture.js",
+      "type": "js",
+      "category": "utility",
+      "size": 5261,
+      "status": "valid",
+      "error": null,
+      "description": "Simple Phase 5 UI Screenshot Capture"
+    },
+    {
+      "name": "simple_cascade_tree.py",
+      "type": "py",
+      "category": "utility",
+      "size": 8229,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "simple_quality_loop.sh",
+      "type": "sh",
+      "category": "workflow",
+      "size": 27572,
+      "status": "valid",
+      "error": null,
+      "description": "Simple SPEK Quality Loop - No jq/bc Dependencies Required"
+    },
+    {
+      "name": "simple_security_test.py",
+      "type": "py",
+      "category": "testing",
+      "size": 6110,
+      "status": "valid",
+      "error": null,
+      "description": "Check if semgrep is available"
+    },
+    {
+      "name": "simple_syntax_fixer.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 5483,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "six-sigma-setup.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 12532,
+      "status": "valid",
+      "error": null,
+      "description": "Six Sigma CI/CD Setup Script"
+    },
+    {
+      "name": "sixsigma-validator.js",
+      "type": "js",
+      "category": "utility",
+      "size": 9349,
+      "status": "valid",
+      "error": null,
+      "description": "Six Sigma Quality Validation Script"
+    },
+    {
+      "name": "six_sigma_demo_simple.py",
+      "type": "py",
+      "category": "utility",
+      "size": 23603,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\six_sigma_demo_simple.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\six_sigma_demo_simple.py\", line 22\r\n    \"\"\"Simplified Six Sigma improvement plan demonstration\"\"\"\r\n       ^^^^^^^^^^\r\nSyntaxError: invalid syntax\r\n",
+      "description": "No description available"
+    },
+    {
+      "name": "six_sigma_implementation_demo.py",
+      "type": "py",
+      "category": "utility",
+      "size": 22766,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "smoke_test_agents.js",
+      "type": "js",
+      "category": "testing",
+      "size": 9952,
+      "status": "valid",
+      "error": null,
+      "description": "Tests that each agent emits STRICT JSON with no prose per declared schema"
+    },
+    {
+      "name": "sparc-executor.js",
+      "type": "js",
+      "category": "utility",
+      "size": 11986,
+      "status": "valid",
+      "error": null,
+      "description": "SPARC Executor - Local execution handler for SPARC methodology"
+    },
+    {
+      "name": "sparc-wrapper.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 9641,
+      "status": "valid",
+      "error": null,
+      "description": "SPARC Wrapper - Cross-platform execution wrapper for SPARC methodology"
+    },
+    {
+      "name": "specific_pattern_fixes.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 5529,
+      "status": "valid",
+      "error": null,
+      "description": "Fix decimal literal patterns around line 148"
+    },
+    {
+      "name": "standardize-agents.js",
+      "type": "js",
+      "category": "agent-coordination",
+      "size": 12646,
+      "status": "valid",
+      "error": null,
+      "description": "Agent Standardization Script"
+    },
+    {
+      "name": "start-deployment-metrics.js",
+      "type": "js",
+      "category": "deployment",
+      "size": 18431,
+      "status": "valid",
+      "error": null,
+      "description": "Production Deployment Metrics Collection"
+    },
+    {
+      "name": "start-desktop-containers.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 20358,
+      "status": "valid",
+      "error": null,
+      "description": "SPEK Enhanced Development Platform - Desktop Container Startup Script"
+    },
+    {
+      "name": "state-recovery.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 2180,
+      "status": "valid",
+      "error": null,
+      "description": "Enhanced State Recovery for Post-Completion Cleanup"
+    },
+    {
+      "name": "surgical-fix.js",
+      "type": "js",
+      "category": "fixes",
+      "size": 1879,
+      "status": "valid",
+      "error": null,
+      "description": "Pattern 1: After function signatures"
+    },
+    {
+      "name": "surgical_fix_system.sh",
+      "type": "sh",
+      "category": "fixes",
+      "size": 25745,
+      "status": "valid",
+      "error": null,
+      "description": "Surgical Fix Implementation System with Complexity Routing"
+    },
+    {
+      "name": "syntax_error_fixer.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 13590,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "syntax_error_scanner.py",
+      "type": "py",
+      "category": "utility",
+      "size": 4995,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "synthesize_improvements.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 7328,
+      "status": "valid",
+      "error": null,
+      "description": "Synthesize improvements from multiple agent analyses"
+    },
+    {
+      "name": "targeted_syntax_fixer.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 8556,
+      "status": "valid",
+      "error": null,
+      "description": "Check if this is a function definition that should be indented"
+    },
+    {
+      "name": "temp-commons.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 44,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "test-agent-infrastructure.js",
+      "type": "js",
+      "category": "testing",
+      "size": 6581,
+      "status": "valid",
+      "error": null,
+      "description": "Agent Infrastructure Verification Test"
+    },
+    {
+      "name": "test-all-scripts.js",
+      "type": "js",
+      "category": "testing",
+      "size": 9706,
+      "status": "valid",
+      "error": null,
+      "description": "Comprehensive Script Testing & Documentation"
+    },
+    {
+      "name": "test-cicd-pipeline.sh",
+      "type": "sh",
+      "category": "testing",
+      "size": 17718,
+      "status": "valid",
+      "error": null,
+      "description": "Production CI/CD Pipeline Test Suite"
+    },
+    {
+      "name": "test-desktop-integration.sh",
+      "type": "sh",
+      "category": "testing",
+      "size": 15171,
+      "status": "valid",
+      "error": null,
+      "description": "SPEK Enhanced Development Platform - Desktop Integration Test Script"
+    },
+    {
+      "name": "test-dual-memory-system.js",
+      "type": "js",
+      "category": "testing",
+      "size": 3184,
+      "status": "valid",
+      "error": null,
+      "description": "Dual Memory System Integration Test"
+    },
+    {
+      "name": "test-phase1-cognate-backend.js",
+      "type": "js",
+      "category": "testing",
+      "size": 12754,
+      "status": "valid",
+      "error": null,
+      "description": "Set viewport for consistent testing"
+    },
+    {
+      "name": "test-phase5-html-dashboard.js",
+      "type": "js",
+      "category": "testing",
+      "size": 24863,
+      "status": "valid",
+      "error": null,
+      "description": "Direct Phase 5 Training Dashboard HTML Testing Script"
+    },
+    {
+      "name": "test-quality-gates.sh",
+      "type": "sh",
+      "category": "testing",
+      "size": 3936,
+      "status": "valid",
+      "error": null,
+      "description": "Test Quality Gates - Validate all gates can actually fail"
+    },
+    {
+      "name": "test-reality-validation.sh",
+      "type": "sh",
+      "category": "testing",
+      "size": 2132,
+      "status": "valid",
+      "error": null,
+      "description": "Test script to validate the reality validation fixes"
+    },
+    {
+      "name": "test-theater-elimination.sh",
+      "type": "sh",
+      "category": "testing",
+      "size": 9283,
+      "status": "valid",
+      "error": null,
+      "description": "Test Script to Verify Theater Elimination"
+    },
+    {
+      "name": "theater_detection_validation.py",
+      "type": "py",
+      "category": "utility",
+      "size": 5499,
+      "status": "valid",
+      "error": null,
+      "description": "Add project root to path"
+    },
+    {
+      "name": "total-annihilation.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 1616,
+      "status": "valid",
+      "error": null,
+      "description": "TOTAL ANNIHILATION CAMPAIGN"
+    },
+    {
+      "name": "ultra-mega-elimination.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 1368,
+      "status": "valid",
+      "error": null,
+      "description": "ULTRA MEGA ELIMINATION CAMPAIGN"
+    },
+    {
+      "name": "unicode_eliminator.py",
+      "type": "py",
+      "category": "utility",
+      "size": 16405,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\unicode_eliminator.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\unicode_eliminator.py\", line 15\r\n    UNICODE_REPLACEMENTS = {\r\n                           ^\r\nSyntaxError: '{' was never closed\r\n",
+      "description": "Comprehensive Unicode Replacement Mapping"
+    },
+    {
+      "name": "unicode_removal_linter.py",
+      "type": "py",
+      "category": "utility",
+      "size": 14197,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\unicode_removal_linter.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\unicode_removal_linter.py\", line 135\r\n    }\r\n    ^\r\nSyntaxError: unmatched '}'\r\n",
+      "description": "Arrows and symbols        '->': '->',"
+    },
+    {
+      "name": "update-agent-context.sh",
+      "type": "sh",
+      "category": "agent-coordination",
+      "size": 9753,
+      "status": "valid",
+      "error": null,
+      "description": "Incrementally update agent context files based on new feature plan"
+    },
+    {
+      "name": "update-agent-mcp-servers.js",
+      "type": "js",
+      "category": "agent-coordination",
+      "size": 14446,
+      "status": "valid",
+      "error": null,
+      "description": "Agent MCP Server Configuration Updater"
+    },
+    {
+      "name": "update-agent-model-assignments.js",
+      "type": "js",
+      "category": "agent-coordination",
+      "size": 9413,
+      "status": "valid",
+      "error": null,
+      "description": "Agent Model Assignment Updater"
+    },
+    {
+      "name": "update_agents_spek_augment.sh",
+      "type": "sh",
+      "category": "agent-coordination",
+      "size": 7506,
+      "status": "valid",
+      "error": null,
+      "description": "SPEK-AUGMENT v1: Agent Prompt Update Script"
+    },
+    {
+      "name": "update_readme_metrics.py",
+      "type": "py",
+      "category": "utility",
+      "size": 2130,
+      "status": "valid",
+      "error": null,
+      "description": "Check if update is needed"
+    },
+    {
+      "name": "update_remaining_agents.sh",
+      "type": "sh",
+      "category": "agent-coordination",
+      "size": 8386,
+      "status": "valid",
+      "error": null,
+      "description": "SPEK-AUGMENT v1: Update Remaining Agent Groups"
+    },
+    {
+      "name": "validate-all-templates.js",
+      "type": "js",
+      "category": "utility",
+      "size": 27242,
+      "status": "valid",
+      "error": null,
+      "description": "Comprehensive DSPy Template Validation System"
+    },
+    {
+      "name": "validate-build.js",
+      "type": "js",
+      "category": "build",
+      "size": 4666,
+      "status": "valid",
+      "error": null,
+      "description": "Build Validation Script"
+    },
+    {
+      "name": "validate-completion.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 1417,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "validate-dspy-optimization.js",
+      "type": "js",
+      "category": "optimization",
+      "size": 25186,
+      "status": "valid",
+      "error": null,
+      "description": "DSPy Optimization Validation Script"
+    },
+    {
+      "name": "validate-github-workflow-performance.js",
+      "type": "js",
+      "category": "workflow",
+      "size": 23831,
+      "status": "valid",
+      "error": null,
+      "description": "GitHub Actions Workflow Performance Validator"
+    },
+    {
+      "name": "validate-mcp-environment.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 10029,
+      "status": "valid",
+      "error": null,
+      "description": "SPEK MCP Environment Validation Script"
+    },
+    {
+      "name": "validate-nasa-rule10-simple.py",
+      "type": "py",
+      "category": "compliance",
+      "size": 2999,
+      "status": "valid",
+      "error": null,
+      "description": "Simple pattern to find functions"
+    },
+    {
+      "name": "validate-nasa-rule10.py",
+      "type": "py",
+      "category": "compliance",
+      "size": 2863,
+      "status": "valid",
+      "error": null,
+      "description": "Pattern to match function declarations"
+    },
+    {
+      "name": "validate-phase3-fixes.sh",
+      "type": "sh",
+      "category": "fixes",
+      "size": 6478,
+      "status": "valid",
+      "error": null,
+      "description": "Phase 3 Critical Fixes Validation Script"
+    },
+    {
+      "name": "validate-pr-quality.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 5739,
+      "status": "valid",
+      "error": null,
+      "description": "PR Quality Validation Script"
+    },
+    {
+      "name": "validate-six-sigma-config.js",
+      "type": "js",
+      "category": "utility",
+      "size": 20909,
+      "status": "valid",
+      "error": null,
+      "description": "Six Sigma Configuration Validator"
+    },
+    {
+      "name": "validate-system.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 5832,
+      "status": "valid",
+      "error": null,
+      "description": "System Validation Script"
+    },
+    {
+      "name": "validate-theater-elimination.js",
+      "type": "js",
+      "category": "utility",
+      "size": 14779,
+      "status": "valid",
+      "error": null,
+      "description": "Theater Elimination Validation Script"
+    },
+    {
+      "name": "validate-workflows.py",
+      "type": "py",
+      "category": "workflow",
+      "size": 5875,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "validate_constants.py",
+      "type": "py",
+      "category": "utility",
+      "size": 4820,
+      "status": "valid",
+      "error": null,
+      "description": "Compliance Thresholds"
+    },
+    {
+      "name": "validate_core_integration.py",
+      "type": "py",
+      "category": "utility",
+      "size": 4382,
+      "status": "valid",
+      "error": null,
+      "description": "Add project root to path"
+    },
+    {
+      "name": "validate_dfars_compliance_final.py",
+      "type": "py",
+      "category": "compliance",
+      "size": 29282,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "validate_github_fixes.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 8899,
+      "status": "valid",
+      "error": null,
+      "description": "Add analyzer to path"
+    },
+    {
+      "name": "validate_performance_improvements.py",
+      "type": "py",
+      "category": "utility",
+      "size": 36207,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\validate_performance_improvements.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\validate_performance_improvements.py\", line 3\r\n    Comprehensive validation script to demonstrate and verify the 50% performance\r\n                  ^^^^^^^^^^\r\nSyntaxError: invalid syntax\r\n",
+      "description": "No description available"
+    },
+    {
+      "name": "validate_phase2_decomposition.py",
+      "type": "py",
+      "category": "utility",
+      "size": 20073,
+      "status": "invalid",
+      "error": "Command failed: python -m py_compile \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\validate_phase2_decomposition.py\"\n  File \"C:\\Users\\17175\\Desktop\\spek template\\scripts\\validate_phase2_decomposition.py\", line 478\r\n    | 1.0.0   | 2025-9-24T16:20:0o0-0o4:0o0 | coder@Sonnet | Created Phase 2 validation script with comprehensive testing | validate_phase2_decomposition.py | OK | Complete validation framework | 0.0o7 | n9m0l1k |\r\n                        ^\r\nSyntaxError: invalid decimal literal\r\n",
+      "description": "No description available"
+    },
+    {
+      "name": "validate_phase32_migration.py",
+      "type": "py",
+      "category": "utility",
+      "size": 6249,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "validate_pr_quality.py",
+      "type": "py",
+      "category": "utility",
+      "size": 9216,
+      "status": "valid",
+      "error": null,
+      "description": "Configuration"
+    },
+    {
+      "name": "validate_theater_detection.py",
+      "type": "py",
+      "category": "utility",
+      "size": 33427,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "verify-fixes.sh",
+      "type": "sh",
+      "category": "fixes",
+      "size": 3561,
+      "status": "valid",
+      "error": null,
+      "description": "Verify Production Fixes"
+    },
+    {
+      "name": "verify-god-object-elimination.py",
+      "type": "py",
+      "category": "utility",
+      "size": 10122,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "verify_counts.py",
+      "type": "py",
+      "category": "utility",
+      "size": 1733,
+      "status": "valid",
+      "error": null,
+      "description": "Create validation report"
+    },
+    {
+      "name": "windows-compat.sh",
+      "type": "sh",
+      "category": "utility",
+      "size": 1495,
+      "status": "valid",
+      "error": null,
+      "description": "Windows Compatibility Layer for Post-Completion Cleanup"
+    },
+    {
+      "name": "windows_unicode_fixer.py",
+      "type": "py",
+      "category": "fixes",
+      "size": 13837,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    },
+    {
+      "name": "workflow-simulator.sh",
+      "type": "sh",
+      "category": "workflow",
+      "size": 4899,
+      "status": "valid",
+      "error": null,
+      "description": "GitHub Actions Workflow Simulator"
+    },
+    {
+      "name": "workflow_cascade_analyzer.py",
+      "type": "py",
+      "category": "analysis",
+      "size": 14931,
+      "status": "valid",
+      "error": null,
+      "description": "No description available"
+    }
+  ]
+}

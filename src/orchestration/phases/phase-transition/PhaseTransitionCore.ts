@@ -429,7 +429,7 @@ export class PhaseTransitionCore extends EventEmitter {
    * Cleanup completed executions
    * NASA Rule 10: ≤60 lines, fixed bounds
    */
-  cleanup(): void {
+  destroy(): void {
     // NASA Rule 10: Fixed loop bounds
     const phaseExecutions = Array.from(this.activePhaseExecutions.entries());
     for (let i = 0; i < phaseExecutions.length && i < 50; i++) {

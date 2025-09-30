@@ -167,7 +167,8 @@ export class ProcessMonitor extends EventEmitter {
       console.assert(history.length <= this.config.maxHistoryEntries, 'History must be bounded');
 
     } catch (error) {
-      this.emit('monitoring:error', { workflowId, error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.emit('monitoring:error', { workflowId, error: errorMessage });
     }
   }
 

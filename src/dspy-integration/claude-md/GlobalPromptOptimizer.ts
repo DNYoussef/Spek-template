@@ -365,7 +365,8 @@ npm run fsm:validate-spec fsm_spec.yaml
       };
 
     } catch (error) {
-      throw new Error(`Optimization failed for section: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Optimization failed for section: ${errorMessage}`);
     }
   }
 

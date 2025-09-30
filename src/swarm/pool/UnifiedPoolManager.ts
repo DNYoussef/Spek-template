@@ -244,7 +244,7 @@ export class UnifiedPoolManager extends EventEmitter {
    * Initialize pool
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  public async initialize(): Promise<void> {
+  public async initializeComponent(): Promise<void> {
     console.assert(this.transitionHub.getCurrentState() === PoolState.EMPTY, 'Pool must be empty to initialize');
 
     const success = this.transitionHub.transition(PoolEvent.INITIALIZE);

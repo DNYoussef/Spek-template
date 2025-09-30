@@ -59,7 +59,8 @@ export class ReadinessOrchestrator extends EventEmitter {
       return result;
       
     } catch (error) {
-      this.emit('validationFailed', { validationId, error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.emit('validationFailed', { validationId, error: errorMessage });
       throw error;
     }
   }
@@ -245,8 +246,9 @@ export class ReadinessOrchestrator extends EventEmitter {
       const currentState = this.stateMachine.getCurrentState();
       componentStatus.stateMachine = currentState !== undefined;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       componentStatus.stateMachine = false;
-      issues.push(`State machine error: ${error.message}`);
+      issues.push(`State machine error: ${errorMessage}`);
     }
     
     // Check state registry
@@ -257,8 +259,9 @@ export class ReadinessOrchestrator extends EventEmitter {
         issues.push('No state handlers registered');
       }
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       componentStatus.stateRegistry = false;
-      issues.push(`State registry error: ${error.message}`);
+      issues.push(`State registry error: ${errorMessage}`);
     }
     
     return {

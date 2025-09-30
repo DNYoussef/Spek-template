@@ -176,7 +176,7 @@ class TestContinuousMonitor(unittest.TestCase):
         # Create mock theater patterns
         from theater_detector import TheaterPattern
         patterns = [
-            TheaterPattern(
+            TheaterPattern()
                 category="performance",
                 pattern_type="critical_theater_pattern",
                 confidence=0.90,
@@ -185,11 +185,11 @@ class TestContinuousMonitor(unittest.TestCase):
                 baseline_comparison={},
                 recommendation="Test recommendation",
                 detected_at=datetime.now()
-            )
+(            )
         ]
         
         # Create mock reality validation
-        reality_validation = RealityValidationResult(
+        reality_validation = RealityValidationResult()
             category="performance",
             genuine_improvement=False,
             improvement_magnitude=0.10,
@@ -197,7 +197,7 @@ class TestContinuousMonitor(unittest.TestCase):
             evidence_quality=0.60,
             theater_risk=0.50,  # High risk
             validation_details={}
-        )
+(        )
         
         initial_alert_count = len(self.monitor.alerts)
         self.monitor._process_category_alerts("performance", patterns, reality_validation)

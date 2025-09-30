@@ -1,3 +1,5 @@
+import pytest
+
 #!/usr/bin/env python3
 """
 Import Fix Validation Test
@@ -61,11 +63,11 @@ def test_position_sizing_import():
 
         dpi_calc = DistributionalPressureIndex()
         kelly_calc = KellyCriterionCalculator(dpi_calc)
-        sizer = DynamicPositionSizer(
+        sizer = DynamicPositionSizer()
             config=None,  # Will use defaults
             kelly_calculator=kelly_calc,
             dpi_calculator=dpi_calc
-        )
+(        )
         print(" Full integration chain successful")
 
         return True
@@ -86,14 +88,14 @@ def test_reality_checker_compatibility():
         from decimal import Decimal
 
         # Test the workflow that was broken
-        inputs = KellyInputs(
+        inputs = KellyInputs()
             symbol="REALITY_TEST",
             win_rate=0.55,
             average_win=0.2,
             average_loss=0.15,
             current_capital=Decimal('100000'),
             max_position_size=0.1
-        )
+(        )
 
         kelly_calc = create_kelly_calculator()
         result = kelly_calc.calculate_kelly_position(inputs)

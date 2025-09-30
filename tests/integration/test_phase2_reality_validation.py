@@ -19,7 +19,7 @@ analyzer_path = str(Path(__file__).parent.parent.parent / "analyzer")
 sys.path.insert(0, analyzer_path)
 
 try:
-    from integrations.github_bridge import (
+    from integrations.github_bridge import ()
         GitHubBridge,
         GitHubConfig,
         RateLimiter,
@@ -27,7 +27,7 @@ try:
         retry_with_backoff,
         ViolationSeverity,
         AnalysisMetrics
-    )
+(    )
     from integrations.tool_coordinator import ToolCoordinator
     from analyzer_types import UnifiedAnalysisResult
 except ImportError as e:
@@ -68,12 +68,12 @@ class TestPhase2RealityValidation(unittest.TestCase):
 
     def setUp(self):
         """Set up test environment."""
-        self.test_config = GitHubConfig(
+        self.test_config = GitHubConfig()
             token="test_token",
             owner="test_owner",
             repo="test_repo",
             webhook_secret="test_secret"
-        )
+(        )
 
     def test_no_compatibility_shims(self):
         """Test 1: Verify no compatibility shims exist."""
@@ -153,11 +153,11 @@ class TestPhase2RealityValidation(unittest.TestCase):
         # Generate correct signature
         import hmac
         import hashlib
-        correct_signature = "sha256=" + hmac.new(
+        correct_signature = "sha256=" + hmac.new()
             self.test_config.webhook_secret.encode(),
             payload,
             hashlib.sha256
-        ).hexdigest()
+(        ).hexdigest()
 
         # Should verify correctly
         self.assertTrue(bridge.verify_webhook_signature(payload, correct_signature))
@@ -167,9 +167,9 @@ class TestPhase2RealityValidation(unittest.TestCase):
         self.assertFalse(bridge.verify_webhook_signature(payload, wrong_signature))
 
         # Should handle missing secret gracefully
-        config_no_secret = GitHubConfig(
+        config_no_secret = GitHubConfig()
             token="test", owner="test", repo="test", webhook_secret=None
-        )
+(        )
         bridge_no_secret = GitHubBridge(config_no_secret)
         self.assertTrue(bridge_no_secret.verify_webhook_signature(payload, "any_sig"))
 
@@ -266,7 +266,7 @@ class TestPhase2RealityValidation(unittest.TestCase):
     def test_real_unified_analysis_result_usage(self):
         """Test 8: Verify real UnifiedAnalysisResult structure is used."""
         # Create a real UnifiedAnalysisResult
-        result = UnifiedAnalysisResult(
+        result = UnifiedAnalysisResult()
             connascence_violations=[{"type": "CoM", "severity": "high"}],
             duplication_clusters=[],
             nasa_violations=[],
@@ -286,7 +286,7 @@ class TestPhase2RealityValidation(unittest.TestCase):
             timestamp="2024-1-01T00:00:00",
             priority_fixes=["Fix high severity violations"],
             improvement_actions=["Regular monitoring"]
-        )
+(        )
 
         # Verify all fields are accessible and correct types
         self.assertIsInstance(result.connascence_violations, list)
@@ -348,7 +348,7 @@ class TestPhase2RealityValidation(unittest.TestCase):
         self.assertTrue(hasattr(bridge.create_issue_for_violations, '__wrapped__'))
 
         # Test status determination with real analysis result
-        result = UnifiedAnalysisResult(
+        result = UnifiedAnalysisResult()
             connascence_violations=[],
             duplication_clusters=[],
             nasa_violations=[],
@@ -368,7 +368,7 @@ class TestPhase2RealityValidation(unittest.TestCase):
             timestamp="2024-1-01T00:00:00",
             priority_fixes=[],
             improvement_actions=[]
-        )
+(        )
 
         state, description = bridge._determine_status_state(result)
         self.assertEqual(state, "success")
@@ -423,7 +423,7 @@ class TestProductionReadiness(unittest.TestCase):
         bridge = GitHubBridge(config)
 
         # Should handle missing credentials gracefully
-        result = UnifiedAnalysisResult(
+        result = UnifiedAnalysisResult()
             connascence_violations=[],
             duplication_clusters=[],
             nasa_violations=[],
@@ -443,7 +443,7 @@ class TestProductionReadiness(unittest.TestCase):
             timestamp="2024-1-01T00:00:00",
             priority_fixes=[],
             improvement_actions=[]
-        )
+(        )
 
         # Should not crash with invalid config
         with patch('requests.Session.post') as mock_post:

@@ -16,13 +16,13 @@ import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent.parent / "src"))
 
-from linter_integration.mesh_coordinator import (
+from linter_integration.mesh_coordinator import ()
     MeshQueenCoordinator, 
     MeshNode, 
     MeshMessage,
     NodeStatus, 
     MessageType
-)
+()
 
 class TestMeshQueenCoordinator:
     """Test suite for mesh queen coordinator functionality"""
@@ -241,8 +241,8 @@ class TestMeshQueenCoordinator:
             await coordinator.handle_fault_tolerance(failed_node)
             
         # System should still function with 3/4 nodes (> 2/3 threshold)
-        healthy_count = sum(1 for node in coordinator.mesh_nodes.values() 
-                            if node.status == NodeStatus.ACTIVE)
+        healthy_count = sum(1 for node in coordinator.mesh_nodes.values())
+(                            if node.status == NodeStatus.ACTIVE)
         assert healthy_count >= len(coordinator.mesh_nodes) * 0.67
         
     def test_mesh_connectivity_calculation(self, coordinator):
@@ -252,7 +252,7 @@ class TestMeshQueenCoordinator:
         assert connectivity == 1.0  # Edge case: empty mesh is 100% connected
         
         # Single node
-        coordinator.mesh_nodes["single"] = MeshNode(
+        coordinator.mesh_nodes["single"] = MeshNode()
             node_id="single",
             agent_type="test",
             capabilities=[],
@@ -261,12 +261,12 @@ class TestMeshQueenCoordinator:
             connections=set(),
             load_score=0.0,
             integration_progress={}
-        )
+(        )
         connectivity = coordinator._calculate_mesh_connectivity()
         assert connectivity == 1.0  # Single node is fully connected
         
         # Add second node with partial connectivity
-        coordinator.mesh_nodes["second"] = MeshNode(
+        coordinator.mesh_nodes["second"] = MeshNode()
             node_id="second",
             agent_type="test",
             capabilities=[],
@@ -275,7 +275,7 @@ class TestMeshQueenCoordinator:
             connections={"single"},
             load_score=0.0,
             integration_progress={}
-        )
+(        )
         coordinator.mesh_nodes["single"].connections.add("second")
         
         connectivity = coordinator._calculate_mesh_connectivity()
@@ -300,8 +300,8 @@ class TestMeshQueenCoordinator:
             assert node_health["load_score"] == node.load_score
             
         # Find least loaded node for new task assignment
-        least_loaded = min(coordinator.mesh_nodes.values(), 
-                            key=lambda n: n.load_score)
+        least_loaded = min(coordinator.mesh_nodes.values(),)
+(                            key=lambda n: n.load_score)
         assert least_loaded.node_id == "api-docs"
         
     @pytest.mark.asyncio
@@ -367,18 +367,18 @@ class TestMeshQueenCoordinator:
         await coordinator.initialize_mesh_topology()
         
         # Update progress for different tools
-        coordinator.mesh_nodes["backend-dev"].integration_progress.update({
+        coordinator.mesh_nodes["backend-dev"].integration_progress.update({)
             "flake8": 1.0,  # Complete
             "pylint": 0.7,  # 70% complete
             "ruff": 0.9,    # 90% complete
             "mypy": 0.5,    # 50% complete
             "bandit": 0.8   # 80% complete
-        })
+(        })
         
         # Other nodes have different progress
-        coordinator.mesh_nodes["api-docs"].integration_progress.update({
+        coordinator.mesh_nodes["api-docs"].integration_progress.update({)
             tool: 0.6 for tool in coordinator.integration_tools
-        })
+(        })
         
         topology_status = coordinator._get_topology_status()
         
@@ -426,14 +426,14 @@ class TestMeshQueenCoordinator:
         start_time = time.time()
         
         for i in range(1000):
-            message = MeshMessage(
+            message = MeshMessage()
                 sender_id="system-architect",
                 receiver_id="backend-dev",
                 message_type=MessageType.HEARTBEAT,
                 payload={"sequence": i},
                 timestamp=time.time(),
                 message_id=f"msg_{i}"
-            )
+(            )
             coordinator.message_queue.append(message)
             
         processing_time = time.time() - start_time
@@ -460,7 +460,7 @@ class TestMeshQueenCoordinator:
         }
         
         for node_id, config in additional_nodes.items():
-            coordinator.mesh_nodes[node_id] = MeshNode(
+            coordinator.mesh_nodes[node_id] = MeshNode()
                 node_id=node_id,
                 agent_type=config["capabilities"][0].split("_")[0],
                 capabilities=config["capabilities"],
@@ -469,7 +469,7 @@ class TestMeshQueenCoordinator:
                 connections=set(),
                 load_score=0.0,
                 integration_progress={tool: 0.0 for tool in coordinator.integration_tools}
-            )
+(            )
             
         # Update connections for full mesh (6 nodes)
         node_ids = list(coordinator.mesh_nodes.keys())
@@ -492,14 +492,14 @@ class TestMeshMessageProtocol:
     
     def test_mesh_message_creation(self):
         """Test mesh message creation and serialization"""
-        message = MeshMessage(
+        message = MeshMessage()
             sender_id="system-architect",
             receiver_id="backend-dev",
             message_type=MessageType.TASK_ASSIGNMENT,
             payload={"task": "implement_flake8_adapter", "priority": "high"},
             timestamp=time.time(),
             message_id="msg_123"
-        )
+(        )
         
         # Verify message structure
         assert message.sender_id == "system-architect"

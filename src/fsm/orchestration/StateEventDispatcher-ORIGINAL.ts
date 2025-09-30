@@ -48,7 +48,7 @@ export class StateEventDispatcher extends EventEmitter {
   /**
    * Initialize the event dispatcher
    */
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     if (this.initialized) {
       return;
     }

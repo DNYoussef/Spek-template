@@ -1,0 +1,107 @@
+{
+  "snapshot_timestamp": "2025-09-30T00:00:00Z",
+  "platform_version": "3.0.0",
+  "branch": "fix/assertion-cleanup-phase0-20250929-141110",
+  "system_health": {
+    "build_status": "CRITICAL",
+    "typescript_errors": 951,
+    "python_tests": "BLOCKED",
+    "command_success_rate": 0.23
+  },
+  "capabilities": {
+    "claude_code": {
+      "model": "claude-sonnet-4-5-20250929",
+      "swe_bench_score": 0.727,
+      "native_tools": [
+        "Read", "Write", "Edit", "MultiEdit",
+        "Glob", "Grep", "Bash",
+        "TodoWrite", "Task", "WebSearch", "WebFetch"
+      ]
+    },
+    "mcp_tools": {
+      "servers_configured": 16,
+      "primary_servers": [
+        "claude-flow", "memory", "github",
+        "sequential-thinking", "filesystem"
+      ],
+      "specialized_servers": [
+        "playwright", "puppeteer", "figma",
+        "deepwiki", "firecrawl", "eva"
+      ]
+    }
+  },
+  "agent_registry": {
+    "location": "src/flow/config/agent/",
+    "modules": [
+      "AgentConfigLoader.js",
+      "AgentRegistry.js",
+      "CapabilityMapper.js",
+      "MCPServerAssigner.js",
+      "ModelSelector.js"
+    ],
+    "total_agents_framework": 85,
+    "implementation_status": "facade_complete_agents_pending"
+  },
+  "quality_targets": {
+    "nasa_compliance": {
+      "target": 0.92,
+      "current": "in_progress"
+    },
+    "mece_score": {
+      "target": 0.75,
+      "current": 0.57
+    },
+    "test_coverage": {
+      "target": 0.80,
+      "current": "unknown"
+    },
+    "theater_score": {
+      "target_max": 60,
+      "current": "unknown"
+    }
+  },
+  "dspy_optimization": {
+    "version": "2.0.0",
+    "enforcement_rules": [
+      "concurrency_min_3_operations",
+      "nasa_rule_10_60_lines_2_assertions",
+      "fsm_first_enum_states_events",
+      "no_unicode_ascii_only",
+      "version_footers_mandatory_sha256"
+    ],
+    "quality_gates": {
+      "nasa": 0.92,
+      "fsm": 0.90,
+      "theater_max": 60,
+      "tests": 0.80
+    }
+  },
+  "critical_issues": [
+    {
+      "id": "build_errors_typescript",
+      "severity": "CRITICAL",
+      "count": 951,
+      "affected_areas": [
+        "src/analysis/core/components/",
+        "src/architecture/langgraph/communication/"
+      ]
+    },
+    {
+      "id": "python_test_collection",
+      "severity": "HIGH",
+      "description": "pytest_plugins in non-root conftest blocks all tests",
+      "location": "tests/phase7_adas/conftest.py"
+    }
+  ],
+  "documentation": {
+    "total_docs": 30,
+    "primary_docs": [
+      "README.md",
+      "docs/PROJECT-STRUCTURE.md",
+      "docs/S-R-P-E-K-METHODOLOGY.md",
+      "docs/3-LOOP-SYSTEM.md",
+      "docs/VERSION-LOG-V2-INTEGRATION.md"
+    ],
+    "mece_coverage": 0.57
+  }
+}

@@ -108,8 +108,9 @@ export class EnterpriseComplianceAutomationAgent extends EventEmitter {
       this.emit('initialized', { timestamp: new Date(), frameworks: this.config.frameworks });
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.emit('error', { type: 'initialization', error });
-      throw new Error(`Failed to initialize compliance agent: ${error.message}`);
+      throw new Error(`Failed to initialize compliance agent: ${errorMessage}`);
     }
   }
 
@@ -179,8 +180,9 @@ export class EnterpriseComplianceAutomationAgent extends EventEmitter {
       return complianceStatus;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.emit('error', { type: 'compliance_execution', error });
-      throw new Error(`Compliance automation failed: ${error.message}`);
+      throw new Error(`Compliance automation failed: ${errorMessage}`);
     }
   }
 

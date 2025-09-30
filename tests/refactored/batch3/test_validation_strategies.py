@@ -58,7 +58,7 @@ class TestAnalyzerValidationStrategies:
         from src.enterprise.integration.analyzer_validation_strategies import SyntaxValidationStrategy
 
         strategy = SyntaxValidationStrategy()
-        invalid_code = "def hello(\n    return 'world'"
+        invalid_code = "def hello(\n    return 'world'")
 
         result = strategy.validate(invalid_code)
 

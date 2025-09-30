@@ -1,3 +1,5 @@
+import pytest
+
 #!/usr/bin/env python3
 """
 Phase 7 God Object Decomposition Audit

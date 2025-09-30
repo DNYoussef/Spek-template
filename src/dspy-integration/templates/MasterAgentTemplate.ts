@@ -465,7 +465,8 @@ export class MasterAgentTemplate {
       };
 
     } catch (error) {
-      throw new Error(`Agent optimization failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Agent optimization failed: ${errorMessage}`);
     }
   }
 

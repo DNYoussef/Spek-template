@@ -160,9 +160,10 @@ export class IntegrationPlanManager extends EventEmitter implements ComponentSta
       return result;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       const validationError: ValidationError = {
         code: 'VALIDATION_EXCEPTION',
-        message: error.message,
+        message: errorMessage,
         severity: 'critical'
       };
 

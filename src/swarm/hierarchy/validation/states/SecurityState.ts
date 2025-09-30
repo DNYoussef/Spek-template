@@ -93,11 +93,12 @@ export class SecurityState extends BaseStateHandler {
       };
 
     } catch (error) {
-      this.addError(context, `Security scanning failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.addError(context, `Security scanning failed: ${errorMessage}`);
       return {
         success: false,
         nextEvent: ValidationEvent.SECURITY_FAILED,
-        errors: [`Security scan error: ${error.message}`]
+        errors: [`Security scan error: ${errorMessage}`]
       };
     }
   }

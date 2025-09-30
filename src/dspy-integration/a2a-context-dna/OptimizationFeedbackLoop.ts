@@ -110,7 +110,8 @@ export class OptimizationFeedbackLoop {
       return optimizationResult;
 
     } catch (error) {
-      throw new Error(`Optimization feedback processing failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Optimization feedback processing failed: ${errorMessage}`);
     }
   }
 

@@ -72,12 +72,13 @@ export class RealSecurityValidator {
       if (secretsResults.executed) toolsUsed.push('secrets-detection');
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       // If scanning fails, that's a security concern itself
       vulnerabilities.push({
         id: randomUUID(),
         severity: 'HIGH',
         type: 'SCAN_FAILURE',
-        description: `Security scanning failed: ${error.message}`,
+        description: `Security scanning failed: ${errorMessage}`,
         location: 'security-scanner',
         remediation: 'Investigate scanner configuration and ensure security tools are properly installed'
       });
@@ -157,8 +158,9 @@ export class RealSecurityValidator {
       }
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       missingControls.push('ACCESS_CONTROL_VALIDATION_FAILED');
-      recommendedActions.push(`Fix access control validation: ${error.message}`);
+      recommendedActions.push(`Fix access control validation: ${errorMessage}`);
     }
 
     const configurationScore = (implementedControls.length / requiredControls.length) * 100;

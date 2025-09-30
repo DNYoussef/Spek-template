@@ -46,9 +46,10 @@ export class UnifiedRequestValidator implements RequestValidator {
           });
         }
       } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
         this.errors.push({
           code: 'VALIDATION_ERROR',
-          message: `Validation error: ${error.message}`,
+          message: `Validation error: ${errorMessage}`,
           details: { rule: rule.name, error }
         });
       }

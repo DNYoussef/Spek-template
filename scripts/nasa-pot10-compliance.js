@@ -188,6 +188,15 @@ class NASAPot10ComplianceChecker {
       }
     }
 
+    // Write compliance score to file for CI/CD
+    const artifactsDir = path.join(__dirname, '..', '.claude', '.artifacts');
+    if (!fs.existsSync(artifactsDir)) {
+      fs.mkdirSync(artifactsDir, { recursive: true });
+    }
+    const scoreFilePath = path.join(artifactsDir, 'compliance-score.txt');
+    fs.writeFileSync(scoreFilePath, this.results.passRate);
+    console.log(`\\n📝 Compliance score written to: ${scoreFilePath}`);
+
     // Return exit code based on pass rate
     const requiredPassRate = 90;
     if (parseFloat(this.results.passRate) >= requiredPassRate) {

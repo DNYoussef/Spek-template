@@ -15,7 +15,7 @@ from typing import Dict, Any, List
 import sys
 sys.path.append(str(Path(__file__).parent.parent.parent / "src"))
 
-from linter_integration.tool_management_system import (
+from linter_integration.tool_management_system import ()
     ToolManagementSystem,
     ToolConfiguration,
     ToolEnvironment,
@@ -25,7 +25,7 @@ from linter_integration.tool_management_system import (
     ToolExecutionOptions,
     ToolExecutionResult,
     ToolStatus
-)
+()
 
 # Mock linter tool definitions
 class MockLinterTool:
@@ -119,11 +119,11 @@ class TestToolManagementSystem:
     async def test_tool_registration_success(self, tool_manager, mock_tools):
         """Test successful tool registration"""
         tool = mock_tools["flake8"]
-        config = ToolConfiguration(
+        config = ToolConfiguration()
             configFile=".flake8",
             rules={"max-line-length": 88},
             ignore=["E203", "W503"]
-        )
+(        )
         
         with patch.object(tool_manager, 'validateToolInstallation', new_callable=AsyncMock):
             await tool_manager.registerTool(tool, config)
@@ -158,8 +158,8 @@ class TestToolManagementSystem:
         tool = mock_tools["flake8"]
         
         # Mock validation failure
-        with patch.object(tool_manager, 'validateToolInstallation', 
-                        side_effect=Exception("Tool not found")):
+        with patch.object(tool_manager, 'validateToolInstallation',)
+(                        side_effect=Exception("Tool not found")):
             with pytest.raises(Exception, match="Tool not found"):
                 await tool_manager.registerTool(tool)
         
@@ -201,7 +201,7 @@ class TestToolManagementSystem:
             Path(file_path).write_text("print('hello world')\n")
         
         # Mock tool execution
-        mock_result = ToolExecutionResult(
+        mock_result = ToolExecutionResult()
             success=True,
             output='[{"file": "test1.py", "line": 1, "message": "test"}]',
             stderr="",
@@ -209,10 +209,10 @@ class TestToolManagementSystem:
             memoryUsed=1024,
             exitCode=0,
             violationsFound=1
-        )
+(        )
         
-        with patch.object(tool_manager, 'executeWithMonitoring', 
-                        return_value=mock_result):
+        with patch.object(tool_manager, 'executeWithMonitoring',)
+(                        return_value=mock_result):
             result = await tool_manager.executeTool(tool.id, test_files)
         
         assert result.success is True
@@ -237,8 +237,8 @@ class TestToolManagementSystem:
         test_files = [os.path.join(temp_workspace, "test.py")]
         
         # Mock tool execution failure
-        with patch.object(tool_manager, 'executeWithMonitoring', 
-                        side_effect=Exception("Execution failed")):
+        with patch.object(tool_manager, 'executeWithMonitoring',)
+(                        side_effect=Exception("Execution failed")):
             with pytest.raises(Exception, match="Execution failed"):
                 await tool_manager.executeTool(tool.id, test_files)
         
@@ -264,8 +264,8 @@ class TestToolManagementSystem:
         test_files = [os.path.join(temp_workspace, "test.py")]
         
         # Cause 5 failures to trigger circuit breaker
-        with patch.object(tool_manager, 'executeWithMonitoring', 
-                        side_effect=Exception("Execution failed")):
+        with patch.object(tool_manager, 'executeWithMonitoring',)
+(                        side_effect=Exception("Execution failed")):
             for i in range(5):
                 with pytest.raises(Exception):
                     await tool_manager.executeTool(tool.id, test_files)
@@ -293,7 +293,7 @@ class TestToolManagementSystem:
         # Mock slow execution
         async def slow_execution(*args, **kwargs):
             await asyncio.sleep(0.1)
-            return ToolExecutionResult(
+            return ToolExecutionResult()
                 success=True,
                 output="[]",
                 stderr="",
@@ -301,7 +301,7 @@ class TestToolManagementSystem:
                 memoryUsed=1024,
                 exitCode=0,
                 violationsFound=0
-            )
+(            )
         
         with patch.object(tool_manager, 'executeWithMonitoring', side_effect=slow_execution):
             # Start first execution
@@ -335,8 +335,8 @@ class TestToolManagementSystem:
         assert health.healthScore == 100
         
         # Simulate health check failure
-        with patch.object(tool_manager, 'validateToolInstallation', 
-                        side_effect=Exception("Health check failed")):
+        with patch.object(tool_manager, 'validateToolInstallation',)
+(                        side_effect=Exception("Health check failed")):
             await tool_manager.performToolHealthCheck(tool.id)
         
         # Verify degraded health
@@ -387,12 +387,12 @@ class TestToolManagementSystem:
             "successCount": 0,
             "nextAttemptTime": 0
         }
-        tool_manager.resourceAllocations[tool.id] = ResourceAllocation(
+        tool_manager.resourceAllocations[tool.id] = ResourceAllocation()
             concurrencyLimit=2,
             priorityWeight=0.8,
             executionQuota=100,
             throttleInterval=1000
-        )
+(        )
         
         # Get tool status
         status = tool_manager.getToolStatus(tool.id)
@@ -448,12 +448,12 @@ class TestToolManagementSystem:
     def test_execution_args_preparation(self, tool_manager, mock_tools):
         """Test execution arguments preparation"""
         tool = mock_tools["flake8"]
-        config = ToolConfiguration(
+        config = ToolConfiguration()
             customArgs=["--max-line-length=88", "--ignore=E203"]
-        )
-        options = ToolExecutionOptions(
+(        )
+        options = ToolExecutionOptions()
             additionalArgs=["--verbose"]
-        )
+(        )
         
         file_paths = ["test1.py", "test2.py"]
         
@@ -490,7 +490,7 @@ class TestToolManagementSystem:
         tool = mock_tools["flake8"]
         
         # JSON output with violations
-        json_output = json.dumps([
+        json_output = json.dumps([)
             {
                 "filename": "test1.py",
                 "messages": [
@@ -504,7 +504,7 @@ class TestToolManagementSystem:
                     {"line": 10, "message": "undefined variable"}
                 ]
             }
-        ])
+(        ])
         
         violation_count = tool_manager.countViolationsInOutput(tool, json_output)
         assert violation_count == 3  # 2 + 1 violations
@@ -548,7 +548,7 @@ class TestToolManagementSystem:
         tool_manager.initializeToolMetrics(tool.id)
         
         # Mock execution result
-        result = ToolExecutionResult(
+        result = ToolExecutionResult()
             success=True,
             output="[]",
             stderr="",
@@ -556,7 +556,7 @@ class TestToolManagementSystem:
             memoryUsed=1024,
             exitCode=0,
             violationsFound=5
-        )
+(        )
         
         # Update metrics
         tool_manager.updateSuccessMetrics(tool.id, 2.5, result)
@@ -606,19 +606,19 @@ class TestToolConfiguration:
     
     def test_tool_configuration_creation(self):
         """Test tool configuration object creation"""
-        config = ToolConfiguration(
+        config = ToolConfiguration()
             configFile=".flake8",
             rules={"max-line-length": 88, "ignore": ["E203", "W503"]},
             ignore=["*.pyc", "__pycache__"],
             include=["*.py"],
             customArgs=["--statistics"],
-            environment=ToolEnvironment(
+            environment=ToolEnvironment()
                 nodeVersion="18.0.0",
                 environmentVariables={"DEBUG": "1"},
                 workingDirectory="/test",
                 pathExtensions=["bin"]
-            )
-        )
+(            )
+(        )
         
         assert config.configFile == ".flake8"
         assert config.rules["max-line-length"] == 88
@@ -629,14 +629,14 @@ class TestToolConfiguration:
     
     def test_resource_allocation_configuration(self):
         """Test resource allocation configuration"""
-        allocation = ResourceAllocation(
+        allocation = ResourceAllocation()
             cpuLimit=2.0,
             memoryLimit=1024 * 1024 * 1024,  # 1GB
             concurrencyLimit=3,
             priorityWeight=0.8,
             executionQuota=100,
             throttleInterval=2000
-        )
+(        )
         
         assert allocation.cpuLimit == 2.0
         assert allocation.memoryLimit == 1024 * 1024 * 1024
@@ -735,7 +735,7 @@ class TestToolPerformanceMetrics:
         violations_found = [5, 3, 7]
         
         for i, (exec_time, violations) in enumerate(zip(execution_times, violations_found)):
-            result = ToolExecutionResult(
+            result = ToolExecutionResult()
                 success=True,
                 output="[]",
                 stderr="",
@@ -743,7 +743,7 @@ class TestToolPerformanceMetrics:
                 memoryUsed=1024,
                 exitCode=0,
                 violationsFound=violations
-            )
+(            )
             tool_manager.updateSuccessMetrics(tool_id, exec_time, result)
         
         metrics = tool_manager.metrics[tool_id]
@@ -766,7 +766,7 @@ class TestToolPerformanceMetrics:
         times = [0.5, 1.0, 1.5, 2.0, 10.0]  # Including outlier
         
         for exec_time in times:
-            result = ToolExecutionResult(
+            result = ToolExecutionResult()
                 success=True,
                 output="[]",
                 stderr="",
@@ -774,7 +774,7 @@ class TestToolPerformanceMetrics:
                 memoryUsed=1024,
                 exitCode=0,
                 violationsFound=0
-            )
+(            )
             tool_manager.updateSuccessMetrics(tool_id, exec_time, result)
         
         metrics = tool_manager.metrics[tool_id]

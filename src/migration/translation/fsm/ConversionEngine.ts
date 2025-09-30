@@ -82,9 +82,10 @@ export class ConversionEngine {
       return result;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('FSM conversion failed', {
         conversionId,
-        error: error.message
+        error: errorMessage
       });
 
       return this.createErrorResult(request, conversionId, error, Date.now() - startTime);
@@ -178,9 +179,10 @@ export class ConversionEngine {
       stateMachine.transition(ConversionEvent.FORMAT_VALIDATED);
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       result.errors.push({
         code: 'FORMAT_VALIDATION_ERROR',
-        message: `Format validation failed: ${error.message}`,
+        message: `Format validation failed: ${errorMessage}`,
         cause: error,
         recoverable: false,
         suggestions: ['Check format definitions', 'Validate format registry']

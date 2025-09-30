@@ -93,8 +93,9 @@ export class InfrastructureStateMachineFacade extends EventEmitter {
   /**
    * Initialize Infrastructure State Machine
    * NASA Rule 10: ≤60 lines, ≥2 assertions
+   * Renamed from initialize() to avoid EventEmitter property conflict
    */
-  async initialize(...args: any[]): Promise<void> {
+  async initializeComponent(...args: any[]): Promise<void> {
     console.assert(!this.isInitialized, 'Infrastructure state machine must not be already initialized');
     console.assert(this.activeOperations.size === 0, 'No operations should be active during initialization');
     try {

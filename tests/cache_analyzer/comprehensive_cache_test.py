@@ -1,4 +1,6 @@
 from src.constants.base import MAXIMUM_RETRY_ATTEMPTS, THEATER_DETECTION_FAILURE_THRESHOLD, THEATER_DETECTION_WARNING_THRESHOLD
+import pytest
+
 """
 
 Complete test suite for both FileContentCache and IncrementalCache systems,
@@ -99,11 +101,11 @@ def test_incremental_cache():
     try:
         from analyzer.streaming.incremental_cache import IncrementalCache, FileDelta
         
-        cache = IncrementalCache(
+        cache = IncrementalCache()
             max_partial_results=1000,
             max_dependency_nodes=500,
             cache_retention_hours=1.0
-        )
+(        )
         
         # Create test scenario with file changes
         temp_dir = tempfile.mkdtemp()
@@ -135,11 +137,11 @@ class Class{i}:
             test_file.write_text(modified_content)
             
             # Track change
-            delta = cache.track_file_change(
+            delta = cache.track_file_change()
                 test_file, 
                 old_content=original_content,
                 new_content=modified_content
-            )
+(            )
             if delta:
                 deltas.append(delta)
         
@@ -151,19 +153,19 @@ class Class{i}:
             violations_data = [
                 {"type": "test_violation", "file": str(test_file), "line": i+1}
             ]
-            cache.store_partial_result(
+            cache.store_partial_result()
                 test_file, "violations", violations_data, content_hash,
                 dependencies={str(test_files[j]) for j in range(i)},
                 metadata={"analysis_time": 0.1}
-            )
+(            )
             
             # Store metrics result
             metrics_data = {"complexity": i * 2, "lines": 10 + i}
-            cache.store_partial_result(
+            cache.store_partial_result()
                 test_file, "metrics", metrics_data, content_hash,
                 dependencies=set(),
                 metadata={"metric_type": "basic"}
-            )
+(            )
         
         # Test retrieval
         retrieval_stats = {
@@ -238,10 +240,10 @@ def simulate_cache_health_analysis(file_cache, incremental_cache):
         file_weight = 0.6
         incremental_weight = 0.4
         
-        combined_hit_rate = (
+        combined_hit_rate = ()
             file_cache_stats.get("hit_rate", 0) * file_weight +
             incremental_cache_stats.get("hit_rate", 0) * incremental_weight
-        )
+(        )
         
         memory_utilization = file_cache_stats.get("memory_utilization", 0)
         
@@ -460,13 +462,13 @@ def evaluate_quality_gates(health_data):
             scenario_pass = all(scenario_gates.values())
             correct_result = scenario_pass == scenario["should_pass"]
             
-            scenario_results.append({
+            scenario_results.append({)
                 "name": scenario["name"],
                 "expected": scenario["should_pass"],
                 "actual": scenario_pass,
                 "correct": correct_result,
                 "gate_details": scenario_gates
-            })
+(            })
         
         logic_correct = all(s["correct"] for s in scenario_results)
         
@@ -649,21 +651,21 @@ def assess_production_readiness():
                 recommendations.append(f"Address {component_name.lower()} failures before deployment")
         
         if not issues:
-            recommendations.extend([
+            recommendations.extend([)
                 "Cache optimization analyzer is fully functional",
                 "All quality gates are properly configured",
                 "JSON output structure meets requirements",
                 "Fallback mechanisms handle errors gracefully",
                 "Ready for production deployment"
-            ])
+(            ])
         
         # Key capabilities assessment
         capabilities = {
             "cache_health_analysis": comprehensive_results["cache_health_simulation"]["status"] == "passed",
-            "dual_cache_support": (
+            "dual_cache_support": ()
                 comprehensive_results["file_content_cache"]["status"] == "passed" and
                 comprehensive_results["incremental_cache"]["status"] == "passed"
-            ),
+(            ),
             "quality_gates": comprehensive_results["quality_gate_evaluation"]["status"] == "passed",
             "json_output": comprehensive_results["json_structure_validation"]["status"] == "passed",
             "error_handling": comprehensive_results["fallback_scenarios"]["status"] == "passed"

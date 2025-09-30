@@ -52,13 +52,14 @@ export class WorkflowFacade extends EventEmitter {
   /**
    * Initialize the workflow orchestration system
    * NASA Rule 10: ≤60 lines, 2+ assertions
+   * Renamed from initializeComponent() to avoid EventEmitter property conflict
    */
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     // NASA Assertion 1: Validate initialization state
     console.assert(!this.isInitialized, 'Facade should not be initialized multiple times');
 
     try {
-      await this.core.initialize();
+      await this.core.initializeComponent();
       this.isInitialized = true;
 
       this.emit('systemInitialized');
@@ -360,7 +361,7 @@ export class WorkflowFacade extends EventEmitter {
    * Cleanup resources and finalize executions
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  async cleanup(maxAgeMs: number = 24 * 60 * 60 * 1000): Promise<void> {
+  async destroy(maxAgeMs: number = 24 * 60 * 60 * 1000): Promise<void> {
     // NASA Assertion 1: Validate input parameters
     console.assert(typeof maxAgeMs === 'number' && maxAgeMs > 0, 'Max age must be positive number');
 

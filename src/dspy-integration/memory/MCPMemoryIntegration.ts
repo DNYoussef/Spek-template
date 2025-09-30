@@ -138,7 +138,8 @@ export class MCPMemoryIntegration extends EventEmitter {
       return communicationId;
 
     } catch (error) {
-      console.error('MCP storage failed:', error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('MCP storage failed:', errorMessage);
 
       // Fallback to local pattern storage only
       const pattern = await this.recognizePattern(communication);
@@ -188,7 +189,8 @@ export class MCPMemoryIntegration extends EventEmitter {
       }
 
     } catch (error) {
-      console.error('MCP retrieval failed:', error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('MCP retrieval failed:', errorMessage);
 
       // Fallback to local pattern matching
       const localSimilar = this.findSimilarPatterns(message.content, limit);
@@ -258,7 +260,8 @@ export class MCPMemoryIntegration extends EventEmitter {
       return Array.isArray(results) ? results.slice(0, limit) : [];
 
     } catch (error) {
-      console.error('MCP search failed:', error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('MCP search failed:', errorMessage);
       return [];
     }
   }
@@ -407,7 +410,8 @@ export class MCPMemoryIntegration extends EventEmitter {
       };
 
     } catch (error) {
-      console.error('MCP reconstruction failed:', error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('MCP reconstruction failed:', errorMessage);
       return null;
     }
   }
@@ -555,7 +559,8 @@ export class MCPMemoryIntegration extends EventEmitter {
       }
 
     } catch (error) {
-      console.error('MCP cleanup failed:', error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('MCP cleanup failed:', errorMessage);
     }
   }
 

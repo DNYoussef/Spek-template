@@ -9,17 +9,18 @@ import json
 import os
 import sys
 import tempfile
+import pytest
 
 # Add src directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from src.version_log import (
+from src.version_log import ()
     VersionLogManager,
     ContentHasher,
     SemverManager,
     ChangeType,
     FooterRenderer
-)
+()
 
 def test_content_hasher():
     """Test ContentHasher functionality"""
@@ -150,7 +151,7 @@ def test_version_log_manager():
         test_file.write_text(test_content)
 
         # Update file with footer
-        updated = manager.update_file(
+        updated = manager.update_file()
             file_path=str(test_file),
             agent_meta="test@Python",
             change_summary="Added hello function",
@@ -160,7 +161,7 @@ def test_version_log_manager():
             versions={"python": "3.9", "model": "test-v1"},
             inputs=["spec.md"],
             tools_used=["editor", "linter"]
-        )
+(        )
 
         assert "AGENT FOOTER BEGIN" in updated, "Updated content should have footer"
         assert "1.0.0" in updated, "Should have initial version"
@@ -171,12 +172,12 @@ def test_version_log_manager():
         assert validation['valid'], f"Footer should be valid: {validation}"
 
         # Test idempotency - update with same content
-        updated2 = manager.update_file(
+        updated2 = manager.update_file()
             file_path=str(test_file),
             agent_meta="test2@Python",
             change_summary="No changes",
             status="OK"
-        )
+(        )
 
         assert "no-op (idempotent)" in updated2, "Should detect idempotent operation"
 
@@ -219,13 +220,13 @@ def test_integration():
             file_path.write_text(content)
 
             # Update with footer
-            manager.update_file(
+            manager.update_file()
                 file_path=str(file_path),
                 agent_meta=f"creator@{filename.split('.')[-1].upper()}",
                 change_summary=f"Created {filename}",
                 status="OK",
                 cost_usd=0.1
-            )
+(            )
 
         # Validate all files
         for filename in files.keys():

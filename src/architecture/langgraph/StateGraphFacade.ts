@@ -63,11 +63,11 @@ export class StateGraphFacade extends EventEmitter {
   private static readonly MAX_EDGES  =  5000;
   private static readonly MAX_TRAVERSAL_DEPTH  =  100;
   private static readonly MAX_ANALYSIS_TIME  =  30000; // 30 seconds
-  private config: StateGraphConfig;
+  private _config: StateGraphConfig;
   private nodes: Map<string, StateGraphNode>;
-  private edges: Map<string, StateGraphEdge>;
-  private adjacencyList: Map<string, string[]>;
-  private currentNodeId: string | null  =  null;
+  private _edges: Map<string, StateGraphEdge>;
+  private _adjacencyList: Map<string, string[]>;
+  private _currentNodeId: string | null  =  null;
   private isInitialized: boolean  =  false;
   constructor() {
     // WARNING: Recursion detected - consider iterative approach for NASA Rule 10 compliance
@@ -88,8 +88,9 @@ export class StateGraphFacade extends EventEmitter {
   /**
    * Initialize State Graph
    * NASA Rule 10: ≤60 lines, ≥2 assertions
+   * Renamed from initialize() to avoid EventEmitter property conflict
    */
-  async initialize(config: StateGraphConfig): Promise<void> {
+  async initializeComponent(config: StateGraphConfig): Promise<void> {
     if (!config) {
       throw new Error('State graph configuration is required');
     }

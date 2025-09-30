@@ -84,7 +84,8 @@ export class ReadinessStateMachine extends EventEmitter {
       return this.context.validation;
       
     } catch (error) {
-      this.emit('validationFailed', { validationId, error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.emit('validationFailed', { validationId, error: errorMessage });
       throw error;
     } finally {
       this.reset();

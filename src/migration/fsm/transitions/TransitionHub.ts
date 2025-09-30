@@ -93,11 +93,12 @@ export class TransitionHub {
       return true;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('State transition failed', {
         from: previousState,
         to: transition.toState,
         event: event.type,
-        error: error.message
+        error: errorMessage
       });
 
       // Rollback to previous state
@@ -124,8 +125,9 @@ export class TransitionHub {
       return transition.guard(guardContext);
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Guard validation failed', {
-        error: error.message,
+        error: errorMessage,
         transition: `${transition.fromState} -> ${transition.toState}`
       });
       return false;

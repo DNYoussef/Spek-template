@@ -5,7 +5,7 @@
  */
 
 import { StateStore } from '../StateStore';
-import PrincessStateMachine from '../state-machines/PrincessStateMachine';
+import { PrincessStateMachineFacade } from '../state-machines/PrincessStateMachineFacade';
 import { MessageRouterFacade } from './MessageRouterFacade';
 
 // Re-export types for backward compatibility
@@ -25,14 +25,20 @@ export {
 export class MessageRouter {
   private facade: MessageRouterFacade;
 
-  constructor(stateStore: StateStore) {
-    this.facade = new MessageRouterFacade(stateStore);
+  constructor(stateStore?: StateStore) {
+    this.facade = new MessageRouterFacade();
+
+    // Initialize method bindings after facade is created
+    this.on = this.facade.on.bind(this.facade);
+    this.emit = this.facade.emit.bind(this.facade);
+    this.removeAllListeners = this.facade.removeAllListeners.bind(this.facade);
+    this.once = this.facade.once.bind(this.facade);
   }
 
   /**
    * Register a Princess state machine for message routing
    */
-  registerPrincess(princessId: string, stateMachine: PrincessStateMachine): void {
+  registerPrincess(princessId: string, stateMachine: PrincessStateMachineFacade | any): void {
     this.facade.registerPrincess(princessId, stateMachine);
   }
 
@@ -96,7 +102,7 @@ export class MessageRouter {
     conditions: any[] = [],
     priority: number = 100
   ): void {
-    this.facade.addRoute(pattern, target, conditions, priority);
+    this.facade.addRoute(pattern, { target, conditions, priority });
   }
 
   /**
@@ -134,11 +140,11 @@ export class MessageRouter {
     this.facade.clearHistory(princessId);
   }
 
-  // Delegate all methods to facade
-  on = this.facade.on.bind(this.facade);
-  emit = this.facade.emit.bind(this.facade);
-  removeAllListeners = this.facade.removeAllListeners.bind(this.facade);
-  once = this.facade.once.bind(this.facade);
+  // Delegate methods to facade (declared as properties, initialized in constructor)
+  public on: any;
+  public emit: any;
+  public removeAllListeners: any;
+  public once: any;
 }
 
 export default MessageRouter;

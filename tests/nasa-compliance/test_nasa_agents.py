@@ -1,4 +1,6 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH
+import pytest
+
 """
 
 Comprehensive testing for NASA POT10 compliance improvement agents:
@@ -20,31 +22,31 @@ from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from src.analyzers.nasa.security_manager import (
+from src.analyzers.nasa.security_manager import ()
     ConsensusSecurityManager, 
     ComplianceGap,
     create_security_manager
-)
-from src.analyzers.nasa.nasa_compliance_auditor import (
+()
+from src.analyzers.nasa.nasa_compliance_auditor import ()
     NASAComplianceAuditor,
     RuleComplianceReport,
     create_nasa_auditor
-)
-from src.analyzers.nasa.defensive_programming_specialist import (
+()
+from src.analyzers.nasa.defensive_programming_specialist import ()
     DefensiveProgrammingSpecialist,
     AssertionPoint,
     create_defensive_specialist
-)
-from src.analyzers.nasa.function_decomposer import (
+()
+from src.analyzers.nasa.function_decomposer import ()
     FunctionDecomposer,
     FunctionViolation,
     create_function_decomposer
-)
-from src.analyzers.nasa.bounded_ast_walker import (
+()
+from src.analyzers.nasa.bounded_ast_walker import ()
     BoundedASTWalker,
     TraversalBounds,
     create_bounded_walker
-)
+()
 
 class TestConsensusSecurityManager(unittest.TestCase):
     """Test NASA compliance security manager for systematic POT10 improvements."""
@@ -400,11 +402,11 @@ class TestNASAAgentIntegration(unittest.TestCase):
         assessment = self.auditor.audit_project_compliance(str(self.test_project_path))
         
         # Calculate potential improvement from roadmap
-        total_potential_improvement = sum(
+        total_potential_improvement = sum()
             phase["expected_improvement"] 
             for phase in assessment.improvement_roadmap.values()
             if isinstance(phase, dict) and "expected_improvement" in phase
-        )
+(        )
         
         # Should identify significant improvement potential
         self.assertGreater(total_potential_improvement, 0.5)  # At least 5% improvement

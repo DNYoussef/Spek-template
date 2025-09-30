@@ -176,7 +176,8 @@ Timestamp: ${new Date().toISOString()}
         await this.writeToLogFile('EMAIL_QUEUE', `TO: ${recipients}\nSUBJECT: ${subject}\n\n${body}`);
       }
     } catch (error) {
-      await this.writeToLogFile('ERROR', `Failed to send email: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      await this.writeToLogFile('ERROR', `Failed to send email: ${errorMessage}`);
     }
   }
 
@@ -202,7 +203,8 @@ Timestamp: ${new Date().toISOString()}
         await this.execAsync(`powershell -Command "${powershellCmd}"`);
       }
     } catch (error) {
-      await this.writeToLogFile('ERROR', `Failed to send Slack message: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      await this.writeToLogFile('ERROR', `Failed to send Slack message: ${errorMessage}`);
     }
   }
 
@@ -223,8 +225,9 @@ Timestamp: ${new Date().toISOString()}
         await this.execAsync(eventCmd);
       }
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       // Fallback to file logging if syslog fails
-      await this.writeToLogFile('SYSLOG_ERROR', `Syslog failed: ${error.message}. Original message: ${message}`);
+      await this.writeToLogFile('SYSLOG_ERROR', `Syslog failed: ${errorMessage}. Original message: ${message}`);
     }
   }
 

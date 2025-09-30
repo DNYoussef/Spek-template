@@ -5,6 +5,7 @@ import json
 import tempfile
 from pathlib import Path
 from datetime import datetime
+import pytest
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
@@ -46,13 +47,13 @@ def test_footer_integration():
     middleware = FooterMiddleware()
 
     # Create receipt
-    receipt = Receipt(
+    receipt = Receipt()
         status="OK",
         models=[ModelInfo(name="planner@gemini", version="v18")],
         tools_used=["analyzer", "validator"],
         cost=CostInfo(usd=0.43, prompt_tokens=1200, completion_tokens=800),
         mutations=[Mutation(type="PRD", id="prd_123", version=2)]
-    )
+(    )
 
     # Test file content
     original = """def process_data():
@@ -61,7 +62,7 @@ def test_footer_integration():
 """
 
     # Update with footer
-    updated = middleware.update_footer(
+    updated = middleware.update_footer()
         file_text=original,
         agent_meta="validator@opus",
         change_summary="Added data processing function",
@@ -70,7 +71,7 @@ def test_footer_integration():
         cost_usd=0.43,
         receipt=receipt,
         file_path="processor.py"
-    )
+(    )
 
     print("Updated content:")
     print(updated)
@@ -160,7 +161,7 @@ def test_complete_turn_validation():
     middleware = FooterMiddleware()
 
     # Create turn receipt
-    receipt = Receipt(
+    receipt = Receipt()
         status="OK",
         models=[
             ModelInfo(name="planner@gemini", version="v18"),
@@ -170,7 +171,7 @@ def test_complete_turn_validation():
         cost=CostInfo(usd=0.87, prompt_tokens=4500, completion_tokens=2100),
         inputs=["spec.md", "requirements.yaml"],
         versions={"router": "v7", "policy": "2025-9-24"}
-    )
+(    )
 
     # Artifacts created in this turn
     artifacts = {
@@ -232,7 +233,7 @@ def test_validation():
 
     # Update file with footer based on validation
     for file_path, content in file_contents.items():
-        updated = middleware.update_footer(
+        updated = middleware.update_footer()
             file_text=content,
             agent_meta="validator@opus",
             change_summary=f"Updated {file_path}",
@@ -241,7 +242,7 @@ def test_validation():
             cost_usd=receipt.cost.usd if receipt.cost else 0,
             receipt=receipt,
             file_path=file_path
-        )
+(        )
         print(f"\nFile: {file_path}")
         print(f"Footer added with status: {result.status.value}")
 

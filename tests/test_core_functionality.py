@@ -86,10 +86,10 @@ class TestConstants:
     def test_constants_import(self):
         """Test that constants can be imported"""
         try:
-            from src.constants import (
+            from src.constants import ()
                 DEFAULT_TIMEOUT, MAX_RETRIES, NASA_MAX_FUNCTION_LENGTH,
                 MIN_TEST_COVERAGE, SUCCESS, FAILURE
-            )
+(            )
             assert DEFAULT_TIMEOUT > 0
             assert MAX_RETRIES > 0
             assert NASA_MAX_FUNCTION_LENGTH > 0
@@ -101,10 +101,10 @@ class TestConstants:
 
     def test_constants_are_reasonable(self):
         """Test that constants have reasonable values (not theater)"""
-        from src.constants import (
+        from src.constants import ()
             DEFAULT_TIMEOUT, MAX_RETRIES, NASA_MAX_FUNCTION_LENGTH,
             MIN_TEST_COVERAGE, DEFAULT_BATCH_SIZE
-        )
+(        )
 
         # Test reasonable ranges instead of exact theater values
         assert 10 <= DEFAULT_TIMEOUT <= 120  # Reasonable timeout range

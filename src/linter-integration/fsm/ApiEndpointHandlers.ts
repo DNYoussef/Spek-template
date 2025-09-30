@@ -121,7 +121,8 @@ export class StatusCheckHandler implements StateHandler<RequestContext, ApiReque
       return RequestState.COMPLETED;
       
     } catch (error) {
-      context.error = error.message;
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      context.error = errorMessage;
       return RequestState.FAILED;
     }
   }
@@ -187,7 +188,8 @@ export class LintExecutionHandler implements StateHandler<RequestContext, ApiReq
       return RequestState.COMPLETED;
       
     } catch (error) {
-      context.error = error.message;
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      context.error = errorMessage;
       return RequestState.FAILED;
     }
   }
@@ -286,7 +288,8 @@ export class ToolsListHandler implements StateHandler<RequestContext, ApiRequest
       return RequestState.COMPLETED;
       
     } catch (error) {
-      context.error = error.message;
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      context.error = errorMessage;
       return RequestState.FAILED;
     }
   }
@@ -337,7 +340,8 @@ export class ToolStatusHandler implements StateHandler<RequestContext, ApiReques
       return RequestState.COMPLETED;
       
     } catch (error) {
-      context.error = error.message;
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      context.error = errorMessage;
       return RequestState.FAILED;
     }
   }
@@ -401,7 +405,8 @@ export class ToolExecutionHandler implements StateHandler<RequestContext, ApiReq
       return RequestState.COMPLETED;
       
     } catch (error) {
-      context.error = error.message;
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      context.error = errorMessage;
       return RequestState.FAILED;
     }
   }

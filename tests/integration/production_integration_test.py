@@ -1,4 +1,6 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
+import pytest
+
 """
 
 This test validates that the Phase 2 GitHub integration is ready for

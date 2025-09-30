@@ -85,7 +85,9 @@ def main():
 if __name__ == "__main__":
     main()
 
+"""
 <!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
+"""
 ## Version & Run Log
 | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
 |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
@@ -99,3 +101,4 @@ if __name__ == "__main__":
 - tools_used: ["Write", "Bash"]
 - versions: {"model":"claude-sonnet-4","prompt":"v1.0"}
 <!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+"""

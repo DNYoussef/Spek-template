@@ -17,6 +17,7 @@
  * ✅ Clean timing measurement without I/O operations during measurement windows
  */
 
+import { describe, test, expect } from '@jest/globals';
 import { RealPerformanceBenchmarker, RealPerformanceMetrics } from '../../src/performance/benchmarking/RealPerformanceBenchmarker';
 import { AdaptivePerformanceOptimizer } from '../../src/performance/benchmarking/AdaptivePerformanceOptimizer';
 import * as fs from 'fs/promises';

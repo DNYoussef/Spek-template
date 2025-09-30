@@ -236,7 +236,7 @@ export class SandboxTestingFramework extends EventEmitter {
     return Array.from(this.activeSandboxes.keys());
   }
 
-  async cleanup(): Promise<void> {
+  async destroy(): Promise<void> {
     // Stop monitoring
     this.resourceMonitor.stopMonitoring();
 

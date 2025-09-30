@@ -4,13 +4,45 @@
  */
 
 import { createMachine } from 'xstate';
-import {
-  SecurityState,
-  SecurityEvent,
-  PrincessState,
-  PrincessEvent
-} from '../types/FSMTypes';
-import { SecurityContext } from '../SecurityPrincessFSM';
+import type { SecurityContext } from '../SecurityPrincessFSM';
+
+// Define enums locally as values (not type-only imports)
+enum SecurityState {
+  THREAT_ASSESSMENT = 'THREAT_ASSESSMENT',
+  VULNERABILITY_SCAN = 'VULNERABILITY_SCAN',
+  COMPLIANCE_CHECK = 'COMPLIANCE_CHECK',
+  AUTH_VALIDATION = 'AUTH_VALIDATION',
+  AUDIT_SETUP = 'AUDIT_SETUP',
+  MONITORING_SETUP = 'MONITORING_SETUP',
+  SECURITY_VALIDATION = 'SECURITY_VALIDATION',
+  REMEDIATION = 'REMEDIATION'
+}
+
+enum SecurityEvent {
+  THREATS_IDENTIFIED = 'THREATS_IDENTIFIED',
+  VULNERABILITIES_FOUND = 'VULNERABILITIES_FOUND',
+  NO_VULNERABILITIES = 'NO_VULNERABILITIES',
+  COMPLIANCE_PASSED = 'COMPLIANCE_PASSED',
+  COMPLIANCE_FAILED = 'COMPLIANCE_FAILED',
+  AUTH_VALIDATED = 'AUTH_VALIDATED',
+  AUTH_FAILED = 'AUTH_FAILED',
+  AUDIT_CONFIGURED = 'AUDIT_CONFIGURED',
+  MONITORING_ACTIVE = 'MONITORING_ACTIVE',
+  VALIDATION_PASSED = 'VALIDATION_PASSED',
+  VALIDATION_FAILED = 'VALIDATION_FAILED',
+  REMEDIATION_COMPLETE = 'REMEDIATION_COMPLETE',
+  REMEDIATION_FAILED = 'REMEDIATION_FAILED'
+}
+
+enum PrincessState {
+  COMPLETE = 'COMPLETE',
+  FAILED = 'FAILED'
+}
+
+enum PrincessEvent {
+  TASK_FAILED = 'TASK_FAILED',
+  ROLLBACK = 'ROLLBACK'
+}
 
 export class SecurityMachineBuilder {
   /**

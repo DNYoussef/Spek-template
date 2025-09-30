@@ -67,11 +67,12 @@ export class CompilationState extends BaseStateHandler {
       };
 
     } catch (error) {
-      this.addError(context, `Compilation process failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.addError(context, `Compilation process failed: ${errorMessage}`);
       return {
         success: false,
         nextEvent: ValidationEvent.COMPILATION_FAILED,
-        errors: [`Compilation error: ${error.message}`]
+        errors: [`Compilation error: ${errorMessage}`]
       };
     }
   }
@@ -162,7 +163,8 @@ export class CompilationState extends BaseStateHandler {
       }
 
     } catch (error) {
-      errors.push(`${fileName}: TypeScript validation error - ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      errors.push(`${fileName}: TypeScript validation error - ${errorMessage}`);
     }
 
     return { errors, warnings };
@@ -218,7 +220,8 @@ export class CompilationState extends BaseStateHandler {
       }
 
     } catch (error) {
-      errors.push(`${fileName}: JavaScript validation error - ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      errors.push(`${fileName}: JavaScript validation error - ${errorMessage}`);
     }
 
     return { errors, warnings };
@@ -281,7 +284,8 @@ export class CompilationState extends BaseStateHandler {
       }
 
     } catch (error) {
-      errors.push(`${fileName}: Python validation error - ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      errors.push(`${fileName}: Python validation error - ${errorMessage}`);
     }
 
     return { errors, warnings };

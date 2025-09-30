@@ -48,8 +48,9 @@ export class ActionWorkflowBuilder {
       return template;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Failed to generate dynamic workflow', { error, analysis });
-      throw new Error(`Real workflow generation failed: ${error.message}`);
+      throw new Error(`Real workflow generation failed: ${errorMessage}`);
     }
   }
 

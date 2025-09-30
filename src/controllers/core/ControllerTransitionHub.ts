@@ -199,9 +199,10 @@ export class ControllerTransitionHub extends EventEmitter {
       try {
         await validTransition.action(context);
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         const controllerError: ControllerError = {
           code: 'TRANSITION_ACTION_FAILED',
-          message: `Transition action failed: ${error.message}`,
+          message: `Transition action failed: ${errorMessage}`,
           details: { error }
         };
         context.errors.push(controllerError);
@@ -215,9 +216,10 @@ export class ControllerTransitionHub extends EventEmitter {
       try {
         await newHandler.onEntry(context);
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         const controllerError: ControllerError = {
           code: 'STATE_ENTRY_FAILED',
-          message: `State entry failed: ${error.message}`,
+          message: `State entry failed: ${errorMessage}`,
           details: { error }
         };
         context.errors.push(controllerError);
@@ -252,9 +254,10 @@ export class ControllerTransitionHub extends EventEmitter {
           await this.transition(requestId, event);
         }
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         const controllerError: ControllerError = {
           code: 'EVENT_HANDLING_FAILED',
-          message: `Event handling failed: ${error.message}`,
+          message: `Event handling failed: ${errorMessage}`,
           details: { error }
         };
         context.errors.push(controllerError);

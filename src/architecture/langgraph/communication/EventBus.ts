@@ -87,7 +87,7 @@ export class EventBus extends EventEmitter {
   /**
    * Cleanup resources
    */
-  async cleanup(): Promise<void> {
+  async destroy(): Promise<void> {
     this.subscriptions.clear();
     await this.facade.cleanup();
     this.removeAllListeners();

@@ -137,8 +137,9 @@ export class DroneBaseFSM extends EventEmitter {
 
       return success;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       const executionTime = Date.now() - startTime;
-      this.reportGenerator.generateReport(worker, worker.currentTask, executionTime, 'ERROR', { error: error.message });
+      this.reportGenerator.generateReport(worker, worker.currentTask, executionTime, 'ERROR', { error: errorMessage });
       return false;
     }
   }

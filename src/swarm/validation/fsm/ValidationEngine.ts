@@ -72,8 +72,9 @@ export class ValidationEngine {
       return result;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.currentState = ValidationState.ERROR;
-      this.logger.error('Validation failed', { error: error.message, validationId });
+      this.logger.error('Validation failed', { error: errorMessage, validationId });
       
       return this.generateErrorResult(validationId, error);
     }

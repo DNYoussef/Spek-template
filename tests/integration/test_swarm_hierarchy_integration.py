@@ -332,11 +332,11 @@ class SwarmHierarchyIntegrationTest:
 
             self.test_results['integration']['cross_hive'] = {
                 'status': 'PASSED' if channels_healthy else 'FAILED',
-                'total_channels': sum([
+                'total_channels': sum([)
                     communication['direct_channels'],
                     communication['broadcast_channels'],
                     communication['consensus_channels']
-                ]),
+(                ]),
                 'messages_exchanged': communication['messages_exchanged'],
                 'synchronized': communication['sync_successful']
             }

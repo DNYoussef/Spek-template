@@ -384,9 +384,10 @@ export class DebugTransitionHub extends EventEmitter {
           return true;
       }
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.emit('invariant:violation', {
         state: this.currentState,
-        error: error.message,
+        error: errorMessage,
         timestamp: new Date()
       });
       return false;

@@ -139,8 +139,9 @@ export class PipelineManager extends EventEmitter {
       await this.executePipeline(pipeline, run, context);
       run.status = 'success';
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       run.status = 'failure';
-      run.logs.push(`Pipeline failed: ${error.message}`);
+      run.logs.push(`Pipeline failed: ${errorMessage}`);
     } finally {
       run.completedAt = new Date();
       this.emit('pipelineCompleted', { pipeline, run });
@@ -248,9 +249,11 @@ export class PipelineManager extends EventEmitter {
       result.status = 'success';
       result.exitCode = 0;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      const errorCode = (error as any)?.code || 1;
       result.status = 'failure';
-      result.logs.push(`Stage failed: ${error.message}`);
-      result.exitCode = error.code || 1;
+      result.logs.push(`Stage failed: ${errorMessage}`);
+      result.exitCode = errorCode;
 
       if (!stage.continueOnError) {
         throw error;

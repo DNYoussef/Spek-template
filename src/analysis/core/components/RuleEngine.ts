@@ -52,7 +52,13 @@ export class RuleEngine {
 
   private getDefaultRules(): AnalysisRule[] {
     return [
-      { id: 'default-rule', name: 'Default Rule', enabled: true, description: 'Default validation rule' }
+      {
+        id: 'default-rule',
+        name: 'Default Rule',
+        enabled: true,
+        description: 'Default validation rule',
+        severity: 'medium'
+      }
     ];
   }
 }

@@ -49,10 +49,11 @@ export class ValidationOrchestrator {
       };
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Conversion path validation failed', {
         sourceFormat,
         targetFormat,
-        error: error.message
+        error: errorMessage
       });
 
       return {

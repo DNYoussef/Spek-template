@@ -316,7 +316,7 @@ export class DashboardCore extends EventEmitter {
     }
   }
 
-  cleanup(): void {
+  destroy(): void {
     this.clearAllTimers();
     this.clearAllData();
     this.removeAllListeners();

@@ -69,7 +69,8 @@ export class ContextDNAEnhancer {
       return enhancedMessage;
 
     } catch (error) {
-      throw new Error(`Context DNA enhancement failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Context DNA enhancement failed: ${errorMessage}`);
     }
   }
 

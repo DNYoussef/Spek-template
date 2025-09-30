@@ -3,15 +3,53 @@
  * NASA Rule 10 Compliant: Functions ≤60 lines, no recursion, fixed bounds
  */
 
-import {
-  PhaseState,
-  PhaseEvent,
-  TransitionState,
-  TransitionEvent,
+import type {
   PhaseTransitionContext,
   PhaseExecution,
   TransitionExecution
 } from './PhaseTransitionTypes';
+
+// Define enums locally as values (not type-only imports)
+export enum PhaseState {
+  PLANNED = 'PLANNED',
+  STARTING = 'STARTING',
+  IN_PROGRESS = 'IN_PROGRESS',
+  VALIDATING = 'VALIDATING',
+  COMPLETED = 'COMPLETED',
+  FAILED = 'FAILED',
+  CANCELLED = 'CANCELLED',
+  ROLLED_BACK = 'ROLLED_BACK'
+}
+
+export enum PhaseEvent {
+  START_PHASE = 'START_PHASE',
+  PREREQUISITES_VALIDATED = 'PREREQUISITES_VALIDATED',
+  VALIDATION_FAILED = 'VALIDATION_FAILED',
+  PHASE_EXECUTION_COMPLETED = 'PHASE_EXECUTION_COMPLETED',
+  PHASE_FAILED = 'PHASE_FAILED',
+  VALIDATION_COMPLETED = 'VALIDATION_COMPLETED',
+  ROLLBACK_INITIATED = 'ROLLBACK_INITIATED',
+  CANCEL_PHASE = 'CANCEL_PHASE'
+}
+
+export enum TransitionState {
+  PLANNED = 'PLANNED',
+  VALIDATING_PREREQUISITES = 'VALIDATING_PREREQUISITES',
+  EXECUTING = 'EXECUTING',
+  VALIDATING_COMPLETION = 'VALIDATING_COMPLETION',
+  COMPLETED = 'COMPLETED',
+  FAILED = 'FAILED',
+  ROLLED_BACK = 'ROLLED_BACK'
+}
+
+export enum TransitionEvent {
+  START_TRANSITION = 'START_TRANSITION',
+  PREREQUISITES_VALIDATED = 'PREREQUISITES_VALIDATED',
+  TRANSITION_FAILED = 'TRANSITION_FAILED',
+  EXECUTION_COMPLETED = 'EXECUTION_COMPLETED',
+  COMPLETION_VALIDATED = 'COMPLETION_VALIDATED',
+  ROLLBACK_INITIATED = 'ROLLBACK_INITIATED'
+}
 
 // State machine configuration
 interface StateTransition<S, E> {

@@ -170,9 +170,10 @@ export class IntegrationMonitor extends EventEmitter implements ComponentStateCo
       }
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.emit('monitor:health-check-failed', {
         executionId: context.currentExecution.executionId,
-        error: error.message
+        error: errorMessage
       });
     }
   }
@@ -213,9 +214,10 @@ export class IntegrationMonitor extends EventEmitter implements ComponentStateCo
       }
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.emit('monitor:conflict-detection-failed', {
         executionId: context.currentExecution.executionId,
-        error: error.message
+        error: errorMessage
       });
     }
   }
@@ -244,9 +246,10 @@ export class IntegrationMonitor extends EventEmitter implements ComponentStateCo
       }
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.emit('monitor:quality-check-failed', {
         executionId: context.currentExecution.executionId,
-        error: error.message
+        error: errorMessage
       });
     }
   }

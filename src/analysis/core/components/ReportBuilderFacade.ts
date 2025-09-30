@@ -53,7 +53,8 @@ export class ReportBuilderFacade extends ComponentFacade {
       return report;
     } catch (error) {
       await this.fsm.processEvent('ERROR_OCCURRED' as any);
-      throw new Error(`Failed to build ${format} report: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Failed to build ${format} report: ${errorMessage}`);
     }
   }
 

@@ -14,10 +14,10 @@ from datetime import datetime
 from pathlib import Path
 
 # Configure logging
-logging.basicConfig(
+logging.basicConfig()
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+()
 
 # Add analyzer to Python path
 sys.path.append(str(Path(__file__).parent))
@@ -37,12 +37,12 @@ async def test_compliance_infrastructure():
         print("   SUCCESS: All modules imported successfully")
         
         # Test 2: Create compliance configuration
-        config = ComplianceConfig(
+        config = ComplianceConfig()
             enabled=True,
             frameworks={"SOC2", "ISO27001", "NIST-SSDF"},
             evidence_retention_days=90,
             artifacts_path="./.claude/.artifacts/compliance/"
-        )
+(        )
         print(f"   SUCCESS: Configuration created with {len(config.frameworks)} frameworks")
         
         # Test MAXIMUM_RETRY_ATTEMPTS: Initialize compliance orchestrator

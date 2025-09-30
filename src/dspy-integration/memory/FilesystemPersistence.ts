@@ -78,7 +78,7 @@ export class FilesystemPersistence extends EventEmitter {
    * Initialize filesystem structure
    * NASA Rule 10: Bounded initialization, no recursion
    */
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     if (this.initialized) return;
 
     try {
@@ -95,7 +95,8 @@ export class FilesystemPersistence extends EventEmitter {
       this.emit('filesystem:initialized', this.basePath);
 
     } catch (error) {
-      throw new Error(`Filesystem initialization failed: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Filesystem initialization failed: ${errorMessage}`);
     }
   }
 
@@ -160,7 +161,8 @@ export class FilesystemPersistence extends EventEmitter {
       return data as CommunicationSnapshot;
 
     } catch (error) {
-      await this.createAuditEntry('READ', 'COMMUNICATION', snapshotId, 'system', false, error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      await this.createAuditEntry('READ', 'COMMUNICATION', snapshotId, 'system', false, errorMessage);
       return null;
     }
   }
@@ -202,7 +204,8 @@ export class FilesystemPersistence extends EventEmitter {
       }
 
     } catch (error) {
-      this.emit('query:error', error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.emit('query:error', errorMessage);
     }
 
     assert(results.length <= limit, 'Results must not exceed limit');
@@ -408,7 +411,8 @@ export class FilesystemPersistence extends EventEmitter {
         }
       }
     } catch (error) {
-      this.emit('cleanup:error', error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.emit('cleanup:error', errorMessage);
     }
   }
 
@@ -443,8 +447,9 @@ export class FilesystemPersistence extends EventEmitter {
       }
 
     } catch (error) {
-      console.error('Audit cleanup failed:', error.message);
-      this.emit('cleanup:error', error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('Audit cleanup failed:', errorMessage);
+      this.emit('cleanup:error', errorMessage);
     }
   }
 
@@ -509,7 +514,8 @@ export class FilesystemPersistence extends EventEmitter {
       }
 
     } catch (error) {
-      console.error('Storage metrics calculation failed:', error.message);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('Storage metrics calculation failed:', errorMessage);
     }
 
     return metrics;

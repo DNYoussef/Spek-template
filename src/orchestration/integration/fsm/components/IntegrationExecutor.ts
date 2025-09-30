@@ -103,12 +103,13 @@ export class IntegrationExecutor extends EventEmitter implements ComponentStateC
       this.emit('execution:completed', { executionId: execution.executionId });
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       execution.status = 'failed';
       execution.endTime = Date.now();
 
       const integrationError: IntegrationError = {
         code: 'EXECUTION_FAILED',
-        message: error.message,
+        message: errorMessage,
         severity: 'critical',
         blocking: true,
         stack: error.stack,
@@ -171,6 +172,7 @@ export class IntegrationExecutor extends EventEmitter implements ComponentStateC
       return result;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       phaseExecution.status = 'failed';
       phaseExecution.endTime = Date.now();
 
@@ -182,7 +184,7 @@ export class IntegrationExecutor extends EventEmitter implements ComponentStateC
         qualityMetrics: this.calculatePhaseQualityMetrics(phaseExecution)
       };
 
-      this.emit('phase:failed', { phaseId: phase.phaseId, error: error.message });
+      this.emit('phase:failed', { phaseId: phase.phaseId, error: errorMessage });
       throw error;
     }
   }
@@ -234,13 +236,14 @@ export class IntegrationExecutor extends EventEmitter implements ComponentStateC
       return result;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       result.status = 'failed';
       result.endTime = Date.now();
-      result.errors.push(error.message);
+      result.errors.push(errorMessage);
 
       this.emit('component:failed', {
         componentId: component.componentId,
-        error: error.message
+        error: errorMessage
       });
 
       return result;
@@ -334,6 +337,7 @@ export class IntegrationExecutor extends EventEmitter implements ComponentStateC
         phaseExecution.componentResults.set(component.componentId, result);
         return result;
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         const failedResult: ComponentResult = {
           componentId: component.componentId,
           status: 'failed',
@@ -341,7 +345,7 @@ export class IntegrationExecutor extends EventEmitter implements ComponentStateC
           endTime: Date.now(),
           integrationPoints: [],
           healthStatus: { healthy: false, status: 'failed', lastCheck: Date.now() },
-          errors: [error.message],
+          errors: [errorMessage],
           warnings: []
         };
         phaseExecution.componentResults.set(component.componentId, failedResult);

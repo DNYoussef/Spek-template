@@ -27,7 +27,7 @@ export class PatternEngine extends EventEmitter {
   /**
    * Initialize the pattern engine with pre-trained models and existing patterns
    */
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     await this.vectorEmbeddings.initialize();
     await this.classifier.loadModel();
     await this.loadExistingPatterns();

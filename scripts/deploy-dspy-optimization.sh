@@ -623,7 +623,9 @@ echo "==============================================="
 echo "  DSPy Optimization Deployment Script End"
 echo "==============================================="
 
+: <<'FOOTER'
 <!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
+: <<'FOOTER'
 ## Version & Run Log
 | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
 |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
@@ -637,3 +639,4 @@ echo "==============================================="
 - tools_used: ["filesystem", "memory"]
 - versions: {"model":"gemini-2.5-pro","prompt":"deployment-script-v1.0"}
 <!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+FOOTER

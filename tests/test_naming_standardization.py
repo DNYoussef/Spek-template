@@ -15,12 +15,12 @@ sys.path.insert(0, str(Path(__file__).parent.parent / 'src'))
 
 from analyzer.unified_analyzer import UnifiedAnalyzer
 from analyzer.architecture.refactored_unified_analyzer import RefactoredUnifiedAnalyzer
-from src.compatibility_layer import (
+from src.compatibility_layer import ()
     generateConnascenceReport,
     validateSafetyCompliance,
     getRefactoringSuggestions,
     getAutomatedFixes
-)
+()
 
 class TestNamingStandardization(unittest.TestCase):
     """Test naming standardization functionality"""

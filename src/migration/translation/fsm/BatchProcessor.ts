@@ -74,7 +74,8 @@ export class BatchProcessor {
       };
 
     } catch (error) {
-      this.logger.error('Batch conversion failed', { error: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error('Batch conversion failed', { error: errorMessage });
 
       const summary = await this.generateBatchSummary(results, Date.now() - startTime);
 

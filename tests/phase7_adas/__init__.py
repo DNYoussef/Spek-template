@@ -19,6 +19,9 @@ __version__ = "1.0.0"
 __author__ = "ADAS Testing Team"
 
 from .test_real_time_performance import (
+    TestLatencyRequirements,
+    TestThroughputValidation,
+    TestStressConditions,
     RealTimePerformanceTester,
     PerformanceMetrics,
     MockADASProcessor

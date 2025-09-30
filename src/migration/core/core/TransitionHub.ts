@@ -34,9 +34,10 @@ export class TransitionHub extends EventEmitter {
       this.emit('transitionRequested', { event, payload });
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Event processing failed', {
         event,
-        error: error.message
+        error: errorMessage
       });
       throw error;
     }
@@ -72,9 +73,10 @@ export class TransitionHub extends EventEmitter {
       this.emit('transitionValidated', context);
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('Transition execution failed', {
         context,
-        error: error.message
+        error: errorMessage
       });
 
       this.emit('transitionFailed', context, error);

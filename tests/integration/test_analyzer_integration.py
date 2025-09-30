@@ -19,7 +19,7 @@ class TestAnalyzerIntegration:
         """Test complete analysis pipeline from code to results."""
         # Create sample code file
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
-            f.write("""
+            f.write(""")
 def calculate_total(items):
     total = 0
     for item in items:
@@ -35,7 +35,7 @@ class ShoppingCart:
         
     def get_total(self):
         return calculate_total(self.items)
-""")
+(""")
             temp_file = f.name
         
         try:
