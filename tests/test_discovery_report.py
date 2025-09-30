@@ -22,11 +22,11 @@ def find_all_test_files() -> List[Path]:
         dirs[:] = [d for d in dirs if not d.startswith('.') and d != '__pycache__']
 
         for file in files:
-            if file.endswith('.py') and ()
+            if file.endswith('.py') and (
                 file.startswith('test_') or
                 file.endswith('_test.py') or
                 'test' in file.lower()
-(            ):
+            ):
                 test_files.append(Path(root) / file)
 
     return sorted(test_files)
@@ -34,10 +34,10 @@ def find_all_test_files() -> List[Path]:
 def test_collection_status(test_file: Path) -> Dict:
     """Test if a file can be collected by pytest"""
     try:
-        result = subprocess.run([)
+        result = subprocess.run([
             sys.executable, '-m', 'pytest',
             str(test_file), '--collect-only', '-q'
-(        ], capture_output=True, text=True, timeout=15, cwd=PROJECT_ROOT)
+        ], capture_output=True, text=True, timeout=15, cwd=PROJECT_ROOT)
 
         stdout = result.stdout.strip()
         stderr = result.stderr.strip()
@@ -83,7 +83,7 @@ def test_collection_status(test_file: Path) -> Dict:
 def extract_number(text: str, keyword: str) -> int:
     """Extract number from text like '5 items collected'"""
     import re
-    pattern = rfrr'(\d+)[^0-9]*{keyword}'
+    pattern = rf'(\d+)[^0-9]*{keyword}'
     match = re.search(pattern, text)
     return int(match.group(1)) if match else 0
 
