@@ -50,7 +50,7 @@ export class SecurityStateComplianceValidation {
       const complianceViolations = await this.generateComplianceViolations(complianceMetrics, context.extractedData!);
       
       // Merge with existing violations
-      context.violations = [...(context.violations // []), ...complianceViolations];
+      context.violations = [...(context.violations || []), ...complianceViolations];
       context.complianceMetrics = complianceMetrics;
       
       // Update security metrics
@@ -127,10 +127,10 @@ export class SecurityStateComplianceValidation {
       'A10:2021-Server-Side Request Forgery': ['ssrf', 'request-forgery']
     };
     
-    const relevantTypes = categoryMappings[category] // [];
+    const relevantTypes = categoryMappings[category] || [];
     return vulnerabilities.some(vuln =>
       relevantTypes.some(type =>
-        vuln.category?.toLowerCase().includes(type) //
+        vuln.category?.toLowerCase().includes(type) ||
         vuln.title?.toLowerCase().includes(type)
       )
     );
@@ -164,9 +164,9 @@ export class SecurityStateComplianceValidation {
    */
   private calculateNISTIdentify(data: Record<string, any>): number {
     // Simplified scoring based on asset inventory and risk assessment
-    const hasAssetInventory = data.compliance?.assetInventory // false;
-    const hasRiskAssessment = data.compliance?.riskAssessment // false;
-    const hasBusinessContext = data.compliance?.businessContext // false;
+    const hasAssetInventory = data.compliance?.assetInventory || false;
+    const hasRiskAssessment = data.compliance?.riskAssessment || false;
+    const hasBusinessContext = data.compliance?.businessContext || false;
     
     const score = [hasAssetInventory, hasRiskAssessment, hasBusinessContext].filter(Boolean).length;
     return (score / 3) * 100;
@@ -176,9 +176,9 @@ export class SecurityStateComplianceValidation {
    * Calculate NIST Protect function score
    */
   private calculateNISTProtect(data: Record<string, any>): number {
-    const hasAccessControl = data.compliance?.authorization?.accessControl // false;
-    const hasDataSecurity = data.compliance?.encryption?.dataAtRest // false;
-    const hasAwareness = data.compliance?.training // false;
+    const hasAccessControl = data.compliance?.authorization?.accessControl || false;
+    const hasDataSecurity = data.compliance?.encryption?.dataAtRest || false;
+    const hasAwareness = data.compliance?.training || false;
     
     const score = [hasAccessControl, hasDataSecurity, hasAwareness].filter(Boolean).length;
     return (score / 3) * 100;
@@ -188,8 +188,8 @@ export class SecurityStateComplianceValidation {
    * Calculate NIST Detect function score
    */
   private calculateNISTDetect(data: Record<string, any>): number {
-    const hasMonitoring = data.compliance?.logging?.securityEvents // false;
-    const hasDetection = data.compliance?.detection // false;
+    const hasMonitoring = data.compliance?.logging?.securityEvents || false;
+    const hasDetection = data.compliance?.detection || false;
     
     const score = [hasMonitoring, hasDetection].filter(Boolean).length;
     return (score / 2) * 100;
@@ -199,8 +199,8 @@ export class SecurityStateComplianceValidation {
    * Calculate NIST Respond function score
    */
   private calculateNISTRespond(data: Record<string, any>): number {
-    const hasIncidentResponse = data.compliance?.incidentResponse // false;
-    const hasCommunication = data.compliance?.communication // false;
+    const hasIncidentResponse = data.compliance?.incidentResponse || false;
+    const hasCommunication = data.compliance?.communication || false;
     
     const score = [hasIncidentResponse, hasCommunication].filter(Boolean).length;
     return (score / 2) * 100;
@@ -210,8 +210,8 @@ export class SecurityStateComplianceValidation {
    * Calculate NIST Recover function score
    */
   private calculateNISTRecover(data: Record<string, any>): number {
-    const hasRecoveryPlan = data.compliance?.recoveryPlan // false;
-    const hasBackup = data.compliance?.backup // false;
+    const hasRecoveryPlan = data.compliance?.recoveryPlan || false;
+    const hasBackup = data.compliance?.backup || false;
     
     const score = [hasRecoveryPlan, hasBackup].filter(Boolean).length;
     return (score / 2) * 100;
@@ -222,12 +222,12 @@ export class SecurityStateComplianceValidation {
    */
   private calculatePCICompliance(data: Record<string, any>): PCICompliance {
     const requirements: Record<string, boolean> = {
-      'Install and maintain a firewall': data.compliance?.firewall // false,
-      'Do not use vendor-supplied defaults': data.compliance?.defaultConfig // false,
-      'Protect stored cardholder data': data.compliance?.dataProtection // false,
-      'Encrypt transmission of cardholder data': data.compliance?.encryption?.dataInTransit // false,
-      'Protect all systems against malware': data.compliance?.malwareProtection // false,
-      'Develop and maintain secure systems': data.compliance?.secureDevelpment // false
+      'Install and maintain a firewall': data.compliance?.firewall || false,
+      'Do not use vendor-supplied defaults': data.compliance?.defaultConfig || false,
+      'Protect stored cardholder data': data.compliance?.dataProtection || false,
+      'Encrypt transmission of cardholder data': data.compliance?.encryption?.dataInTransit || false,
+      'Protect all systems against malware': data.compliance?.malwareProtection || false,
+      'Develop and maintain secure systems': data.compliance?.secureDevelpment || false
     };
     
     const passedReqs = Object.values(requirements).filter(req => req).length;
@@ -236,8 +236,8 @@ export class SecurityStateComplianceValidation {
     return {
       score,
       requirements,
-      dataProtection: data.compliance?.dataProtection // false,
-      networkSecurity: data.compliance?.networkSecurity // false
+      dataProtection: data.compliance?.dataProtection || false,
+      networkSecurity: data.compliance?.networkSecurity || false
     };
   }
 
@@ -245,10 +245,10 @@ export class SecurityStateComplianceValidation {
    * Calculate GDPR compliance
    */
   private calculateGDPRCompliance(data: Record<string, any>): GDPRCompliance {
-    const dataProcessing = data.compliance?.gdpr?.dataProcessing // false;
-    const consent = data.compliance?.gdpr?.consent // false;
-    const rightToErasure = data.compliance?.gdpr?.rightToErasure // false;
-    const dataPortability = data.compliance?.gdpr?.dataPortability // false;
+    const dataProcessing = data.compliance?.gdpr?.dataProcessing || false;
+    const consent = data.compliance?.gdpr?.consent || false;
+    const rightToErasure = data.compliance?.gdpr?.rightToErasure || false;
+    const dataPortability = data.compliance?.gdpr?.dataPortability || false;
     
     const requirements = [dataProcessing, consent, rightToErasure, dataPortability];
     const score = (requirements.filter(Boolean).length / requirements.length) * 100;
@@ -261,11 +261,11 @@ export class SecurityStateComplianceValidation {
    */
   private calculateISO27001Compliance(data: Record<string, any>): ISO27001Compliance {
     const controls: Record<string, boolean> = {
-      'Information security policies': data.compliance?.iso27001?.policies // false,
-      'Organization of information security': data.compliance?.iso27001?.organization // false,
-      'Human resource security': data.compliance?.iso27001?.humanResources // false,
-      'Asset management': data.compliance?.iso27001?.assetManagement // false,
-      'Access control': data.compliance?.authorization?.accessControl // false
+      'Information security policies': data.compliance?.iso27001?.policies || false,
+      'Organization of information security': data.compliance?.iso27001?.organization || false,
+      'Human resource security': data.compliance?.iso27001?.humanResources || false,
+      'Asset management': data.compliance?.iso27001?.assetManagement || false,
+      'Access control': data.compliance?.authorization?.accessControl || false
     };
     
     const implementedControls = Object.values(controls).filter(ctrl => ctrl).length;
@@ -274,8 +274,8 @@ export class SecurityStateComplianceValidation {
     return {
       score,
       controls,
-      riskAssessment: data.compliance?.iso27001?.riskAssessment // false,
-      informationSecurity: data.compliance?.iso27001?.informationSecurity // false
+      riskAssessment: data.compliance?.iso27001?.riskAssessment || false,
+      informationSecurity: data.compliance?.iso27001?.informationSecurity || false
     };
   }
 

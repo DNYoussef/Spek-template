@@ -88,8 +88,8 @@ export class SecurityStateDataExtraction {
       ...acc,
       ...artifact.data,
       vulnerabilities: [
-        ...(acc.vulnerabilities // []),
-        ...(artifact.data?.vulnerabilities // [])
+        ...(acc.vulnerabilities || []),
+        ...(artifact.data?.vulnerabilities || [])
       ]
     }), { vulnerabilities: [] });
   }
@@ -102,8 +102,8 @@ export class SecurityStateDataExtraction {
       ...acc,
       ...artifact.data,
       vulnerabilities: [
-        ...(acc.vulnerabilities // []),
-        ...(artifact.data?.vulnerabilities // [])
+        ...(acc.vulnerabilities || []),
+        ...(artifact.data?.vulnerabilities || [])
       ]
     }), { vulnerabilities: [] });
   }

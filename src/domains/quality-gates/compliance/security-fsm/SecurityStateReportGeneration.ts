@@ -77,7 +77,7 @@ export class SecurityStateReportGeneration {
    * Complete security metrics calculation
    */
   private async completeMetricsCalculation(context: SecurityValidationContext): Promise<SecurityMetrics> {
-    const baseMetrics = context.securityMetrics // this.getDefaultSecurityMetrics();
+    const baseMetrics = context.securityMetrics || this.getDefaultSecurityMetrics();
     
     // Calculate authentication metrics
     const authentication = this.calculateAuthenticationMetrics(context.extractedData!);
@@ -115,15 +115,15 @@ export class SecurityStateReportGeneration {
    * Calculate authentication metrics
    */
   private calculateAuthenticationMetrics(data: Record<string, any>): any {
-    const auth = data.compliance?.authentication // {};
+    const auth = data.compliance?.authentication || {};
     
     return {
-      score: auth.score // 70,
-      multiFactorAuth: auth.multiFactorAuth // false,
-      passwordPolicies: auth.passwordPolicies // true,
-      sessionManagement: auth.sessionManagement // true,
-      accountLockout: auth.accountLockout // false,
-      weakCredentials: auth.weakCredentials // 0
+      score: auth.score || 70,
+      multiFactorAuth: auth.multiFactorAuth || false,
+      passwordPolicies: auth.passwordPolicies || true,
+      sessionManagement: auth.sessionManagement || true,
+      accountLockout: auth.accountLockout || false,
+      weakCredentials: auth.weakCredentials || 0
     };
   }
 
@@ -131,15 +131,15 @@ export class SecurityStateReportGeneration {
    * Calculate authorization metrics
    */
   private calculateAuthorizationMetrics(data: Record<string, any>): any {
-    const authz = data.compliance?.authorization // {};
+    const authz = data.compliance?.authorization || {};
     
     return {
-      score: authz.score // 65,
-      accessControl: authz.accessControl // true,
-      roleBasedAccess: authz.roleBasedAccess // false,
-      privilegeEscalation: authz.privilegeEscalation // 0,
-      unauthorizedAccess: authz.unauthorizedAccess // 0,
-      dataLeakage: authz.dataLeakage // 0
+      score: authz.score || 65,
+      accessControl: authz.accessControl || true,
+      roleBasedAccess: authz.roleBasedAccess || false,
+      privilegeEscalation: authz.privilegeEscalation || 0,
+      unauthorizedAccess: authz.unauthorizedAccess || 0,
+      dataLeakage: authz.dataLeakage || 0
     };
   }
 
@@ -147,15 +147,15 @@ export class SecurityStateReportGeneration {
    * Calculate encryption metrics
    */
   private calculateEncryptionMetrics(data: Record<string, any>): any {
-    const encryption = data.compliance?.encryption // {};
+    const encryption = data.compliance?.encryption || {};
     
     return {
-      score: encryption.score // 80,
-      dataAtRest: encryption.dataAtRest // true,
-      dataInTransit: encryption.dataInTransit // true,
-      keyManagement: encryption.keyManagement // false,
-      cryptographicStrength: encryption.cryptographicStrength // 85,
-      weakEncryption: encryption.weakEncryption // 0
+      score: encryption.score || 80,
+      dataAtRest: encryption.dataAtRest || true,
+      dataInTransit: encryption.dataInTransit || true,
+      keyManagement: encryption.keyManagement || false,
+      cryptographicStrength: encryption.cryptographicStrength || 85,
+      weakEncryption: encryption.weakEncryption || 0
     };
   }
 
@@ -163,15 +163,15 @@ export class SecurityStateReportGeneration {
    * Calculate logging metrics
    */
   private calculateLoggingMetrics(data: Record<string, any>): any {
-    const logging = data.compliance?.logging // {};
+    const logging = data.compliance?.logging || {};
     
     return {
-      score: logging.score // 60,
-      securityEvents: logging.securityEvents // false,
-      auditTrail: logging.auditTrail // true,
-      logIntegrity: logging.logIntegrity // false,
-      logRetention: logging.logRetention // true,
-      sensitiveDataLogging: logging.sensitiveDataLogging // 0
+      score: logging.score || 60,
+      securityEvents: logging.securityEvents || false,
+      auditTrail: logging.auditTrail || true,
+      logIntegrity: logging.logIntegrity || false,
+      logRetention: logging.logRetention || true,
+      sensitiveDataLogging: logging.sensitiveDataLogging || 0
     };
   }
 
@@ -243,7 +243,7 @@ export class SecurityStateReportGeneration {
    * Identify blocking violations (critical/high severity)
    */
   private identifyBlockers(violations: SecurityViolation[]): SecurityViolation[] {
-    return violations.filter(v => v.severity === 'critical' // v.severity === 'high');
+    return violations.filter(v => v.severity === 'critical' || v.severity === 'high');
   }
 
   /**

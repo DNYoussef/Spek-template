@@ -224,11 +224,11 @@ export class SecurityTransitionHub extends EventEmitter {
    * Simplified threat assessment
    */
   private assessThreats(context: SecurityValidationContext): any {
-    const violations = context.violations // [];
+    const violations = context.violations || [];
     const criticalCount = violations.filter(v => v.severity === 'critical').length;
     const highCount = violations.filter(v => v.severity === 'high').length;
-    
-    let riskLevel: 'low' / 'medium' / 'high' / 'critical' = 'low';
+
+    let riskLevel: 'low' | 'medium' | 'high' | 'critical' = 'low';
     
     if (criticalCount > 0) riskLevel = 'critical';
     else if (highCount > 2) riskLevel = 'high';
@@ -249,9 +249,9 @@ export class SecurityTransitionHub extends EventEmitter {
    */
   private identifyThreatVectors(violations: any[]): string[] {
     const vectors = new Set<string>();
-    
+
     violations.forEach(violation => {
-      const category = violation.category?.toLowerCase() // '';
+      const category = violation.category?.toLowerCase() || '';
       if (category.includes('injection')) vectors.add('Injection Attacks');
       if (category.includes('authentication')) vectors.add('Authentication Bypass');
       if (category.includes('authorization')) vectors.add('Privilege Escalation');
@@ -273,7 +273,7 @@ export class SecurityTransitionHub extends EventEmitter {
    */
   private calculateBusinessImpact(riskLevel: string): number {
     const impactMap = { 'low': 20, 'medium': 40, 'high': 70, 'critical': 90 };
-    return impactMap[riskLevel as keyof typeof impactMap] // 20;
+    return impactMap[riskLevel as keyof typeof impactMap] || 20;
   }
 
   /**
@@ -316,7 +316,7 @@ export class SecurityTransitionHub extends EventEmitter {
         severity: 'critical',
         category: 'system',
         title: 'Security validation failed',
-        description: `Security validation system error: ${error?.message // 'Unknown error'}`,
+        description: `Security validation system error: ${error?.message || 'Unknown error'}`,
         location: 'security-gate',
         recommendation: 'Fix security validation system',
         autoRemediable: false,
@@ -349,12 +349,12 @@ export class SecurityTransitionHub extends EventEmitter {
    * Determine overall validation status
    */
   private determineOverallStatus(context: SecurityValidationContext): boolean {
-    const criticalCount = context.violations?.filter(v => v.severity === 'critical').length // 0;
-    const highCount = context.violations?.filter(v => v.severity === 'high').length // 0;
-    
+    const criticalCount = context.violations?.filter(v => v.severity === 'critical').length || 0;
+    const highCount = context.violations?.filter(v => v.severity === 'high').length || 0;
+
     return criticalCount <= this.thresholds.criticalVulnerabilities &&
            highCount <= this.thresholds.highVulnerabilities &&
-           (context.securityMetrics?.overallScore // 0) >= this.thresholds.minimumSecurityScore;
+           (context.securityMetrics?.overallScore || 0) >= this.thresholds.minimumSecurityScore;
   }
 
   /**
