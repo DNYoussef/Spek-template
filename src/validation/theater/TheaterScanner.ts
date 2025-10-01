@@ -33,6 +33,14 @@ export class TheaterScanner {
     this.fsm = new TheaterScannerFSM(config);
   }
 
+  /**
+   * Scan for theater patterns (NASA Rule 10 compliant)
+   * Alias for scan() for backward compatibility
+   */
+  async scanForTheater(projectRoot: string, exclusions: string[] = []) {
+    return this.scan(projectRoot, exclusions);
+  }
+
   async scan(projectRoot: string, exclusions: string[] = []) {
     const scanData = {
       projectRoot,

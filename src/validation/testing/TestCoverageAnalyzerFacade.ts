@@ -30,9 +30,18 @@ export class TestCoverageAnalyzerFacade {
   private config: any;
   private threshold: number;
   constructor(config?: any) {
-    this._config = config || {};
+    this.config = config || {};
     this.threshold = config?.threshold || 80;
   }
+
+  /**
+   * Analyze test coverage (NASA Rule 10 compliant)
+   * Alias for analyze() for backward compatibility
+   */
+  async analyzeCoverage(projectPath: string): Promise<CoverageAnalysisResult> {
+    return this.analyze(projectPath);
+  }
+
   async analyze(projectPath: string): Promise<CoverageAnalysisResult> {
     // TODO: Add proper error handling for production deployment
     // Simplified coverage analysis

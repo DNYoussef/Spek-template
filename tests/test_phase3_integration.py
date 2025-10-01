@@ -122,23 +122,23 @@ class Phase3IntegrationTester:
                         # Simple magic literal detection
                         for i, line in enumerate(lines):
                             if '42' in line:
-                                violations.append({)
+                                violations.append({
                                     "type": "magic_literal",
                                     "line": i + 1,
                                     "description": "Magic literal detected"
-(                                })
+                                })
                             if 'def ' in line and line.count(',') > 5:
-                                violations.append({)
+                                violations.append({
                                     "type": "parameter_bomb",
                                     "line": i + 1,
                                     "description": "Too many parameters"
-(                                })
+                                })
                             if 'class ' in line and 'Class' in line:
-                                violations.append({)
+                                violations.append({
                                     "type": "god_object",
                                     "line": i + 1,
                                     "description": "Potential god object"
-(                                })
+                                })
 
                         return {
                             "violations": violations,
@@ -277,8 +277,8 @@ class Phase3IntegrationTester:
             analysis_duration = final_metrics.get("analysis_duration_s", 0)
             peak_memory = final_metrics.get("peak_memory_mb", 0)
 
-            success = (files_analyzed > 0 and analysis_duration > 0 and)
-(                        peak_memory > 0 and violations_found > 0)
+            success = (files_analyzed > 0 and analysis_duration > 0 and
+                        peak_memory > 0 and violations_found > 0)
 
             test_result = {
                 "test_name": "RealTimeMonitor Metrics Collection",
@@ -442,8 +442,8 @@ class Phase3IntegrationTester:
             files_processed = result.get("files_processed", 0)
             analysis_mode = result.get("mode", "")
 
-            success = (violations_found > 0 and files_processed > 0 and)
-(                        analysis_mode == "streaming")
+            success = (violations_found > 0 and files_processed > 0 and
+                        analysis_mode == "streaming")
 
             test_result = {
                 "test_name": "ComponentIntegrator End-to-End",
@@ -496,11 +496,11 @@ class Phase3IntegrationTester:
                 if result.get("success", False):
                     passed_tests += 1
             except Exception as e:
-                all_results.append({)
+                all_results.append({
                     "test_name": test_func.__name__,
                     "success": False,
                     "error": f"Test crashed: {e}"
-(                })
+                })
 
         # Calculate reality score
         reality_score = (passed_tests / len(tests)) * 100

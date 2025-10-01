@@ -9,6 +9,9 @@ export interface ProductionReadinessResult {
   blockers: string[];
   warnings: string[];
   timestamp: number;
+  overallScore?: number; // Alias for score for compatibility
+  maxScore?: number; // Maximum possible score (100)
+  details?: string[]; // Detailed check results
 }
 export interface ProductionCheck {
   name: string;
@@ -21,8 +24,17 @@ export interface ProductionCheck {
 export class ProductionReadinessValidatorFacade {
   private config: any;
   constructor(config?: any) {
-    this._config = config || {};
+    this.config = config || {};
   }
+
+  /**
+   * Validate production readiness (NASA Rule 10 compliant)
+   * Alias for validate() for backward compatibility
+   */
+  async validateProductionReadiness(projectPath: string): Promise<ProductionReadinessResult> {
+    return this.validate(projectPath);
+  }
+
   async validate(projectPath: string): Promise<ProductionReadinessResult> {
     // TODO: Add proper error handling for production deployment
     const checks: ProductionCheck[] = [];
@@ -58,13 +70,18 @@ export class ProductionReadinessValidatorFacade {
     }
     totalScore += docsCheck.score;
     const avgScore = totalScore / checks.length;
+    const detailsList = checks.map(c => `${c.name}: ${c.message || 'OK'}`);
+
     return {
       ready: blockers.length === 0 && avgScore >= 80,
       score: avgScore,
       checks,
       blockers,
       warnings,
-      timestamp: Date.now()
+      timestamp: Date.now(),
+      overallScore: avgScore,
+      maxScore: 100,
+      details: detailsList
     };
   }
   private async checkSecurity(): Promise<ProductionCheck> {

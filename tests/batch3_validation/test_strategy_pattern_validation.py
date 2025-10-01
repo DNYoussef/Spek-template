@@ -52,16 +52,16 @@ class SyntaxValidationStrategy(ValidationStrategy):
     def validate(self, data: Any) -> ValidationResult:
         """Validate syntax of code or configuration."""
         if not isinstance(data, str):
-            return ValidationResult()
+            return ValidationResult(
                 is_valid=False,
                 errors=["Input must be string for syntax validation"]
-(            )
+            )
 
         if not data.strip():
-            return ValidationResult()
+            return ValidationResult(
                 is_valid=False,
                 errors=["Empty input not allowed for syntax validation"]
-(            )
+            )
 
         # Mock syntax validation
         if "def " in data and ":" in data:
@@ -69,10 +69,10 @@ class SyntaxValidationStrategy(ValidationStrategy):
         elif "{" in data and "}" in data:
             return ValidationResult(is_valid=True)
         else:
-            return ValidationResult()
+            return ValidationResult(
                 is_valid=False,
                 errors=["Invalid syntax detected"]
-(            )
+            )
 
 class SecurityValidationStrategy(ValidationStrategy):
     """Strategy for security validation."""
@@ -80,10 +80,10 @@ class SecurityValidationStrategy(ValidationStrategy):
     def validate(self, data: Any) -> ValidationResult:
         """Validate security aspects of configuration."""
         if not isinstance(data, dict):
-            return ValidationResult()
+            return ValidationResult(
                 is_valid=False,
                 errors=["Security validation requires dict input"]
-(            )
+            )
 
         errors = []
         warnings = []
@@ -101,11 +101,11 @@ class SecurityValidationStrategy(ValidationStrategy):
         if data.get("authentication") == "basic":
             warnings.append("Basic authentication is not recommended")
 
-        return ValidationResult()
+        return ValidationResult(
             is_valid=len(errors) == 0,
             errors=errors,
             warnings=warnings
-(        )
+        )
 
 class PerformanceValidationStrategy(ValidationStrategy):
     """Strategy for performance validation."""
@@ -113,10 +113,10 @@ class PerformanceValidationStrategy(ValidationStrategy):
     def validate(self, data: Any) -> ValidationResult:
         """Validate performance metrics."""
         if not isinstance(data, dict):
-            return ValidationResult()
+            return ValidationResult(
                 is_valid=False,
                 errors=["Performance validation requires dict input"]
-(            )
+            )
 
         errors = []
         warnings = []
@@ -135,11 +135,11 @@ class PerformanceValidationStrategy(ValidationStrategy):
         elif memory_usage > 500:  # 500MB
             warnings.append(f"Memory usage elevated: {memory_usage}MB")
 
-        return ValidationResult()
+        return ValidationResult(
             is_valid=len(errors) == 0,
             errors=errors,
             warnings=warnings
-(        )
+        )
 
 class AccessControlValidationStrategy(ValidationStrategy):
     """Strategy for access control validation."""
@@ -147,10 +147,10 @@ class AccessControlValidationStrategy(ValidationStrategy):
     def validate(self, data: Any) -> ValidationResult:
         """Validate access control configuration."""
         if not isinstance(data, dict):
-            return ValidationResult()
+            return ValidationResult(
                 is_valid=False,
                 errors=["Access control validation requires dict input"]
-(            )
+            )
 
         errors = []
         warnings = []
@@ -167,11 +167,11 @@ class AccessControlValidationStrategy(ValidationStrategy):
         if not data.get("privileged_accounts_managed", False):
             errors.append("Privileged accounts must be properly managed")
 
-        return ValidationResult()
+        return ValidationResult(
             is_valid=len(errors) == 0,
             errors=errors,
             warnings=warnings
-(        )
+        )
 
 class AuditValidationStrategy(ValidationStrategy):
     """Strategy for audit validation."""
@@ -179,10 +179,10 @@ class AuditValidationStrategy(ValidationStrategy):
     def validate(self, data: Any) -> ValidationResult:
         """Validate audit configuration."""
         if not isinstance(data, dict):
-            return ValidationResult()
+            return ValidationResult(
                 is_valid=False,
                 errors=["Audit validation requires dict input"]
-(            )
+            )
 
         errors = []
         warnings = []
@@ -202,11 +202,11 @@ class AuditValidationStrategy(ValidationStrategy):
         if not data.get("audit_trail_protected", False):
             errors.append("Audit trails must be protected from tampering")
 
-        return ValidationResult()
+        return ValidationResult(
             is_valid=len(errors) == 0,
             errors=errors,
             warnings=warnings
-(        )
+        )
 
 @dataclass
 class ValidationRule:
@@ -241,11 +241,11 @@ class RuleEngine:
             except Exception as e:
                 errors.append(f"Rule '{rule.name}' evaluation failed: {str(e)}")
 
-        return ValidationResult()
+        return ValidationResult(
             is_valid=len(errors) == 0,
             errors=errors,
             warnings=warnings
-(        )
+        )
 
 class ValidationEngine:
     """Main validation engine using Strategy pattern."""
@@ -275,10 +275,10 @@ class ValidationEngine:
             try:
                 results[name] = strategy.validate(data)
             except Exception as e:
-                results[name] = ValidationResult()
+                results[name] = ValidationResult(
                     is_valid=False,
                     errors=[f"Strategy validation failed: {str(e)}"]
-(                )
+                )
         return results
 
     def add_rule(self, rule: ValidationRule) -> None:
@@ -388,11 +388,11 @@ class TestRuleEngineEvaluation(unittest.TestCase):
 
     def test_rule_addition(self):
         """Test adding rules to engine."""
-        rule = ValidationRule()
+        rule = ValidationRule(
             name="test_rule",
             condition=lambda x: len(str(x)) > 0,
             error_message="Input cannot be empty"
-(        )
+        )
 
         self.engine.add_rule(rule)
         self.assertEqual(len(self.engine.rules), 1)
@@ -400,11 +400,11 @@ class TestRuleEngineEvaluation(unittest.TestCase):
 
     def test_rule_evaluation_pass(self):
         """Test successful rule evaluation."""
-        rule = ValidationRule()
+        rule = ValidationRule(
             name="non_empty_rule",
             condition=lambda x: len(str(x)) > 0,
             error_message="Input cannot be empty"
-(        )
+        )
         self.engine.add_rule(rule)
 
         result = self.engine.evaluate("valid input")
@@ -413,11 +413,11 @@ class TestRuleEngineEvaluation(unittest.TestCase):
 
     def test_rule_evaluation_fail(self):
         """Test failed rule evaluation."""
-        rule = ValidationRule()
+        rule = ValidationRule(
             name="non_empty_rule",
             condition=lambda x: len(str(x)) > 0,
             error_message="Input cannot be empty"
-(        )
+        )
         self.engine.add_rule(rule)
 
         result = self.engine.evaluate("")
@@ -427,16 +427,16 @@ class TestRuleEngineEvaluation(unittest.TestCase):
     def test_multiple_rules_evaluation(self):
         """Test evaluation with multiple rules."""
         rules = [
-            ValidationRule()
+            ValidationRule(
                 name="non_empty",
                 condition=lambda x: len(str(x)) > 0,
                 error_message="Input cannot be empty"
-(            ),
-            ValidationRule()
+            ),
+            ValidationRule(
                 name="min_length",
                 condition=lambda x: len(str(x)) >= 3,
                 error_message="Input must be at least 3 characters"
-(            )
+            )
         ]
 
         for rule in rules:
@@ -454,11 +454,11 @@ class TestRuleEngineEvaluation(unittest.TestCase):
 
     def test_rule_exception_handling(self):
         """Test rule evaluation exception handling."""
-        rule = ValidationRule()
+        rule = ValidationRule(
             name="error_rule",
             condition=lambda x: x.invalid_method(),  # This will raise AttributeError
             error_message="This rule will fail"
-(        )
+        )
         self.engine.add_rule(rule)
 
         result = self.engine.evaluate("test")
@@ -558,13 +558,13 @@ class TestStrategyPerformance(unittest.TestCase):
         duration = time.time() - start_time
 
         # Should complete 100 validations in less than 2 seconds
-        self.assertLess(duration, 2.0,)
-(                        f"100 validations took {duration:.2f}s (expected <2.0s)")
+        self.assertLess(duration, 2.0,
+                        f"100 validations took {duration:.2f}s (expected <2.0s)")
 
         # Average time per validation should be less than 20ms
         avg_time_per_validation = (duration / 100) * 1000
-        self.assertLess(avg_time_per_validation, 20.0,)
-(                        f"Average validation time: {avg_time_per_validation:.1f}ms (expected <20ms)")
+        self.assertLess(avg_time_per_validation, 20.0,
+                        f"Average validation time: {avg_time_per_validation:.1f}ms (expected <20ms)")
 
 class TestStrategyErrorHandling(unittest.TestCase):
     """Test strategy error handling."""

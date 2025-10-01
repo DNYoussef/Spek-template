@@ -519,6 +519,7 @@ interface SafetyAnalysis {
   risk_assessment: RiskAssessment;
   safety_margin_analysis: SafetyMarginAnalysis;
   adverse_events: AdverseEvent[];
+  overall_risk_level?: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'; // Alias for risk_assessment.overall_risk_level
 }
 
 interface SafetyViolation {

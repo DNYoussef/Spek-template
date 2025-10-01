@@ -8,6 +8,7 @@ export interface POT10ComplianceResult {
   violations: POT10Violation[];
   recommendations: string[];
   timestamp: number;
+  overallCompliance?: number; // Alias for score for compatibility
 }
 export interface POT10Violation {
   rule: string;
@@ -19,8 +20,17 @@ export interface POT10Violation {
 export class POT10RuleEngineFacade {
   private config: any;
   constructor(config?: any) {
-    this.config  =  config || {};
+    this.config = config || {};
   }
+
+  /**
+   * Validate compliance (NASA Rule 10 compliant)
+   * Alias for validateProject() for backward compatibility
+   */
+  async validateCompliance(projectPath: string): Promise<POT10ComplianceResult> {
+    return this.validateProject(projectPath);
+  }
+
   async validateCode(code: string): Promise<POT10ComplianceResult> {
     // Simplified validation logic
     const violations: POT10Violation[] = [];
@@ -55,12 +65,14 @@ export class POT10RuleEngineFacade {
       });
       score -=  25;
     }
+    const finalScore = Math.max(0, score);
     return {
       compliant: violations.length === 0,
-      score: Math.max(0, score),
+      score: finalScore,
       violations,
       recommendations: this.generateRecommendations(violations),
-      timestamp: Date.now()
+      timestamp: Date.now(),
+      overallCompliance: finalScore
     };
   }
   async validateFile(filePath: string): Promise<POT10ComplianceResult> {

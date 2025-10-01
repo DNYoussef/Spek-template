@@ -1,0 +1,141 @@
+{
+  "total_failed": 15,
+  "categories": {
+    "semantic_errors": {
+      "count": 1,
+      "files": [
+        "tests/test_kelly_dpi_integration.py"
+      ]
+    },
+    "multiline_calls": {
+      "count": 0,
+      "files": []
+    },
+    "bracket_mismatches": {
+      "count": 3,
+      "files": [
+        "tests/test_command_factory_patterns.py",
+        "tests/test_phase4_config_wiring_reality.py",
+        "tests/test_supply_chain_security.py"
+      ]
+    },
+    "string_errors": {
+      "count": 3,
+      "files": [
+        "tests/test_fixes.py",
+        "tests/test_phase3_integration.py",
+        "tests/batch3_validation/test_strategy_pattern_validation.py"
+      ]
+    },
+    "literal_errors": {
+      "count": 2,
+      "files": [
+        "tests/test_kill_switch_integration.py",
+        "tests/batches_10_18_validation/test_suite_orchestrator.py"
+      ]
+    },
+    "unknown": {
+      "count": 6,
+      "files": [
+        "tests/test_discovery_report.py",
+        "tests/test_focused_pattern_validation.py",
+        "tests/test_import_fixes.py",
+        "tests/test_phase3_100_percent.py",
+        "tests/test_phase5_integration.py",
+        "tests/test_phase5_sandbox_reality.py"
+      ]
+    }
+  },
+  "file_details": {
+    "tests/test_command_factory_patterns.py": {
+      "error_type": "bracket_mismatches",
+      "line": 220,
+      "message": "closing parenthesis ')' does not match opening parenthesis '['",
+      "text": "result = subprocess.run([)"
+    },
+    "tests/test_discovery_report.py": {
+      "error_type": "unknown",
+      "line": 25,
+      "message": "expected ':'",
+      "text": "if file.endswith('.py') and ()"
+    },
+    "tests/test_fixes.py": {
+      "error_type": "string_errors",
+      "line": 283,
+      "message": "unterminated triple-quoted string literal (detected at line 338)",
+      "text": "\"\"\"Run all validation tests.\"\"\""
+    },
+    "tests/test_focused_pattern_validation.py": {
+      "error_type": "unknown",
+      "line": 34,
+      "message": "unexpected indent",
+      "text": "pattern_id=\"test_1\","
+    },
+    "tests/test_import_fixes.py": {
+      "error_type": "unknown",
+      "line": 67,
+      "message": "unexpected indent",
+      "text": "config=None,  # Will use defaults"
+    },
+    "tests/test_kelly_dpi_integration.py": {
+      "error_type": "semantic_errors",
+      "line": 16,
+      "message": "invalid syntax",
+      "text": "from risk.kelly_criterion import ()"
+    },
+    "tests/test_kill_switch_integration.py": {
+      "error_type": "literal_errors",
+      "line": 6,
+      "message": "invalid decimal literal",
+      "text": "- Performance validation (<500ms)"
+    },
+    "tests/test_phase3_100_percent.py": {
+      "error_type": "unknown",
+      "line": 4,
+      "message": "invalid syntax",
+      "text": "Comprehensive test suite to verify that ComponentIntegrator achieves 100% reality"
+    },
+    "tests/test_phase3_integration.py": {
+      "error_type": "string_errors",
+      "line": 601,
+      "message": "unterminated triple-quoted string literal (detected at line 617)",
+      "text": "\"\"\"Run Phase MAXIMUM_RETRY_ATTEMPTS integration tests.\"\"\""
+    },
+    "tests/test_phase4_config_wiring_reality.py": {
+      "error_type": "bracket_mismatches",
+      "line": 119,
+      "message": "closing parenthesis ')' does not match opening parenthesis '{'",
+      "text": "config_dir_3 = self.setup_test_config({)"
+    },
+    "tests/test_phase5_integration.py": {
+      "error_type": "unknown",
+      "line": 5,
+      "message": "invalid syntax",
+      "text": "Tests the complete integration of all analyzer components:"
+    },
+    "tests/test_phase5_sandbox_reality.py": {
+      "error_type": "unknown",
+      "line": 91,
+      "message": "unexpected indent",
+      "text": "type=ConnascenceType.ALGORITHM,"
+    },
+    "tests/test_supply_chain_security.py": {
+      "error_type": "bracket_mismatches",
+      "line": 35,
+      "message": "closing parenthesis ')' does not match opening parenthesis '{'",
+      "text": "(project_path / \"package.json\").write_text(json.dumps({))"
+    },
+    "tests/batch3_validation/test_strategy_pattern_validation.py": {
+      "error_type": "string_errors",
+      "line": 612,
+      "message": "unterminated triple-quoted string literal (detected at line 671)",
+      "text": "\"\"\"Run comprehensive Batch 3 validation tests.\"\"\""
+    },
+    "tests/batches_10_18_validation/test_suite_orchestrator.py": {
+      "error_type": "literal_errors",
+      "line": 854,
+      "message": "invalid decimal literal",
+      "text": "- Passed: {passed} ({passed/max(1, total)*100:.1f}%)"
+    }
+  }
+}

@@ -10,6 +10,8 @@ export interface AgentIdentity {
   domain: string;
   capabilities: string[];
   memoryPointer: string;
+  role?: string; // Agent role designation for communication routing
+  metadata?: Record<string, any>; // Additional agent metadata for context
 }
 
 export interface AgentContext {
@@ -27,6 +29,7 @@ export interface AgentMessage {
   agentContext: AgentContext;
   timestamp: number;
   priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+  metadata?: Record<string, any>; // Message metadata for routing and tracking
 }
 
 // Context DNA Enhancement Types
@@ -46,6 +49,7 @@ export interface EnhancedMessage {
   enhancedContext: CompressedContext;
   memoryPointers: MemoryPointer[];
   qualityPrediction: number;
+  metadata?: Record<string, any>; // Enhanced message metadata for optimization tracking
 }
 
 export interface CompressedContext {
