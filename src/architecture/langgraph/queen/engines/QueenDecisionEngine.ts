@@ -140,10 +140,6 @@ export class QueenDecisionEngine {
     });
   }
 
-  getAccuracy(): number {
-    return this.metrics.accuracy;
-  }
-
   getLearningProgress(): number {
     return this.metrics.learningProgress;
   }
