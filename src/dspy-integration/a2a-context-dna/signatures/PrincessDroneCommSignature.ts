@@ -606,7 +606,7 @@ export class PrincessDroneCommSignatureProcessor {
   private calculateLoadBalancing(context: any, data: any): any {
     const targetUtilization = 0.8; // 80% target utilization
 
-    const adjustments = context.droneStates.map(drone => ({
+    const adjustments = context.droneStates.map((drone: any) => ({
       droneId: drone.droneId,
       adjustment: drone.performance.taskCompletionRate > 0.9 ? 'INCREASE' :
                  drone.performance.taskCompletionRate < 0.5 ? 'DECREASE' : 'MAINTAIN'
@@ -621,14 +621,14 @@ export class PrincessDroneCommSignatureProcessor {
   private optimizeCollaboration(context: any, data: any): any {
     // Partner assignments (bounded to 10)
     const partnerAssignments = context.droneStates
-      .filter(drone => drone.status === 'ACTIVE')
+      .filter((drone: any) => drone.status === 'ACTIVE')
       .slice(0, 5)
-      .map((drone, index) => ({
+      .map((drone: any, index: any) => ({
         primaryDrone: drone.droneId,
         supportDrones: context.droneStates
-          .filter(d => d.droneId !== drone.droneId && d.status === 'ACTIVE')
+          .filter((d: any) => d.droneId !== drone.droneId && d.status === 'ACTIVE')
           .slice(0, 2)
-          .map(d => d.droneId),
+          .map((d: any) => d.droneId),
         taskCluster: `cluster_${index}`
       }));
 
@@ -636,7 +636,7 @@ export class PrincessDroneCommSignatureProcessor {
     const communicationProtocols = [{
       frequency: 300000, // 5 minutes
       format: 'status_update',
-      participants: context.droneStates.slice(0, 5).map(d => d.droneId)
+      participants: context.droneStates.slice(0, 5).map((d: any) => d.droneId)
     }];
 
     return {
@@ -680,7 +680,7 @@ export class PrincessDroneCommSignatureProcessor {
 
   private assessOverallTaskStatus(taskStatus: any, droneState: any): 'ON_TRACK' | 'AT_RISK' | 'DELAYED' | 'BLOCKED' | 'FAILED' {
     if (taskStatus.blockers.length > 0) {
-      const criticalBlockers = taskStatus.blockers.filter(b => b.severity === 'HIGH').length;
+      const criticalBlockers = taskStatus.blockers.filter((b: any) => b.severity === 'HIGH').length;
       if (criticalBlockers > 0) return 'BLOCKED';
     }
 
@@ -720,12 +720,12 @@ export class PrincessDroneCommSignatureProcessor {
   private determineResourceEfficiency(taskStatus: any, droneState: any): number {
     if (taskStatus.resourceConsumption.length === 0) return 0.8;
 
-    const efficiencies = taskStatus.resourceConsumption.map(res => {
+    const efficiencies = taskStatus.resourceConsumption.map((res: any) => {
       const utilization = res.allocated > 0 ? res.used / res.allocated : 0;
       return Math.min(utilization, 1.0);
     });
 
-    return efficiencies.reduce((sum, eff) => sum + eff, 0) / efficiencies.length;
+    return efficiencies.reduce((sum: any, eff: any) => sum + eff, 0) / efficiencies.length;
   }
 
   private checkQualityCompliance(taskStatus: any): boolean {
@@ -801,7 +801,7 @@ export class PrincessDroneCommSignatureProcessor {
     const escalations: any[] = [];
 
     // Critical blockers
-    const criticalBlockers = taskStatus.blockers.filter(b => b.severity === 'HIGH');
+    const criticalBlockers = taskStatus.blockers.filter((b: any) => b.severity === 'HIGH');
     for (let i = 0; i < Math.min(criticalBlockers.length, 3); i++) {
       const blocker = criticalBlockers[i];
       escalations.push({
