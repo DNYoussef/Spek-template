@@ -50,6 +50,14 @@ export class EnterpriseComplianceAutomationAgent extends EventEmitter {
     super();
     this.config = config;
     this.initializeFrameworks();
+
+    // Emit initialized event after setup
+    setImmediate(() => {
+      this.emit('initialized', {
+        timestamp: new Date(),
+        frameworks: this.config.frameworks
+      });
+    });
   }
 
   /**
@@ -140,10 +148,10 @@ export class EnterpriseComplianceAutomationAgent extends EventEmitter {
       });
 
       // Perform cross-framework correlation
-      const correlationResults = await this.complianceCorrelator.correlatCompliance({
+      const correlationResults = await this.complianceCorrelator.correlateMultipleFrameworks({
         soc2: soc2Results,
         iso27001: iso27001Results,
-        nist: nistResults
+        nistSSFD: nistResults
       });
 
       // Start real-time monitoring if enabled

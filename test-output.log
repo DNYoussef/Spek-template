@@ -1,0 +1,217 @@
+
+> spek-enhanced-platform@3.0.0 test
+> jest --testTimeout=10000 --forceExit
+
+  console.log
+    Alert: Critical Compliance Score Drop - compliance_score = 90.84036845072585
+
+      at AlertManager.sendAlert (src/domains/ec/monitoring/real-time-monitor.ts:971:13)
+
+  console.log
+    Alert: Critical Compliance Score Drop - trust_services_compliance = 86.60691579466187
+
+      at AlertManager.sendAlert (src/domains/ec/monitoring/real-time-monitor.ts:971:13)
+
+  console.log
+    Alert: Critical Compliance Score Drop - compliance_score = 86.67302642315993
+
+      at AlertManager.sendAlert (src/domains/ec/monitoring/real-time-monitor.ts:971:13)
+
+  console.log
+    Alert: Critical Compliance Score Drop - trust_services_compliance = 85.6138135225125
+
+      at AlertManager.sendAlert (src/domains/ec/monitoring/real-time-monitor.ts:971:13)
+
+FAIL dist/tests/domains/ec/enterprise-compliance-automation.test.js (13.999 s)
+  Enterprise Compliance Automation Agent
+    Agent Initialization
+      √ should initialize with all frameworks (37 ms)
+      × should emit initialization events (10014 ms)
+      √ should validate performance budget configuration (3 ms)
+    Multi-Framework Compliance Assessment
+      × should execute comprehensive compliance assessment (50 ms)
+      × should validate performance stays within budget (10 ms)
+      × should generate unified compliance report (8 ms)
+    Real-Time Monitoring Integration
+      × should start real-time monitoring (8 ms)
+      √ should handle compliance drift detection (7 ms)
+      √ should handle control failure detection (3 ms)
+    Error Handling and Resilience
+      √ should handle framework initialization errors gracefully (3 ms)
+      × should continue operation if one framework fails (9 ms)
+      √ should emit error events for troubleshooting (109 ms)
+  SOC2 Automation Engine - EC-001
+    Trust Services Criteria Validation
+      √ should initialize with all Trust Services Criteria controls (2 ms)
+      √ should execute Type II assessment with all criteria (2 ms)
+      √ should generate compliance findings for non-compliant controls (2 ms)
+      √ should collect evidence for each assessed control (2 ms)
+    Automated Assessment Workflows
+      √ should execute automated tests for controls (5 ms)
+      √ should provide assessment history (2 ms)
+      √ should track current assessment status (2 ms)
+  ISO27001 Control Mapper - EC-002
+    Annex A Controls Assessment
+      √ should initialize with Annex A control domains (1 ms)
+      × should execute comprehensive control assessment (2 ms)
+      √ should conduct risk assessment with treatment plans (2 ms)
+      √ should generate findings for control gaps (1 ms)
+    Control Mapping Capabilities
+      √ should provide assessment history (1 ms)
+      √ should track current assessment (1 ms)
+      √ should categorize controls by domain correctly (2 ms)
+  NIST-SSDF Validator - EC-003
+    Practice Validation and Tier Assessment
+      √ should initialize with NIST-SSDF practices by function (4 ms)
+      √ should execute comprehensive practice validation (2 ms)
+      √ should identify implementation gaps (1 ms)
+      √ should generate improvement plan (1 ms)
+    Maturity Assessment
+      √ should calculate practice maturity scores (2 ms)
+      √ should provide function-level assessments (1 ms)
+  Audit Trail Generator - EC-004
+    Tamper-Evident Evidence Packaging
+      √ should generate comprehensive audit trail (2 ms)
+      √ should create tamper-evident evidence package (2 ms)
+      √ should maintain 90-day retention policy (2 ms)
+      √ should verify package integrity (2 ms)
+    Audit Event Logging
+      √ should log remediation actions (2 ms)
+      √ should log report generation (1 ms)
+      √ should filter audit trail by criteria (2 ms)
+  Compliance Correlator - EC-005
+    Cross-Framework Correlation
+      √ should correlate compliance across multiple frameworks (1 ms)
+      √ should build correlation matrix between frameworks (1 ms)
+      √ should identify cross-framework gaps (2 ms)
+      √ should aggregate risks across frameworks (1 ms)
+    Unified Reporting
+      √ should generate unified compliance report (1 ms)
+      √ should provide framework correlations (1 ms)
+      √ should maintain correlation history (1 ms)
+  Real-Time Monitor - EC-006
+    Real-Time Monitoring
+      √ should start monitoring with framework configuration (1 ms)
+      √ should collect and update metrics (1512 ms)
+      √ should emit compliance drift events (2 ms)
+      √ should emit control failure events (1 ms)
+      √ should emit elevated risk events (2 ms)
+    Dashboard and Alerting
+      √ should configure default dashboards (1 ms)
+      √ should retrieve specific dashboard configuration (1 ms)
+      √ should track performance metrics (1113 ms)
+  Phase 3 Integration - EC-008
+    Evidence Transfer
+      × should transfer evidence package to Phase 3 system (216 ms)
+      × should handle transfer status tracking (215 ms)
+    Audit Trail Synchronization
+      × should sync audit trail with Phase 3 system (109 ms)
+      √ should maintain sync history (2 ms)
+    Evidence Retrieval
+      × should retrieve evidence from Phase 3 system (105 ms)
+    Connection Management
+      × should track connection status (1 ms)
+      × should handle disconnection (2 ms)
+  Performance and Integration Tests
+    Performance Budget Compliance
+      × should maintain performance within 0.3% budget across all operations (7 ms)
+    NASA POT10 Compliance Preservation
+      × should maintain NASA POT10 compliance requirements (7 ms)
+    Multi-Framework Integration
+      × should successfully integrate all three frameworks simultaneously (7 ms)
+    Error Recovery and Resilience
+      × should handle partial framework failures gracefully (6 ms)
+  End-to-End Workflow Tests
+    × should complete full compliance automation workflow (9 ms)
+
+  ● Enterprise Compliance Automation Agent › Agent Initialization › should emit initialization events
+
+    thrown: "Exceeded timeout of 10000 ms for a test.
+    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout."
+
+    [0m [90m 55 |[39m
+     [90m 56 |[39m     test([32m'should emit initialization events'[39m[33m,[39m [36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 57 |[39m       [36mconst[39m initEventPromise [33m=[39m [36mnew[39m [33mPromise[39m((resolve) [33m=>[39m {
+     [90m    |[39m         [31m[1m^[22m[39m
+     [90m 58 |[39m         complianceAgent[33m.[39mon([32m'initialized'[39m[33m,[39m resolve)[33m;[39m
+     [90m 59 |[39m       })[33m;[39m
+     [90m 60 |[39m[0m
+
+      at tests/domains/ec/enterprise-compliance-automation.test.ts:57:9
+      at tests/domains/ec/enterprise-compliance-automation.test.ts:51:11
+      at Object.<anonymous> (tests/domains/ec/enterprise-compliance-automation.test.ts:38:9)
+
+  ● Enterprise Compliance Automation Agent › Multi-Framework Compliance Assessment › should execute comprehensive compliance assessment
+
+    Unhandled error. ({
+      type: 'compliance_execution',
+      error: TypeError: Cannot read properties of undefined (reading 'complianceScore')
+
+    [0m [90m 412 |[39m [90m   */[39m
+     [90m 413 |[39m   [36mprivate[39m calculateOverallCompliance(correlationResults[33m:[39m any)[33m:[39m number {
+    [31m[1m>[22m[39m[90m 414 |[39m     [36mconst[39m frameworkScores [33m=[39m [
+     [90m     |[39m                               [31m[1m^[22m[39m
+     [90m 415 |[39m       correlationResults[33m.[39msoc2[33m.[39mcomplianceScore[33m,[39m
+     [90m 416 |[39m       correlationResults[33m.[39miso27001[33m.[39mcomplianceScore[33m,[39m
+     [90m 417 |[39m       correlationResults[33m.[39mnistSSFD[33m.[39mcomplianceScore[0m
+
+      at EnterpriseComplianceAutomationAgent.calculateOverallCompliance (src/domains/ec/compliance-automation-agent.ts:414:31)
+      at EnterpriseComplianceAutomationAgent.startCompliance (src/domains/ec/compliance-automation-agent.ts:167:23)
+      at Object.<anonymous> (tests/domains/ec/enterprise-compliance-automation.test.ts:85:22)
+      })
+      at EnterpriseComplianceAutomationAgent.startCompliance (src/domains/ec/compliance-automation-agent.ts:183:12)
+      at Object.<anonymous> (tests/domains/ec/enterprise-compliance-automation.test.ts:85:22)
+
+  ● Enterprise Compliance Automation Agent › Multi-Framework Compliance Assessment › should validate performance stays within budget
+
+    Unhandled error. ({
+      type: 'compliance_execution',
+      error: TypeError: Cannot read properties of undefined (reading 'complianceScore')
+
+    [0m [90m 412 |[39m [90m   */[39m
+     [90m 413 |[39m   [36mprivate[39m calculateOverallCompliance(correlationResults[33m:[39m any)[33m:[39m number {
+    [31m[1m>[22m[39m[90m 414 |[39m     [36mconst[39m frameworkScores [33m=[39m [
+     [90m     |[39m                               [31m[1m^[22m[39m
+     [90m 415 |[39m       correlationResults[33m.[39msoc2[33m.[39mcomplianceScore[33m,[39m
+     [90m 416 |[39m       correlationResults[33m.[39miso27001[33m.[39mcomplianceScore[33m,[39m
+     [90m 417 |[39m       correlationResults[33m.[39mnistSSFD[33m.[39mcomplianceScore[0m
+
+      at EnterpriseComplianceAutomationAgent.calculateOverallCompliance (src/domains/ec/compliance-automation-agent.ts:414:31)
+      at EnterpriseComplianceAutomationAgent.startCompliance (src/domains/ec/compliance-automation-agent.ts:167:23)
+      at Object.<anonymous> (tests/domains/ec/enterprise-compliance-automation.test.ts:105:7)
+      })
+      at EnterpriseComplianceAutomationAgent.startCompliance (src/domains/ec/compliance-automation-agent.ts:183:12)
+      at Object.<anonymous> (tests/domains/ec/enterprise-compliance-automation.test.ts:105:7)
+
+  ● Enterprise Compliance Automation Agent › Multi-Framework Compliance Assessment › should generate unified compliance report
+
+    Unhandled error. ({
+      type: 'compliance_execution',
+      error: TypeError: Cannot read properties of undefined (reading 'complianceScore')
+
+    [0m [90m 412 |[39m [90m   */[39m
+     [90m 413 |[39m   [36mprivate[39m calculateOverallCompliance(correlationResults[33m:[39m any)[33m:[39m number {
+    [31m[1m>[22m[39m[90m 414 |[39m     [36mconst[39m frameworkScores [33m=[39m [
+     [90m     |[39m                               [31m[1m^[22m[39m
+     [90m 415 |[39m       correlationResults[33m.[39msoc2[33m.[39mcomplianceScore[33m,[39m
+     [90m 416 |[39m       correlationResults[33m.[39miso27001[33m.[39mcomplianceScore[33m,[39m
+     [90m 417 |[39m       correlationResults[33m.[39mnistSSFD[33m.[39mcomplianceScore[0m
+
+      at EnterpriseComplianceAutomationAgent.calculateOverallCompliance (src/domains/ec/compliance-automation-agent.ts:414:31)
+      at EnterpriseComplianceAutomationAgent.startCompliance (src/domains/ec/compliance-automation-agent.ts:167:23)
+      at Object.<anonymous> (tests/domains/ec/enterprise-compliance-automation.test.ts:115:7)
+      })
+      at EnterpriseComplianceAutomationAgent.startCompliance (src/domains/ec/compliance-automation-agent.ts:183:12)
+      at Object.<anonymous> (tests/domains/ec/enterprise-compliance-automation.test.ts:115:7)
+
+  ● Enterprise Compliance Automation Agent › Real-Time Monitoring Integration › should start real-time monitoring
+
+    Unhandled error. ({
+      type: 'compliance_execution',
+      error: TypeError: Cannot read properties of undefined (reading 'complianceScore')
+
+    [0m [90m 412 |[39m [90m   */[39m
+     [90m 413 |[39m   [36mprivate[39m calculateOverallCompliance(correlationResults[33m:[39m any)[33m:[39m number {
+    [31m[1m>[22m[39m[90m 414 |[39m     [36mconst[39m frameworkScores [33m=[39m [
+     [90m     |[39m                               [31m[1m^[22m[39m
+     [90m 415 |[39m       correlationResults[

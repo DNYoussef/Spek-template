@@ -10,8 +10,8 @@
  * @fsm_architecture true
  */
 
-// FSM-based facade re-export (will be implemented)
-export * from './compliance-correlatorFacade';
+// FSM-based facade re-export with backward compatibility alias
+export { ComplianceCorrelatorFacade as ComplianceCorrelator } from './compliance-correlatorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log
