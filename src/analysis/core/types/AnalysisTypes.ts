@@ -647,12 +647,7 @@ export interface ValidationCheck {
 }
 
 // Supporting types referenced above
-export interface MigrationPhase {
-  id: string;
-  name: string;
-  steps: string[];
-  estimatedDuration: number;
-}
+// MigrationPhase already defined at line 536 with readonly modifiers
 
 export interface ResourceRequirement {
   type: string;

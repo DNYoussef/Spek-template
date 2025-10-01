@@ -12,7 +12,7 @@ import {
   NASAComplianceReport,
   ValidationFSMError,
   NASARule10ViolationError
-} from '~types/ValidationFSM.types';
+} from '../types/ValidationFSM.types';
 
 export class NASARule10Checker implements NASARule10Validator {
   private callStack: string[] = [];

@@ -9,7 +9,7 @@ import {
   ValidationTestExecution,
   FSM_VALIDATION_CONSTANTS,
   NASARule10ViolationError
-} from '~types/ValidationFSM.types';
+} from '../types/ValidationFSM.types';
 import { NASARule10Checker } from '../compliance/NASARule10Checker';
 
 export class BoundsManager {

@@ -13,7 +13,7 @@ import {
   FSMValidationResult,
   FSMValidationMetrics,
   IValidationStateMachine
-} from '~types/ValidationFSM.types';
+} from './types/ValidationFSM.types';
 import { NASARule10Checker, nasaCompliant } from './compliance/NASARule10Checker';
 import { BoundsManager } from './execution/BoundsManager';
 import { StateGuards, TransitionValidator } from './fsm/StateGuards';

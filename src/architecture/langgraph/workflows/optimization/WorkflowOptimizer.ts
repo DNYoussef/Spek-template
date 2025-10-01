@@ -79,13 +79,17 @@ export class WorkflowOptimizer {
       suggestions.push({
         type: 'parallelization',
         description: 'Multiple states can potentially be executed in parallel',
-        impact: 'medium',
         effort: 'medium',
         estimatedImprovement: {
+          metric: 'execution_time',
+          before: 100,
+          after: 70,
+          unit: 'ms',
           performance: 30,
           resource: 10,
           cost: 15
-        }
+        },
+        applicableStates: sequentialStates
       });
     }
 
@@ -114,6 +118,10 @@ export class WorkflowOptimizer {
         impact: 'low',
         effort: 'low',
         estimatedImprovement: {
+          metric: 'execution_time',
+          before: 100,
+          after: 85,
+          unit: 'ms',
           performance: 15,
           resource: 20,
           cost: 10
@@ -149,6 +157,10 @@ export class WorkflowOptimizer {
         impact: 'high',
         effort: 'high',
         estimatedImprovement: {
+          metric: 'transition_time',
+          before: 1500,
+          after: 1125,
+          unit: 'ms',
           performance: 25,
           resource: 15,
           cost: 20
@@ -178,6 +190,10 @@ export class WorkflowOptimizer {
       impact: 'medium',
       effort: 'medium',
       estimatedImprovement: {
+        metric: 'execution_time',
+        before: 100,
+        after: 70,
+        unit: 'ms',
         performance: 30,
         resource: 10,
         cost: 15
@@ -186,7 +202,7 @@ export class WorkflowOptimizer {
 
     // NASA Assertion 2: Validate suggestion structure
     console.assert(suggestion.type === 'parallelization', 'Suggestion must have correct type');
-    console.assert(suggestion.estimatedImprovement.performance > 0, 'Expected improvement must be positive');
+    console.assert(suggestion.estimatedImprovement.performance !== undefined && suggestion.estimatedImprovement.performance > 0, 'Expected improvement must be positive');
 
     return suggestion;
   }
@@ -200,11 +216,15 @@ export class WorkflowOptimizer {
     console.assert(Array.isArray(states) && states.length > 0, 'States array must not be empty');
 
     const suggestion: WorkflowOptimizationSuggestion = {
-      type: 'state_reduction',
+      type: 'state_consolidation', // Changed from state_reduction to match enum
       description: `Complex states ${states.join(', ')} can be simplified or decomposed`,
       impact: 'high',
       effort: 'high',
       estimatedImprovement: {
+        metric: 'complexity',
+        before: 100,
+        after: 75,
+        unit: 'score',
         performance: 25,
         resource: 20,
         cost: 15
@@ -212,7 +232,7 @@ export class WorkflowOptimizer {
     };
 
     // NASA Assertion 2: Validate suggestion structure
-    console.assert(suggestion.estimatedImprovement.performance > 0, 'Expected improvement must be positive');
+    console.assert(suggestion.estimatedImprovement.performance !== undefined && suggestion.estimatedImprovement.performance > 0, 'Expected improvement must be positive');
     console.assert(suggestion.effort === 'high', 'Simplification should be high effort');
 
     return suggestion;
