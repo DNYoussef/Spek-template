@@ -100,10 +100,11 @@ export class ExecutionManager {
 
       let plan: ExecutionPlan;
       if (planId) {
-        plan = this.executionPlans.get(planId);
-        if (!plan) {
+        const foundPlan = this.executionPlans.get(planId);
+        if (!foundPlan) {
           throw new Error(`Execution plan not found: ${planId}`);
         }
+        plan = foundPlan;
       } else {
         // This would typically call generateExecutionPlan but simplified for demo
         throw new Error('Plan generation not implemented in this context');
