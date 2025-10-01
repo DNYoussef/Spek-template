@@ -33,6 +33,10 @@ export class LangGraphEngineFacade {
     return await this.facade.executeOperation('getMetrics', {});
   }
 
+  async initialize(): Promise<void> {
+    await this.facade.initialize();
+  }
+
   async start(): Promise<void> {
     await this.facade.initialize();
   }

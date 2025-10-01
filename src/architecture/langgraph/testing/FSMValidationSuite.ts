@@ -27,12 +27,12 @@ import { MessageRouter } from '../communication/MessageRouter';
 import { EventBus } from '../communication/EventBus';
 
 export class FSMValidationSuite extends EventEmitter implements IValidationStateMachine {
-  // Core components
-  private engine: LangGraphEngine;
-  private stateStore: StateStore;
-  private orchestrator: WorkflowOrchestrator;
-  private messageRouter: MessageRouter;
-  private eventBus: EventBus;
+  // Core components (initialized in initializeComponent method)
+  private engine!: LangGraphEngine;
+  private stateStore!: StateStore;
+  private orchestrator!: WorkflowOrchestrator;
+  private messageRouter!: MessageRouter;
+  private eventBus!: EventBus;
 
   // FSM and compliance components
   private currentState: ValidationState = ValidationState.IDLE;
@@ -64,7 +64,7 @@ export class FSMValidationSuite extends EventEmitter implements IValidationState
     this.nasaChecker = new NASARule10Checker();
     this.boundsManager = new BoundsManager();
     this.stateGuards = new StateGuards();
-    this.transitionValidator = new TransitionValidator(this.stateGuards);
+    this.transitionValidator = new TransitionValidator();
     this.complianceReporter = new ComplianceReporter(
       this.nasaChecker,
       this.boundsManager,
@@ -116,7 +116,7 @@ export class FSMValidationSuite extends EventEmitter implements IValidationState
             }
             break;
           case 2:
-            this.orchestrator = new WorkflowOrchestrator();
+            this.orchestrator = new WorkflowOrchestrator(this.engine);
             break;
           case 3:
             this.messageRouter = new MessageRouter();

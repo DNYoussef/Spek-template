@@ -88,5 +88,16 @@ export class TransitionValidator {
   clearTransitions(): void {
     this.validTransitions.clear();
   }
+
+  /**
+   * Validate transition with context (extended validation)
+   */
+  async validate(from: string, event: string, to: string, context: any): Promise<void> {
+    // Stub implementation for FSM validation compatibility
+    const isValid = this.isValidTransition(from, to);
+    if (!isValid) {
+      throw new Error(`Invalid transition: ${from} -> ${to} via ${event}`);
+    }
+  }
 }
 export default { StateGuards, TransitionValidator };
