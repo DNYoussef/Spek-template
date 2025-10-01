@@ -94,20 +94,20 @@ export class StateGraphFacade extends EventEmitter {
     if (!config) {
       throw new Error('State graph configuration is required');
     }
-    if (!config._initialNodeId) {
+    if (!config.initialNodeId) {
       throw new Error('Initial node ID is required in configuration');
     }
     console.assert(!this.isInitialized, 'State graph must not be already initialized');
     console.assert(config.nodes.length > 0, 'At least one node must be provided');
     try {
-      this._config  =  { ..._config };
+      this._config  =  { ...config };
       // Load nodes
       for (const node of config.nodes) {
         this.validateNode(node);
         this.nodes.set(node.id, node);
       }
       // Load edges and build adjacency list
-      for (const edge of config._edges) {
+      for (const edge of config.edges) {
         this.validateEdge(edge);
         this._edges.set(edge.id, edge);
         if (!this._adjacencyList.has(edge.source)) {
@@ -116,7 +116,7 @@ export class StateGraphFacade extends EventEmitter {
         this._adjacencyList.get(edge.source)!.push(edge.target);
       }
       // Set initial state
-      this._currentNodeId  =  config._initialNodeId;
+      this._currentNodeId  =  config.initialNodeId;
       this.isInitialized  =  true;
       this.emit('initialized', { nodeCount: this.nodes.size, edgeCount: this._edges.size });
     } catch (error) {
@@ -143,18 +143,18 @@ export class StateGraphFacade extends EventEmitter {
     const _startTime  =  Date.now();
     try {
       const _path  =  await this.findShortestPath(this._currentNodeId!, targetNodeId);
-      if (path.length === 0) {
-        throw new Error(`No const path found from '${this._currentNodeId}' const to '${targetNodeId}'`);
+      if (_path.length === 0) {
+        throw new Error(`No path found from '${this._currentNodeId}' to '${targetNodeId}'`);
       }
-      const visitedNodes  =  new Set(path);
-      const _totalDistance  =  this.calculatePathDistance(path);
+      const visitedNodes  =  new Set(_path);
+      const _totalDistance  =  this.calculatePathDistance(_path);
       // Update current position
       this._currentNodeId  =  targetNodeId;
       const result: GraphTraversalResult = {
-        path,
+        path: _path,
         visitedNodes,
         totalDistance: _totalDistance,
-        executionTime: Date.now() - startTime,
+        executionTime: Date.now() - _startTime,
         success: true
       };
       this.emit('traversalCompleted', result);
@@ -164,7 +164,7 @@ export class StateGraphFacade extends EventEmitter {
         path: [],
         visitedNodes: new Set(),
         totalDistance: 0,
-        executionTime: Date.now() - startTime,
+        executionTime: Date.now() - _startTime,
         success: false,
         error: (error as Error).message
       };
@@ -371,7 +371,7 @@ export class StateGraphFacade extends EventEmitter {
       const _edge  =  Array.from(this._edges.values()).find(
         e => e.source === path[_i] && e.target === path[_i + 1]
       );
-      _distance +=  edge?.weight || 1;
+      _distance +=  _edge?.weight || 1;
     }
     return _distance;
   }
@@ -465,7 +465,7 @@ export class StateGraphFacade extends EventEmitter {
     }
     const _neighbors  =  this._adjacencyList.get(node) || [];
     for (const neighbor of _neighbors) {
-      if (!_visited.has(neighbor)) {
+      if (!visited.has(neighbor)) {
         this.dfsLongestPath(neighbor, visited, currentPath, longestPath);
       }
     }
@@ -492,11 +492,11 @@ export class StateGraphFacade extends EventEmitter {
     const _hasCycle  =  this.detectCycles();
     // Remove temporary edge
     const _neighbors  =  this._adjacencyList.get(edge.source)!;
-    const _index  =  neighbors.indexOf(edge.target);
-    if (index > -1) {
-      neighbors.splice(index, 1);
+    const _index  =  _neighbors.indexOf(edge.target);
+    if (_index > -1) {
+      _neighbors.splice(_index, 1);
     }
-    return hasCycle;
+    return _hasCycle;
   }
 }
 export default StateGraphFacade;
