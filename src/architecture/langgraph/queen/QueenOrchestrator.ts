@@ -343,6 +343,45 @@ export class QueenOrchestrator extends EventEmitter {
   // DecisionEngine: Strategic decision making, escalation handling
   // This eliminates god object pattern through manager pattern delegation
 
+  /**
+   * FSM State Transition - Private method for state management
+   * NASA Rule 10: Simple state transition with bounded history
+   */
+  private transitionToState(newState: QueenFSMStates): void {
+    const oldState = this.currentState;
+    this.currentState = newState;
+    this.fsm = newState;
+
+    // NASA Rule 10: Bounded state history (max 100 entries)
+    this.stateHistory.push(newState);
+    if (this.stateHistory.length > 100) {
+      this.stateHistory.shift();
+    }
+
+    this.emit('stateTransition', { from: oldState, to: newState, timestamp: Date.now() });
+  }
+
+  /**
+   * Initialize Queen Orchestration - Private initialization method
+   * NASA Rule 10: Simple initialization with fixed bounds
+   */
+  private initializeQueenOrchestration(): void {
+    this.transitionToState(QueenFSMStates.ACTIVE);
+    this.emit('queenInitialized', { timestamp: Date.now(), config: this.config });
+  }
+
+  /**
+   * Update Metrics - Private method for metric updates
+   * NASA Rule 10: Simple metric calculation with bounded loops
+   */
+  private updateMetrics(): void {
+    this.metrics.activeObjectives = this.objectiveManager.getActiveCount();
+    this.metrics.completedObjectives = this.objectiveManager.getCompletedCount();
+    this.metrics.successRate = this.objectiveManager.getSuccessRate();
+    this.metrics.resourceUtilization = this.resourceManager.getUtilization();
+    this.metrics.decisionAccuracy = this.decisionEngine.getAccuracy();
+  }
+
 }
 
 export default QueenOrchestrator;

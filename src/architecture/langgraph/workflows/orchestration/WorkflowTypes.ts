@@ -82,6 +82,7 @@ export interface ExecutionContext {
   variables?: Record<string, any>;
   startTime?: Date;
   metricsEnabled?: boolean;
+  status?: 'running' | 'completed' | 'failed' | 'cancelled';
   [key: string]: any;
 }
 
@@ -218,6 +219,14 @@ export interface WorkflowContext {
   metrics?: WorkflowExecutionMetrics;
   error?: Error;
   optimizations?: WorkflowOptimizationSuggestion[];
+  creationTimestamp?: number;
+  creationState?: WorkflowState;
+  validationTimestamp?: number;
+  validationState?: WorkflowState;
+  executionStartTimestamp?: number;
+  executionState?: WorkflowState;
+  optimizationTimestamp?: number;
+  optimizationState?: WorkflowState;
 }
 
 // Factory and builder interfaces

@@ -79,6 +79,14 @@ export class QueenDecisionEngine {
     });
   }
 
+  /**
+   * Get decision accuracy metric (NASA Rule 10 compliant)
+   */
+  getAccuracy(): number {
+    if (this.metrics.totalDecisions === 0) return 0;
+    return this.metrics.successfulDecisions / this.metrics.totalDecisions;
+  }
+
   async generateEscalationOptions(
     princessId: string,
     issue: any,

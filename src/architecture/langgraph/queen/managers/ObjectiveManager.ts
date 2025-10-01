@@ -82,6 +82,33 @@ export class ObjectiveManager {
     });
   }
 
+  /**
+   * Get count of active objectives (NASA Rule 10 compliant)
+   */
+  getActiveCount(): number {
+    const allObjectives = Array.from(this.objectives.values());
+    return allObjectives.filter(obj =>
+      obj.status === 'executing' || obj.status === 'planning'
+    ).length;
+  }
+
+  /**
+   * Get count of completed objectives (NASA Rule 10 compliant)
+   */
+  getCompletedCount(): number {
+    return Array.from(this.objectives.values()).filter(obj => obj.status === 'completed').length;
+  }
+
+  /**
+   * Get success rate of objectives (NASA Rule 10 compliant)
+   */
+  getSuccessRate(): number {
+    const allObjectives = Array.from(this.objectives.values());
+    if (allObjectives.length === 0) return 0;
+    const completed = allObjectives.filter(obj => obj.status === 'completed').length;
+    return completed / allObjectives.length;
+  }
+
   getMetrics(): ObjectiveMetrics {
     return this.loopHandler.executeWithBounds('getMetrics', () => {
       const allObjectives = Array.from(this.objectives.values());

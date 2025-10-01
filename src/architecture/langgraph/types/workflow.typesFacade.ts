@@ -55,6 +55,7 @@ export interface WorkflowVariableDefinition {
 export interface WorkflowStateDefinition {
   id: string;
   name: string;
+  type: 'princess' | 'parallel' | 'conditional' | 'split' | 'merge';
   state: WorkflowState;
   isInitial: boolean;
   isFinal: boolean;
@@ -105,6 +106,7 @@ export interface ExecutionContext {
   workflowId: string;
   executionId: string;
   currentState: string; // State ID
+  status?: 'running' | 'completed' | 'failed' | 'cancelled';
   variables: Record<string, any>;
   startTime: number;
   lastTransition?: number;
@@ -150,6 +152,8 @@ export interface WorkflowExecutionMetrics {
   failedTransitions: number;
   averageStateTime: number;
   stateTimeDistribution: Record<string, number>; // State ID -> time in ms
+  stateExecutionTimes: Record<string, number>; // Alias for compatibility
+  transitionTimes: Record<string, number>; // Transition duration tracking
   throughput: number; // Executions per second
   errorRate: number; // Percentage
   successRate: number; // Percentage
@@ -166,17 +170,20 @@ export interface WorkflowExecutionMetrics {
 export interface WorkflowOptimizationSuggestion {
   id: string;
   workflowId: string;
+  type: 'parallelization' | 'reordering' | 'caching' | 'resource_optimization' | 'state_consolidation';
   severity: 'low' | 'medium' | 'high' | 'critical';
   category: 'performance' | 'reliability' | 'maintainability' | 'security';
   title: string;
   description: string;
   impact: string;
   recommendation: string;
+  effort: 'low' | 'medium' | 'high';
   estimatedImprovement: {
     metric: string;
     before: number;
     after: number;
     unit: string;
+    performance?: number; // Performance improvement metric
   };
   implementationCost: 'low' | 'medium' | 'high';
   priority: number;

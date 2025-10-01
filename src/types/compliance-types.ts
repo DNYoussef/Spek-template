@@ -163,6 +163,7 @@ export interface ComplianceBaseline {
   standard: string;
   version: string;
   score: Score;
+  overallScore: number;
   establishedAt: Timestamp;
   configuration: Record<string, any>;
   evidence: BaselineEvidence;

@@ -172,6 +172,25 @@ export class ResourceManager {
     // Implement resource reallocation logic
   }
 
+  /**
+   * Get resource utilization summary (NASA Rule 10 compliant)
+   */
+  getUtilization(): Record<string, number> {
+    const utilization: Record<string, number> = {};
+    for (const [princessId, allocation] of this.resourceAllocations) {
+      utilization[princessId] = allocation.currentUtilization;
+    }
+    return utilization;
+  }
+
+  /**
+   * Get resource utilization summary (NASA Rule 10 compliant)
+   * Alias for getUtilization for compatibility
+   */
+  getUtilizationSummary(): Record<string, number> {
+    return this.getUtilization();
+  }
+
   getMetrics(): ResourceMetrics {
     const utilization: Record<string, number> = {};
     for (const [princessId, allocation] of this.resourceAllocations) {
