@@ -7,5 +7,4 @@ from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_FUNCTION_PARAMETERS,
 import queue
 import threading
 
-"""
-
+"""Component integrator stub - placeholder for future integration."""
