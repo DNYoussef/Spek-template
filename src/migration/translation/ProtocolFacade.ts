@@ -40,15 +40,15 @@ export class ProtocolFacade extends EventEmitter {
     }
     
     // Forward events from core
-    this.core.on('translationCompleted', (result) => {
+    this.core.on('translationCompleted', (result: any) => {
       this.emit('translationCompleted', result);
     });
-    
-    this.core.on('translationFailed', (result, error) => {
+
+    this.core.on('translationFailed', (result: any, error: any) => {
       this.emit('translationFailed', result, error);
     });
-    
-    this.core.on('ruleRegistered', (rule) => {
+
+    this.core.on('ruleRegistered', (rule: any) => {
       this.emit('ruleRegistered', rule);
     });
     
@@ -331,14 +331,14 @@ export class ProtocolFacade extends EventEmitter {
     let rules = this.core.getTranslationRules();
     
     if (sourceProtocol) {
-      rules = rules.filter(rule => rule.sourceProtocol === sourceProtocol);
+      rules = rules.filter((rule: any) => rule.sourceProtocol === sourceProtocol);
     }
-    
+
     if (targetProtocol) {
-      rules = rules.filter(rule => rule.targetProtocol === targetProtocol);
+      rules = rules.filter((rule: any) => rule.targetProtocol === targetProtocol);
     }
-    
-    return rules.sort((a, b) => b.priority - a.priority);
+
+    return rules.sort((a: any, b: any) => b.priority - a.priority);
   }
 
   /**
