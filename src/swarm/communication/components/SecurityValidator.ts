@@ -5,7 +5,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { PrincessMessage, SecurityValidation } from '../types/CommunicationTypes';
+import { PrincessMessage, SecurityValidation } from '~types/CommunicationTypes';
 import { ContextFingerprint } from '../../../context/ContextDNA';
 
 export class SecurityValidator extends EventEmitter {

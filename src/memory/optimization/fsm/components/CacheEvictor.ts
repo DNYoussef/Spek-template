@@ -4,7 +4,7 @@
  */
 
 import { CacheEntry } from '../CacheFSMFacade';
-import { CacheFSMContext, CacheOperationResult, CacheStrategyDefinition } from '../types/CacheFSMTypes';
+import { CacheFSMContext, CacheOperationResult, CacheStrategyDefinition } from '~types/CacheFSMTypes';
 
 export class CacheEvictor {
   private strategies: Map<string, CacheStrategyDefinition> = new Map();

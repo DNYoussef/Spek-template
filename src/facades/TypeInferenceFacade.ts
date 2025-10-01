@@ -35,4 +35,8 @@ export class TypeInference {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default TypeInference;

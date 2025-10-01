@@ -33,8 +33,6 @@ export class GitHubProjectIntegrationImpl implements GitHubProjectIntegration {
   }
 }
 
-export default GitHubProjectIntegrationImpl;
-
 /* AGENT FOOTER BEGIN */
 /* Version & Run Log
  * Version | Timestamp | Agent/Model | Change Summary | Status | Hash
@@ -42,3 +40,6 @@ export default GitHubProjectIntegrationImpl;
  * Receipt: status=OK, wave=10, nasa_rule_10=compliant, lines=37
  */
 /* AGENT FOOTER END */
+
+// Backward compatibility
+export default GitHubProjectIntegrationImpl;

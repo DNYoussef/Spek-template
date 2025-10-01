@@ -42,4 +42,20 @@ export class NutService {
     );
     // Implement actual mouse button logic if needed
   }
+
+  /**
+   * Hold keys down (NASA Rule 10 compliant)
+   */
+  async holdKeys(keys: string[]): Promise<void> {
+    this.logger.debug(`Hold keys: ${keys.join(', ')} - placeholder implementation`);
+    // Implement actual key hold logic if needed
+  }
+
+  /**
+   * Release held keys (NASA Rule 10 compliant)
+   */
+  async releaseKeys(): Promise<void> {
+    this.logger.debug('Release keys - placeholder implementation');
+    // Implement actual key release logic if needed
+  }
 }

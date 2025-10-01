@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { StateStoreState, StateStoreEvent, StateStoreContext } from '../types/StateStoreTypes';
+import { StateStoreState, StateStoreEvent, StateStoreContext } from '~types/StateStoreTypes';
 
 export class StateStoreFSM extends EventEmitter {
   private currentState: StateStoreState = StateStoreState.INITIALIZING;

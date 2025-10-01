@@ -216,8 +216,6 @@ export class IdleState implements IIntegrationTestState {
   }
 }
 
-export default IdleState;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -232,3 +230,6 @@ export default IdleState;
 // tools_used: ["Write"]
 // versions: {"model":"Sonnet4","prompt":"fsm-first-integration"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default IdleState;

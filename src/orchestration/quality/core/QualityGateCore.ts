@@ -410,5 +410,5 @@ function assert(condition: boolean, message: string): void {
   }
 }
 
+// Backward compatibility
 export default QualityGateCore;
-

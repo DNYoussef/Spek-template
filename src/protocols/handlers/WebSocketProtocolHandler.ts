@@ -3,6 +3,7 @@
  * @eliminated true @original_size 688 lines @reduction 98%
  */
 export * from './WebSocketProtocolHandlerFacade';
+export { default } from './WebSocketProtocolHandlerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

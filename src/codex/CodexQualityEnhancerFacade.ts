@@ -35,4 +35,8 @@ export class CodexQualityEnhancer {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default CodexQualityEnhancer;

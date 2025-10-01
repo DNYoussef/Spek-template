@@ -2,7 +2,7 @@
  * Analyzing Errors State - FSM State for Error Analysis
  * NASA Rule 10 Compliant: Fixed bounds on all operations
  */
-import { DebugState, DebugEvent, DebugStateContext } from '../types/DebugState';
+import { DebugState, DebugEvent, DebugStateContext } from '~types/DebugState';
 import { ErrorReport, ErrorAnalysis } from '../DebugSwarmController';
 
 export class AnalyzingErrorsState {

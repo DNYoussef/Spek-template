@@ -172,6 +172,27 @@ export const createLoadResult = <T>(
   timestamp: Date.now() as Timestamp
 });
 
+// Additional base types for domain-specific files
+export interface BaseResult<T = unknown> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  timestamp: Timestamp;
+}
+
+export interface BaseConfig {
+  enabled: boolean;
+  timeout?: number;
+  retries?: number;
+  [key: string]: unknown;
+}
+
+export interface BaseOrchestrator {
+  initialize(): Promise<void>;
+  execute(input: unknown): Promise<unknown>;
+  cleanup(): Promise<void>;
+}
+
 /**
  * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
  * ## Version & Run Log

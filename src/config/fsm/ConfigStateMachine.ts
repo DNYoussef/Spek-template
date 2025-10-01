@@ -14,7 +14,7 @@ import { ConfigLoader } from '../components/ConfigLoader';
 import { ConfigValidator } from '../components/ConfigValidator';
 import { ConfigMerger } from '../components/ConfigMerger';
 import { ConfigWatcher } from '../components/ConfigWatcher';
-import { ConfigState, ConfigEvent, ConfigContext } from '../types/ConfigTypes';
+import { ConfigState, ConfigEvent, ConfigContext } from '~types/ConfigTypes';
 
 export class ConfigStateMachine {
     private transitionHub: ConfigTransitionHub;

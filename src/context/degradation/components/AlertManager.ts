@@ -11,7 +11,7 @@ import {
   TrendAnalysis,
   TrendType,
   IAlertManager
-} from '../types/DegradationTypes';
+} from '~types/DegradationTypes';
 import { ContextFingerprint } from '../../ContextDNA';
 
 export class AlertManager implements IAlertManager {

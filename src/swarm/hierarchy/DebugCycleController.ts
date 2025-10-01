@@ -34,6 +34,18 @@ export interface DebugCycleResult {
   confidenceScore: number;
 }
 
+export interface DebugResult {
+  success: boolean;
+  errorsResolved: string[];
+  errorsRemaining: string[];
+  filesModified: string[];
+  iterations: number;
+  metrics: {
+    duration: number;
+    confidenceScore: number;
+  };
+}
+
 export class DebugCycleController extends EventEmitter {
   private facade = new DebugCycleControllerFacade();
 

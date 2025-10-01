@@ -482,4 +482,5 @@ export class ContextDNA {
   }
 }
 
+// Backward compatibility
 export default ContextDNA;

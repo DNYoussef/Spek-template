@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './QueenMetricsAggregatorFacade';
+export { default } from './QueenMetricsAggregatorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

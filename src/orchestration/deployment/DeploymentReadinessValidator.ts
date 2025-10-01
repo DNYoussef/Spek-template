@@ -115,8 +115,6 @@ export class DeploymentReadinessValidator {
 }
 
 // Backward compatibility - keep the same export
-export default DeploymentReadinessValidator;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -131,3 +129,6 @@ export default DeploymentReadinessValidator;
 // tools_used: ["MultiEdit", "Edit"]
 // versions: {"model":"claude-sonnet-4","prompt":"fsm-refactor-v2"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default DeploymentReadinessValidator;

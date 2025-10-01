@@ -69,4 +69,5 @@ export class RoutingStrategySelector {
   }
 }
 
+// Backward compatibility
 export default RoutingStrategySelector;

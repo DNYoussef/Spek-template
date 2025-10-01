@@ -35,4 +35,8 @@ export class KnowledgeExtraction {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default KnowledgeExtraction;

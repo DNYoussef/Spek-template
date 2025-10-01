@@ -17,6 +17,9 @@ export const createValidator = (): ProductionValidator => ({
   errors: []
 });
 
+// Default export for backward compatibility
+export default createValidator;
+
 /* AGENT FOOTER BEGIN */
 /* Version & Run Log
  * Version | Timestamp | Agent/Model | Change Summary | Status | Hash

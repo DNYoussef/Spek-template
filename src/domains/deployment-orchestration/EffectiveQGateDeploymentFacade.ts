@@ -35,4 +35,8 @@ export class EffectiveQGateDeployment {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default EffectiveQGateDeployment;

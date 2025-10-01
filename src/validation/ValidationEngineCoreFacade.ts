@@ -35,4 +35,8 @@ export class ValidationEngineCore {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default ValidationEngineCore;

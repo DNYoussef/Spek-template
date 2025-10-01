@@ -3,6 +3,7 @@
  * @eliminated true @original_size 766 lines @reduction 99.0%
  */
 export * from './QueenToDeploymentAdapterFacade';
+export { default } from './QueenToDeploymentAdapterFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

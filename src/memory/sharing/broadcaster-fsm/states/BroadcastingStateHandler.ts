@@ -1,4 +1,4 @@
-import { BroadcasterState, BroadcasterEvent, StateContext, StateHandler } from '../types/BroadcasterTypes';
+import { BroadcasterState, BroadcasterEvent, StateContext, StateHandler } from '~types/BroadcasterTypes';
 
 export class BroadcastingStateHandler implements StateHandler {
   async enter(context: StateContext, event: BroadcasterEvent, payload?: any): Promise<void> {

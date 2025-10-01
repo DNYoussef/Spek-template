@@ -35,4 +35,8 @@ export class AgentMonitor {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default AgentMonitor;

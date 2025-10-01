@@ -16,7 +16,7 @@ export {
   RoutingTable,
   RouteEntry,
   CommunicationMetrics
-} from './types/MessageRouterTypes';
+} from '~types/MessageRouterTypes';
 
 /**
  * @deprecated Use MessageRouterFacade directly for new code.
@@ -147,5 +147,5 @@ export class MessageRouter {
   public once: any;
 }
 
+// Backward compatibility
 export default MessageRouter;
-

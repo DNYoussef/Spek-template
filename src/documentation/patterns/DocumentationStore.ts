@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './DocumentationStoreFacade';
+export { default } from './DocumentationStoreFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

@@ -35,4 +35,8 @@ export class CoordinationHub {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default CoordinationHub;

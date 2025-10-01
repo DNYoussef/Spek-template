@@ -3,6 +3,7 @@
  * @eliminated true @original_size 556 lines @reduction 98%
  */
 export * from './DependencyResolverFacade';
+export { default } from './DependencyResolverFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

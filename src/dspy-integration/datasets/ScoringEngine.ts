@@ -3,7 +3,7 @@
  * Implements multi-dimensional quality assessment with performance baselines
  */
 
-import { CommunicationExample, ScoringResult, PerformanceMetrics } from '../types/DatasetTypes';
+import { CommunicationExample, ScoringResult, PerformanceMetrics } from '~types/DatasetTypes';
 
 export interface ScoringConfig {
   weights: {

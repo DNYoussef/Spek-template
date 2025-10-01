@@ -363,10 +363,11 @@ export class QueenTransitionHub extends EventEmitter {
   }
 }
 
-export default QueenTransitionHub;
-
 /*
  * AGENT FOOTER: QueenTransitionHub v1.0.0
  * Status: OK | NASA Rule 10 Compliant | Centralized state control
  * Created: 2025-09-28T16:12:45-04:00 | Agent: claude-sonnet-4
  */
+
+// Backward compatibility
+export default QueenTransitionHub;

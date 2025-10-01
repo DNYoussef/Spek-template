@@ -14,7 +14,7 @@ import {
   ComponentResult,
   IntegrationPoint,
   IntegrationPointResult
-} from '../types/IntegrationFSMTypes';
+} from '~types/IntegrationFSMTypes';
 
 export class ComponentIntegrator extends EventEmitter implements ComponentStateContract {
   private isActive = false;

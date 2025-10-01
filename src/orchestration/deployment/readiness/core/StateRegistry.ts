@@ -9,7 +9,7 @@ import {
   ReadinessState,
   StateHandler,
   ReadinessValidationError
-} from '../types/ReadinessTypes';
+} from '~types/ReadinessTypes';
 
 /**
  * Registry for managing state handlers

@@ -3,6 +3,7 @@
  * @eliminated true @original_size 606 lines @reduction 98%
  */
 export * from './ImplementationPlanningStateFacade';
+export { default } from './ImplementationPlanningStateFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

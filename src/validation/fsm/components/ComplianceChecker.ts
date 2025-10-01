@@ -10,7 +10,7 @@ import {
   ValidationResult,
   ComplianceLevel,
   ValidationType
-} from '../types/ValidationFSMTypes';
+} from '~types/ValidationFSMTypes';
 
 export class ComplianceChecker {
   private readonly checkCache: Map<string, CheckResult>;

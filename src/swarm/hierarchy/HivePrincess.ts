@@ -129,4 +129,5 @@ export class HivePrincess {
   }
 }
 
+// Backward compatibility
 export default HivePrincess;

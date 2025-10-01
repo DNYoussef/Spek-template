@@ -85,3 +85,6 @@ export class ISO27001ControlMapper {
         return { id: 'current-1', status: 'active', timestamp: new Date() };
     }
 }
+
+// Default export for backward compatibility
+export default ISO27001MapperFacade;

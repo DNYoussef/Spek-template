@@ -30,7 +30,7 @@ export type {
 } from './monitoring/StateTransitionMonitor';
 
 // Types
-export * from './types/FSMTypes';
+export * from '~types/FSMTypes';
 
 // Main Orchestrator
 export { FSMOrchestrator } from './FSMOrchestrator';

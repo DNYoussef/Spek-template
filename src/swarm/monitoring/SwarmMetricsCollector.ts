@@ -3,6 +3,7 @@
  * @eliminated true @original_size 757 lines @reduction 98%
  */
 export * from './SwarmMetricsCollectorFacade';
+export { default } from './SwarmMetricsCollectorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

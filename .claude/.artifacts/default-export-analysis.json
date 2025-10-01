@@ -1,0 +1,1483 @@
+{
+  "total_files": 601,
+  "by_type": {
+    "identifier": 385,
+    "anonymous": 44,
+    "class": 43,
+    "function": 129
+  },
+  "files": [
+    {
+      "file": "index.ts",
+      "export_type": "identifier",
+      "export_name": "SPEKTemplate",
+      "line": 76
+    },
+    {
+      "file": "cicd\\CICDDeploymentManagerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CICDDeploymentManager",
+      "line": 40
+    },
+    {
+      "file": "cicd\\CICDPerformanceBenchmarkerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CICDPerformanceBenchmarker",
+      "line": 40
+    },
+    {
+      "file": "cicd\\CICDPipelineManagerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CICDPipelineManager",
+      "line": 40
+    },
+    {
+      "file": "cicd\\CICDQualityGateManagerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CICDQualityGateManager",
+      "line": 40
+    },
+    {
+      "file": "cicd\\CICDWorkflowEngineFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CICDWorkflowEngine",
+      "line": 40
+    },
+    {
+      "file": "codex\\CodexQualityEnhancerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CodexQualityEnhancer",
+      "line": 40
+    },
+    {
+      "file": "codex\\CodexSandboxValidatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CodexSandboxValidator",
+      "line": 40
+    },
+    {
+      "file": "codex\\CodexTheaterAuditorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CodexTheaterAuditor",
+      "line": 40
+    },
+    {
+      "file": "config\\backward-compatibilityFacade.ts",
+      "export_type": "identifier",
+      "export_name": "BackwardCompatibilityFacade",
+      "line": 25
+    },
+    {
+      "file": "context\\ContextDNA.ts",
+      "export_type": "identifier",
+      "export_name": "ContextDNA",
+      "line": 485
+    },
+    {
+      "file": "context\\ContextStoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ContextStore",
+      "line": 40
+    },
+    {
+      "file": "context\\ContextValidator.ts",
+      "export_type": "identifier",
+      "export_name": "ContextValidator",
+      "line": 427
+    },
+    {
+      "file": "context\\GitHubProjectIntegration.ts",
+      "export_type": "identifier",
+      "export_name": "GitHubProjectIntegrationImpl",
+      "line": 36
+    },
+    {
+      "file": "coordinator\\MemoryCoordinator.ts",
+      "export_type": "identifier",
+      "export_name": "BaseMemoryCoordinator",
+      "line": 302
+    },
+    {
+      "file": "debug\\DebugStateMachineFacade.ts",
+      "export_type": "identifier",
+      "export_name": "DebugStateMachine",
+      "line": 40
+    },
+    {
+      "file": "facades\\AdaptiveThresholdManagerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "AdaptiveThresholdManager",
+      "line": 40
+    },
+    {
+      "file": "facades\\AutomatedDecisionEngineCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "AutomatedDecisionEngineCore",
+      "line": 40
+    },
+    {
+      "file": "facades\\CompilationErrorResolverFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CompilationErrorResolver",
+      "line": 40
+    },
+    {
+      "file": "facades\\ConflictResolverFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ConflictResolver",
+      "line": 40
+    },
+    {
+      "file": "facades\\CoordinationHubFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CoordinationHub",
+      "line": 40
+    },
+    {
+      "file": "facades\\DatabaseMigrationOrchestratorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "DatabaseMigrationOrchestrator",
+      "line": 40
+    },
+    {
+      "file": "facades\\DistributedLockManagerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "DistributedLockManager",
+      "line": 40
+    },
+    {
+      "file": "facades\\DSPyAutomaticFeedbackFacade.ts",
+      "export_type": "identifier",
+      "export_name": "DSPyAutomaticFeedback",
+      "line": 40
+    },
+    {
+      "file": "facades\\ExecutorStateMachineFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ExecutorStateMachine",
+      "line": 40
+    },
+    {
+      "file": "facades\\GlobalTheaterDetectorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "GlobalTheaterDetector",
+      "line": 40
+    },
+    {
+      "file": "facades\\GreeterStateMachineFacade.ts",
+      "export_type": "identifier",
+      "export_name": "GreeterStateMachine",
+      "line": 40
+    },
+    {
+      "file": "facades\\KnowledgeExtractionFacade.ts",
+      "export_type": "identifier",
+      "export_name": "KnowledgeExtraction",
+      "line": 40
+    },
+    {
+      "file": "facades\\LanguageDetectorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "LanguageDetector",
+      "line": 40
+    },
+    {
+      "file": "facades\\MegaArchitectFacade.ts",
+      "export_type": "identifier",
+      "export_name": "MegaArchitect",
+      "line": 40
+    },
+    {
+      "file": "facades\\MegaBuilderFacade.ts",
+      "export_type": "identifier",
+      "export_name": "MegaBuilder",
+      "line": 40
+    },
+    {
+      "file": "facades\\MessageBrokerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "MessageBroker",
+      "line": 40
+    },
+    {
+      "file": "facades\\MetricsAggregatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "MetricsAggregator",
+      "line": 40
+    },
+    {
+      "file": "facades\\MigrationCoordinatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "MigrationCoordinator",
+      "line": 40
+    },
+    {
+      "file": "facades\\NetworkDiscoveryFacade.ts",
+      "export_type": "identifier",
+      "export_name": "NetworkDiscovery",
+      "line": 40
+    },
+    {
+      "file": "facades\\OptimizationEngineCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "OptimizationEngineCore",
+      "line": 40
+    },
+    {
+      "file": "facades\\ParallelExecutorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ParallelExecutor",
+      "line": 40
+    },
+    {
+      "file": "facades\\PatternRegistryFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PatternRegistry",
+      "line": 40
+    },
+    {
+      "file": "facades\\PipelineExecutorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PipelineExecutor",
+      "line": 40
+    },
+    {
+      "file": "facades\\PolicyEnforcerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PolicyEnforcer",
+      "line": 40
+    },
+    {
+      "file": "facades\\ProductionValidatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ProductionValidator",
+      "line": 40
+    },
+    {
+      "file": "facades\\PromptOptimizationFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PromptOptimization",
+      "line": 40
+    },
+    {
+      "file": "facades\\QueryOptimizerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "QueryOptimizer",
+      "line": 40
+    },
+    {
+      "file": "facades\\QueryProcessorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "QueryProcessor",
+      "line": 40
+    },
+    {
+      "file": "facades\\RateLimiterFacade.ts",
+      "export_type": "identifier",
+      "export_name": "RateLimiter",
+      "line": 40
+    },
+    {
+      "file": "facades\\ReliabilityEngineFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ReliabilityEngine",
+      "line": 40
+    },
+    {
+      "file": "facades\\RemediationEngineCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "RemediationEngineCore",
+      "line": 40
+    },
+    {
+      "file": "facades\\ReportGeneratorCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ReportGeneratorCore",
+      "line": 40
+    },
+    {
+      "file": "facades\\ResourceAllocatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ResourceAllocator",
+      "line": 40
+    },
+    {
+      "file": "facades\\ResourceManagerCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ResourceManagerCore",
+      "line": 40
+    }
+  ],
+  "high_priority": [
+    {
+      "file": "cicd\\CICDDeploymentManagerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CICDDeploymentManager",
+      "line": 40
+    },
+    {
+      "file": "cicd\\CICDPerformanceBenchmarkerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CICDPerformanceBenchmarker",
+      "line": 40
+    },
+    {
+      "file": "cicd\\CICDPipelineManagerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CICDPipelineManager",
+      "line": 40
+    },
+    {
+      "file": "cicd\\CICDQualityGateManagerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CICDQualityGateManager",
+      "line": 40
+    },
+    {
+      "file": "cicd\\CICDWorkflowEngineFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CICDWorkflowEngine",
+      "line": 40
+    },
+    {
+      "file": "codex\\CodexQualityEnhancerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CodexQualityEnhancer",
+      "line": 40
+    },
+    {
+      "file": "codex\\CodexSandboxValidatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CodexSandboxValidator",
+      "line": 40
+    },
+    {
+      "file": "codex\\CodexTheaterAuditorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CodexTheaterAuditor",
+      "line": 40
+    },
+    {
+      "file": "config\\backward-compatibilityFacade.ts",
+      "export_type": "identifier",
+      "export_name": "BackwardCompatibilityFacade",
+      "line": 25
+    },
+    {
+      "file": "context\\ContextStoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ContextStore",
+      "line": 40
+    },
+    {
+      "file": "coordinator\\MemoryCoordinator.ts",
+      "export_type": "identifier",
+      "export_name": "BaseMemoryCoordinator",
+      "line": 302
+    },
+    {
+      "file": "debug\\DebugStateMachineFacade.ts",
+      "export_type": "identifier",
+      "export_name": "DebugStateMachine",
+      "line": 40
+    },
+    {
+      "file": "facades\\AdaptiveThresholdManagerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "AdaptiveThresholdManager",
+      "line": 40
+    },
+    {
+      "file": "facades\\AutomatedDecisionEngineCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "AutomatedDecisionEngineCore",
+      "line": 40
+    },
+    {
+      "file": "facades\\CompilationErrorResolverFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CompilationErrorResolver",
+      "line": 40
+    },
+    {
+      "file": "facades\\ConflictResolverFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ConflictResolver",
+      "line": 40
+    },
+    {
+      "file": "facades\\CoordinationHubFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CoordinationHub",
+      "line": 40
+    },
+    {
+      "file": "facades\\DatabaseMigrationOrchestratorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "DatabaseMigrationOrchestrator",
+      "line": 40
+    },
+    {
+      "file": "facades\\DistributedLockManagerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "DistributedLockManager",
+      "line": 40
+    },
+    {
+      "file": "facades\\DSPyAutomaticFeedbackFacade.ts",
+      "export_type": "identifier",
+      "export_name": "DSPyAutomaticFeedback",
+      "line": 40
+    },
+    {
+      "file": "facades\\ExecutorStateMachineFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ExecutorStateMachine",
+      "line": 40
+    },
+    {
+      "file": "facades\\GlobalTheaterDetectorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "GlobalTheaterDetector",
+      "line": 40
+    },
+    {
+      "file": "facades\\GreeterStateMachineFacade.ts",
+      "export_type": "identifier",
+      "export_name": "GreeterStateMachine",
+      "line": 40
+    },
+    {
+      "file": "facades\\KnowledgeExtractionFacade.ts",
+      "export_type": "identifier",
+      "export_name": "KnowledgeExtraction",
+      "line": 40
+    },
+    {
+      "file": "facades\\LanguageDetectorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "LanguageDetector",
+      "line": 40
+    },
+    {
+      "file": "facades\\MegaArchitectFacade.ts",
+      "export_type": "identifier",
+      "export_name": "MegaArchitect",
+      "line": 40
+    },
+    {
+      "file": "facades\\MegaBuilderFacade.ts",
+      "export_type": "identifier",
+      "export_name": "MegaBuilder",
+      "line": 40
+    },
+    {
+      "file": "facades\\MessageBrokerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "MessageBroker",
+      "line": 40
+    },
+    {
+      "file": "facades\\MetricsAggregatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "MetricsAggregator",
+      "line": 40
+    },
+    {
+      "file": "facades\\MigrationCoordinatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "MigrationCoordinator",
+      "line": 40
+    },
+    {
+      "file": "facades\\NetworkDiscoveryFacade.ts",
+      "export_type": "identifier",
+      "export_name": "NetworkDiscovery",
+      "line": 40
+    },
+    {
+      "file": "facades\\OptimizationEngineCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "OptimizationEngineCore",
+      "line": 40
+    },
+    {
+      "file": "facades\\ParallelExecutorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ParallelExecutor",
+      "line": 40
+    },
+    {
+      "file": "facades\\PatternRegistryFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PatternRegistry",
+      "line": 40
+    },
+    {
+      "file": "facades\\PipelineExecutorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PipelineExecutor",
+      "line": 40
+    },
+    {
+      "file": "facades\\PolicyEnforcerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PolicyEnforcer",
+      "line": 40
+    },
+    {
+      "file": "facades\\ProductionValidatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ProductionValidator",
+      "line": 40
+    },
+    {
+      "file": "facades\\PromptOptimizationFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PromptOptimization",
+      "line": 40
+    },
+    {
+      "file": "facades\\QueryOptimizerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "QueryOptimizer",
+      "line": 40
+    },
+    {
+      "file": "facades\\QueryProcessorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "QueryProcessor",
+      "line": 40
+    },
+    {
+      "file": "facades\\RateLimiterFacade.ts",
+      "export_type": "identifier",
+      "export_name": "RateLimiter",
+      "line": 40
+    },
+    {
+      "file": "facades\\ReliabilityEngineFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ReliabilityEngine",
+      "line": 40
+    },
+    {
+      "file": "facades\\RemediationEngineCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "RemediationEngineCore",
+      "line": 40
+    },
+    {
+      "file": "facades\\ReportGeneratorCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ReportGeneratorCore",
+      "line": 40
+    },
+    {
+      "file": "facades\\ResourceAllocatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ResourceAllocator",
+      "line": 40
+    },
+    {
+      "file": "facades\\ResourceManagerCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ResourceManagerCore",
+      "line": 40
+    },
+    {
+      "file": "facades\\RiskAssessmentEngineCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "RiskAssessmentEngineCore",
+      "line": 40
+    },
+    {
+      "file": "facades\\RuleEngineCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "RuleEngineCore",
+      "line": 40
+    },
+    {
+      "file": "facades\\SandboxExecutorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "SandboxExecutor",
+      "line": 40
+    },
+    {
+      "file": "facades\\ScalingManagerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ScalingManager",
+      "line": 40
+    },
+    {
+      "file": "facades\\SecurityAuditorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "SecurityAuditor",
+      "line": 40
+    },
+    {
+      "file": "facades\\SecurityScannerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "SecurityScanner",
+      "line": 40
+    },
+    {
+      "file": "facades\\SemanticAnalyzerCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "SemanticAnalyzerCore",
+      "line": 40
+    },
+    {
+      "file": "facades\\ServiceDiscoveryFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ServiceDiscovery",
+      "line": 40
+    },
+    {
+      "file": "facades\\SessionManagerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "SessionManager",
+      "line": 40
+    },
+    {
+      "file": "facades\\SixSigmaCalculatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "SixSigmaCalculator",
+      "line": 40
+    },
+    {
+      "file": "facades\\StateRecoveryManagerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "StateRecoveryManager",
+      "line": 40
+    },
+    {
+      "file": "facades\\TaskSchedulerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "TaskScheduler",
+      "line": 40
+    },
+    {
+      "file": "facades\\TheaterDetectorCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "TheaterDetectorCore",
+      "line": 40
+    },
+    {
+      "file": "facades\\TransitionHubFacade.ts",
+      "export_type": "identifier",
+      "export_name": "TransitionHub",
+      "line": 40
+    },
+    {
+      "file": "facades\\TypeInferenceFacade.ts",
+      "export_type": "identifier",
+      "export_name": "TypeInference",
+      "line": 40
+    },
+    {
+      "file": "facades\\VersionControlFacade.ts",
+      "export_type": "identifier",
+      "export_name": "VersionControl",
+      "line": 40
+    },
+    {
+      "file": "fsm\\ExecutorFSMFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ExecutorFSM",
+      "line": 40
+    },
+    {
+      "file": "fsm\\FSMPatternDetectorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "FSMPatternDetector",
+      "line": 40
+    },
+    {
+      "file": "fsm\\FSMTransitionValidatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "FSMTransitionValidator",
+      "line": 40
+    },
+    {
+      "file": "github\\GitHubIssueManager.ts",
+      "export_type": "identifier",
+      "export_name": "GitHubIssueManager",
+      "line": 503
+    },
+    {
+      "file": "github\\GitHubProjectManager.ts",
+      "export_type": "identifier",
+      "export_name": "GitHubProjectManager",
+      "line": 433
+    },
+    {
+      "file": "memory\\MemoryOptimizerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "MemoryOptimizer",
+      "line": 40
+    },
+    {
+      "file": "monitoring\\MonitoringDashboardFacade.ts",
+      "export_type": "identifier",
+      "export_name": "MonitoringDashboard",
+      "line": 40
+    },
+    {
+      "file": "monitoring\\ProductionMonitorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ProductionMonitor",
+      "line": 40
+    },
+    {
+      "file": "monitoring\\RealTimeMonitorCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "RealTimeMonitorCore",
+      "line": 40
+    },
+    {
+      "file": "monitoring\\StateTransitionMonitorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "StateTransitionMonitor",
+      "line": 40
+    },
+    {
+      "file": "monitoring\\SystemHealthMonitorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "SystemHealthMonitor",
+      "line": 40
+    },
+    {
+      "file": "orchestration\\index.ts",
+      "export_type": "identifier",
+      "export_name": "Phase9Orchestrator",
+      "line": 188
+    },
+    {
+      "file": "performance\\AdaptivePerformanceOptimizerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "AdaptivePerformanceOptimizer",
+      "line": 40
+    },
+    {
+      "file": "performance\\PerformanceProfilerCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PerformanceProfilerCore",
+      "line": 40
+    },
+    {
+      "file": "performance\\StressTestRunner.ts",
+      "export_type": "identifier",
+      "export_name": "StressTestRunnerFacade",
+      "line": 15
+    },
+    {
+      "file": "princesses\\CoordinationPrincessFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CoordinationPrincess",
+      "line": 40
+    },
+    {
+      "file": "princesses\\PrincessCommunicationHubFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PrincessCommunicationHub",
+      "line": 40
+    },
+    {
+      "file": "princesses\\PrincessCoordinatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PrincessCoordinator",
+      "line": 40
+    },
+    {
+      "file": "princesses\\PrincessTaskAllocatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PrincessTaskAllocator",
+      "line": 40
+    },
+    {
+      "file": "risk-dashboard\\GaryDPIEngine.ts",
+      "export_type": "identifier",
+      "export_name": "GaryDPIEngine",
+      "line": 517
+    },
+    {
+      "file": "swarm\\SwarmCommunicationFacade.ts",
+      "export_type": "identifier",
+      "export_name": "SwarmCommunication",
+      "line": 40
+    },
+    {
+      "file": "swarm\\SwarmCoordinatorCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "SwarmCoordinatorCore",
+      "line": 40
+    },
+    {
+      "file": "testing\\TestExecutorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "TestExecutor",
+      "line": 40
+    },
+    {
+      "file": "testing\\TestOrchestrationFacade.ts",
+      "export_type": "identifier",
+      "export_name": "TestOrchestration",
+      "line": 40
+    },
+    {
+      "file": "validation\\ValidationEngineCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ValidationEngineCore",
+      "line": 40
+    },
+    {
+      "file": "architecture\\langgraph\\StateGraphFacade.ts",
+      "export_type": "identifier",
+      "export_name": "StateGraphFacade",
+      "line": 514
+    },
+    {
+      "file": "architecture\\langgraph\\communication\\CommunicationSecurityFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CommunicationSecurity",
+      "line": 40
+    },
+    {
+      "file": "architecture\\langgraph\\communication\\HiveMindCommunicationHubFacade.ts",
+      "export_type": "identifier",
+      "export_name": "HiveMindCommunicationHub",
+      "line": 40
+    },
+    {
+      "file": "architecture\\langgraph\\communication\\MessageRouterFacade.ts",
+      "export_type": "identifier",
+      "export_name": "MessageRouterFacade",
+      "line": 142
+    },
+    {
+      "file": "architecture\\langgraph\\queen\\QueenFacadeFacade.ts",
+      "export_type": "identifier",
+      "export_name": "QueenFacadeFacade",
+      "line": 355
+    },
+    {
+      "file": "architecture\\langgraph\\queen\\QueenOrchestrator.ts",
+      "export_type": "identifier",
+      "export_name": "QueenOrchestrator",
+      "line": 388
+    },
+    {
+      "file": "architecture\\langgraph\\state-machines\\InfrastructureStateMachineFacade.ts",
+      "export_type": "identifier",
+      "export_name": "InfrastructureStateMachineFacade",
+      "line": 412
+    },
+    {
+      "file": "architecture\\langgraph\\state-machines\\PrincessStateMachineFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PrincessStateMachineFacade",
+      "line": 371
+    },
+    {
+      "file": "architecture\\langgraph\\testing\\PerformanceBenchmarksFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PerformanceBenchmarks",
+      "line": 41
+    },
+    {
+      "file": "architecture\\langgraph\\testing\\TestRunnerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "TestRunner",
+      "line": 62
+    },
+    {
+      "file": "architecture\\langgraph\\workflows\\WorkflowOrchestrator.ts",
+      "export_type": "identifier",
+      "export_name": "WorkflowOrchestrator",
+      "line": 311
+    },
+    {
+      "file": "architecture\\langgraph\\communication\\queues\\MessageQueueManager.ts",
+      "export_type": "identifier",
+      "export_name": "MessageQueueManager",
+      "line": 79
+    },
+    {
+      "file": "architecture\\langgraph\\queen\\components\\PrincessDispatcherFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PrincessDispatcherFacade",
+      "line": 278
+    },
+    {
+      "file": "architecture\\langgraph\\queen\\components\\QueenCommandProcessorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "QueenCommandProcessorFacade",
+      "line": 334
+    },
+    {
+      "file": "architecture\\langgraph\\queen\\components\\QueenDecisionEngine.ts",
+      "export_type": "identifier",
+      "export_name": "QueenDecisionEngine",
+      "line": 482
+    },
+    {
+      "file": "architecture\\langgraph\\queen\\components\\QueenMetricsAggregatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "QueenMetricsAggregatorFacade",
+      "line": 428
+    },
+    {
+      "file": "architecture\\langgraph\\queen\\core\\QueenCoordinator.ts",
+      "export_type": "identifier",
+      "export_name": "QueenCoordinator",
+      "line": 232
+    },
+    {
+      "file": "architecture\\langgraph\\testing\\execution\\BoundsManager.ts",
+      "export_type": "identifier",
+      "export_name": "BoundsManager",
+      "line": 449
+    },
+    {
+      "file": "architecture\\langgraph\\testing\\fsm\\StateGuardsFacade.ts",
+      "export_type": "anonymous",
+      "export_name": "default",
+      "line": 2398
+    },
+    {
+      "file": "architecture\\langgraph\\workflows\\orchestration\\WorkflowEngineCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "WorkflowEngineCore",
+      "line": 40
+    },
+    {
+      "file": "architecture\\langgraph\\workflows\\orchestration\\WorkflowFacade.ts",
+      "export_type": "identifier",
+      "export_name": "WorkflowFacade",
+      "line": 484
+    },
+    {
+      "file": "architecture\\langgraph\\workflows\\orchestration\\WorkflowMonitorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "WorkflowMonitor",
+      "line": 40
+    },
+    {
+      "file": "architecture\\langgraph\\workflows\\orchestration\\WorkflowOptimizerCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "WorkflowOptimizerCore",
+      "line": 40
+    },
+    {
+      "file": "architecture\\langgraph\\workflows\\orchestration\\WorkflowValidatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "WorkflowValidator",
+      "line": 79
+    },
+    {
+      "file": "compliance\\monitoring\\ComplianceDriftDetectorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ComplianceDriftDetector",
+      "line": 63
+    },
+    {
+      "file": "compliance\\monitoring\\NASAComplianceValidatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "NASAComplianceValidator",
+      "line": 40
+    },
+    {
+      "file": "compliance\\nasa\\POT10RuleEngineFacade.ts",
+      "export_type": "identifier",
+      "export_name": "POT10RuleEngineFacade",
+      "line": 102
+    },
+    {
+      "file": "context\\degradation\\MonitoringOrchestrator.ts",
+      "export_type": "identifier",
+      "export_name": "MonitoringOrchestrator",
+      "line": 355
+    },
+    {
+      "file": "context\\GitHubProjectIntegration-fsm\\GitHubProjectIntegrationFacade.ts",
+      "export_type": "identifier",
+      "export_name": "GitHubProjectIntegrationFacade",
+      "line": 28
+    },
+    {
+      "file": "debug\\queen\\HiveQueenMediatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "HiveQueenMediator",
+      "line": 40
+    },
+    {
+      "file": "debug\\queen\\QueenDebugFacade.ts",
+      "export_type": "identifier",
+      "export_name": "QueenDebugFacade",
+      "line": 447
+    },
+    {
+      "file": "debug\\queen\\QueenDebugOrchestrator-typed.ts",
+      "export_type": "identifier",
+      "export_name": "QueenDebugOrchestrator",
+      "line": 64
+    },
+    {
+      "file": "documentation\\patterns\\PatternEngine.ts",
+      "export_type": "identifier",
+      "export_name": "PatternEngine",
+      "line": 386
+    },
+    {
+      "file": "documentation\\patterns\\TemplateGenerator-fsm\\TemplateGeneratorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "TemplateGeneratorFacade",
+      "line": 28
+    },
+    {
+      "file": "documentation\\patterns\\VersionSynchronizer-fsm\\VersionSynchronizerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "VersionSynchronizerFacade",
+      "line": 28
+    },
+    {
+      "file": "domains\\deployment-orchestration\\DeploymentValidatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "DeploymentValidator",
+      "line": 40
+    },
+    {
+      "file": "domains\\deployment-orchestration\\EffectiveQGateDeploymentFacade.ts",
+      "export_type": "identifier",
+      "export_name": "EffectiveQGateDeployment",
+      "line": 40
+    },
+    {
+      "file": "domains\\deployment-orchestration\\ProductionDeploymentFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ProductionDeployment",
+      "line": 40
+    },
+    {
+      "file": "domains\\quality-gates\\QualityAssuranceFacade.ts",
+      "export_type": "identifier",
+      "export_name": "QualityAssurance",
+      "line": 40
+    },
+    {
+      "file": "domains\\quality-gates\\QualityDashboardCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "QualityDashboardCore",
+      "line": 40
+    },
+    {
+      "file": "domains\\quality-gates\\QualityGateEngineFacade.ts",
+      "export_type": "identifier",
+      "export_name": "QualityGateEngine",
+      "line": 40
+    },
+    {
+      "file": "domains\\quality-gates\\QualityMetricsCollectorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "QualityMetricsCollector",
+      "line": 40
+    },
+    {
+      "file": "domains\\deployment-orchestration\\engines\\blue-green-engine-fsm\\blue-green-engineFacade.ts",
+      "export_type": "anonymous",
+      "export_name": "default",
+      "line": 804
+    },
+    {
+      "file": "domains\\deployment-orchestration\\pipelines\\pipeline-orchestrator-fsm\\pipeline-orchestratorFacade.ts",
+      "export_type": "anonymous",
+      "export_name": "default",
+      "line": 853
+    },
+    {
+      "file": "domains\\ec\\types-fsm\\typesFacade.ts",
+      "export_type": "identifier",
+      "export_name": "typesFacade",
+      "line": 28
+    },
+    {
+      "file": "domains\\quality-gates\\compliance\\ComplianceGateManager.ts",
+      "export_type": "identifier",
+      "export_name": "ComplianceGateManager",
+      "line": 115
+    },
+    {
+      "file": "domains\\quality-gates\\decisions\\AutomatedDecisionEngine.ts",
+      "export_type": "identifier",
+      "export_name": "AutomatedDecisionEngine",
+      "line": 19
+    },
+    {
+      "file": "domains\\quality-gates\\dashboard\\QualityDashboard-fsm\\QualityDashboardFacade.ts",
+      "export_type": "identifier",
+      "export_name": "QualityDashboardFacade",
+      "line": 28
+    },
+    {
+      "file": "domains\\quality-gates\\decisions\\AutomatedDecisionEngine-fsm\\AutomatedDecisionEngineFacade.ts",
+      "export_type": "identifier",
+      "export_name": "AutomatedDecisionEngineFacade",
+      "line": 28
+    },
+    {
+      "file": "domains\\quality-gates\\monitoring\\PerformanceOverheadValidator-fsm\\PerformanceOverheadValidatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PerformanceOverheadValidatorFacade",
+      "line": 28
+    },
+    {
+      "file": "github\\types\\real-github-api.typesFacade.ts",
+      "export_type": "identifier",
+      "export_name": "RealGithubApiTypesFacade",
+      "line": 42
+    },
+    {
+      "file": "github\\types\\integration.types-fsm\\integration.typesFacade.ts",
+      "export_type": "identifier",
+      "export_name": "IntegrationTypesFacade",
+      "line": 28
+    },
+    {
+      "file": "linter-integration\\result-correlation-framework-fsm\\result-correlation-frameworkFacade.ts",
+      "export_type": "anonymous",
+      "export_name": "default",
+      "line": 914
+    },
+    {
+      "file": "memory\\adapters\\SharedMemoryProtocolFacade.ts",
+      "export_type": "identifier",
+      "export_name": "SharedMemoryProtocolFacade",
+      "line": 339
+    },
+    {
+      "file": "memory\\coordinator\\MemoryCoordinator.ts",
+      "export_type": "identifier",
+      "export_name": "MemoryCoordinator",
+      "line": 381
+    },
+    {
+      "file": "memory\\coordinator\\RealLangroidMemoryManager.ts",
+      "export_type": "identifier",
+      "export_name": "RealLangroidMemoryManager",
+      "line": 461
+    },
+    {
+      "file": "memory\\langroid\\LangroidMemoryManager.ts",
+      "export_type": "identifier",
+      "export_name": "LangroidMemoryManager",
+      "line": 354
+    },
+    {
+      "file": "memory\\ttl\\TTLManager.ts",
+      "export_type": "identifier",
+      "export_name": "TTLManager",
+      "line": 339
+    },
+    {
+      "file": "memory\\sync\\fsm\\DistributedSyncFacade.ts",
+      "export_type": "identifier",
+      "export_name": "DistributedSyncFacade",
+      "line": 331
+    },
+    {
+      "file": "migration\\core\\FallbackChainManager.ts",
+      "export_type": "identifier",
+      "export_name": "FallbackChainManager",
+      "line": 123
+    },
+    {
+      "file": "migration\\core\\MigrationOrchestrator.ts",
+      "export_type": "identifier",
+      "export_name": "MigrationOrchestrator",
+      "line": 448
+    },
+    {
+      "file": "migration\\fallback\\FallbackProtocolManager.ts",
+      "export_type": "identifier",
+      "export_name": "FallbackProtocolManager",
+      "line": 454
+    },
+    {
+      "file": "migration\\planning\\RiskAssessmentEngine.ts",
+      "export_type": "identifier",
+      "export_name": "RiskAssessmentEngine",
+      "line": 122
+    },
+    {
+      "file": "migration\\translation\\ProtocolFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ProtocolFacade",
+      "line": 504
+    },
+    {
+      "file": "migration\\core\\MigrationPlanner-fsm\\MigrationPlannerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "MigrationPlannerFacade",
+      "line": 28
+    },
+    {
+      "file": "migration\\core\\ProtocolVersionManager-fsm\\ProtocolVersionManagerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ProtocolVersionManagerFacade",
+      "line": 28
+    },
+    {
+      "file": "orchestration\\agents\\AgentMonitorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "AgentMonitor",
+      "line": 40
+    },
+    {
+      "file": "orchestration\\agents\\AgentWorkflowCoordinatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "AgentWorkflowCoordinator",
+      "line": 40
+    },
+    {
+      "file": "orchestration\\agents\\AgentWorkflowFacade.ts",
+      "export_type": "identifier",
+      "export_name": "AgentWorkflowFacade",
+      "line": 488
+    },
+    {
+      "file": "orchestration\\agents\\DSPyReasoningAgentFacade.ts",
+      "export_type": "identifier",
+      "export_name": "DSPyReasoningAgent",
+      "line": 40
+    },
+    {
+      "file": "orchestration\\integration\\ArtifactSystemIntegrationFSMFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ArtifactSystemIntegrationFSM",
+      "line": 40
+    },
+    {
+      "file": "orchestration\\integration\\IntegrationTestSuiteFacade.ts",
+      "export_type": "identifier",
+      "export_name": "IntegrationTestSuite",
+      "line": 40
+    },
+    {
+      "file": "orchestration\\integration\\SystemIntegrationOrchestratorFSM.ts",
+      "export_type": "identifier",
+      "export_name": "SystemIntegrationOrchestratorFSM",
+      "line": 466
+    },
+    {
+      "file": "orchestration\\integration\\UnifiedIntegrationCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "UnifiedIntegrationCore",
+      "line": 40
+    },
+    {
+      "file": "orchestration\\phases\\PhaseTransitionManager.ts",
+      "export_type": "identifier",
+      "export_name": "PhaseTransitionManager",
+      "line": 37
+    },
+    {
+      "file": "orchestration\\quality\\QualityGateFacade.ts",
+      "export_type": "identifier",
+      "export_name": "QualityGateOrchestrator",
+      "line": 254
+    },
+    {
+      "file": "orchestration\\quality\\QualityGateOrchestrator.ts",
+      "export_type": "identifier",
+      "export_name": "QualityGateOrchestrator",
+      "line": 30
+    },
+    {
+      "file": "orchestration\\quality\\StateManager.ts",
+      "export_type": "identifier",
+      "export_name": "StateManager",
+      "line": 75
+    },
+    {
+      "file": "orchestration\\deployment\\readiness\\ReadinessOrchestrator.ts",
+      "export_type": "identifier",
+      "export_name": "ReadinessOrchestrator",
+      "line": 292
+    },
+    {
+      "file": "orchestration\\integration\\dependency\\DependencyFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ComponentDependencyResolver",
+      "line": 458
+    },
+    {
+      "file": "orchestration\\phases\\phase-transition\\PhaseTransitionMonitorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PhaseTransitionMonitor",
+      "line": 40
+    },
+    {
+      "file": "orchestration\\phases\\phase-transition\\PhaseTransitionProcessorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PhaseTransitionProcessor",
+      "line": 40
+    },
+    {
+      "file": "orchestration\\phases\\phase-transition\\PhaseTransitionReporterFacade.ts",
+      "export_type": "identifier",
+      "export_name": "PhaseTransitionReporter",
+      "line": 40
+    },
+    {
+      "file": "orchestration\\phases\\phase-transition\\PhaseTransitionTypesFacade.ts",
+      "export_type": "anonymous",
+      "export_name": "default",
+      "line": 3492
+    },
+    {
+      "file": "performance\\benchmarker\\BenchmarkCLIFacade.ts",
+      "export_type": "identifier",
+      "export_name": "BenchmarkCLI",
+      "line": 40
+    },
+    {
+      "file": "performance\\CPUProfiler-fsm\\CPUProfilerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CPUProfilerFacade",
+      "line": 28
+    },
+    {
+      "file": "princesses\\research\\AdvancedResearchCapabilitiesFacade.ts",
+      "export_type": "identifier",
+      "export_name": "AdvancedResearchCapabilities",
+      "line": 40
+    },
+    {
+      "file": "princesses\\research\\ResearchEngineCoreFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ResearchEngineCore",
+      "line": 40
+    },
+    {
+      "file": "princesses\\infrastructure\\memory\\TTLManager.ts",
+      "export_type": "identifier",
+      "export_name": "TTLManager",
+      "line": 398
+    },
+    {
+      "file": "princesses\\research\\ResearchQueryProcessor-fsm\\ResearchQueryProcessorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ResearchQueryProcessorFacade",
+      "line": 28
+    },
+    {
+      "file": "princesses\\security\\cryptography\\CryptographyManager.ts",
+      "export_type": "identifier",
+      "export_name": "CryptographyManager",
+      "line": 122
+    },
+    {
+      "file": "risk-dashboard\\node_modules\\@types\\d3-color\\index.d-fsm\\index.dFacade.ts",
+      "export_type": "anonymous",
+      "export_name": "default",
+      "line": 657
+    },
+    {
+      "file": "risk-dashboard\\node_modules\\@types\\d3-time\\index.d-fsm\\index.dFacade.ts",
+      "export_type": "anonymous",
+      "export_name": "default",
+      "line": 657
+    },
+    {
+      "file": "risk-dashboard\\node_modules\\@types\\node\\dgram.d-fsm\\dgram.dFacade.ts",
+      "export_type": "anonymous",
+      "export_name": "default",
+      "line": 657
+    },
+    {
+      "file": "risk-dashboard\\node_modules\\@types\\node\\dns.d-fsm\\dns.dFacade.ts",
+      "export_type": "anonymous",
+      "export_name": "default",
+      "line": 637
+    },
+    {
+      "file": "risk-dashboard\\node_modules\\@types\\node\\readline.d-fsm\\readline.dFacade.ts",
+      "export_type": "anonymous",
+      "export_name": "default",
+      "line": 687
+    },
+    {
+      "file": "risk-dashboard\\node_modules\\acorn\\dist\\acorn.d-fsm\\acorn.dFacade.ts",
+      "export_type": "anonymous",
+      "export_name": "default",
+      "line": 657
+    },
+    {
+      "file": "risk-dashboard\\node_modules\\sucrase\\dist\\types\\NameManager.d.ts",
+      "export_type": "class",
+      "export_name": "NameManager",
+      "line": 2
+    },
+    {
+      "file": "risk-dashboard\\node_modules\\typescript\\lib\\lib.es2015.core.d-fsm\\lib.es2015.core.dFacade.ts",
+      "export_type": "anonymous",
+      "export_name": "default",
+      "line": 757
+    },
+    {
+      "file": "services\\desktop-agent\\mcp\\computer-use.toolsFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ComputerUseToolsFacade",
+      "line": 43
+    },
+    {
+      "file": "swarm\\coordination\\DronePoolManager.ts",
+      "export_type": "identifier",
+      "export_name": "DronePoolManager",
+      "line": 76
+    },
+    {
+      "file": "swarm\\orchestration\\WorkflowFacade.ts",
+      "export_type": "identifier",
+      "export_name": "WorkflowOrchestrator",
+      "line": 501
+    },
+    {
+      "file": "swarm\\queen\\ShardingCoordinator.ts",
+      "export_type": "identifier",
+      "export_name": "ShardingCoordinator",
+      "line": 466
+    },
+    {
+      "file": "swarm\\hierarchy\\CrossHiveProtocol-fsm\\CrossHiveProtocolFacade.ts",
+      "export_type": "identifier",
+      "export_name": "CrossHiveProtocolFacade",
+      "line": 28
+    },
+    {
+      "file": "swarm\\queen\\QueenDecisionEngine-fsm\\QueenDecisionEngineFacade.ts",
+      "export_type": "identifier",
+      "export_name": "QueenDecisionEngineFacade",
+      "line": 28
+    },
+    {
+      "file": "types\\swarm-types-fsm\\swarm-typesFacade.ts",
+      "export_type": "anonymous",
+      "export_name": "default",
+      "line": 753
+    },
+    {
+      "file": "validation\\production\\ProductionReadinessValidatorFacade.ts",
+      "export_type": "identifier",
+      "export_name": "ProductionReadinessValidatorFacade",
+      "line": 138
+    },
+    {
+      "file": "validation\\testing\\TestCoverageAnalyzerFacade.ts",
+      "export_type": "identifier",
+      "export_name": "TestCoverageAnalyzerFacade",
+      "line": 123
+    }
+  ]
+}

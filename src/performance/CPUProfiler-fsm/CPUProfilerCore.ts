@@ -3,6 +3,7 @@
  * @eliminated true @original_size 686 lines @reduction 98%
  */
 export * from './CPUProfilerCoreFacade';
+export { default } from './CPUProfilerCoreFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

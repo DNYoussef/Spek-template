@@ -35,4 +35,8 @@ export class DistributedLockManager {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default DistributedLockManager;

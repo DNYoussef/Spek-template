@@ -3,6 +3,7 @@
  * @eliminated true @original_size 688 lines @reduction 98%
  */
 export * from './DocGeneratorContextFacade';
+export { default } from './DocGeneratorContextFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

@@ -35,4 +35,8 @@ export class CICDQualityGateManager {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default CICDQualityGateManager;

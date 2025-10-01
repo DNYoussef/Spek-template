@@ -14,7 +14,7 @@ import {
   MonitoringState,
   MonitoringEvent,
   DEFAULT_CONFIG
-} from './types/DegradationTypes';
+} from '~types/DegradationTypes';
 import { ContextFingerprint } from '../ContextDNA';
 import { DegradationMonitorFSM } from './fsm/DegradationMonitorFSM';
 import { AlertManager } from './components/AlertManager';
@@ -333,10 +333,8 @@ export class MonitoringOrchestrator {
 
 // Export for backward compatibility
 export { MonitoringOrchestrator as DegradationMonitor };
-export default MonitoringOrchestrator;
-
 // Re-export types for convenience
-export * from './types/DegradationTypes';
+export * from '~types/DegradationTypes';
 
 // === AGENT FOOTER ===
 // Version & Run Log
@@ -352,3 +350,8 @@ export * from './types/DegradationTypes';
 // tools_used: ["MultiEdit"]
 // versions: {"model":"sonnet-4","prompt":"nasa-rule-10"}
 // === END FOOTER ===
+
+// Backward compatibility
+
+// Backward compatibility
+export default MonitoringOrchestrator;

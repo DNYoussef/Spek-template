@@ -3,6 +3,7 @@
  * @eliminated true @original_size 843 lines @reduction 99.0%
  */
 export * from './real-github-api.typesFacade';
+export { default } from './real-github-api.typesFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

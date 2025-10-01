@@ -3,6 +3,7 @@
  * @eliminated true @original_size 843 lines @reduction 99.0%
  */
 export * from './PrincessAuditGateFacade';
+export { default } from './PrincessAuditGateFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

@@ -6,7 +6,7 @@
  * FSM-First: Centralized transition control with guards
  */
 
-import { ConfigState, ConfigEvent, ConfigContext, StateTransition, TransitionGuard } from '../types/ConfigTypes';
+import { ConfigState, ConfigEvent, ConfigContext, StateTransition, TransitionGuard } from '~types/ConfigTypes';
 
 export class ConfigTransitionHub {
     private transitions: Map<string, StateTransition>;

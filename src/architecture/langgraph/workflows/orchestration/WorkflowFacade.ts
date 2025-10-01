@@ -5,11 +5,11 @@
  */
 
 import { EventEmitter } from 'events';
-import LangGraphEngine from '../../LangGraphEngine';
-import WorkflowCore from './WorkflowCore';
-import WorkflowExecutor from './WorkflowExecutor';
-import WorkflowValidator from './WorkflowValidator';
-import WorkflowStateMachine, { WorkflowState, WorkflowEvent } from './WorkflowStateMachine';
+import { LangGraphEngine } from '../../LangGraphEngine';
+import { WorkflowCore } from './WorkflowCore';
+import { WorkflowExecutorFacade as WorkflowExecutor } from './WorkflowExecutorFacade';
+import { WorkflowValidator } from './WorkflowValidatorFacade';
+import { WorkflowStateMachine, WorkflowState, WorkflowEvent } from './WorkflowStateMachine';
 import {
   WorkflowDefinition,
   WorkflowTemplate,
@@ -480,4 +480,7 @@ export class WorkflowFacade extends EventEmitter {
   }
 }
 
+// Backward compatibility
+
+// Backward compatibility
 export default WorkflowFacade;

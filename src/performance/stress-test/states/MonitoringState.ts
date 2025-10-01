@@ -12,7 +12,7 @@ import {
   Alert,
   AlertThresholds,
   MonitoringConfig
-} from '../types/StressTestTypes';
+} from '~types/StressTestTypes';
 
 export class MonitoringState extends EventEmitter {
   private metricsCollector: MetricsCollector;

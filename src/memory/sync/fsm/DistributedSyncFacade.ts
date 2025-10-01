@@ -327,4 +327,7 @@ export class DistributedSyncFacade extends EventEmitter {
   }
 }
 
+// Backward compatibility
+
+// Backward compatibility
 export default DistributedSyncFacade;

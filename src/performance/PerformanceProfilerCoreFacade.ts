@@ -35,4 +35,8 @@ export class PerformanceProfilerCore {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default PerformanceProfilerCore;

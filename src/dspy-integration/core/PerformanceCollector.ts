@@ -5,7 +5,7 @@
  * real-time collection, and comprehensive analysis capabilities.
  */
 
-import { PerformanceMetrics, QualityGateMetrics } from '../types/DSPyTypes';
+import { PerformanceMetrics, QualityGateMetrics } from '~types/DSPyTypes';
 
 export interface MetricsAggregation {
   readonly total: number;

@@ -1,6 +1,6 @@
 import { Octokit } from '@octokit/rest';
 import { Logger } from '../../utils/Logger';
-import { SyncOperation, SyncConflict, SyncStrategy, RepositoryState } from '../types/sync.types';
+import { SyncOperation, SyncConflict, SyncStrategy, RepositoryState } from '~types/sync.types';
 
 /**
  * Cross-Repository Synchronization Engine

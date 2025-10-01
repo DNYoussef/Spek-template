@@ -3,6 +3,7 @@
  * @eliminated true @original_size 560 lines @reduction 98%
  */
 export * from './CoordinationHubFacade';
+export { default } from './CoordinationHubFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

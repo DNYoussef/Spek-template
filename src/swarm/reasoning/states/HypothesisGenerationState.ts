@@ -5,7 +5,7 @@
 
 import { EventEmitter } from 'events';
 import * as crypto from 'crypto';
-import { Hypothesis, Prediction } from '../types/ReasoningTypes';
+import { Hypothesis, Prediction } from '~types/ReasoningTypes';
 
 export class HypothesisGenerationState extends EventEmitter {
   private hypotheses: Map<string, Hypothesis> = new Map();
@@ -189,8 +189,6 @@ export class HypothesisGenerationState extends EventEmitter {
   }
 }
 
-export default HypothesisGenerationState;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -205,3 +203,6 @@ export default HypothesisGenerationState;
 // tools_used: ["MultiEdit"]
 // versions: {"model":"codex","prompt":"v1"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default HypothesisGenerationState;

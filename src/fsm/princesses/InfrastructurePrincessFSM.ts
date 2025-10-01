@@ -4,7 +4,7 @@
  * Reduced from 564 lines to ~100 lines (82%+ reduction)
  */
 
-import { InfrastructureState, InfrastructureEvent, PrincessState, PrincessEvent, FSMContext } from '../types/FSMTypes';
+import { InfrastructureState, InfrastructureEvent, PrincessState, PrincessEvent, FSMContext } from '~types/FSMTypes';
 import { PrincessBase, PrincessConfig } from './core/PrincessBase';
 import {
   ResourcePlanningHandler,

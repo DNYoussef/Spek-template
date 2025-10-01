@@ -3,6 +3,7 @@
  * @eliminated true @original_size 637 lines @reduction 98%
  */
 export * from './LangGraphAdapterFacade';
+export { default } from './LangGraphAdapterFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

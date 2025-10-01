@@ -4,7 +4,7 @@
  * Reduced from 417 lines to ~80 lines (81%+ reduction)
  */
 
-import { ResearchState, ResearchEvent, PrincessState, PrincessEvent, FSMContext } from '../types/FSMTypes';
+import { ResearchState, ResearchEvent, PrincessState, PrincessEvent, FSMContext } from '~types/FSMTypes';
 import { PrincessBase, PrincessConfig } from './core/PrincessBase';
 
 export interface ResearchContext extends FSMContext {

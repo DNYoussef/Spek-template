@@ -7,7 +7,7 @@
 import {
   ValidationState,
   ValidationContext
-} from '../types/ValidationFSMTypes';
+} from '~types/ValidationFSMTypes';
 import { ValidationReporter } from '../components/ValidationReporter';
 
 export class ReportingState {

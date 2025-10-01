@@ -3,6 +3,9 @@
  * NASA Rule 10 Compliant Implementation
  */
 
+// WIRE EXISTING TYPES: Re-export DSPySignature from central DSPy types
+export { DSPySignature } from '../../types/DSPyTypes';
+
 // Agent Identity and Context Types
 export interface AgentIdentity {
   id: string;
@@ -30,6 +33,16 @@ export interface AgentMessage {
   timestamp: number;
   priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
   metadata?: Record<string, any>; // Message metadata for routing and tracking
+}
+
+// Communication Context for A2A optimization
+export interface CommunicationContext {
+  id: string;
+  timestamp: number;
+  metadata: Record<string, any>;
+  semanticHash?: string;
+  relevanceScore?: number;
+  compressionRatio?: number;
 }
 
 // Context DNA Enhancement Types
@@ -185,6 +198,16 @@ export interface TaskContext {
   dependencies: string[];
   deadline?: number;
   resources: string[];
+}
+
+// Resource constraints for task execution
+export interface ResourceConstraints {
+  readonly maxMemoryMB: number;
+  readonly maxCpuPercent: number;
+  readonly maxDiskMB: number;
+  readonly maxNetworkKBps: number;
+  readonly timeout: number; // milliseconds
+  readonly priority: 'low' | 'medium' | 'high' | 'critical';
 }
 
 export interface ValidationResult {

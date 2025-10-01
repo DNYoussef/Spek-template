@@ -5,7 +5,7 @@
 
 import { promises as fs } from 'fs';
 import { join } from 'path';
-import { PerformanceMetrics, BaselineSnapshot, OptimizationTarget } from '../types/DatasetTypes';
+import { PerformanceMetrics, BaselineSnapshot, OptimizationTarget } from '~types/DatasetTypes';
 import { CommunicationType } from './CommunicationExampleDataset';
 
 export interface BaselineConfig {

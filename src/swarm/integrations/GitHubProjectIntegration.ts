@@ -294,8 +294,6 @@ export class GitHubProjectIntegration extends EventEmitter {
   }
 }
 
-export default GitHubProjectIntegration;
-
 /* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE */
 /* Version & Run Log
 | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
@@ -311,3 +309,6 @@ Receipt:
 - versions: {"model":"claude-sonnet-4","prompt":"github-facade-v1"}
 */
 /* AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE */
+
+// Backward compatibility
+export default GitHubProjectIntegration;

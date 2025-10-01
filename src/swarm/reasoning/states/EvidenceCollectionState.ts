@@ -5,7 +5,7 @@
 
 import { EventEmitter } from 'events';
 import * as crypto from 'crypto';
-import { Evidence } from '../types/ReasoningTypes';
+import { Evidence } from '~types/ReasoningTypes';
 
 export class EvidenceCollectionState extends EventEmitter {
   private evidence: Map<string, Evidence> = new Map();
@@ -133,8 +133,6 @@ export class EvidenceCollectionState extends EventEmitter {
   }
 }
 
-export default EvidenceCollectionState;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -149,3 +147,6 @@ export default EvidenceCollectionState;
 // tools_used: ["MultiEdit"]
 // versions: {"model":"codex","prompt":"v1"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default EvidenceCollectionState;

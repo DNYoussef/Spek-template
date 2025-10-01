@@ -7,7 +7,7 @@
 import {
   ValidationState,
   ValidationContext
-} from '../types/ValidationFSMTypes';
+} from '~types/ValidationFSMTypes';
 import { CertificationManager } from '../components/CertificationManager';
 
 export class CertifiedState {

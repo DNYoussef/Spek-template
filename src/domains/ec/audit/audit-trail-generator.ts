@@ -3,6 +3,7 @@
  * @eliminated true @original_size 815 lines @reduction 99.0%
  */
 export * from './audit-trail-generatorFacade';
+export { default } from './audit-trail-generatorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

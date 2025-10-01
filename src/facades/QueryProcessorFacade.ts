@@ -35,4 +35,8 @@ export class QueryProcessor {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default QueryProcessor;

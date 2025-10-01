@@ -3,7 +3,7 @@
  * Manages strategic objectives with bounded operations
  */
 
-import { StrategicObjective } from '../types/QueenTypes';
+import { StrategicObjective } from '~types/QueenTypes';
 import { NASACompliantLoopHandler } from '../utils/NASACompliantLoopHandler';
 
 export interface ObjectiveMetrics {

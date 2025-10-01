@@ -445,4 +445,5 @@ export class CrossPlatformRunner {
   }
 }
 
+// Backward compatibility
 export default CrossPlatformRunner;

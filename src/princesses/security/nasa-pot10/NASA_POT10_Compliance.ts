@@ -3,6 +3,7 @@
  * @eliminated true @original_size 920 lines @reduction 99.0%
  */
 export * from './NASA_POT10_ComplianceFacade';
+export { default } from './NASA_POT10_ComplianceFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

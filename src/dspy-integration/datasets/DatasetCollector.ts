@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { CommunicationExample, PerformanceMetrics } from '../types/DatasetTypes';
+import { CommunicationExample, PerformanceMetrics } from '~types/DatasetTypes';
 import { CommunicationExampleDataset, CommunicationType } from './CommunicationExampleDataset';
 import { ScoringEngine } from './ScoringEngine';
 

@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { ISO27001States, ISO27001Events, ISO27001Context } from './types/ISO27001Types';
+import { ISO27001States, ISO27001Events, ISO27001Context } from '~types/ISO27001Types';
 import { InitializationStateHandler } from './states/InitializationStateHandler';
 import { AssessmentStateHandler } from './states/AssessmentStateHandler';
 import { ValidationStateHandler } from './states/ValidationStateHandler';

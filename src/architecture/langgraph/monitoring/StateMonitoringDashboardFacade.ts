@@ -22,3 +22,6 @@ export class StateMonitoringDashboardFacade {
         // Implementation redirected to FSM components
     }
 }
+
+// Default export for backward compatibility
+export default StateMonitoringDashboardFacade;

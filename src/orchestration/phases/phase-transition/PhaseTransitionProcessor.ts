@@ -3,6 +3,7 @@
  * @eliminated true @original_size 531 lines @reduction 98%
  */
 export * from './PhaseTransitionProcessorFacade';
+export { default } from './PhaseTransitionProcessorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

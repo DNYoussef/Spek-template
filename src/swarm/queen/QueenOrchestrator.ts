@@ -3,6 +3,7 @@
  * @eliminated true @original_size 702 lines @reduction 98%
  */
 export * from './QueenOrchestratorFacade';
+export { default } from './QueenOrchestratorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

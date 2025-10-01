@@ -8,7 +8,7 @@ import {
   GitHubNotification,
   GitHubNotificationConfig,
   GitHubNotificationSubject
-} from '../types/github-types';
+} from '~types/github-types';
 
 export class GitHubNotifications {
   private apiClient: GitHubAPIClient;
@@ -413,4 +413,5 @@ export class GitHubNotifications {
   }
 }
 
+// Backward compatibility
 export default GitHubNotifications;

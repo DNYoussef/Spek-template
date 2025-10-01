@@ -254,4 +254,5 @@ export class ResolvingConflictsState implements StateHandler {
   }
 }
 
+// Backward compatibility
 export default ResolvingConflictsState;

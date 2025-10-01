@@ -4,7 +4,7 @@
  * FSM-compliant with NASA Rule 10
  */
 
-import { Timestamp, Milliseconds } from '../types/base/primitives';
+import { Timestamp, Milliseconds } from '~types/base/primitives';
 
 export enum WorkflowEvent {
   INITIALIZE = 'INITIALIZE',

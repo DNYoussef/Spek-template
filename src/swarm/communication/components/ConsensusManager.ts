@@ -5,7 +5,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { ConsensusRequest, PrincessMessage, MessageResponse } from '../types/CommunicationTypes';
+import { ConsensusRequest, PrincessMessage, MessageResponse } from '~types/CommunicationTypes';
 
 export class ConsensusManager extends EventEmitter {
   private activeConsensus: Map<string, ConsensusRequest> = new Map();

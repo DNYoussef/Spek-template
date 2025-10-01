@@ -136,8 +136,6 @@ export class DistributedMemorySync extends EventEmitter {
   }
 }
 
-export default DistributedMemorySync;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -152,3 +150,6 @@ export default DistributedMemorySync;
 // tools_used: ["MultiEdit", "TodoWrite"]
 // versions: {"model":"Claude-Sonnet-4","prompt":"FSM-First-v1.0"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default DistributedMemorySync;

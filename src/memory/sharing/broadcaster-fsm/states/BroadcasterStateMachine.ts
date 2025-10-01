@@ -4,7 +4,7 @@ import {
   StateContext, 
   BroadcasterStateMachine,
   StateHandler 
-} from '../types/BroadcasterTypes';
+} from '~types/BroadcasterTypes';
 import { IdleStateHandler } from './IdleStateHandler';
 import { PreparingBroadcastStateHandler } from './PreparingBroadcastStateHandler';
 import { BroadcastingStateHandler } from './BroadcastingStateHandler';

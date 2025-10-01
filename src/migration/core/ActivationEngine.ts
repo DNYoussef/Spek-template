@@ -6,13 +6,13 @@ import { EventEmitter } from 'events';
 import { Logger } from '../../utils/Logger';
 import { FallbackStateMachine } from './states/FallbackStateMachine';
 import { TransitionHub } from './core/TransitionHub';
-import { ChainEvents } from './types/FallbackTypes';
+import { ChainEvents } from '~types/FallbackTypes';
 import {
   FailoverResult,
   ActivationContext,
   FallbackActivation,
   ActivationHistoryFilters
-} from './types/FallbackChainTypes';
+} from '~types/FallbackChainTypes';
 
 export class ActivationEngine extends EventEmitter {
   private readonly logger: Logger;

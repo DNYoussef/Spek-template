@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './blue-green-engineCoreFacade';
+export { default } from './blue-green-engineCoreFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

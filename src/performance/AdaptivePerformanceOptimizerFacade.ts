@@ -35,4 +35,8 @@ export class AdaptivePerformanceOptimizer {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default AdaptivePerformanceOptimizer;

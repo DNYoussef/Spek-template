@@ -35,4 +35,8 @@ export class ReportGeneratorCore {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default ReportGeneratorCore;

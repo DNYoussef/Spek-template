@@ -1,4 +1,4 @@
-import { BroadcasterState, BroadcasterEvent, StateContext, StateHandler } from '../types/BroadcasterTypes';
+import { BroadcasterState, BroadcasterEvent, StateContext, StateHandler } from '~types/BroadcasterTypes';
 
 /**
  * Initializing state handler - system startup

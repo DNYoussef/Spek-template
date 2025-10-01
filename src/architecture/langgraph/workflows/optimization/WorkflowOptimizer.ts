@@ -219,4 +219,5 @@ export class WorkflowOptimizer {
   }
 }
 
+// Backward compatibility
 export default WorkflowOptimizer;

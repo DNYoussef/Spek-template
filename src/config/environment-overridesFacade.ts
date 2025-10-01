@@ -22,3 +22,6 @@ export class EnvironmentOverridesFacade {
         // Implementation redirected to FSM components
     }
 }
+
+// Default export for backward compatibility
+export default EnvironmentOverridesFacade;

@@ -9,7 +9,7 @@ import {
   GitHubWebhookConfig,
   GitHubWebhookEvent,
   GitHubWebhookPayload
-} from '../types/github-types';
+} from '~types/github-types';
 
 export class GitHubWebhookHandler extends EventEmitter {
   private config: GitHubWebhookConfig;
@@ -386,4 +386,5 @@ export class GitHubWebhookHandler extends EventEmitter {
   }
 }
 
+// Backward compatibility
 export default GitHubWebhookHandler;

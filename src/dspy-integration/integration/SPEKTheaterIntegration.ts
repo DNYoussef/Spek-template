@@ -7,7 +7,7 @@
 
 import { QualityGateIntegrator } from '../core/QualityGateIntegrator';
 import { PerformanceCollector } from '../core/PerformanceCollector';
-import { QualityGateMetrics, TheaterDetectionResult, PerformanceMetrics } from '../types/DSPyTypes';
+import { QualityGateMetrics, TheaterDetectionResult, PerformanceMetrics } from '~types/DSPyTypes';
 
 // Import existing SPEK components (simplified interfaces)
 interface SPEKTheaterEngine {

@@ -472,10 +472,13 @@ export class QueenDecisionEngine extends EventEmitter {
   }
 }
 
-export default QueenDecisionEngine;
-
 /*
  * AGENT FOOTER: QueenDecisionEngine v1.0.0
  * Status: OK | Replaces 863-line god object | NASA Rule 10 Compliant
  * Created: 2025-09-28T16:22:15-04:00 | Agent: claude-sonnet-4
  */
+
+// Backward compatibility
+
+// Backward compatibility
+export default QueenDecisionEngine;

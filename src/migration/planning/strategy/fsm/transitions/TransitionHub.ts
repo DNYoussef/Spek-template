@@ -8,7 +8,7 @@ import {
   StateResult,
   StateTransition,
   TransitionGuard
-} from '../types/MigrationFSMTypes';
+} from '~types/MigrationFSMTypes';
 
 /**
  * Centralized state transition hub for migration planning FSM

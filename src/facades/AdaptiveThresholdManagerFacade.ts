@@ -35,4 +35,8 @@ export class AdaptiveThresholdManager {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default AdaptiveThresholdManager;

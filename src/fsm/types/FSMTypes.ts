@@ -338,5 +338,13 @@ export interface FSMHealthStatus {
   warnings: string[];
 }
 
+// Research context type for workflow operations
+export interface ResearchContext extends FSMContext {
+  readonly query: string;
+  readonly sources: string[];
+  readonly findings: string[];
+  readonly confidence: number;
+}
+
 // Export all for centralized access
 export * from './FSMTypes';

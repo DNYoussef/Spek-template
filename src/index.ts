@@ -73,4 +73,5 @@ if (require.main === module) {
   main();
 }
 
+// Backward compatibility
 export default SPEKTemplate;

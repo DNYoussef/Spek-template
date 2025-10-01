@@ -5,7 +5,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { ResearchState, ResearchEvent, ResearchContext } from '../types/FSMTypes';
+import { ResearchState, ResearchEvent, ResearchContext } from '~types/FSMTypes';
 import { ResearchWorkflowOperations } from '../operations/ResearchWorkflowOperations';
 import { ResearchAnalysisEngine } from '../analysis/ResearchAnalysisEngine';
 
@@ -173,8 +173,6 @@ export class ResearchWorkflowCore extends EventEmitter {
   }
 }
 
-export default ResearchWorkflowCore;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -189,3 +187,6 @@ export default ResearchWorkflowCore;
 // tools_used: ["Read", "Write", "Bash"]
 // versions: {"model":"sonnet-4","fsm-design":"1.0.0"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default ResearchWorkflowCore;

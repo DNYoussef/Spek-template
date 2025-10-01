@@ -9,7 +9,7 @@ import {
   GitHubProjectItem,
   GitHubProjectField,
   GitHubProjectStatus
-} from '../types/github-types';
+} from '~types/github-types';
 
 export class GitHubProjectManager {
   private apiClient: GitHubAPIClient;
@@ -429,4 +429,7 @@ export class GitHubProjectManager {
   }
 }
 
+// Backward compatibility
+
+// Backward compatibility
 export default GitHubProjectManager;

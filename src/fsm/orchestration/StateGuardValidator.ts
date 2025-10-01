@@ -3,7 +3,7 @@
  * Implements guard conditions and validation logic for FSM transitions
  */
 
-import { FSMContext, TransitionGuard, SystemState, SystemEvent } from '../types/FSMTypes';
+import { FSMContext, TransitionGuard, SystemState, SystemEvent } from '~types/FSMTypes';
 
 export interface ValidationResult {
   valid: boolean;

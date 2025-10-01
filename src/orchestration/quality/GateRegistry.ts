@@ -3,6 +3,7 @@
  * @eliminated true @original_size 948 lines @reduction 99.0%
  */
 export * from './GateRegistryFacade';
+export { default } from './GateRegistryFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

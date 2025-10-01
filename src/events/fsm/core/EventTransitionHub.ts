@@ -12,7 +12,7 @@ import {
   EventStateMachineConfig,
   BaseEvent,
   DEFAULT_EVENT_CONFIG
-} from '../types/EventFSMTypes';
+} from '~types/EventFSMTypes';
 
 export class EventTransitionHub {
   private readonly config: EventStateMachineConfig;

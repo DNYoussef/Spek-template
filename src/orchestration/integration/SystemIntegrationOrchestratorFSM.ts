@@ -463,8 +463,6 @@ export class SystemIntegrationOrchestratorFSM extends EventEmitter {
 }
 
 // Export for backward compatibility
-export default SystemIntegrationOrchestratorFSM;
-
 // Re-export original class for gradual migration
 export { SystemIntegrationOrchestrator } from './SystemIntegrationOrchestrator';
 
@@ -482,3 +480,6 @@ export { SystemIntegrationOrchestrator } from './SystemIntegrationOrchestrator';
 // tools_used: ["Write"]
 // versions: {"model":"claude-sonnet-4","prompt":"fsm-first-refactor-v1"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default SystemIntegrationOrchestratorFSM;

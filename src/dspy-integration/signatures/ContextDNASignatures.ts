@@ -2060,10 +2060,11 @@ export const ContextDNASignatures = {
   ContextDNACrossDomainTransfer
 } as const;
 
-export default ContextDNASignatures;
-
 /*
  * AGENT FOOTER: ContextDNASignatures v1.0.0
  * Status: OK | NASA Rule 10 Compliant | FSM-Compatible | TypeScript Type Safety
  * Created: 2025-09-28T16:35:20-04:00 | Agent: dspy-signature-specialist@claude-sonnet-4
  */
+
+// Backward compatibility
+export default ContextDNASignatures;

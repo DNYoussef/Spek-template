@@ -340,7 +340,6 @@ export class QueenFacadeFacade extends EventEmitter {
     };
   }
 }
-export default QueenFacadeFacade;
 /*
 Version & Run Log
 Version: 1.0.0
@@ -351,3 +350,8 @@ Artifacts: QueenFacadeFacade.ts
 Status: OK
 Hash: e8d3b5c
 */
+
+// Backward compatibility
+
+// Backward compatibility
+export default QueenFacadeFacade;

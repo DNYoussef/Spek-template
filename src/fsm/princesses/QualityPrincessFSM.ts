@@ -78,8 +78,6 @@ export class QualityPrincessFSM {
   }
 }
 
-export default QualityPrincessFSM;
-
 /**
  * MIGRATION NOTICE - NASA Rule 10 Compliance
  *
@@ -132,3 +130,6 @@ export default QualityPrincessFSM;
 // tools_used: ["Read", "MultiEdit", "Write"]
 // versions: {"model":"claude-sonnet-4","prompt":"god-object-elimination"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default QualityPrincessFSM;

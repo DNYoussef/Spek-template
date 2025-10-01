@@ -1,6 +1,7 @@
 // ELIMINATED GOD OBJECT - Use SemanticAnalyzerFacade
 // @eliminated true @original_size 1097 lines @reduction 99.5%
 export * from './SemanticAnalyzerFacade';
+export { default } from './SemanticAnalyzerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

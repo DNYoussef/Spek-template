@@ -9,6 +9,7 @@ export interface POT10ComplianceResult {
   recommendations: string[];
   timestamp: number;
   overallCompliance?: number; // Alias for score for compatibility
+  criticalViolations: number;
 }
 export interface POT10Violation {
   rule: string;
@@ -97,4 +98,8 @@ export class POT10RuleEngineFacade {
 export class POT10RuleEngine extends POT10RuleEngineFacade {
   // Alias for compatibility
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default POT10RuleEngineFacade;

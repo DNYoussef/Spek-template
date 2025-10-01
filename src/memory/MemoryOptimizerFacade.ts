@@ -35,4 +35,8 @@ export class MemoryOptimizer {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default MemoryOptimizer;

@@ -3,6 +3,7 @@
  * @eliminated true @original_size 595 lines @reduction 98%
  */
 export * from './QueenCommunicationHubFacade';
+export { default } from './QueenCommunicationHubFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

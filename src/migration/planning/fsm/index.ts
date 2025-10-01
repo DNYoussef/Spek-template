@@ -20,7 +20,7 @@ export { ValidationState } from './states/ValidationState';
 export { CompletedState, FailedState, CancelledState } from './states/TerminalStates';
 
 // Types and interfaces
-export * from './types/AnalysisTypes';
+export * from '~types/AnalysisTypes';
 
 // === AGENT FOOTER ===
 // Version & Run Log

@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { VersionSnapshot } from '../types/MemoryVersionTypes';
+import { VersionSnapshot } from '~types/MemoryVersionTypes';
 
 export interface SnapshotRecord {
   id: string;

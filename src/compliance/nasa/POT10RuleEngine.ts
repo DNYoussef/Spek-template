@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './POT10RuleEngineFacade';
+export { default } from './POT10RuleEngineFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

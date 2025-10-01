@@ -13,6 +13,7 @@ export class QualityDashboard {
   }
 }
 
-export default QualityDashboard;
-
 /* AGENT FOOTER: v1.0.0 | 2025-09-30 | wave10 | OK | 6b8d2f3 */
+
+// Backward compatibility
+export default QualityDashboard;

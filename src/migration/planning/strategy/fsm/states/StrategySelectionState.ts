@@ -7,7 +7,7 @@ import {
   SideEffect,
   MigrationApproach,
   AlternativeApproach
-} from '../types/MigrationFSMTypes';
+} from '~types/MigrationFSMTypes';
 
 /**
  * Strategy Selection State Handler

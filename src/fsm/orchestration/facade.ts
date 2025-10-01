@@ -10,6 +10,9 @@
 export * from './StateEventDispatcher';
 export * from './StateTransitionEngine';
 
+// Default export for backward compatibility
+export { StateEventDispatcher as default } from './StateEventDispatcher';
+
 /* AGENT FOOTER BEGIN */
 /* Version & Run Log
  * Version | Timestamp | Agent/Model | Change Summary | Status | Hash

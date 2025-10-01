@@ -495,4 +495,5 @@ export class MetricsCollector extends EventEmitter {
   }
 }
 
+// Backward compatibility
 export default MetricsCollector;

@@ -3,6 +3,7 @@
  * @eliminated true @original_size 787 lines @reduction 99.0%
  */
 export * from './InfrastructureDocumentationManagerFacade';
+export { default } from './InfrastructureDocumentationManagerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

@@ -36,4 +36,8 @@ export class PerformanceBenchmarks {
     this.benchmarks.clear();
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default PerformanceBenchmarks;

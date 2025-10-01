@@ -12,6 +12,7 @@
 
 // FSM-based facade re-export (will be implemented)
 export * from './WorkflowExecutorFacade';
+export { default } from './WorkflowExecutorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

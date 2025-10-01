@@ -6,7 +6,7 @@ import {
   MigrationPlanningEvent,
   SideEffect,
   MigrationPlanningRequest
-} from '../types/MigrationFSMTypes';
+} from '~types/MigrationFSMTypes';
 
 /**
  * Request Analysis State Handler

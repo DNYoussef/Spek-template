@@ -133,4 +133,8 @@ Warnings: ${result.warnings.length}`;
 export class ProductionReadinessValidator extends ProductionReadinessValidatorFacade {
   // Alias for compatibility
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default ProductionReadinessValidatorFacade;

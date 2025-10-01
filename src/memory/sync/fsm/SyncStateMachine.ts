@@ -93,4 +93,5 @@ export class SyncStateMachine extends EventEmitter {
   }
 }
 
+// Backward compatibility
 export default SyncStateMachine;

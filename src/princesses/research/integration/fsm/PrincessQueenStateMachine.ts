@@ -102,3 +102,21 @@ export interface OrderContext {
   businessContext?: string;
   stakeholders?: string[];
 }
+
+export interface ResearchResult {
+  orderId: string;
+  status: 'completed' | 'partial' | 'failed';
+  data: {
+    findings: string[];
+    sources: string[];
+    confidence: number;
+    metadata: Record<string, unknown>;
+  };
+  metrics: {
+    duration: number;
+    resourcesUsed: number;
+    qualityScore: number;
+  };
+  recommendations?: string[];
+  nextSteps?: string[];
+}

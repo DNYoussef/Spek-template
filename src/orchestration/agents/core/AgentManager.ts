@@ -5,7 +5,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { AgentDefinition, AgentExecution, AgentPerformance, CommunicationStatus, ResourceUtilization, AgentLog } from '../types/AgentTypes';
+import { AgentDefinition, AgentExecution, AgentPerformance, CommunicationStatus, ResourceUtilization, AgentLog } from '~types/AgentTypes';
 import { AgentState, AgentEvent } from '../fsm/AgentStates';
 import { TransitionHub } from '../fsm/TransitionHub';
 import { AgentFSMFacade } from '../components/AgentFSMFacade';

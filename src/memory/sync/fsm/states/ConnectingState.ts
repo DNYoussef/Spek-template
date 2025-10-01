@@ -160,4 +160,5 @@ export class ConnectingState implements StateHandler {
   }
 }
 
+// Backward compatibility
 export default ConnectingState;

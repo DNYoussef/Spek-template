@@ -5,7 +5,7 @@
 
 import { EventEmitter } from 'events';
 import { Logger } from '../../utils/logger';
-import { Task, TaskStatus } from '../types/task.types';
+import { Task, TaskStatus } from '~types/task.types';
 import { PrincessDomain } from '../hierarchy/types';
 
 export interface ShardExecutionPlan {
@@ -462,4 +462,7 @@ export class ShardingCoordinator extends EventEmitter {
   }
 }
 
+// Backward compatibility
+
+// Backward compatibility
 export default ShardingCoordinator;

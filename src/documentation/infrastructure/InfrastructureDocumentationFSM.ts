@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { DocStates, DocEvents, DocContext } from './types/InfrastructureDocTypes';
+import { DocStates, DocEvents, DocContext } from '~types/InfrastructureDocTypes';
 import { TemplateLoadingStateHandler } from './states/TemplateLoadingStateHandler';
 import { GeneratingStateHandler } from './states/GeneratingStateHandler';
 import { DeployingStateHandler } from './states/DeployingStateHandler';

@@ -35,4 +35,8 @@ export class MegaBuilder {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default MegaBuilder;

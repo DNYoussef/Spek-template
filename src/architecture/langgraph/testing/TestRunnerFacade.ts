@@ -57,4 +57,8 @@ export class TestRunner {
     this.results  =  [];
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default TestRunner;

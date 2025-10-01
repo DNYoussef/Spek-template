@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './pipeline-orchestratorCoreFacade';
+export { default } from './pipeline-orchestratorCoreFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

@@ -3,9 +3,9 @@
  * Manages Princess resources with bounded operations
  */
 
-import { ResourceAllocation } from '../types/QueenTypes';
+import { ResourceAllocation } from '~types/QueenTypes';
 import { NASACompliantLoopHandler } from '../utils/NASACompliantLoopHandler';
-import PrincessStateMachine from '../../state-machines/PrincessStateMachine';
+import { PrincessStateMachineFacade as PrincessStateMachine } from '../../state-machines/PrincessStateMachineFacade';
 
 export interface EscalationCheck {
   needed: boolean;

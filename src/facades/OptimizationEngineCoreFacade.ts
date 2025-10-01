@@ -35,4 +35,8 @@ export class OptimizationEngineCore {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default OptimizationEngineCore;

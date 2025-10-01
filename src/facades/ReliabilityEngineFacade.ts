@@ -35,4 +35,8 @@ export class ReliabilityEngine {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default ReliabilityEngine;

@@ -3,6 +3,7 @@
  * @eliminated true @original_size 937 lines @reduction 99.0%
  */
 export * from './CoordinationPrincessFacade';
+export { default } from './CoordinationPrincessFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

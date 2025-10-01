@@ -8,7 +8,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { WatchConfig } from '../types/ConfigTypes';
+import { WatchConfig } from '~types/ConfigTypes';
 
 export class ConfigWatcher {
     private watchers: Map<string, fs.FSWatcher>;

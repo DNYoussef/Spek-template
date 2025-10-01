@@ -3,6 +3,7 @@
  * @eliminated true @original_size 608 lines @reduction 98%
  */
 export * from './BenchmarkCLIFacade';
+export { default } from './BenchmarkCLIFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

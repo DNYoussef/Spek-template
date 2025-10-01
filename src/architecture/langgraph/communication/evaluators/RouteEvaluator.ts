@@ -64,4 +64,5 @@ export class RouteEvaluator {
   }
 }
 
+// Backward compatibility
 export default RouteEvaluator;

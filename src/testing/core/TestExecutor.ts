@@ -12,7 +12,7 @@ import {
   TestResult,
   TestDefinition,
   TestConfig
-} from '../types/TestingTypes';
+} from '~types/TestingTypes';
 
 export abstract class TestExecutor extends EventEmitter {
   protected transitionHub: TestTransitionHub;

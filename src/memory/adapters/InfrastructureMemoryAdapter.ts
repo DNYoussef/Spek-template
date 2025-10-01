@@ -419,4 +419,6 @@ export class InfrastructureMemoryAdapter extends EventEmitter {
     return JSON.stringify(data).length * 2; // UTF-16 estimate
   }
 }
+
+// Backward compatibility
 export default InfrastructureMemoryAdapter;

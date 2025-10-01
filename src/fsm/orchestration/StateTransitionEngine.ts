@@ -3,8 +3,8 @@
  * Handles the actual execution of state transitions with guards and actions
  */
 
-import { FSMContext, TransitionDefinition, StateDefinition, TransitionGuard } from '../types/FSMTypes';
-import { SystemState, SystemEvent } from '../types/FSMTypes';
+import { FSMContext, TransitionDefinition, StateDefinition, TransitionGuard } from '~types/FSMTypes';
+import { SystemState, SystemEvent } from '~types/FSMTypes';
 
 export interface TransitionExecutionResult {
   success: boolean;

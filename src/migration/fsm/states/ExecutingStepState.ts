@@ -4,7 +4,7 @@
  */
 
 import { Logger } from '../../../utils/Logger';
-import { StateHandler, MigrationContext, MigrationEvent, MigrationStep } from '../types/MigrationFSMTypes';
+import { StateHandler, MigrationContext, MigrationEvent, MigrationStep } from '~types/MigrationFSMTypes';
 
 export class ExecutingStepState implements StateHandler {
   private logger: Logger;

@@ -3,6 +3,7 @@
  * @eliminated true @original_size 785 lines @reduction 99.0%
  */
 export * from './iso27001-mapperFacade';
+export { default } from './iso27001-mapperFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

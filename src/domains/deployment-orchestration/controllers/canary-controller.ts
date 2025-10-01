@@ -10,7 +10,7 @@ import { CanaryControllerFacade } from '../../../controllers/facades/CanaryContr
 import {
   DeploymentExecution,
   DeploymentResult
-} from '../types/deployment-types';
+} from '~types/deployment-types';
 
 export class CanaryController {
   private facade = new CanaryControllerFacade();

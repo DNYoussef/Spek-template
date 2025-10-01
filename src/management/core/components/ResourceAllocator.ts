@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { ResourceInfo } from '../types/ManagementTypes';
+import { ResourceInfo } from '~types/ManagementTypes';
 
 export class ResourceAllocator extends EventEmitter {
   private resources: Map<string, ResourceInfo> = new Map();

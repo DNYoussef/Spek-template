@@ -4,7 +4,7 @@
  */
 
 import { ComponentCore } from '../../../fsm/shared/MidRangeFSM';
-import { AnalysisResult, AnalysisReport } from '../types/AnalysisTypes';
+import { AnalysisResult, AnalysisReport } from '~types/AnalysisTypes';
 
 export interface ReportTemplate {
   name: string;

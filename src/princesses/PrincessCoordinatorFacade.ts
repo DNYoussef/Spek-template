@@ -35,4 +35,8 @@ export class PrincessCoordinator {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default PrincessCoordinator;

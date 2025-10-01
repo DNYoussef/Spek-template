@@ -332,4 +332,5 @@ export class EventBus {
   }
 }
 
+// Backward compatibility
 export default EventBus;

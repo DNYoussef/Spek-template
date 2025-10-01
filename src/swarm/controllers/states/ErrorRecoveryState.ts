@@ -2,7 +2,7 @@
  * Error Recovery State - FSM State for Error Handling and Recovery
  * NASA Rule 10 Compliant: Fixed bounds on recovery operations
  */
-import { DebugState, DebugEvent, DebugStateContext } from '../types/DebugState';
+import { DebugState, DebugEvent, DebugStateContext } from '~types/DebugState';
 
 export class ErrorRecoveryState {
   private readonly MAX_RECOVERY_TIME = 60000; // 60 seconds max

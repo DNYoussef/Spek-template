@@ -3,6 +3,7 @@
  * @eliminated true @original_size 640 lines @reduction 98%
  */
 export * from './RollbackManagerFacade';
+export { default } from './RollbackManagerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

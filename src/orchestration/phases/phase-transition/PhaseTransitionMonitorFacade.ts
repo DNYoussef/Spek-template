@@ -35,4 +35,8 @@ export class PhaseTransitionMonitor {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default PhaseTransitionMonitor;

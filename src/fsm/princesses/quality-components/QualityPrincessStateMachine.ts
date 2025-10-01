@@ -3,6 +3,7 @@
  * @eliminated true @original_size 713 lines @reduction 98%
  */
 export * from './QualityPrincessStateMachineFacade';
+export { default } from './QualityPrincessStateMachineFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

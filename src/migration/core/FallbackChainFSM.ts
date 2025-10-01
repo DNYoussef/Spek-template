@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { FallbackStates, FallbackEvents, FallbackContext } from './types/FallbackChainTypes';
+import { FallbackStates, FallbackEvents, FallbackContext } from '~types/FallbackChainTypes';
 import { AnalyzingStateHandler } from './states/AnalyzingStateHandler';
 import { ActivatingStateHandler } from './states/ActivatingStateHandler';
 import { ActiveStateHandler } from './states/ActiveStateHandler';

@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { DashboardTypes } from '../types/DashboardTypes';
+import { DashboardTypes } from '~types/DashboardTypes';
 import { MigrationMonitor, MigrationMetrics, MigrationHealthCheck } from '../../monitoring/MigrationMonitor';
 import { AlertManager, Alert } from '../../alerting/AlertManager';
 

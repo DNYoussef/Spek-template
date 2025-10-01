@@ -3,6 +3,7 @@
  * @eliminated true @original_size 865 lines @reduction 99.0%
  */
 export * from './soc2-automationFacade';
+export { default } from './soc2-automationFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

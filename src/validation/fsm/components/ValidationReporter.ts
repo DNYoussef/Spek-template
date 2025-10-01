@@ -9,7 +9,7 @@ import {
   ReportData,
   ValidationFinding,
   ComplianceLevel
-} from '../types/ValidationFSMTypes';
+} from '~types/ValidationFSMTypes';
 
 export class ValidationReporter {
   private readonly reportCache: Map<string, ReportData>;

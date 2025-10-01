@@ -1,4 +1,4 @@
-import { BroadcastMessage, StateContext, MessageProcessor } from '../types/BroadcasterTypes';
+import { BroadcastMessage, StateContext, MessageProcessor } from '~types/BroadcasterTypes';
 import { MemoryEvent, SharedMemoryBus } from '../SharedMemoryBus';
 
 /**

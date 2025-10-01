@@ -63,7 +63,7 @@ export {
   ComponentFactory,
   DEFAULT_REPORTER_CONFIG,
   NASA_RULE_10_BOUNDS
-} from './types/ReportingTypes';
+} from '~types/ReportingTypes';
 
 // ============================================================================
 // CONVENIENCE EXPORTS

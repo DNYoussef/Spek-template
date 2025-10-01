@@ -155,3 +155,6 @@ export class AuditTrailGenerator {
         });
     }
 }
+
+// Default export for backward compatibility
+export default AuditTrailGenerator;

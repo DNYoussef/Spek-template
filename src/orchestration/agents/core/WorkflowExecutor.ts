@@ -3,6 +3,7 @@
  * @eliminated true @original_size 660 lines @reduction 98%
  */
 export * from './WorkflowExecutorFacade';
+export { default } from './WorkflowExecutorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

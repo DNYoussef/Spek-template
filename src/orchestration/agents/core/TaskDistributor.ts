@@ -5,8 +5,8 @@
  */
 
 import { EventEmitter } from 'events';
-import { WorkflowExecution, WorkflowTask, AssignmentCriteria } from '../types/WorkflowTypes';
-import { AgentDefinition, AgentExecution } from '../types/AgentTypes';
+import { WorkflowExecution, WorkflowTask, AssignmentCriteria } from '~types/WorkflowTypes';
+import { AgentDefinition, AgentExecution } from '~types/AgentTypes';
 
 export class TaskDistributor extends EventEmitter {
   private agentDefinitions: Map<string, AgentDefinition> = new Map();

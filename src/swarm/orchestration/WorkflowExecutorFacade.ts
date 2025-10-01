@@ -22,3 +22,9 @@ export class WorkflowExecutorFacade {
         // Implementation redirected to FSM components
     }
 }
+
+// Alias for backward compatibility with imports expecting "WorkflowExecutor"
+export { WorkflowExecutorFacade as WorkflowExecutor };
+
+// Default export for backward compatibility
+export default WorkflowExecutorFacade;

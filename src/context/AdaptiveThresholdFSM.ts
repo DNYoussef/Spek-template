@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { ThresholdStates, ThresholdEvents, ThresholdContext } from './types/AdaptiveThresholdTypes';
+import { ThresholdStates, ThresholdEvents, ThresholdContext } from '~types/AdaptiveThresholdTypes';
 import { InitializationStateHandler } from './states/InitializationStateHandler';
 import { MonitoringStateHandler } from './states/MonitoringStateHandler';
 import { AdaptationStateHandler } from './states/AdaptationStateHandler';

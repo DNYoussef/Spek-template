@@ -35,4 +35,8 @@ export class QualityAssurance {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default QualityAssurance;

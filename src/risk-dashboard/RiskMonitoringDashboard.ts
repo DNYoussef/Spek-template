@@ -3,6 +3,7 @@
  * @eliminated true @original_size 860 lines @reduction 99.0%
  */
 export * from './RiskMonitoringDashboardFacade';
+export { default } from './RiskMonitoringDashboardFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

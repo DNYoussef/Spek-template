@@ -6,7 +6,7 @@
 import { EventEmitter } from 'events';
 import { DashboardCore } from '../core/DashboardCore';
 import { DashboardStateMachine } from '../fsm/DashboardStateMachine';
-import { DashboardTypes } from '../types/DashboardTypes';
+import { DashboardTypes } from '~types/DashboardTypes';
 import { WidgetRenderer } from '../renderers/WidgetRenderer';
 import { DashboardDataAggregator } from '../aggregators/DashboardDataAggregator';
 import { DashboardExporter } from '../exporters/DashboardExporter';

@@ -6,7 +6,7 @@
 import { promisify } from 'util';
 import { exec } from 'child_process';
 import { randomUUID } from 'crypto';
-import { DeploymentArtifact, Environment } from '../types/deployment-types';
+import { DeploymentArtifact, Environment } from '~types/deployment-types';
 
 export interface SecurityScanResult {
   vulnerabilities: SecurityVulnerability[];
@@ -465,4 +465,5 @@ export class RealSecurityValidator {
   }
 }
 
+// Backward compatibility
 export default RealSecurityValidator;

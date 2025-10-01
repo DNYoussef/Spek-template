@@ -10,7 +10,7 @@ import {
   ValidationBounds,
   ExecutionBounds,
   ValidationTestExecution
-} from '../types/ValidationFSM.types';
+} from '~types/ValidationFSM.types';
 import { ValidationState, ValidationEvent } from '../ValidationSuite';
 import { NASARule10Checker } from '../compliance/NASARule10Checker';
 import { BoundsManager } from '../execution/BoundsManager';
@@ -442,4 +442,5 @@ export class ComplianceReporter {
   }
 }
 
+// Backward compatibility
 export default ComplianceReporter;

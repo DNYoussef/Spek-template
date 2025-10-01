@@ -3,6 +3,7 @@
  * @eliminated true @original_size 615 lines @reduction 98%
  */
 export * from './EnterpriseQualityAnalyzerFacade';
+export { default } from './EnterpriseQualityAnalyzerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { SystemEvent, SystemState, FSMContext } from '../types/FSMTypes';
+import { SystemEvent, SystemState, FSMContext } from '~types/FSMTypes';
 
 export interface EventSubscription {
   id: string;

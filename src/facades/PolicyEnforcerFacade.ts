@@ -35,4 +35,8 @@ export class PolicyEnforcer {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default PolicyEnforcer;

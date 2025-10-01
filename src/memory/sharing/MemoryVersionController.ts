@@ -72,8 +72,6 @@ export class MemoryVersionController {
   }
 }
 
-export default MemoryVersionController;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -88,3 +86,6 @@ export default MemoryVersionController;
 // tools_used: ["Edit"]
 // versions: {"model":"claude-sonnet-4","prompt":"FSM-First-v1.0"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default MemoryVersionController;

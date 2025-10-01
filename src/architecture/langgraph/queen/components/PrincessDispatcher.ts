@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './PrincessDispatcherFacade';
+export { default } from './PrincessDispatcherFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

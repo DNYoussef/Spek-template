@@ -448,8 +448,6 @@ export class ContextValidationCore {
   }
 }
 
-export default ContextValidationCore;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -464,3 +462,6 @@ export default ContextValidationCore;
 // tools_used: ["Read", "Write", "Bash"]
 // versions: {"model":"sonnet-4","optimization":"focused"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default ContextValidationCore;

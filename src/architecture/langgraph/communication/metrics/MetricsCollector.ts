@@ -53,4 +53,5 @@ export class MetricsCollector {
   }
 }
 
+// Backward compatibility
 export default MetricsCollector;

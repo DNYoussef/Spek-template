@@ -3,7 +3,7 @@
  * NASA Rule 10 compliant with focused responsibilities
  */
 
-import { CPUProfilerContext, CPUSample } from '../types/CPUProfilerTypes';
+import { CPUProfilerContext, CPUSample } from '~types/CPUProfilerTypes';
 import { SampleCollector } from '../core/SampleCollector';
 import { V8ProfilerManager } from '../core/V8ProfilerManager';
 

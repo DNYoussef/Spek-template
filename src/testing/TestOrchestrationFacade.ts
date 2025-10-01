@@ -35,4 +35,8 @@ export class TestOrchestration {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default TestOrchestration;

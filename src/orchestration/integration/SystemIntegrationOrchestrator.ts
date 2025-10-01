@@ -249,3 +249,6 @@ Receipt:
 - versions: {"model":"claude-sonnet-4","prompt":"system-integration-facade-v1"}
 */
 /* AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE */
+
+// Default export for backward compatibility
+export default SystemIntegrationOrchestrator;

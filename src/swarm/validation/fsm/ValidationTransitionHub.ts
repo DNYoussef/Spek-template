@@ -394,6 +394,8 @@ export class ValidationTransitionHub {
   }
 }
 
+
+// Backward compatibility
 export default ValidationTransitionHub;
 
 /**

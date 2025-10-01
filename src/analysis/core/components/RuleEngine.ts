@@ -5,7 +5,7 @@
  */
 
 import { ComponentFactory } from '../../../fsm/shared/ComponentLibrary';
-import { AnalysisRule, AnalysisViolation } from '../types/AnalysisTypes';
+import { AnalysisRule, AnalysisViolation } from '~types/AnalysisTypes';
 
 export class RuleEngine {
   private facade = ComponentFactory.createDataProcessor({ enableLogging: true });

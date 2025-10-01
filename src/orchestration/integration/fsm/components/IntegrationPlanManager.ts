@@ -21,7 +21,7 @@ import {
   RiskMitigationStrategy,
   ValidationResult,
   ValidationError
-} from '../types/IntegrationFSMTypes';
+} from '~types/IntegrationFSMTypes';
 
 export class IntegrationPlanManager extends EventEmitter implements ComponentStateContract {
   private dependencyResolver: ComponentDependencyResolver;

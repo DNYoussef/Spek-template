@@ -12,7 +12,7 @@ import { TaskScheduler } from './components/TaskScheduler';
 import { StateCoordinator } from './components/StateCoordinator';
 import { DependencyResolver } from './components/DependencyResolver';
 import { LifecycleHandler } from './components/LifecycleHandler';
-import { ManagementState, ManagementEvent, ManagementContext } from './types/ManagementTypes';
+import { ManagementState, ManagementEvent, ManagementContext } from '~types/ManagementTypes';
 import { ManagementTransitionHub } from './fsm/ManagementTransitionHub';
 
 export interface ManagementConfig {
@@ -264,8 +264,6 @@ export class ManagementHub extends EventEmitter {
   }
 }
 
-export default ManagementHub;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -280,3 +278,6 @@ export default ManagementHub;
 // tools_used: ["Write"]
 // versions: {"model":"claude-sonnet-4","prompt":"v1"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default ManagementHub;

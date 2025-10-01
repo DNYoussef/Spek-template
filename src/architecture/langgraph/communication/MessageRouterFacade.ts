@@ -138,4 +138,7 @@ export class MessageRouterFacade extends EventEmitter {
   }
 }
 
+// Backward compatibility
+
+// Backward compatibility
 export default MessageRouterFacade;

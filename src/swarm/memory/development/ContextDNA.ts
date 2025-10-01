@@ -222,4 +222,5 @@ export class ContextDNA extends EventEmitter {
   }
 }
 
+// Backward compatibility
 export default ContextDNA;

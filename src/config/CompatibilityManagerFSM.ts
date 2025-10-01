@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { CompatibilityStates, CompatibilityEvents, CompatibilityContext } from './types/CompatibilityTypes';
+import { CompatibilityStates, CompatibilityEvents, CompatibilityContext } from '~types/CompatibilityTypes';
 import { LegacyLoaderStateHandler } from './states/LegacyLoaderStateHandler';
 import { MigrationStateHandler } from './states/MigrationStateHandler';
 import { ValidationStateHandler } from './states/ValidationStateHandler';

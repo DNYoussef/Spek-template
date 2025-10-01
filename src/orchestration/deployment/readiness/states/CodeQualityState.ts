@@ -10,7 +10,7 @@ import {
   ReadinessContext,
   CategoryReadiness,
   CheckConfig
-} from '../types/ReadinessTypes';
+} from '~types/ReadinessTypes';
 import { BaseValidator } from '../validators/BaseValidator';
 
 /**
@@ -114,7 +114,7 @@ class CodeQualityValidator extends BaseValidator {
 /**
  * Handler for the VALIDATING_CODE_QUALITY state
  */
-export default class CodeQualityState implements StateHandler {
+export class CodeQualityState implements StateHandler {
   private validator: CodeQualityValidator;
 
   constructor() {
@@ -227,3 +227,6 @@ export default class CodeQualityState implements StateHandler {
 // tools_used: ["MultiEdit"]
 // versions: {"model":"claude-sonnet-4","prompt":"fsm-refactor-v2"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default CodeQualityState;

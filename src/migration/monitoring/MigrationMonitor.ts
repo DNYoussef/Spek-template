@@ -3,6 +3,7 @@
  * @eliminated true @original_size 611 lines @reduction 98%
  */
 export * from './MigrationMonitorFacade';
+export { default } from './MigrationMonitorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

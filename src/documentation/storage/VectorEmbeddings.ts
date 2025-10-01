@@ -14,6 +14,7 @@ export class VectorEmbeddings {
   }
 }
 
-export default VectorEmbeddings;
-
 /* AGENT FOOTER: v1.0.0 | 2025-09-30 | wave10 | OK | 5c7e1a4 */
+
+// Backward compatibility
+export default VectorEmbeddings;

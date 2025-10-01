@@ -13,6 +13,7 @@ export class CodeAnalyzer {
   }
 }
 
-export default CodeAnalyzer;
-
 /* AGENT FOOTER: v1.0.0 | 2025-09-30 | wave10 | OK | 3e8g2c1 */
+
+// Backward compatibility
+export default CodeAnalyzer;

@@ -3,6 +3,7 @@
  * @eliminated true @victory true
  */
 export * from './facade';
+export { default } from './facade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

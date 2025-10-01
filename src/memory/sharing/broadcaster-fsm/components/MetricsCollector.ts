@@ -1,4 +1,4 @@
-import { BroadcasterMetrics, StateContext, MetricsCollector } from '../types/BroadcasterTypes';
+import { BroadcasterMetrics, StateContext, MetricsCollector } from '~types/BroadcasterTypes';
 
 /**
  * Metrics collection component with NASA Rule 10 compliance

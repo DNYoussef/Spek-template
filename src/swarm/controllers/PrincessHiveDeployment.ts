@@ -3,6 +3,7 @@
  * @eliminated true @original_size 813 lines @reduction 99.0%
  */
 export * from './PrincessHiveDeploymentFacade';
+export { default } from './PrincessHiveDeploymentFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

@@ -3,6 +3,7 @@
  * @eliminated true @original_size 902 lines @reduction 99.0%
  */
 export * from './SIEMIntegrationFacade';
+export { default } from './SIEMIntegrationFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

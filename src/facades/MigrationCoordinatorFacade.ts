@@ -35,4 +35,8 @@ export class MigrationCoordinator {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default MigrationCoordinator;

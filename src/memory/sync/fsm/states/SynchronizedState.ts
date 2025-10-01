@@ -328,4 +328,5 @@ export class SynchronizedState implements StateHandler {
   }
 }
 
+// Backward compatibility
 export default SynchronizedState;

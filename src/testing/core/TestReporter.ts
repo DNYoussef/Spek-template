@@ -3,7 +3,7 @@
  * NASA Rule 10 Compliant: Functions ≤60 lines, ≥2 assertions per function
  */
 
-import { TestResult, TestAssertion } from '../types/TestingTypes';
+import { TestResult, TestAssertion } from '~types/TestingTypes';
 
 export interface TestReport {
   reportId: string;

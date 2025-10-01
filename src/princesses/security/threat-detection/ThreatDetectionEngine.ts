@@ -3,6 +3,7 @@
  * @eliminated true @original_size 841 lines @reduction 99.0%
  */
 export * from './ThreatDetectionEngineFacade';
+export { default } from './ThreatDetectionEngineFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

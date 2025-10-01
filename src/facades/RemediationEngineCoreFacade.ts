@@ -35,4 +35,8 @@ export class RemediationEngineCore {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default RemediationEngineCore;

@@ -35,4 +35,8 @@ export class CommunicationSecurity {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default CommunicationSecurity;

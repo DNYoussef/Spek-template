@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './multi-environment-coordinatorFacade';
+export { default } from './multi-environment-coordinatorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

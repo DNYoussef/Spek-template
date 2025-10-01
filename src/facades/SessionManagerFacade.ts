@@ -35,4 +35,8 @@ export class SessionManager {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default SessionManager;

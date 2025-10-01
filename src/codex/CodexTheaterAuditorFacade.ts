@@ -35,4 +35,8 @@ export class CodexTheaterAuditor {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default CodexTheaterAuditor;

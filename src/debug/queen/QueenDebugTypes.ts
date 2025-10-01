@@ -5,6 +5,15 @@
  */
 
 import { EventEmitter } from 'events';
+
+// RE-EXPORT types from root QueenDebugTypes.ts
+export {
+  AuditValidatorResult,
+  DebugExecutionResult,
+  DebugMetrics,
+  TheaterEvidence
+} from '../../QueenDebugTypes';
+
 import {
   DebugContext,
   DebugEvidence,
@@ -20,7 +29,7 @@ import {
   ProfilingData,
   createDebugContext,
   isDebugValue
-} from '../types/domains/debug-types';
+} from '~types/domains/debug-types';
 
 import {
   DebugSessionId,
@@ -29,7 +38,7 @@ import {
   FilePath,
   createTimestamp,
   createDebugSessionId
-} from '../types/base/primitives';
+} from '~types/base/primitives';
 
 // FSM State Enums - NO STRING EVENTS
 export enum DebugOrchestratorState {

@@ -51,7 +51,7 @@ export {
   ABTestConfiguration,
   ABTestResult,
   SuccessCriteria
-} from './types/DSPyTypes';
+} from '~types/DSPyTypes';
 
 // Validation Types
 export {
@@ -76,11 +76,14 @@ export {
   PerformanceSummary
 } from './core/PerformanceCollector';
 
-// Integration Types
-export {
+// Integration Types (from types file, not implementation)
+export type {
   IntegrationResult,
   QualityEnhancement,
-  TheaterIntegrationConfig,
+  TheaterIntegrationConfig
+} from '../integration/SPEKTheaterIntegration';
+
+export {
   IntegrationConfiguration,
   QualityGateMapping,
   PerformanceThresholds,

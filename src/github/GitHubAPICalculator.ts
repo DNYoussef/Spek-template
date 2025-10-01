@@ -318,6 +318,8 @@ export class GitHubAPICalculator {
   }
 }
 
+
+// Backward compatibility
 export default GitHubAPICalculator;
 
 /**

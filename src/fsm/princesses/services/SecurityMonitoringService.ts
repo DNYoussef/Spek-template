@@ -3,6 +3,7 @@
  * @eliminated true @original_size 549 lines @reduction 98%
  */
 export * from './SecurityMonitoringServiceFacade';
+export { default } from './SecurityMonitoringServiceFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

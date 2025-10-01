@@ -35,4 +35,8 @@ export class TransitionHub {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default TransitionHub;

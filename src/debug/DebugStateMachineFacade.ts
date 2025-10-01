@@ -35,4 +35,8 @@ export class DebugStateMachine {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default DebugStateMachine;

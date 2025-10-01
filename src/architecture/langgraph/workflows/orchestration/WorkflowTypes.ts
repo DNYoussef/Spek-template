@@ -38,6 +38,7 @@ export interface WorkflowDefinition {
   finalStates: string[];
   variables: WorkflowVariableDefinition[];
   context: ExecutionContext;
+  steps: WorkflowStep[];
 }
 
 export interface WorkflowTemplate {
@@ -56,6 +57,7 @@ export interface WorkflowStateDefinition {
   name: string;
   type: 'princess' | 'parallel' | 'conditional' | 'split' | 'merge';
   configuration: StateConfiguration;
+  task: string;
 }
 
 export interface WorkflowTransitionDefinition {
@@ -78,11 +80,15 @@ export interface WorkflowVariableDefinition {
 // Execution context and metrics
 export interface ExecutionContext {
   workflowId?: string;
+  executionId?: string;
   templateId?: string;
   variables?: Record<string, any>;
-  startTime?: Date;
+  startTime?: Date | number;
+  currentState?: string;
   metricsEnabled?: boolean;
   status?: 'running' | 'completed' | 'failed' | 'cancelled';
+  errors?: Error[];
+  history?: any[];
   [key: string]: any;
 }
 
@@ -176,7 +182,15 @@ export interface ResourceMetrics {
 export interface WorkflowOptimizationSuggestion {
   type: OptimizationSuggestionType;
   description: string;
-  estimatedImprovement: number;
+  estimatedImprovement: {
+    metric: string;
+    before: number;
+    after: number;
+    unit: string;
+    performance?: number;
+    resource?: number;
+    cost?: number;
+  };
   effort: 'low' | 'medium' | 'high';
   applicableStates: string[];
   metadata?: Record<string, any>;
@@ -187,7 +201,8 @@ export enum OptimizationSuggestionType {
   REORDERING = 'reordering',
   CACHING = 'caching',
   RESOURCE_OPTIMIZATION = 'resource_optimization',
-  STATE_CONSOLIDATION = 'state_consolidation'
+  STATE_CONSOLIDATION = 'state_consolidation',
+  STATE_REDUCTION = 'state_reduction'
 }
 
 // Validation interfaces
@@ -214,6 +229,7 @@ export interface WorkflowTransition {
 }
 
 export interface WorkflowContext {
+  workflowId?: string;
   currentWorkflow?: WorkflowDefinition;
   execution?: WorkflowExecution;
   metrics?: WorkflowExecutionMetrics;
@@ -227,8 +243,11 @@ export interface WorkflowContext {
   executionState?: WorkflowState | string;
   optimizationTimestamp?: number;
   optimizationState?: WorkflowState;
-  failureTimestamp?: Date;
-  resetTimestamp?: Date;
+  completionTimestamp?: number;
+  cancellationTimestamp?: number;
+  failureTimestamp?: number | Date;
+  resetTimestamp?: number | Date;
+  [key: string]: any;
 }
 
 // Factory and builder interfaces

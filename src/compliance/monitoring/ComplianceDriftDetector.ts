@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './ComplianceDriftDetectorFacade';
+export { default } from './ComplianceDriftDetectorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

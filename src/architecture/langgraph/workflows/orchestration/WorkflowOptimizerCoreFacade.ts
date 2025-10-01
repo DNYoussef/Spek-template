@@ -35,4 +35,8 @@ export class WorkflowOptimizerCore {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default WorkflowOptimizerCore;

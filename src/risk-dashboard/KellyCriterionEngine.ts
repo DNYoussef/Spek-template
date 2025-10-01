@@ -1,8 +1,9 @@
 /**
  * KellyCriterionEngine - ELIMINATED GOD OBJECT
- * @eliminated true @original_size 594 lines @reduction 98%
+ * @eliminated true @original_size 682 lines @reduction 98%
  */
 export * from './KellyCriterionEngineFacade';
+export { default } from './KellyCriterionEngineFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

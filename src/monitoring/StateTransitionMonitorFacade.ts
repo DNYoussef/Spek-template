@@ -35,4 +35,8 @@ export class StateTransitionMonitor {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default StateTransitionMonitor;

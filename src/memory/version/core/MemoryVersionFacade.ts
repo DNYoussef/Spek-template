@@ -17,7 +17,7 @@ import {
   VersionContext,
   VersionState,
   VersionEvent
-} from '../types/MemoryVersionTypes';
+} from '~types/MemoryVersionTypes';
 
 export class MemoryVersionFacade extends EventEmitter {
   private fsm: MemoryVersionFSM;

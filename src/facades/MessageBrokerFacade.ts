@@ -35,4 +35,8 @@ export class MessageBroker {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default MessageBroker;

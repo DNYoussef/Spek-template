@@ -35,4 +35,8 @@ export class FSMPatternDetector {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default FSMPatternDetector;

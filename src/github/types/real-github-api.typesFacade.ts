@@ -37,4 +37,8 @@ export class RealGithubApiTypesFacade {
     };
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default RealGithubApiTypesFacade;

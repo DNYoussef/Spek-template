@@ -3,6 +3,7 @@
  * @eliminated true @original_size 579 lines @reduction 98%
  */
 export * from './ResearchMemoryAdapterFacade';
+export { default } from './ResearchMemoryAdapterFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

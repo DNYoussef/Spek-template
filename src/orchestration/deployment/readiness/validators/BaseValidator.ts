@@ -12,7 +12,7 @@ import {
   Evidence,
   ValidationOptions,
   ReadinessValidationError
-} from '../types/ReadinessTypes';
+} from '~types/ReadinessTypes';
 
 /**
  * Base validator class providing common validation functionality

@@ -128,4 +128,5 @@ export class TransitionHub {
   }
 }
 
+// Backward compatibility
 export default TransitionHub;

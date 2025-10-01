@@ -250,5 +250,7 @@ function assert(condition: boolean, message: string): void {
   }
 }
 
-export default QualityGateOrchestrator;
+// Backward compatibility
 
+// Backward compatibility
+export default QualityGateOrchestrator;

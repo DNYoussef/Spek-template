@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './TemplateGeneratorCoreFacade';
+export { default } from './TemplateGeneratorCoreFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

@@ -35,4 +35,8 @@ export class PipelineExecutor {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default PipelineExecutor;

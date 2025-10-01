@@ -35,4 +35,8 @@ export class CICDDeploymentManager {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default CICDDeploymentManager;

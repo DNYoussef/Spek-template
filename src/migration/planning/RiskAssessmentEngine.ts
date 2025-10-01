@@ -63,8 +63,6 @@ export class RiskAssessmentEngine {
   }
 }
 
-export default RiskAssessmentEngine;
-
 /**
  * MIGRATION NOTICE - NASA Rule 10 Compliance
  *
@@ -119,3 +117,8 @@ export default RiskAssessmentEngine;
 // tools_used: ["Write", "Bash"]
 // versions: {"model":"claude-sonnet-4","prompt":"god-object-elimination"}
 // === END FOOTER ===
+
+// Backward compatibility
+
+// Backward compatibility
+export default RiskAssessmentEngine;

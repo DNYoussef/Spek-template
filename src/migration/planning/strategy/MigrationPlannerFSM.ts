@@ -3,6 +3,7 @@
  * @eliminated true @original_size 682 lines @reduction 98%
  */
 export * from './MigrationPlannerFSMFacade';
+export { default } from './MigrationPlannerFSMFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

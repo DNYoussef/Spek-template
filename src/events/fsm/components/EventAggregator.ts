@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './EventAggregatorFacade';
+export { default } from './EventAggregatorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

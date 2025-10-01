@@ -3,6 +3,7 @@
  * @eliminated true @original_size 922 lines @reduction 99.0%
  */
 export * from './CompilationErrorResolverFacade';
+export { default } from './CompilationErrorResolverFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

@@ -185,8 +185,6 @@ export class ReasoningTransitionHub extends EventEmitter {
   }
 }
 
-export default ReasoningTransitionHub;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -201,3 +199,6 @@ export default ReasoningTransitionHub;
 // tools_used: ["MultiEdit"]
 // versions: {"model":"codex","prompt":"v1"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default ReasoningTransitionHub;

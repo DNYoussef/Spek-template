@@ -35,4 +35,8 @@ export class HiveQueenMediator {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default HiveQueenMediator;

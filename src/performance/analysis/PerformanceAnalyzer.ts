@@ -3,6 +3,7 @@
  * @eliminated true @original_size 717 lines @reduction 98%
  */
 export * from './PerformanceAnalyzerFacade';
+export { default } from './PerformanceAnalyzerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

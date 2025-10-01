@@ -3,6 +3,7 @@
  * @eliminated true @original_size 549 lines @reduction 98%
  */
 export * from './ParallelPipelineManagerFacade';
+export { default } from './ParallelPipelineManagerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

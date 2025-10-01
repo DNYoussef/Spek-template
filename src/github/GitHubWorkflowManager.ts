@@ -3,6 +3,7 @@
  * @eliminated true @original_size 551 lines @reduction 98%
  */
 export * from './GitHubWorkflowManagerFacade';
+export { default } from './GitHubWorkflowManagerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

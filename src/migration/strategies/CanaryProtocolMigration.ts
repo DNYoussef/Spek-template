@@ -120,8 +120,6 @@ export class CanaryProtocolMigration extends EventEmitter {
   }
 }
 
-export default CanaryProtocolMigration;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -136,3 +134,6 @@ export default CanaryProtocolMigration;
 // tools_used: ["Write"]
 // versions: {"model":"claude-sonnet-4","prompt":"codex-048-v1"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default CanaryProtocolMigration;

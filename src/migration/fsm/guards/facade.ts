@@ -16,6 +16,9 @@ export const createGuard = (check: (context: unknown) => boolean): MigrationGuar
   canMigrate: check
 });
 
+// Default export for backward compatibility
+export default createGuard;
+
 /* AGENT FOOTER BEGIN */
 /* Version & Run Log
  * Version | Timestamp | Agent/Model | Change Summary | Status | Hash

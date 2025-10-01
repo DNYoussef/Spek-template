@@ -8,7 +8,7 @@
 
 import { EventEmitter } from 'events';
 import { ManagementHub } from '../../management/core/ManagementHub';
-import { DebugState, DebugEvent, DebugContext } from '../types/DebugState';
+import { DebugState, DebugEvent, DebugContext } from '~types/DebugState';
 
 export interface DebugConfig {
   maxConcurrentAnalysis: number;

@@ -437,8 +437,6 @@ export class RealLangroidMemoryManager extends EventEmitter {
   }
 }
 
-export default RealLangroidMemoryManager;
-
 /* GENUINE LANGROID IMPLEMENTATION COMPLETE
  *
  * REAL FEATURES IMPLEMENTED:
@@ -458,3 +456,8 @@ export default RealLangroidMemoryManager;
  * ❌ No more "TODO: implement" persistence
  * ❌ No more fake memory calculations
  */
+
+// Backward compatibility
+
+// Backward compatibility
+export default RealLangroidMemoryManager;

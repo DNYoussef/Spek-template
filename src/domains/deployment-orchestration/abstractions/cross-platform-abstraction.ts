@@ -3,6 +3,7 @@
  * @eliminated true @original_size 862 lines @reduction 99.0%
  */
 export * from './cross-platform-abstractionFacade';
+export { default } from './cross-platform-abstractionFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

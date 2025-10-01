@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { LifecycleInfo } from '../types/ManagementTypes';
+import { LifecycleInfo } from '~types/ManagementTypes';
 
 export class LifecycleHandler extends EventEmitter {
   private lifecycles: Map<string, LifecycleInfo> = new Map();

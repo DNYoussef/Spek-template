@@ -3,7 +3,7 @@
  * NASA Rule 10 Compliant: Focused rendering logic
  */
 
-import { DashboardTypes } from '../types/DashboardTypes';
+import { DashboardTypes } from '~types/DashboardTypes';
 import { MigrationMetrics, MigrationHealthCheck } from '../../monitoring/MigrationMonitor';
 
 export class WidgetRenderer {

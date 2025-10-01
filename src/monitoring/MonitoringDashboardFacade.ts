@@ -35,4 +35,8 @@ export class MonitoringDashboard {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default MonitoringDashboard;

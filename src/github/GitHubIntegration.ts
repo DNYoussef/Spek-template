@@ -16,7 +16,7 @@ import {
   GitHubRepository,
   GitHubIntegrationStatus,
   GitHubIntegrationOptions
-} from '../types/github-types';
+} from '~types/github-types';
 
 export class GitHubIntegration {
   private apiClient: GitHubAPIClient;
@@ -236,4 +236,5 @@ export class GitHubIntegration {
   get webhooks() { return this.webhookHandler; }
 }
 
+// Backward compatibility
 export default GitHubIntegration;

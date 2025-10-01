@@ -4,7 +4,7 @@
  */
 
 import * as os from 'os';
-import { CPUSample, CPUProfilerContext } from '../types/CPUProfilerTypes';
+import { CPUSample, CPUProfilerContext } from '~types/CPUProfilerTypes';
 
 export class SampleCollector {
   /**

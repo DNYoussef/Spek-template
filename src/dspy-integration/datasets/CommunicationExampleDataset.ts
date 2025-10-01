@@ -5,7 +5,7 @@
 
 import { promises as fs } from 'fs';
 import { join } from 'path';
-import { CommunicationExample, DatasetMetrics, QualityMetrics, PerformanceMetrics } from '../types/DatasetTypes';
+import { CommunicationExample, DatasetMetrics, QualityMetrics, PerformanceMetrics } from '~types/DatasetTypes';
 import { ExampleValidator } from './ExampleValidator';
 import { ScoringEngine } from './ScoringEngine';
 

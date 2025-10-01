@@ -202,6 +202,7 @@ export interface AlertRecipient {
   type: 'email' | 'slack' | 'pagerduty' | 'webhook';
   target: string;
   escalationLevel: number;
+  address: string;
 }
 
 /**

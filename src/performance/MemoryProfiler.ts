@@ -3,6 +3,7 @@
  * @eliminated true @original_size 837 lines @reduction 99.0%
  */
 export * from './MemoryProfilerFacade';
+export { default } from './MemoryProfilerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

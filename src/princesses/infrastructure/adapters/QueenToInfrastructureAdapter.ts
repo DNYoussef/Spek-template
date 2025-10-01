@@ -3,6 +3,7 @@
  * @eliminated true @original_size 612 lines @reduction 98%
  */
 export * from './QueenToInfrastructureAdapterFacade';
+export { default } from './QueenToInfrastructureAdapterFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

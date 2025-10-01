@@ -3,6 +3,7 @@
  * @eliminated true @original_size 706 lines @reduction 98%
  */
 export * from './HierarchicalTopologyFacade';
+export { default } from './HierarchicalTopologyFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

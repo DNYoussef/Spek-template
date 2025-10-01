@@ -11,7 +11,8 @@ export interface CoverageAnalysisResult {
   files: FileCoverage[];
   summary: CoverageSummary;
 }
-export interface FileCoverage {  path: string;
+export interface FileCoverage {
+  path: string;
   line: number;
   branch: number;
   function: number;
@@ -47,7 +48,8 @@ export class TestCoverageAnalyzerFacade {
     // Simplified coverage analysis
     const fileCoverages: FileCoverage[] = [];
     for (const file of files) {
-      fileCoverages.push({  path: file,
+      fileCoverages.push({
+  path: file,
         path: file,
         line: Math.random() * 20 + 80, // Mock: 80-100%
         branch: Math.random() * 20 + 75,
@@ -75,7 +77,8 @@ export class TestCoverageAnalyzerFacade {
     };
   }
   async analyzeFile(filePath: string): Promise<FileCoverage> {
-    return {  path: filePath,
+    return {
+  path: filePath,
       line: 85,
       branch: 80,
       function: 90,
@@ -115,4 +118,8 @@ Status: ${coverage.overall >= this.threshold ? 'PASS' : 'FAIL'}`;
 export class TestCoverageAnalyzer extends TestCoverageAnalyzerFacade {
   // Alias for compatibility
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default TestCoverageAnalyzerFacade;

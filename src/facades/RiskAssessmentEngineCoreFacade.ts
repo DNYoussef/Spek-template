@@ -35,4 +35,8 @@ export class RiskAssessmentEngineCore {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default RiskAssessmentEngineCore;

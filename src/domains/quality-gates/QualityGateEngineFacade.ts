@@ -35,4 +35,8 @@ export class QualityGateEngine {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default QualityGateEngine;

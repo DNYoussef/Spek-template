@@ -17,7 +17,7 @@ import {
   SuccessCriteria,
   EngineConfiguration,
   OptimizationStatus
-} from '../types/DSPyTypes';
+} from '~types/DSPyTypes';
 
 export interface OptimizationMetrics {
   readonly iterationsCompleted: number;

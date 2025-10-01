@@ -73,7 +73,7 @@ export interface DashboardState {
  * Real-time Risk Monitoring Dashboard
  * Provides live risk metrics, P(ruin) calculations, and alert management
  */
-export declare class RiskMonitoringDashboard extends EventEmitter {
+export declare export class RiskMonitoringDashboard extends EventEmitter {
     private wsConnection;
     private state;
     private config;
@@ -159,5 +159,7 @@ export declare class RiskMonitoringDashboard extends EventEmitter {
      */
     shutdown(): Promise<void>;
 }
-export default RiskMonitoringDashboard;
 //# sourceMappingURL=RiskMonitoringDashboard.d.ts.map
+
+// Backward compatibility
+export default RiskMonitoringDashboard;

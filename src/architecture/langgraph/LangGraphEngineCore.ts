@@ -15,7 +15,7 @@ export interface LangGraphConfig {
 }
 
 export class LangGraphEngineCore extends ComponentCore {
-  private config: LangGraphConfig;
+  protected config: LangGraphConfig;
   private workflows: Map<string, any> = new Map();
   private eventEmitter: EventEmitter;
 

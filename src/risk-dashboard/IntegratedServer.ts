@@ -3,6 +3,7 @@
  * @eliminated true @original_size 949 lines @reduction 99.0%
  */
 export * from './IntegratedServerFacade';
+export { default } from './IntegratedServerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

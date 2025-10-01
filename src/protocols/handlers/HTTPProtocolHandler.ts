@@ -3,6 +3,7 @@
  * @eliminated true @original_size 568 lines @reduction 98%
  */
 export * from './HTTPProtocolHandlerFacade';
+export { default } from './HTTPProtocolHandlerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

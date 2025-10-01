@@ -3,6 +3,7 @@
  * @eliminated true @original_size 644 lines @reduction 98%
  */
 export * from './MigrationPlannerCoreFacade';
+export { default } from './MigrationPlannerCoreFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

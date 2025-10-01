@@ -7,7 +7,7 @@ import {
   GitHubAuthConfig,
   GitHubAuthType,
   GitHubTokenInfo
-} from '../types/github-types';
+} from '~types/github-types';
 
 export class GitHubAuthentication {
   private config: GitHubAuthConfig;
@@ -370,4 +370,5 @@ export class GitHubAuthentication {
   }
 }
 
+// Backward compatibility
 export default GitHubAuthentication;

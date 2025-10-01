@@ -3,7 +3,7 @@
  * NASA Rule 10 Compliant: Functions ≤60 lines, no recursion, fixed loops, 2+ assertions
  */
 
-import { CacheStrategyDefinition, CacheStrategyType } from '../types/CacheFSMTypes';
+import { CacheStrategyDefinition, CacheStrategyType } from '~types/CacheFSMTypes';
 import { CacheEntry } from '../CacheFSMFacade';
 
 export class LRUStrategy implements CacheStrategyDefinition {

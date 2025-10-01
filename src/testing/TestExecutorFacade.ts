@@ -35,4 +35,8 @@ export class TestExecutor {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default TestExecutor;

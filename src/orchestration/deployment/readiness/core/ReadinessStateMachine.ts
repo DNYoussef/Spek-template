@@ -14,7 +14,7 @@ import {
   ValidationOptions,
   ReadinessValidation,
   ReadinessValidationError
-} from '../types/ReadinessTypes';
+} from '~types/ReadinessTypes';
 import { TransitionHub } from './TransitionHub';
 import { StateRegistry } from './StateRegistry';
 

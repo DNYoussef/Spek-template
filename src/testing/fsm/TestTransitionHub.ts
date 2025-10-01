@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { TestState, TestEvent, TestContext } from '../types/TestingTypes';
+import { TestState, TestEvent, TestContext } from '~types/TestingTypes';
 
 export class TestTransitionHub extends EventEmitter {
   private stateTransitions: Map<string, Map<TestEvent, TestState>>;

@@ -3,7 +3,7 @@
  * Ensures examples meet production standards and training requirements
  */
 
-import { CommunicationExample, ValidationResult, QualityMetrics } from '../types/DatasetTypes';
+import { CommunicationExample, ValidationResult, QualityMetrics } from '~types/DatasetTypes';
 
 export interface ValidationRule {
   name: string;

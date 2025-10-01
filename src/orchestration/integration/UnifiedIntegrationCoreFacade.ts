@@ -35,4 +35,8 @@ export class UnifiedIntegrationCore {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default UnifiedIntegrationCore;

@@ -65,4 +65,5 @@ export class MessageProcessor extends EventEmitter {
   }
 }
 
+// Backward compatibility
 export default MessageProcessor;

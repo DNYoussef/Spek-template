@@ -35,4 +35,8 @@ export class RateLimiter {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default RateLimiter;

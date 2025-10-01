@@ -298,4 +298,6 @@ export class MemoryCompressor {
     this.compressionStats.set(algorithm, current);
   }
 }
+
+// Backward compatibility
 export default MemoryCompressor;

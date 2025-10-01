@@ -6,6 +6,8 @@
 
 // Re-export from FSM-based facade
 export * from './PrincessStateMachineFacade';
+export { default } from './PrincessStateMachineFacade';
+export { default as PrincessStateMachine } from './PrincessStateMachineFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

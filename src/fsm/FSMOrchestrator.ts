@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './FSMOrchestratorFacade';
+export { default } from './FSMOrchestratorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

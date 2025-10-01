@@ -86,4 +86,6 @@ export class PrincessAgent extends EventEmitter {
     };
   }
 }
+
+// Backward compatibility
 export default PrincessAgent;

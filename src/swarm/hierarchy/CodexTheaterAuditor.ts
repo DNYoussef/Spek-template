@@ -3,6 +3,7 @@
  * @eliminated true @original_size 721 lines @reduction 98%
  */
 export * from './CodexTheaterAuditorFacade';
+export { default } from './CodexTheaterAuditorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

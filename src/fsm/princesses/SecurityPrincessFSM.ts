@@ -4,7 +4,7 @@
  * Reduced from 279 lines to ~70 lines (75%+ reduction)
  */
 
-import { SecurityState, SecurityEvent, PrincessState, PrincessEvent, FSMContext } from '../types/FSMTypes';
+import { SecurityState, SecurityEvent, PrincessState, PrincessEvent, FSMContext } from '~types/FSMTypes';
 import { PrincessBase, PrincessConfig } from './core/PrincessBase';
 
 export interface SecurityContext extends FSMContext {

@@ -94,7 +94,7 @@ export type {
   CICDPipelineExecution,
   QualityGateIntegration,
   DeploymentConfig
-} from './integrations/CICDIntegration';
+} from '../../cicd/CICDIntegrationFacade';
 
 // Performance Overhead Validation
 export { PerformanceOverheadValidator } from './monitoring/PerformanceOverheadValidator';

@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './CICDQualityGateManagerFacade';
+export { default } from './CICDQualityGateManagerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

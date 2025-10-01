@@ -6,7 +6,7 @@
  * FSM-First: Designed for MERGING state in ConfigStateMachine
  */
 
-import { MergeStrategy } from '../types/ConfigTypes';
+import { MergeStrategy } from '~types/ConfigTypes';
 
 export class ConfigMerger {
     private strategies: Map<string, MergeStrategy>;

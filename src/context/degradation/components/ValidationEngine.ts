@@ -6,7 +6,7 @@
 import {
   ValidationResult,
   IValidationEngine
-} from '../types/DegradationTypes';
+} from '~types/DegradationTypes';
 import { ContextDNA, ContextFingerprint } from '../../ContextDNA';
 import { GitHubProjectIntegration } from '../../GitHubProjectIntegration';
 

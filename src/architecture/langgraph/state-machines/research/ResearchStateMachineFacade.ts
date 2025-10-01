@@ -15,7 +15,7 @@ import { MegaTransitionHub, MegaState, MegaEvent, MegaStateContext } from '../..
 import { ResearchSearchEngine, SearchQuery, SearchResult } from './ResearchSearchEngine';
 import { ResearchAnalysisEngine, AnalysisRequest, AnalysisResult } from './ResearchAnalysisEngine';
 import { ResearchSynthesisEngine, SynthesisRequest, SynthesisResult } from './ResearchSynthesisEngine';
-import PrincessStateMachine, { PrincessConfiguration, TaskDefinition } from '../PrincessStateMachine';
+import { PrincessStateMachineFacade, PrincessConfiguration, TaskDefinition } from '../PrincessStateMachineFacade';
 
 // NASA Rule 10: Fixed bounds constants
 const MAX_CONCURRENT_OPERATIONS = 10;

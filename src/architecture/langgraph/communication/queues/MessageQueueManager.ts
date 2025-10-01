@@ -75,4 +75,7 @@ export class MessageQueueManager extends EventEmitter {
   }
 }
 
+// Backward compatibility
+
+// Backward compatibility
 export default MessageQueueManager;

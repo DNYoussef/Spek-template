@@ -3,6 +3,7 @@
  * @eliminated true @original_size 728 lines @reduction 98%
  */
 export * from './DataSourceConnectorsFacade';
+export { default } from './DataSourceConnectorsFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

@@ -3,6 +3,7 @@
  * @eliminated true @original_size 890 lines @reduction 99.0%
  */
 export * from './deployment-complianceFacade';
+export { default } from './deployment-complianceFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

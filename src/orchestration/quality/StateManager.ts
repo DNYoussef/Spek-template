@@ -56,8 +56,6 @@ export class StateManager extends EventEmitter {
   }
 }
 
-export default StateManager;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -72,3 +70,8 @@ export default StateManager;
 // tools_used: ["Write"]
 // versions: {"model":"claude-sonnet-4","prompt":"v1"}
 // === END FOOTER ===
+
+// Backward compatibility
+
+// Backward compatibility
+export default StateManager;

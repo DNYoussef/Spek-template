@@ -35,4 +35,8 @@ export class NASAComplianceValidator {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default NASAComplianceValidator;

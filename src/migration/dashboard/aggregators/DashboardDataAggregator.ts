@@ -3,7 +3,7 @@
  * NASA Rule 10 Compliant: Focused data aggregation logic
  */
 
-import { DashboardTypes } from '../types/DashboardTypes';
+import { DashboardTypes } from '~types/DashboardTypes';
 import { MigrationMetrics, AggregatedMetrics } from '../../monitoring/MigrationMonitor';
 
 export class DashboardDataAggregator {

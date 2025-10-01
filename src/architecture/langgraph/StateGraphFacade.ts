@@ -499,7 +499,6 @@ export class StateGraphFacade extends EventEmitter {
     return _hasCycle;
   }
 }
-export default StateGraphFacade;
 /*
 Version & Run Log
 Version: 1.0.0
@@ -510,3 +509,8 @@ Artifacts: StateGraphFacade.ts
 Status: OK
 Hash: f7a3d9c
 */
+
+// Backward compatibility
+
+// Backward compatibility
+export default StateGraphFacade;

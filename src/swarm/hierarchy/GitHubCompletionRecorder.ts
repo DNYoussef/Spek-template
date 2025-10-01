@@ -3,6 +3,7 @@
  * @eliminated true @original_size 533 lines @reduction 98%
  */
 export * from './GitHubCompletionRecorderFacade';
+export { default } from './GitHubCompletionRecorderFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

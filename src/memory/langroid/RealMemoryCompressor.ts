@@ -282,4 +282,5 @@ export class RealMemoryCompressor {
   }
 }
 
+// Backward compatibility
 export default RealMemoryCompressor;

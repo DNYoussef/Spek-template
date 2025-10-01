@@ -14,7 +14,7 @@ import {
   StateHandler,
   AnalysisStatus,
   ImpactAnalysisRequest
-} from './types/AnalysisTypes';
+} from '~types/AnalysisTypes';
 
 // Import state handlers
 import { InitializedState } from './states/InitializedState';
@@ -405,7 +405,7 @@ class StateMachineMetrics {
 }
 
 // Re-export types for convenience
-export * from './types/AnalysisTypes';
+export * from '~types/AnalysisTypes';
 
 // === AGENT FOOTER ===
 // Version & Run Log

@@ -5,7 +5,7 @@
  * comprehensive type checking, and error handling.
  */
 
-import { DSPySignature, SignatureExample } from '../types/DSPyTypes';
+import { DSPySignature, SignatureExample } from '~types/DSPyTypes';
 
 export interface ValidationResult {
   readonly isValid: boolean;

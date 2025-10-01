@@ -18,7 +18,7 @@
  */
 
 // Import the facade which provides the complete backward-compatible API
-import QualityGateOrchestrator from './QualityGateFacade';
+import { QualityGateOrchestrator } from './QualityGateFacade';
 
 // Re-export all types for external consumers
 export * from './core/QualityGateTypes';

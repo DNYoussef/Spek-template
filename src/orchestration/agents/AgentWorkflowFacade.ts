@@ -5,8 +5,8 @@
  */
 
 import { EventEmitter } from 'events';
-import { AgentDefinition, AgentExecution } from './types/AgentTypes';
-import { WorkflowExecution, WorkflowTask } from './types/WorkflowTypes';
+import { AgentDefinition, AgentExecution } from '~types/AgentTypes';
+import { WorkflowExecution, WorkflowTask } from '~types/WorkflowTypes';
 import { TransitionHub } from './fsm/TransitionHub';
 import { AgentManager } from './core/AgentManager';
 import { WorkflowExecutor } from './core/WorkflowExecutor';
@@ -484,4 +484,7 @@ function assert(condition: boolean, message: string): void {
   }
 }
 
+// Backward compatibility
+
+// Backward compatibility
 export default AgentWorkflowFacade;

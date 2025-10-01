@@ -55,4 +55,5 @@ export class AnalysisHub {
   }
 }
 
+// Backward compatibility
 export default AnalysisHub;

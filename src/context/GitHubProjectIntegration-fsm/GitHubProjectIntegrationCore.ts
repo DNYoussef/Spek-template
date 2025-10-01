@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './GitHubProjectIntegrationCoreFacade';
+export { default } from './GitHubProjectIntegrationCoreFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

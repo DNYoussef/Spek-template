@@ -335,4 +335,7 @@ export class SharedMemoryProtocolFacade extends EventEmitter {
   }
 }
 
+// Backward compatibility
+
+// Backward compatibility
 export default SharedMemoryProtocolFacade;

@@ -3,6 +3,7 @@
  * @eliminated true @original_size 546 lines @reduction 98%
  */
 export * from './MCPFailoverManagerFacade';
+export { default } from './MCPFailoverManagerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

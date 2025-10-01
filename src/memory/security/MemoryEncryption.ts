@@ -3,6 +3,7 @@
  * @eliminated true @original_size 726 lines @reduction 98%
  */
 export * from './MemoryEncryptionFacade';
+export { default } from './MemoryEncryptionFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

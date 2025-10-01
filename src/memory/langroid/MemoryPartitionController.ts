@@ -292,4 +292,6 @@ export class MemoryPartitionController {
     }
   }
 }
+
+// Backward compatibility
 export default MemoryPartitionController;

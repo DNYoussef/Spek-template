@@ -4,7 +4,7 @@
  */
 import { EventEmitter } from 'events';
 import { Logger } from '../../utils/Logger';
-import { FallbackProtocol } from './types/FallbackChainTypes';
+import { FallbackProtocol } from '~types/FallbackChainTypes';
 
 export class ProtocolRegistry extends EventEmitter {
   private readonly logger: Logger;

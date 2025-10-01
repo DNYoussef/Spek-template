@@ -8,7 +8,7 @@
 
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import { ConfigSource } from '../types/ConfigTypes';
+import { ConfigSource } from '~types/ConfigTypes';
 
 export class ConfigLoader {
     private sources: Map<string, ConfigSource>;

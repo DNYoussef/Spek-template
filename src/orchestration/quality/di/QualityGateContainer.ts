@@ -3,6 +3,7 @@
  * @eliminated true @original_size 547 lines @reduction 98%
  */
 export * from './QualityGateContainerFacade';
+export { default } from './QualityGateContainerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

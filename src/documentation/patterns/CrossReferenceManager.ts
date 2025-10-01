@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './CrossReferenceManagerFacade';
+export { default } from './CrossReferenceManagerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

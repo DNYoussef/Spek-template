@@ -3,11 +3,11 @@
  * Manages execution plans and workflow orchestration with bounded operations
  */
 
-import { ExecutionPlan, StrategicObjective } from '../types/QueenTypes';
+import { ExecutionPlan, StrategicObjective } from '~types/QueenTypes';
 import { NASACompliantLoopHandler } from '../utils/NASACompliantLoopHandler';
 import { ObjectiveManager } from './ObjectiveManager';
 import { ResourceManager } from './ResourceManager';
-import WorkflowOrchestrator from '../../workflows/WorkflowOrchestrator';
+import { WorkflowOrchestrator } from '../../workflows/WorkflowOrchestrator';
 
 export interface ExecutionMetrics {
   activeExecutions: number;

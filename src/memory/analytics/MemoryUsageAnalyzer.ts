@@ -3,6 +3,7 @@
  * @eliminated true @original_size 602 lines @reduction 98%
  */
 export * from './MemoryUsageAnalyzerFacade';
+export { default } from './MemoryUsageAnalyzerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

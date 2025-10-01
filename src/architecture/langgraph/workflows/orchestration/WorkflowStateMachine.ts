@@ -14,6 +14,9 @@ import {
   WorkflowExecution
 } from './WorkflowTypes';
 
+// Re-export for convenience
+export { WorkflowState, WorkflowEvent };
+
 /**
  * FSM-based workflow state machine
  * NASA Rule 10: All functions ≤60 lines, 2+ assertions each
@@ -433,4 +436,5 @@ export class WorkflowStateMachine extends EventEmitter {
   }
 }
 
+// Backward compatibility
 export default WorkflowStateMachine;

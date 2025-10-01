@@ -11,13 +11,13 @@ import {
   StateHandler,
   ReadinessContext,
   ReadinessValidationError
-} from '../types/ReadinessTypes';
+} from '~types/ReadinessTypes';
 
 /**
  * Handler for the INITIALIZING state
  * Sets up validation environment and context
  */
-export default class InitializingState implements StateHandler {
+export class InitializingState implements StateHandler {
 
   /**
    * Enter initializing state - setup validation environment
@@ -117,3 +117,6 @@ export default class InitializingState implements StateHandler {
 // tools_used: ["MultiEdit"]
 // versions: {"model":"claude-sonnet-4","prompt":"fsm-refactor-v2"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default InitializingState;

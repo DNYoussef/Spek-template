@@ -14,7 +14,7 @@ import {
   Alert,
   StressFailure,
   RecoveryAttempt
-} from './types/StressTestTypes';
+} from '~types/StressTestTypes';
 
 /**
  * Facade class that maintains API compatibility with original StressTestRunner

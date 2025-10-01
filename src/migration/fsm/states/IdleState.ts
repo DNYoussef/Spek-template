@@ -4,7 +4,7 @@
  */
 
 import { Logger } from '../../../utils/Logger';
-import { StateHandler, MigrationContext, MigrationEvent } from '../types/MigrationFSMTypes';
+import { StateHandler, MigrationContext, MigrationEvent } from '~types/MigrationFSMTypes';
 
 export class IdleState implements StateHandler {
   private logger: Logger;

@@ -3,6 +3,7 @@
  * @eliminated true @original_size 599 lines @reduction 98%
  */
 export * from './MemoryPersistenceFacade';
+export { default } from './MemoryPersistenceFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

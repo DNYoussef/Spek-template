@@ -12,7 +12,7 @@ import {
   NASAComplianceReport,
   ValidationFSMError,
   NASARule10ViolationError
-} from '../types/ValidationFSM.types';
+} from '~types/ValidationFSM.types';
 
 export class NASARule10Checker implements NASARule10Validator {
   private callStack: string[] = [];
@@ -417,4 +417,5 @@ export function validateNASACompliance<T extends (...args: any[]) => any>(
   }) as T;
 }
 
+// Backward compatibility
 export default NASARule10Checker;

@@ -3,6 +3,7 @@
  * @eliminated true @original_size 687 lines @reduction 98%
  */
 export * from './ProductionReadinessValidatorFacade';
+export { default } from './ProductionReadinessValidatorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

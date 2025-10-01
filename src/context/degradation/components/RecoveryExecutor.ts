@@ -10,7 +10,7 @@ import {
   DriftMetrics,
   MonitoringConfig,
   IRecoveryExecutor
-} from '../types/DegradationTypes';
+} from '~types/DegradationTypes';
 import { ContextFingerprint } from '../../ContextDNA';
 import { ValidationEngine } from './ValidationEngine';
 import { GitHubProjectIntegration } from '../../GitHubProjectIntegration';

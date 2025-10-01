@@ -11,7 +11,7 @@ import {
   StateAction,
   CheckSpecification,
   CheckResult
-} from '../types/ValidationFSMTypes';
+} from '~types/ValidationFSMTypes';
 import { ComplianceChecker } from '../components/ComplianceChecker';
 
 export class CheckingState {

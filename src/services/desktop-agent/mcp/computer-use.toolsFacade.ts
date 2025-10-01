@@ -38,4 +38,8 @@ export class ComputerUseToolsFacade {
     };
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default ComputerUseToolsFacade;

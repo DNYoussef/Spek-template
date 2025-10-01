@@ -229,13 +229,14 @@ export interface BaselineMetadata {
 export interface ComplianceDrift {
   readonly id: string;
   readonly timestamp: Timestamp;
-  readonly standard: ComplianceStandard;
+  readonly standard: string;
   readonly baseline: string; // baseline ID
   readonly current: ComplianceResult[];
   readonly driftMetrics: DriftMetrics;
   readonly severity: ComplianceSeverity;
   readonly trend: DriftTrend;
   readonly alerts: DriftAlert[];
+  readonly driftPercentage: number;
 }
 
 export interface DriftMetrics {
@@ -255,6 +256,8 @@ export interface DriftAlert {
   readonly recommendedActions: RemediationAction[];
   readonly escalationRequired: boolean;
   readonly suppressUntil?: Timestamp;
+  readonly alertLevel: string;
+  readonly timestamp: number;
 }
 
 // Scan result types

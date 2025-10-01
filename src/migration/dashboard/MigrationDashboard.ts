@@ -1,8 +1,8 @@
 import { DashboardStateMachine } from './fsm/DashboardStateMachine';
 import { DashboardCore } from './core/DashboardCore';
 import { DashboardFacade } from './facade/DashboardFacade';
-import { DashboardTypes } from './types/DashboardTypes';
-export * from './types/DashboardTypes';
+import { DashboardTypes } from '~types/DashboardTypes';
+export * from '~types/DashboardTypes';
 export * from './core/DashboardCore';
 export * from './facade/DashboardFacade';
 export * from './fsm/DashboardStateMachine';
@@ -18,7 +18,7 @@ import { DashboardExporter } from './exporters/DashboardExporter';
 // Re-export types from DashboardTypes
 export {
   DashboardTypes
-} from './types/DashboardTypes';
+} from '~types/DashboardTypes';
 
 // Individual type exports for backward compatibility
 export type DashboardWidget = DashboardTypes.DashboardWidget;

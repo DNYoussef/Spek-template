@@ -16,7 +16,7 @@ import {
   StateStoreContext,
   StateStoreState,
   StateStoreEvent
-} from '../types/StateStoreTypes';
+} from '~types/StateStoreTypes';
 
 export class StateStoreFacade extends EventEmitter {
   private fsm: StateStoreFSM;
@@ -98,6 +98,11 @@ export class StateStoreFacade extends EventEmitter {
   getState(princessId: string): StateRecord | null {
     console.assert(princessId != null, 'Princess ID required');
     return this.persistence.getState(princessId);
+  }
+
+  setState(princessId: string, state: any): void {
+    console.assert(princessId != null && state != null, 'Princess ID and state required');
+    this.persistence.setState(princessId, state);
   }
 
   getAllStates(): StateRecord[] {

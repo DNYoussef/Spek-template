@@ -46,4 +46,5 @@ export class DataCollector {
   }
 }
 
+// Backward compatibility
 export default DataCollector;

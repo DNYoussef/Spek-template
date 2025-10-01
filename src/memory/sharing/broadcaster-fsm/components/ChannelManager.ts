@@ -1,4 +1,4 @@
-import { BroadcastChannel, StateContext, ChannelManager } from '../types/BroadcasterTypes';
+import { BroadcastChannel, StateContext, ChannelManager } from '~types/BroadcasterTypes';
 
 /**
  * Channel management component with NASA Rule 10 compliance

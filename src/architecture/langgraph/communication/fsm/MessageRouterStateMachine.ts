@@ -10,7 +10,7 @@ import {
   MessageRouterContext,
   Message,
   MessageResponse
-} from '../types/MessageRouterTypes';
+} from '~types/MessageRouterTypes';
 
 export class MessageRouterStateMachine extends EventEmitter {
   private currentState: MessageRouterState = MessageRouterState.IDLE;

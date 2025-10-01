@@ -3,6 +3,7 @@
  * @eliminated true @original_size 616 lines @reduction 98%
  */
 export * from './LangroidMemoryFacade';
+export { default } from './LangroidMemoryFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

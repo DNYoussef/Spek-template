@@ -7,7 +7,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { ManagementState, ManagementEvent, ManagementContext } from '../types/ManagementTypes';
+import { ManagementState, ManagementEvent, ManagementContext } from '~types/ManagementTypes';
 
 export interface StateTransition {
   from: ManagementState;

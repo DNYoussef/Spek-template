@@ -257,4 +257,5 @@ export class WorkflowStateMachine {
   }
 }
 
+// Backward compatibility
 export default WorkflowStateMachine;

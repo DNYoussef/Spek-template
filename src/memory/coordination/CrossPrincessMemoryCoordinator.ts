@@ -3,6 +3,7 @@
  * @eliminated true @original_size 620 lines @reduction 98%
  */
 export * from './CrossPrincessMemoryCoordinatorFacade';
+export { default } from './CrossPrincessMemoryCoordinatorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

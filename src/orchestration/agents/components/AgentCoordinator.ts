@@ -5,7 +5,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { AgentExecution, WorkflowExecution } from '../types/AgentTypes';
+import { AgentExecution, WorkflowExecution } from '~types/AgentTypes';
 import { AgentState, AgentEvent, WorkflowState, WorkflowEvent } from '../fsm/AgentStates';
 import { TransitionHub } from '../fsm/TransitionHub';
 

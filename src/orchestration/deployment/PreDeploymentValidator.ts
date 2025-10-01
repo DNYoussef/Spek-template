@@ -3,6 +3,7 @@
  * @eliminated true @original_size 932 lines @reduction 99.0%
  */
 export * from './PreDeploymentValidatorFacade';
+export { default } from './PreDeploymentValidatorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

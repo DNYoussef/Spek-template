@@ -4,7 +4,7 @@
  */
 import { EventEmitter } from 'events';
 import { Logger } from '../../../utils/Logger';
-import { ChainEvents, TransitionContext, StateInvariants } from '../types/FallbackTypes';
+import { ChainEvents, TransitionContext, StateInvariants } from '~types/FallbackTypes';
 
 export class TransitionHub extends EventEmitter {
   private readonly logger: Logger;

@@ -9,7 +9,7 @@ import {
   CertificationStatus,
   Certificate,
   ComplianceLevel
-} from '../types/ValidationFSMTypes';
+} from '~types/ValidationFSMTypes';
 
 export class CertificationManager {
   private readonly certificates: Map<string, Certificate>;

@@ -376,4 +376,8 @@ export class MemoryCoordinator extends EventEmitter {
     this.emit('shutdown');
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default MemoryCoordinator;

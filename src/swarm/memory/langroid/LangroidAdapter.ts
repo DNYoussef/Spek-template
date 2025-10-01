@@ -17,6 +17,23 @@ export interface Agent {
   created: Date;
 }
 
+export interface LangroidAgentConfig {
+  name: string;
+  type: string;
+  vectorStore?: {
+    provider: string;
+    dimensions: number;
+  };
+  llm?: {
+    model: string;
+    temperature: number;
+  };
+  memory?: {
+    enabled: boolean;
+    maxSize: number;
+  };
+}
+
 /**
  * LangroidAdapter provides integration with the Langroid memory system
  * This implementation provides the minimal interface required by tests

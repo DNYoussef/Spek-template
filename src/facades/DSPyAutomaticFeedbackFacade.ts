@@ -35,4 +35,8 @@ export class DSPyAutomaticFeedback {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default DSPyAutomaticFeedback;

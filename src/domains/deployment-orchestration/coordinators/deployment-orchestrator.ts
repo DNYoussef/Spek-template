@@ -13,7 +13,7 @@ import {
   DeploymentResult,
   DeploymentError,
   ComplianceStatus
-} from '../types/deployment-types';
+} from '~types/deployment-types';
 
 import { MultiEnvironmentCoordinator } from './multi-environment-coordinator';
 import { BlueGreenEngine } from '../engines/blue-green-engine';

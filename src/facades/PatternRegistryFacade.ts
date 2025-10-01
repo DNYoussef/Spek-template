@@ -35,4 +35,8 @@ export class PatternRegistry {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default PatternRegistry;

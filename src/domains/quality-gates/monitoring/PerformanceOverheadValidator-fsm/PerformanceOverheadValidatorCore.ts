@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './PerformanceOverheadValidatorCoreFacade';
+export { default } from './PerformanceOverheadValidatorCoreFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

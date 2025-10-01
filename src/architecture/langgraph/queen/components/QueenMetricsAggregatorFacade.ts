@@ -413,7 +413,6 @@ const alert: MetricAlert   = {
     this.emit('aggregationComplete');
   }
 }
-export default QueenMetricsAggregatorFacade;
 /*
 Version & Run Log
 Version: 1.0.0
@@ -424,3 +423,8 @@ Artifacts: QueenMetricsAggregatorFacade.ts
 Status: OK
 Hash: a2e5f1b
 */
+
+// Backward compatibility
+
+// Backward compatibility
+export default QueenMetricsAggregatorFacade;

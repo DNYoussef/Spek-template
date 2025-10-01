@@ -3,6 +3,7 @@
  * @eliminated true @original_size 727 lines @reduction 98%
  */
 export * from './AgentWorkflowCoordinatorFacade';
+export { default } from './AgentWorkflowCoordinatorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

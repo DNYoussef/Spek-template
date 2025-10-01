@@ -14,7 +14,12 @@ export enum AnalysisState {
   SCORING = 'SCORING',
   REPORTING = 'REPORTING',
   COMPLETED = 'COMPLETED',
-  ERROR = 'ERROR'
+  ERROR = 'ERROR',
+  FAILED = 'FAILED',
+  INITIALIZED = 'INITIALIZED',
+  PLANNING = 'PLANNING',
+  RISK_ASSESSMENT = 'RISK_ASSESSMENT',
+  DEPENDENCY_MAPPING = 'DEPENDENCY_MAPPING'
 }
 
 /**
@@ -28,7 +33,12 @@ export enum AnalysisEvent {
   SCORING_COMPLETE = 'SCORING_COMPLETE',
   REPORT_GENERATED = 'REPORT_GENERATED',
   ERROR_OCCURRED = 'ERROR_OCCURRED',
-  RESET = 'RESET'
+  RESET = 'RESET',
+  CANCEL_ANALYSIS = 'CANCEL_ANALYSIS',
+  RISK_ASSESSMENT = 'RISK_ASSESSMENT',
+  DEPENDENCY_MAPPING = 'DEPENDENCY_MAPPING',
+  PLANNING = 'PLANNING',
+  VALIDATION_FAILED = 'VALIDATION_FAILED'
 }
 
 /**
@@ -43,6 +53,15 @@ export interface AnalysisContext {
   scoreThreshold?: number;
   startTime?: number;
   metadata?: Record<string, any>;
+  readonly systemAnalysis?: SystemAnalysisResult | null;
+  readonly riskAnalysis?: RiskAnalysisResult | null;
+  readonly migrationPlan?: MigrationPlan | null;
+  readonly validationResults?: ValidationResult[];
+  readonly retryCount?: number;
+  readonly request?: AnalysisRequest;
+  readonly dependencyAnalysis?: DependencyAnalysisResult | null;
+  readonly errors?: Error[];
+  readonly phaseTimings?: Record<string, number>;
 }
 
 /**
@@ -445,4 +464,211 @@ export interface ProcessingError extends AnalysisError {
   step: string;
   data?: any;
   stackTrace?: string;
+}
+
+/**
+ * Additional context types for Phase 3B compliance
+ */
+export interface SystemAnalysisResult {
+  readonly dependencies: DependencyInfo[];
+  readonly architecture: ArchitectureInfo;
+  readonly performance: PerformanceMetrics;
+  readonly security: SecurityMetrics;
+  readonly timestamp: number;
+}
+
+export interface DependencyInfo {
+  readonly name: string;
+  readonly version: string;
+  readonly required: boolean;
+  readonly vulnerabilities: number;
+}
+
+export interface ArchitectureInfo {
+  readonly pattern: string;
+  readonly layers: string[];
+  readonly modules: number;
+  readonly complexity: number;
+}
+
+export interface PerformanceMetrics {
+  readonly executionTime: number;
+  readonly memoryUsage: number;
+  readonly cpuUtilization: number;
+}
+
+export interface SecurityMetrics {
+  readonly vulnerabilities: number;
+  readonly riskScore: number;
+  readonly complianceLevel: number;
+}
+
+export interface RiskAnalysisResult {
+  readonly risks: RiskItem[];
+  readonly overallRisk: string;
+  readonly mitigations: MitigationItem[];
+  readonly timestamp: number;
+}
+
+export interface RiskItem {
+  readonly id: string;
+  readonly description: string;
+  readonly probability: number;
+  readonly impact: number;
+  readonly severity: string;
+}
+
+export interface MitigationItem {
+  readonly riskId: string;
+  readonly strategy: string;
+  readonly cost: number;
+  readonly effectiveness: number;
+}
+
+export interface MigrationPlan {
+  readonly phases: MigrationPhase[];
+  readonly totalSteps: number;
+  readonly estimatedDuration: number;
+  readonly dependencies: string[];
+  readonly rollbackStrategy: string;
+}
+
+export interface MigrationPhase {
+  readonly id: string;
+  readonly name: string;
+  readonly steps: string[];
+  readonly duration: number;
+  readonly prerequisites: string[];
+}
+
+export interface ValidationResult {
+  readonly passed: boolean;
+  readonly errors: string[];
+  readonly warnings: string[];
+  readonly timestamp: number;
+}
+
+export interface AnalysisRequest {
+  readonly requestId: string;
+  readonly analysisType: string;
+  readonly sources: string[];
+  readonly options: AnalysisOptions;
+  readonly priority: string;
+  readonly timestamp: number;
+  readonly sourceSystem: string;
+}
+
+export interface DependencyAnalysisResult {
+  readonly dependencies: DependencyInfo[];
+  readonly conflicts: string[];
+  readonly recommendations: string[];
+  readonly timestamp: number;
+}// APPEND TO END of src/analysis/core/types/AnalysisTypes.ts
+// Additional types for migration planning FSM
+
+// State machine configuration
+export interface StateMachineConfig {
+  initialState: string;
+  states: Map<string, StateHandler>;
+  transitions: StateTransition[];
+  context: unknown;
+  guards?: Map<string, TransitionGuard>;
+  actions?: Map<string, TransitionAction>;
+}
+
+// State handler interface (already partially defined, this extends it)
+export interface StateHandler {
+  name: string;
+  onEnter?(context: unknown): Promise<void>;
+  onExit?(context: unknown): Promise<void>;
+  tick?(context: unknown): Promise<string | null>;
+  canExit?(context: unknown): boolean;
+  checkInvariants?(context: unknown): boolean;
+}
+
+// State transition definition
+export interface StateTransition {
+  from: string;
+  to: string;
+  event: string;
+  guard?: TransitionGuard;
+  action?: TransitionAction;
+}
+
+// State transition record for history
+export interface StateTransitionRecord {
+  from: string;
+  to: string;
+  event: string;
+  timestamp: Date;
+  context?: unknown;
+  success: boolean;
+  error?: string;
+}
+
+// Transition guard function
+export interface TransitionGuard {
+  check: (context: unknown, event: unknown) => boolean;
+  errorMessage?: string;
+}
+
+// Transition action function
+export interface TransitionAction {
+  execute: (context: unknown, event: unknown) => Promise<void>;
+  rollback?: (context: unknown) => Promise<void>;
+}
+
+// Comprehensive migration plan
+export interface ComprehensiveMigrationPlan {
+  planId: string;
+  name: string;
+  description: string;
+  phases: MigrationPhase[];
+  riskAssessment: RiskAnalysisResult;
+  dependencyAnalysis: DependencyAnalysisResult;
+  validationChecks: ValidationCheck[];
+  estimatedDuration: number;
+  resources: ResourceRequirement[];
+  rollbackPlan: RollbackPlan;
+  approvals: Approval[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Validation check definition
+export interface ValidationCheck {
+  id: string;
+  name: string;
+  type: 'prerequisite' | 'runtime' | 'postcheck';
+  check: (context: unknown) => Promise<boolean>;
+  errorMessage: string;
+  blocking: boolean;
+  retryable: boolean;
+}
+
+// Supporting types referenced above
+export interface MigrationPhase {
+  id: string;
+  name: string;
+  steps: string[];
+  estimatedDuration: number;
+}
+
+export interface ResourceRequirement {
+  type: string;
+  amount: number;
+  unit: string;
+}
+
+export interface RollbackPlan {
+  steps: string[];
+  estimatedTime: number;
+  automatable: boolean;
+}
+
+export interface Approval {
+  approver: string;
+  role: string;
+  status: 'pending' | 'approved' | 'rejected';
+  timestamp?: Date;
 }

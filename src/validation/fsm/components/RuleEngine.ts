@@ -10,7 +10,7 @@ import {
   ValidationResult,
   RuleMetrics,
   ComplianceLevel
-} from '../types/ValidationFSMTypes';
+} from '~types/ValidationFSMTypes';
 
 export class RuleEngine {
   private readonly ruleCache: Map<ValidationType, ValidationRule[]>;

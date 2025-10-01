@@ -35,4 +35,8 @@ export class BenchmarkCLI {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default BenchmarkCLI;

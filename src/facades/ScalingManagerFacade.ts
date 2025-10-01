@@ -35,4 +35,8 @@ export class ScalingManager {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default ScalingManager;

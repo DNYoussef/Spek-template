@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './workflow-optimizer-realFacade';
+export { default } from './workflow-optimizer-realFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

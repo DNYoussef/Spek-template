@@ -35,4 +35,8 @@ export class ServiceDiscovery {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default ServiceDiscovery;

@@ -13,3 +13,6 @@ export * from './ProductionReadinessScorerFacade';
 
 // Version: 2.0.0
 // === END FOOTER ===
+
+// Default export for backward compatibility
+export default ProductionReadinessScorer;

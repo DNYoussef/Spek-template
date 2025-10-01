@@ -3,7 +3,7 @@
  * NASA Rule 10 Compliant: Fixed bounds on all loops and iterations
  */
 import { EventEmitter } from 'events';
-import { DebugState, DebugEvent, DebugStateContext, StateTransition } from '../types/DebugState';
+import { DebugState, DebugEvent, DebugStateContext, StateTransition } from '~types/DebugState';
 
 export class DebugTransitionHub extends EventEmitter {
   private currentState: DebugState = DebugState.IDLE;

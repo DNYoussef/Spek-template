@@ -11,7 +11,7 @@ import {
   StressTestContext,
   StateTransition,
   StressTestConfig
-} from '../types/StressTestTypes';
+} from '~types/StressTestTypes';
 
 export class StressTestStateMachine extends EventEmitter {
   private currentState: StressTestState = StressTestState.IDLE;

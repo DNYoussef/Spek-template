@@ -13,7 +13,7 @@ import {
   StateTransition,
   TransitionGuard,
   StateAction
-} from './types/ValidationFSMTypes';
+} from '~types/ValidationFSMTypes';
 
 export class ComplianceHub extends EventEmitter {
   private readonly config: ValidationFSMConfig;

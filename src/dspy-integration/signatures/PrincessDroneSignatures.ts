@@ -1829,10 +1829,11 @@ export const PrincessDroneSignatures = {
   DroneToPrincessStatus
 } as const;
 
-export default PrincessDroneSignatures;
-
 /*
  * AGENT FOOTER: PrincessDroneSignatures v1.0.0
  * Status: OK | NASA Rule 10 Compliant | FSM-Compatible | TypeScript Type Safety
  * Created: 2025-09-28T16:25:45-04:00 | Agent: dspy-signature-specialist@claude-sonnet-4
  */
+
+// Backward compatibility
+export default PrincessDroneSignatures;

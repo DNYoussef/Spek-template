@@ -438,8 +438,6 @@ export class ComponentDependencyResolver extends EventEmitter {
 }
 
 // Default export for backward compatibility
-export default ComponentDependencyResolver;
-
 // Named exports for decomposed components
 export {
   DependencyGraphBuilder,
@@ -456,3 +454,7 @@ export {
 // Re-export types for convenience
 export * from './DependencyTypes';
 
+// Backward compatibility
+
+// Backward compatibility
+export default ComponentDependencyResolver;

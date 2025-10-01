@@ -334,4 +334,8 @@ export class TTLManager extends EventEmitter {
     this.emit('shutdown');
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default TTLManager;

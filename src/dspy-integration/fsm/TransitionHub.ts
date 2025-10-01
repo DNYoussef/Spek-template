@@ -5,7 +5,7 @@
  * and centralized transition control for DSPy engine.
  */
 
-import { DSPyEngineState, DSPyEngineEvent, StateTransition, EngineContext } from '../types/DSPyTypes';
+import { DSPyEngineState, DSPyEngineEvent, StateTransition, EngineContext } from '~types/DSPyTypes';
 
 export class TransitionHub {
   private readonly transitions: Map<string, StateTransition> = new Map();

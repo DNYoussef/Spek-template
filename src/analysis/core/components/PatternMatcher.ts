@@ -50,4 +50,5 @@ export class PatternMatcher {
   }
 }
 
+// Backward compatibility
 export default PatternMatcher;

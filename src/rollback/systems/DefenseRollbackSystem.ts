@@ -3,6 +3,7 @@
  * @eliminated true @original_size 659 lines @reduction 98%
  */
 export * from './DefenseRollbackSystemFacade';
+export { default } from './DefenseRollbackSystemFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

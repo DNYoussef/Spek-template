@@ -24,4 +24,6 @@ export class LegacyLoaderStateHandler {
     return data;
   }
 }
+
+// Backward compatibility
 export default LegacyLoaderStateHandler;

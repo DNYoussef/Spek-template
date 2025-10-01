@@ -500,4 +500,7 @@ class MetricsCollector {
   }
 }
 
+// Backward compatibility
+
+// Backward compatibility
 export default ProtocolFacade;

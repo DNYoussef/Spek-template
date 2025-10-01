@@ -21,8 +21,6 @@ export class MemoryCacheStrategy {
   compact() { return 0; }
 }
 
-export default MemoryCacheStrategy;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -37,3 +35,6 @@ export default MemoryCacheStrategy;
 // tools_used: ["Edit"]
 // versions: {"model":"claude-sonnet-4","prompt":"cache-fsm-massive-reduction"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default MemoryCacheStrategy;

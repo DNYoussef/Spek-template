@@ -25,7 +25,7 @@ export {
   MigrationData,
   ValidationMetrics,
   ValidationReport
-} from './types/MigrationValidationTypes';
+} from '~types/MigrationValidationTypes';
 
 export class MigrationValidator extends EventEmitter {
   private analysisHub: AnalysisHub;
@@ -201,8 +201,6 @@ export class MigrationValidator extends EventEmitter {
   }
 }
 
-export default MigrationValidator;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -217,3 +215,6 @@ export default MigrationValidator;
 // tools_used: ["Write"]
 // versions: {"model":"MEGA095","prompt":"v1.0"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default MigrationValidator;

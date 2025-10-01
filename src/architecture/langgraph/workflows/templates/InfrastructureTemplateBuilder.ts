@@ -223,4 +223,5 @@ export class InfrastructureTemplateBuilder {
   }
 }
 
+// Backward compatibility
 export default InfrastructureTemplateBuilder;

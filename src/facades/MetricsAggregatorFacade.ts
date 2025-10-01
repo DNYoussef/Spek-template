@@ -35,4 +35,8 @@ export class MetricsAggregator {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default MetricsAggregator;

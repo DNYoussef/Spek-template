@@ -3,6 +3,7 @@
  * @eliminated true @original_size 574 lines @reduction 98%
  */
 export * from './TestCoverageAnalyzerFacade';
+export { default } from './TestCoverageAnalyzerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

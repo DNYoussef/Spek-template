@@ -18,8 +18,8 @@ import {
   ResourceUsage,
   TheaterEvidence
 } from './QueenDebugTypes';
-import { Timestamp, Duration, FilePath } from '../types/base/primitives';
-import { DebugValue } from '../types/domains/debug-types';
+import { Timestamp, Duration, FilePath } from '~types/base/primitives';
+import { DebugValue } from '~types/domains/debug-types';
 
 // Theater Detection Engine
 export class TheaterDetector {

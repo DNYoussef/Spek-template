@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './SixSigmaMetricsFacade';
+export { default } from './SixSigmaMetricsFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

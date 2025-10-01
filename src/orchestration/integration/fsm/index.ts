@@ -20,7 +20,7 @@ export { ComponentIntegrator } from './components/ComponentIntegrator';
 export { RollbackManager } from './components/RollbackManager';
 
 // FSM Types and Enums
-export * from './types/IntegrationFSMTypes';
+export * from '~types/IntegrationFSMTypes';
 
 // Backward Compatibility
 export { SystemIntegrationOrchestrator } from '../SystemIntegrationOrchestrator';

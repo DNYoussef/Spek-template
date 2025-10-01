@@ -35,4 +35,8 @@ export class QualityMetricsCollector {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default QualityMetricsCollector;

@@ -15,7 +15,7 @@ import {
   EngineConfiguration, 
   PerformanceMetrics,
   EngineError
-} from '../types/DSPyTypes';
+} from '~types/DSPyTypes';
 import { TransitionHub } from '../fsm/TransitionHub';
 import { SignatureValidator } from './SignatureValidator';
 import { OptimizationPipeline } from './OptimizationPipeline';

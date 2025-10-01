@@ -35,4 +35,8 @@ export class PrincessTaskAllocator {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default PrincessTaskAllocator;

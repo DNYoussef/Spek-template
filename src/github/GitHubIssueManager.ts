@@ -9,7 +9,7 @@ import {
   GitHubLabel,
   GitHubMilestone,
   GitHubIssueComment
-} from '../types/github-types';
+} from '~types/github-types';
 
 export class GitHubIssueManager {
   private apiClient: GitHubAPIClient;
@@ -499,4 +499,7 @@ export class GitHubIssueManager {
   }
 }
 
+// Backward compatibility
+
+// Backward compatibility
 export default GitHubIssueManager;

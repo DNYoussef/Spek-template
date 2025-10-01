@@ -3,6 +3,7 @@
  * @eliminated true @original_size 815 lines @reduction 99.0%
  */
 export * from './ReportGeneratorCoreFacade';
+export { default } from './ReportGeneratorCoreFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

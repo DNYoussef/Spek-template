@@ -3,6 +3,7 @@
  * @eliminated true @original_size 534 lines @reduction 98%
  */
 export * from './ValidationReporterFacade';
+export { default } from './ValidationReporterFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

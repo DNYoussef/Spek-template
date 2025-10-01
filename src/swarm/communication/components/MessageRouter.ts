@@ -6,7 +6,7 @@
 
 import { EventEmitter } from 'events';
 import { CommunicationProtocolFSM, CommunicationEvent } from '../fsm/CommunicationProtocolFSM';
-import { PrincessMessage, MessageResponse, CommunicationChannel } from '../types/CommunicationTypes';
+import { PrincessMessage, MessageResponse, CommunicationChannel } from '~types/CommunicationTypes';
 
 export class MessageRouter extends EventEmitter {
   private fsm: CommunicationProtocolFSM;

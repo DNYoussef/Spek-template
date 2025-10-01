@@ -6,7 +6,7 @@
 import { ComponentFacade } from '../../../fsm/shared/MidRangeFSM';
 import { ReportBuilderCore } from './ReportBuilderCore';
 import { ReportBuilderFSM } from './ReportBuilderFSM';
-import { AnalysisResult, AnalysisReport } from '../types/AnalysisTypes';
+import { AnalysisResult, AnalysisReport } from '~types/AnalysisTypes';
 
 export class ReportBuilderFacade extends ComponentFacade {
   private reportHistory: Map<string, AnalysisReport[]> = new Map();

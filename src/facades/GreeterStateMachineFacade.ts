@@ -35,4 +35,8 @@ export class GreeterStateMachine {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default GreeterStateMachine;

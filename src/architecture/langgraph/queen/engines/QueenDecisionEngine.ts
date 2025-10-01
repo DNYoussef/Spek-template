@@ -3,7 +3,7 @@
  * Handles strategic decision making with bounded operations
  */
 
-import { DecisionContext, DecisionResult, DecisionOption, QueenConfiguration } from '../types/QueenTypes';
+import { DecisionContext, DecisionResult, DecisionOption, QueenConfiguration } from '~types/QueenTypes';
 import { NASACompliantLoopHandler } from '../utils/NASACompliantLoopHandler';
 
 export interface DecisionMetrics {

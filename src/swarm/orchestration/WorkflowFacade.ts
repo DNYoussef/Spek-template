@@ -13,11 +13,11 @@ import { StageProgressionValidator } from '../workflow/StageProgressionValidator
 import { DependencyConflictResolver } from '../resolution/DependencyConflictResolver';
 import { CrossDomainIntegrationTester } from '../testing/CrossDomainIntegrationTester';
 
-import WorkflowCore from './WorkflowCore';
-import WorkflowValidator from './WorkflowValidator';
-import WorkflowExecutor from './WorkflowExecutor';
-import WorkflowScheduler from './WorkflowScheduler';
-import WorkflowMonitor from './WorkflowMonitor';
+import { WorkflowCore } from './WorkflowCore';
+import { WorkflowValidator } from './WorkflowValidator';
+import { WorkflowExecutor } from './WorkflowExecutor';
+import { WorkflowScheduler } from './WorkflowScheduler';
+import { WorkflowMonitor } from './WorkflowMonitor';
 import WorkflowStateMachine from './WorkflowStateMachine';
 
 import {
@@ -497,4 +497,7 @@ export class WorkflowOrchestrator extends EventEmitter {
   }
 }
 
+// Backward compatibility
+
+// Backward compatibility
 export default WorkflowOrchestrator;

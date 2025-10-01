@@ -436,8 +436,6 @@ abstract class StepValidator {
   abstract validate(check: any, output: any, context: ExecutionContext): Promise<StepValidationResult>;
 }
 
-export default MigrationExecutor;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -452,3 +450,6 @@ export default MigrationExecutor;
 // tools_used: ["Read", "Write", "Bash"]
 // versions: {"model":"sonnet-4","fsm-design":"1.0.0"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default MigrationExecutor;

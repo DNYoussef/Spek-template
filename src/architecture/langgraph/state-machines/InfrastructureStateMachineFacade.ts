@@ -397,7 +397,6 @@ export class InfrastructureStateMachineFacade extends EventEmitter {
     return (successfulResults / totalResults) * 100;
   }
 }
-export default InfrastructureStateMachineFacade;
 /*
 Version & Run Log
 Version: 1.0.0
@@ -408,3 +407,8 @@ Artifacts: InfrastructureStateMachineFacade.ts
 Status: OK
 Hash: c8e5a2f
 */
+
+// Backward compatibility
+
+// Backward compatibility
+export default InfrastructureStateMachineFacade;

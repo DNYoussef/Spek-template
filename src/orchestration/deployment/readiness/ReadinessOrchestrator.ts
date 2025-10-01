@@ -12,7 +12,7 @@ import {
   ReadinessState,
   ReadinessContext,
   ReadinessValidationError
-} from './types/ReadinessTypes';
+} from '~types/ReadinessTypes';
 import { ReadinessStateMachine } from './core/ReadinessStateMachine';
 import { StateRegistry } from './core/StateRegistry';
 
@@ -273,8 +273,6 @@ export class ReadinessOrchestrator extends EventEmitter {
 }
 
 // Export for backward compatibility
-export default ReadinessOrchestrator;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -289,3 +287,8 @@ export default ReadinessOrchestrator;
 // tools_used: ["MultiEdit"]
 // versions: {"model":"claude-sonnet-4","prompt":"fsm-refactor-v2"}
 // === END FOOTER ===
+
+// Backward compatibility
+
+// Backward compatibility
+export default ReadinessOrchestrator;

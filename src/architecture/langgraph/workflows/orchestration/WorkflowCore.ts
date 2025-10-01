@@ -407,4 +407,5 @@ export class WorkflowCore extends EventEmitter implements IWorkflowCore {
   }
 }
 
+// Backward compatibility
 export default WorkflowCore;

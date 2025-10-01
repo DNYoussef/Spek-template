@@ -35,4 +35,8 @@ export class ResourceAllocator {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default ResourceAllocator;

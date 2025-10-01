@@ -35,4 +35,8 @@ export class QueryOptimizer {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default QueryOptimizer;

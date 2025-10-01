@@ -456,4 +456,5 @@ export class PerformanceBenchmarker extends EventEmitter {
   }
 }
 
+// Backward compatibility
 export default PerformanceBenchmarker;

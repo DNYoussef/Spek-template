@@ -3,6 +3,7 @@
  * @eliminated true @original_size 554 lines @reduction 98%
  */
 export * from './SecurityPrincessFacade';
+export { default } from './SecurityPrincessFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

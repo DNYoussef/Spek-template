@@ -16,7 +16,7 @@ import {
   DEFAULT_REPORTER_CONFIG,
   ReportTemplate,
   PerformanceMetrics
-} from './types/ReportingTypes';
+} from '~types/ReportingTypes';
 import {
   RiskAssessmentRequest,
   RiskAssessmentResult,

@@ -41,6 +41,7 @@ export type Timeout = Brand<number, 'Timeout'>;
 export type Percentage = Brand<number, 'Percentage'>;
 export type Score = Brand<number, 'Score'>;
 export type UUID = Brand<string, 'UUID'>;
+export type Milliseconds = Brand<number, 'Milliseconds'>;
 
 // Utility functions for creating branded types
 export const createConfigPath = (path: string): ConfigPath => path as ConfigPath;

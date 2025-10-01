@@ -381,4 +381,5 @@ export class DomainValidationGuards {
   }
 }
 
+// Backward compatibility
 export default MECEValidationGuards;

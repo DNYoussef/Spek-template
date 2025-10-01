@@ -519,4 +519,6 @@ export class MemoryPersistence extends EventEmitter {
     this.emit('shutdown');
   }
 }
+
+// Backward compatibility
 export default MemoryPersistence;

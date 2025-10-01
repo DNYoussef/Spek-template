@@ -3,6 +3,7 @@
  * @eliminated true @original_size 738 lines @reduction 98%
  */
 export * from './QueenDecisionEngineCoreFacade';
+export { default } from './QueenDecisionEngineCoreFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

@@ -35,4 +35,8 @@ export class PrincessCommunicationHub {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default PrincessCommunicationHub;

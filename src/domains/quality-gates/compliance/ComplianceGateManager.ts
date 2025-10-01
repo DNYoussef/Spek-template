@@ -96,8 +96,6 @@ export class ComplianceGateManager extends EventEmitter {
   }
 }
 
-export default ComplianceGateManager;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -112,3 +110,8 @@ export default ComplianceGateManager;
 // tools_used: ["Write"]
 // versions: {"model":"claude-sonnet-4","prompt":"v1"}
 // === END FOOTER ===
+
+// Backward compatibility
+
+// Backward compatibility
+export default ComplianceGateManager;

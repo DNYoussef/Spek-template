@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { VersionState, VersionEvent, VersionContext } from '../types/MemoryVersionTypes';
+import { VersionState, VersionEvent, VersionContext } from '~types/MemoryVersionTypes';
 
 export class MemoryVersionFSM extends EventEmitter {
   private currentState: VersionState = VersionState.INITIALIZING;

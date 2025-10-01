@@ -16,7 +16,7 @@ import {
   Alert,
   ThresholdViolation,
   FailureThresholds
-} from '../types/StressTestTypes';
+} from '~types/StressTestTypes';
 
 export class PhaseExecutionState extends EventEmitter {
   private loadGenerator: LoadGenerator;

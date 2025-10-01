@@ -3,7 +3,7 @@
  * Defines the contracts for gate registration, validation, and metadata management
  */
 
-import { QualityGateDefinition } from '../types/QualityGateTypes';
+import { QualityGateDefinition } from '~types/QualityGateTypes';
 
 export interface ValidationResult {
   isValid: boolean;

@@ -379,4 +379,5 @@ export class WorkflowScheduler extends EventEmitter {
   }
 }
 
+// Backward compatibility
 export default WorkflowScheduler;

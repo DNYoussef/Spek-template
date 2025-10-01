@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './StateGraphFacade';
+export { default } from './StateGraphFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

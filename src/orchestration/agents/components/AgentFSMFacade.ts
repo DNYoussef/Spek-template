@@ -3,6 +3,7 @@
  * @eliminated true @original_size 537 lines @reduction 98%
  */
 export * from './AgentFSMFacadeFacade';
+export { default } from './AgentFSMFacadeFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

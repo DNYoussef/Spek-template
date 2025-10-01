@@ -4,7 +4,7 @@
  */
 
 import { WorkflowTemplate, WorkflowStateDefinition, WorkflowTransitionDefinition, WorkflowVariableDefinition } from '../../types/workflow.types';
-import InfrastructureTemplateBuilder from './InfrastructureTemplateBuilder';
+import { InfrastructureTemplateBuilder } from './InfrastructureTemplateBuilder';
 
 export class WorkflowTemplateFactory {
   private static instance: WorkflowTemplateFactory;
@@ -193,4 +193,5 @@ export class WorkflowTemplateFactory {
   }
 }
 
+// Backward compatibility
 export default WorkflowTemplateFactory;

@@ -17,7 +17,14 @@
     "emitDecoratorMetadata": true,
     "moduleResolution": "node",
     "downlevelIteration": true,
-    "types": ["node"]
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "~types/*": ["src/types/*"],
+      "~types/base/*": ["src/types/base/*"],
+      "~types/workflow/*": ["src/types/workflow/*"],
+      "~types/domains/*": ["src/types/domains/*"]
+    }
   },
   "include": [
     "src/**/*"

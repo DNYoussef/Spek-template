@@ -319,7 +319,6 @@ export class QueenCommandProcessorFacade extends EventEmitter {
     return Math.min(executionTimes[commandType] || 1000, QueenCommandProcessorFacade.MAX_PROCESSING_TIME);
   }
 }
-export default QueenCommandProcessorFacade;
 /*
 Version & Run Log
 Version: 1.0.0
@@ -330,3 +329,8 @@ Artifacts: QueenCommandProcessorFacade.ts
 Status: OK
 Hash: c4f8a9d
 */
+
+// Backward compatibility
+
+// Backward compatibility
+export default QueenCommandProcessorFacade;

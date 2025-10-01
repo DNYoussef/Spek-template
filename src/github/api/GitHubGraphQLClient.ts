@@ -3,6 +3,7 @@
  * @eliminated true @original_size 935 lines @reduction 99.0%
  */
 export * from './GitHubGraphQLClientFacade';
+export { default } from './GitHubGraphQLClientFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

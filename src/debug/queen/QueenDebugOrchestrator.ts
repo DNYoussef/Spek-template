@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './QueenDebugOrchestratorFacade';
+export { default } from './QueenDebugOrchestratorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

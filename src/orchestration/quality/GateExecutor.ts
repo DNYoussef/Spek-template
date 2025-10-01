@@ -12,6 +12,7 @@
 
 // FSM-based facade re-export (will be implemented)
 export * from './GateExecutorFacade';
+export { default } from './GateExecutorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

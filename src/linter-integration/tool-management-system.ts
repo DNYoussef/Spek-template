@@ -3,6 +3,7 @@
  * @eliminated true @original_size 815 lines @reduction 99.0%
  */
 export * from './tool-management-systemFacade';
+export { default } from './tool-management-systemFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

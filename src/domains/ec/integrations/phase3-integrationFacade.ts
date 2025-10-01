@@ -78,3 +78,6 @@ export class Phase3ComplianceIntegration extends EventEmitter {
         this.connected = false;
     }
 }
+
+// Default export for backward compatibility
+export default Phase3IntegrationFacade;

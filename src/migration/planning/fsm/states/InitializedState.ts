@@ -7,7 +7,7 @@ import { BaseStateHandler } from '../core/BaseStateHandler';
 import {
   AnalysisContext,
   AnalysisEvent
-} from '../types/AnalysisTypes';
+} from '~types/AnalysisTypes';
 
 function assert(condition: any, message: string): asserts condition {
   if (!condition) {

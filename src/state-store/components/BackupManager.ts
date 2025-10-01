@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { StateRecord, StateSnapshot } from '../types/StateStoreTypes';
+import { StateRecord, StateSnapshot } from '~types/StateStoreTypes';
 
 export class BackupManager extends EventEmitter {
   private backupInterval: number;

@@ -18,7 +18,7 @@ import {
   CacheFSMContext,
   CacheOperationResult,
   CacheStrategyType
-} from './types/CacheFSMTypes';
+} from '~types/CacheFSMTypes';
 // Import and re-export for backward compatibility
 export interface CacheEntry<T = any> {
   key: string;

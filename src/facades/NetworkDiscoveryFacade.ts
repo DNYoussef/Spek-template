@@ -35,4 +35,8 @@ export class NetworkDiscovery {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default NetworkDiscovery;

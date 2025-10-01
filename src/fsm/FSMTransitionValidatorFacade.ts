@@ -35,4 +35,8 @@ export class FSMTransitionValidator {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default FSMTransitionValidator;

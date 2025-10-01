@@ -6,7 +6,7 @@
  * FSM-First: Designed for VALIDATING state in ConfigStateMachine
  */
 
-import { ValidationResult, ValidationRule } from '../types/ConfigTypes';
+import { ValidationResult, ValidationRule } from '~types/ConfigTypes';
 
 export class ConfigValidator {
     private rules: Map<string, ValidationRule[]>;

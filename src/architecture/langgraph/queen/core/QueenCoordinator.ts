@@ -5,9 +5,9 @@
  */
 
 import { EventEmitter } from 'events';
-import PrincessStateMachine from '../state-machines/PrincessStateMachine';
-import { QueenFSMStates, QueenFSMEvents } from '../types/QueenFSMTypes';
-import { QueenConfiguration } from '../types/QueenTypes';
+import { PrincessStateMachineFacade as PrincessStateMachine } from '../state-machines/PrincessStateMachineFacade';
+import { QueenFSMStates, QueenFSMEvents } from '~types/QueenFSMTypes';
+import { QueenConfiguration } from '~types/QueenTypes';
 import { ResourceManager } from '../managers/ResourceManager';
 
 export class QueenCoordinator extends EventEmitter {
@@ -217,8 +217,6 @@ export class QueenCoordinator extends EventEmitter {
   }
 }
 
-export default QueenCoordinator;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -229,3 +227,8 @@ export default QueenCoordinator;
 // tools_used: ["Read", "Write", "Bash"]
 // versions: {"model":"sonnet-4","fsm-design":"1.0.0"}
 // === END FOOTER ===
+
+// Backward compatibility
+
+// Backward compatibility
+export default QueenCoordinator;

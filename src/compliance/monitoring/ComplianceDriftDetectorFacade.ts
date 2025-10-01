@@ -58,4 +58,8 @@ export class ComplianceDriftDetector {
     this.thresholds  =  {};
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default ComplianceDriftDetector;

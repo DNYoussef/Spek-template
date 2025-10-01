@@ -3,7 +3,7 @@
  * Identifies and analyzes cognitive biases in reasoning processes
  */
 
-import { CognitiveBias, BiasMetigation } from '../types/ReasoningTypes';
+import { CognitiveBias, BiasMetigation } from '~types/ReasoningTypes';
 
 export class BiasDetector {
   private biasDetectors: Map<string, CognitiveBias> = new Map();
@@ -184,8 +184,6 @@ interface DetectionResult {
   severity: 'low' | 'medium' | 'high';
 }
 
-export default BiasDetector;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -200,3 +198,6 @@ export default BiasDetector;
 // tools_used: ["MultiEdit"]
 // versions: {"model":"codex","prompt":"v1"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default BiasDetector;

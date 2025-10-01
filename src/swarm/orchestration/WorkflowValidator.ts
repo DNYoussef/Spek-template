@@ -3,6 +3,7 @@
  * @eliminated true @original_size 614 lines @reduction 98%
  */
 export * from './WorkflowValidatorFacade';
+export { default } from './WorkflowValidatorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './ArtifactSystemIntegrationFSMFacade';
+export { default } from './ArtifactSystemIntegrationFSMFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

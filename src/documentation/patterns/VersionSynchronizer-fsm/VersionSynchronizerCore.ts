@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './VersionSynchronizerCoreFacade';
+export { default } from './VersionSynchronizerCoreFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

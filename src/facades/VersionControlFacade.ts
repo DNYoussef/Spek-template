@@ -35,4 +35,8 @@ export class VersionControl {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default VersionControl;

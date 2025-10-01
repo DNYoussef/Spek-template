@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './deployment-agent-realFacade';
+export { default } from './deployment-agent-realFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

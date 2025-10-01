@@ -1,7 +1,7 @@
 import { Logger } from '../../utils/Logger';
 import { GitHubAuthenticationManager } from '../api/GitHubAuthenticationManager';
 import { RealGitHubProjectManager } from './RealGitHubProjectManager';
-import { ProjectContext, ProjectMetrics, ProjectBoard, ProjectItem } from '../types/project.types';
+import { ProjectContext, ProjectMetrics, ProjectBoard, ProjectItem } from '~types/project.types';
 
 /**
  * GitHub Project Manager - THEATER ELIMINATED

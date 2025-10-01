@@ -3,6 +3,7 @@
  * @eliminated true @original_size 589 lines @reduction 98%
  */
 export * from './IntegrationTestTransitionHubFacade';
+export { default } from './IntegrationTestTransitionHubFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

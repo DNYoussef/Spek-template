@@ -3,6 +3,7 @@
  * @eliminated true @original_size 671 lines @reduction 98%
  */
 export * from './TalebBarbellEngineFacade';
+export { default } from './TalebBarbellEngineFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

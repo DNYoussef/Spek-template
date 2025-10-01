@@ -35,4 +35,8 @@ export class SwarmCommunication {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default SwarmCommunication;

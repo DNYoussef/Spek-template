@@ -3,6 +3,7 @@
  * @eliminated true @original_size 774 lines @reduction 99.0%
  */
 export * from './ErrorHandlingSystemFacade';
+export { default } from './ErrorHandlingSystemFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

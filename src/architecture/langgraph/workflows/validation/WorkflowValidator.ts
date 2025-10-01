@@ -233,4 +233,5 @@ export class WorkflowValidator {
   }
 }
 
+// Backward compatibility
 export default WorkflowValidator;

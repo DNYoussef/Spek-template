@@ -35,4 +35,8 @@ export class QualityDashboardCore {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default QualityDashboardCore;

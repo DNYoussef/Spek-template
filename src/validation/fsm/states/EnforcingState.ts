@@ -8,7 +8,7 @@ import {
   ValidationState,
   ValidationContext,
   EnforcementAction
-} from '../types/ValidationFSMTypes';
+} from '~types/ValidationFSMTypes';
 
 export class EnforcingState {
 

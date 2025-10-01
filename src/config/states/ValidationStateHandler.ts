@@ -24,4 +24,6 @@ export class ValidationStateHandler {
     return [];
   }
 }
+
+// Backward compatibility
 export default ValidationStateHandler;

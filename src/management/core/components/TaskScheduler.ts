@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { TaskInfo } from '../types/ManagementTypes';
+import { TaskInfo } from '~types/ManagementTypes';
 
 export class TaskScheduler extends EventEmitter {
   private tasks: Map<string, TaskInfo> = new Map();

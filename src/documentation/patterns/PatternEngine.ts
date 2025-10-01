@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 import { VectorEmbeddings } from '../storage/VectorEmbeddings';
 import { PatternClassifier } from './PatternClassifier';
-import { DocumentationPattern, PatternType, PatternMetadata } from '../types/PatternTypes';
+import { DocumentationPattern, PatternType, PatternMetadata } from '~types/PatternTypes';
 import { CodeAnalyzer } from '../analysis/CodeAnalyzer';
 
 /**
@@ -382,4 +382,7 @@ new {{className}}({{constructorParams}})
   }
 }
 
+// Backward compatibility
+
+// Backward compatibility
 export default PatternEngine;

@@ -3,6 +3,7 @@
  * @eliminated true @original_size 529 lines @reduction 98%
  */
 export * from './AgentMonitorFacade';
+export { default } from './AgentMonitorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

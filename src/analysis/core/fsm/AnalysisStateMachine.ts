@@ -81,4 +81,5 @@ export class AnalysisStateMachine extends MidRangeFSM {
   }
 }
 
+// Backward compatibility
 export default AnalysisStateMachine;

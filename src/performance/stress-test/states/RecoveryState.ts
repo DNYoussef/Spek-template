@@ -11,7 +11,7 @@ import {
   RecoveryConfig,
   RecoveryAttempt,
   StressFailure
-} from '../types/StressTestTypes';
+} from '~types/StressTestTypes';
 
 export class RecoveryState extends EventEmitter {
   private metricsCollector: MetricsCollector;

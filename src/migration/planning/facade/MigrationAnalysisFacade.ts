@@ -3,6 +3,7 @@
  * @eliminated true @original_size 804 lines @reduction 99.0%
  */
 export * from './MigrationAnalysisFacadeFacade';
+export { default } from './MigrationAnalysisFacadeFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

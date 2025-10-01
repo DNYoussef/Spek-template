@@ -35,4 +35,8 @@ export class SecurityAuditor {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default SecurityAuditor;

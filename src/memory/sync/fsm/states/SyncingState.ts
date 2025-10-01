@@ -346,4 +346,5 @@ export class SyncingState implements StateHandler {
   }
 }
 
+// Backward compatibility
 export default SyncingState;

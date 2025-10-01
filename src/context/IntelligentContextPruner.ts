@@ -3,6 +3,7 @@
  * @eliminated true @original_size 934 lines @reduction 99.0%
  */
 export * from './IntelligentContextPrunerFacade';
+export { default } from './IntelligentContextPrunerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

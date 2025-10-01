@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { GitHubProjectStates, GitHubProjectEvents, GitHubProjectContext } from './types/GitHubProjectTypes';
+import { GitHubProjectStates, GitHubProjectEvents, GitHubProjectContext } from '~types/GitHubProjectTypes';
 import { ConnectionStateHandler } from './states/ConnectionStateHandler';
 import { ValidationStateHandler } from './states/ValidationStateHandler';
 import { SyncStateHandler } from './states/SyncStateHandler';

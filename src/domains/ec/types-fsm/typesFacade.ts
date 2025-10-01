@@ -23,4 +23,8 @@ export class typesFacade {
 }
 
 // Export original API compatibility
+
+// Backward compatibility
+
+// Backward compatibility
 export default typesFacade;

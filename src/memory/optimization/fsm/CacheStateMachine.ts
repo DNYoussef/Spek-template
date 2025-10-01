@@ -5,7 +5,7 @@
 
 import { EventEmitter } from 'events';
 import { FSMContext, TransitionDefinition, StateDefinition, TransitionGuard } from '../../fsm/types/FSMTypes';
-import { CacheState, CacheEvent, CacheFSMContext, CacheOperationResult } from './types/CacheFSMTypes';
+import { CacheState, CacheEvent, CacheFSMContext, CacheOperationResult } from '~types/CacheFSMTypes';
 
 export class CacheStateMachine extends EventEmitter {
   private currentState: CacheState = CacheState.IDLE;

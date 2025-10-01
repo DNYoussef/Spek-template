@@ -13,7 +13,7 @@ import {
   IntegrationTransition,
   IntegrationGuard,
   IntegrationAction
-} from './types/IntegrationFSMTypes';
+} from '~types/IntegrationFSMTypes';
 
 export class TransitionHub extends EventEmitter {
   private currentState: IntegrationState = IntegrationState.IDLE;

@@ -12,6 +12,7 @@
 
 // FSM-based facade re-export (will be implemented)
 export * from './ConfigTypesFacade';
+export { default } from './ConfigTypesFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

@@ -74,4 +74,8 @@ export class WorkflowValidator {
     return false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default WorkflowValidator;

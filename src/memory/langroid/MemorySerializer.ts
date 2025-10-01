@@ -285,4 +285,6 @@ export class MemorySerializer {
     return results;
   }
 }
+
+// Backward compatibility
 export default MemorySerializer;

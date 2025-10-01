@@ -4,7 +4,7 @@
  */
 import { EventEmitter } from 'events';
 import { Logger } from '../../../utils/Logger';
-import { ProtocolStates, ChainEvents, TransitionContext } from '../types/FallbackTypes';
+import { ProtocolStates, ChainEvents, TransitionContext } from '~types/FallbackTypes';
 import { TransitionHub } from '../core/TransitionHub';
 
 export class FallbackStateMachine extends EventEmitter {

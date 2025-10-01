@@ -12,7 +12,7 @@ import { ConfigLoader } from './components/ConfigLoader';
 import { ConfigValidator } from './components/ConfigValidator';
 import { ConfigMerger } from './components/ConfigMerger';
 import { ConfigWatcher } from './components/ConfigWatcher';
-import { ConfigState, ConfigEvent, ValidationResult } from './types/ConfigTypes';
+import { ConfigState, ConfigEvent, ValidationResult } from '~types/ConfigTypes';
 
 export class ConfigurationFacade {
     private configFSM: ConfigStateMachine;

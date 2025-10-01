@@ -10,7 +10,7 @@ import {
   ReadinessContext,
   CategoryReadiness,
   CheckConfig
-} from '../types/ReadinessTypes';
+} from '~types/ReadinessTypes';
 import { BaseValidator } from '../validators/BaseValidator';
 
 /**
@@ -106,7 +106,7 @@ class SecurityValidator extends BaseValidator {
 /**
  * Handler for the VALIDATING_SECURITY state
  */
-export default class SecurityState implements StateHandler {
+export class SecurityState implements StateHandler {
   private validator: SecurityValidator;
 
   constructor() {
@@ -219,3 +219,6 @@ export default class SecurityState implements StateHandler {
 // tools_used: ["MultiEdit"]
 // versions: {"model":"claude-sonnet-4","prompt":"fsm-refactor-v2"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default SecurityState;

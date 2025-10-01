@@ -1,6 +1,6 @@
 import { Octokit } from '@octokit/rest';
 import { Logger } from '../../utils/Logger';
-import { APIRequest, APIResponse, RateLimitInfo, CacheEntry, BatchOperation } from '../types/api.types';
+import { APIRequest, APIResponse, RateLimitInfo, CacheEntry, BatchOperation } from '~types/api.types';
 import { BatchOperationManager } from './BatchOperationManager';
 import { CachingLayerManager } from './CachingLayerManager';
 import { WebhookEventProcessor } from './WebhookEventProcessor';

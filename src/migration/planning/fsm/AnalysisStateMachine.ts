@@ -14,7 +14,7 @@ import {
   AnalysisContext,
   AnalysisStatus,
   ImpactAnalysisRequest
-} from './types/AnalysisTypes';
+} from '~types/AnalysisTypes';
 
 function assert(condition: any, message: string): asserts condition {
   if (!condition) {
@@ -169,7 +169,7 @@ export {
   StateMachineConfig,
   AnalysisContext,
   AnalysisStatus
-} from './types/AnalysisTypes';
+} from '~types/AnalysisTypes';
 
 // Re-export original interface types for compatibility
 export interface StateTransition {

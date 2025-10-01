@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { DependencyInfo } from '../types/ManagementTypes';
+import { DependencyInfo } from '~types/ManagementTypes';
 
 export class DependencyResolver extends EventEmitter {
   private dependencies: Map<string, DependencyInfo> = new Map();

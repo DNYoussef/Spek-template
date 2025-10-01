@@ -11,7 +11,7 @@ import {
   ABTestResult,
   PerformanceBaseline,
   OptimizationMetrics
-} from '../types/dspy-integration.types';
+} from '~types/dspy-integration.types';
 
 // FSM States for Communication Optimization
 enum OptimizerState {

@@ -4,7 +4,7 @@
  */
 
 import { CacheEntry } from '../CacheFSMFacade';
-import { CacheFSMContext, CacheOperationResult } from '../types/CacheFSMTypes';
+import { CacheFSMContext, CacheOperationResult } from '~types/CacheFSMTypes';
 
 export interface CacheAnalysisResult {
   topAccessed: CacheEntry[];

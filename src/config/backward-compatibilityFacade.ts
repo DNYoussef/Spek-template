@@ -20,4 +20,8 @@ export class BackwardCompatibilityFacade {
     // Cleanup resources
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default BackwardCompatibilityFacade;

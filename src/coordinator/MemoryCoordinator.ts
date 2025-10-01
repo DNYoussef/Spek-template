@@ -94,7 +94,7 @@ export interface MemoryStatistics {
  * Base Memory Coordinator Class
  * NASA Rule 10: Fixed bounds and single responsibility
  */
-export abstract class BaseMemoryCoordinator extends EventEmitter {
+export abstract export class BaseMemoryCoordinator extends EventEmitter {
   // NASA Rule 10: Fixed maximum values
   protected static readonly MAX_BLOCKS  =  10000;
   protected static readonly MAX_DOMAINS  =  6;
@@ -282,7 +282,6 @@ class PartitionedMemoryCoordinator extends DefaultMemoryCoordinator {}
  * Adaptive Memory Coordinator (placeholder)
  */
 class AdaptiveMemoryCoordinator extends DefaultMemoryCoordinator {}
-export default BaseMemoryCoordinator;
 /* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE */
 /* Version & Run Log
 | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
@@ -298,3 +297,8 @@ Receipt
 - tools_used: ["Edit"]
 - versions: {"model":"claude-sonnet-4","prompt":"v1.0"}
 AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE */
+
+// Backward compatibility
+
+// Backward compatibility
+export default BaseMemoryCoordinator;

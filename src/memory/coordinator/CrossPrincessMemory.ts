@@ -244,4 +244,5 @@ export class CrossPrincessMemory extends EventEmitter {
   }
 }
 
+// Backward compatibility
 export default CrossPrincessMemory;

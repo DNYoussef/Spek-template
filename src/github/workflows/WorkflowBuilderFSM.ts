@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { WorkflowStates, WorkflowEvents, WorkflowContext } from './types/WorkflowBuilderTypes';
+import { WorkflowStates, WorkflowEvents, WorkflowContext } from '~types/WorkflowBuilderTypes';
 import { TemplateStateHandler } from './states/TemplateStateHandler';
 import { BuildingStateHandler } from './states/BuildingStateHandler';
 import { DeploymentStateHandler } from './states/DeploymentStateHandler';

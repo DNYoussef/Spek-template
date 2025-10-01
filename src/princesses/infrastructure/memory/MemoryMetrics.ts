@@ -3,6 +3,7 @@
  * @eliminated true @original_size 626 lines @reduction 98%
  */
 export * from './MemoryMetricsFacade';
+export { default } from './MemoryMetricsFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

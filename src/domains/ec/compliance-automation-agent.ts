@@ -494,4 +494,5 @@ export class EnterpriseComplianceAutomationAgent extends EventEmitter {
   }
 }
 
+// Backward compatibility
 export default EnterpriseComplianceAutomationAgent;

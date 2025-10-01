@@ -9,7 +9,7 @@ import {
   FSMState,
   MonitoringContext,
   StateTransition
-} from '../types/DegradationTypes';
+} from '~types/DegradationTypes';
 
 export class DegradationMonitorFSM {
   private currentState: MonitoringState = MonitoringState.IDLE;

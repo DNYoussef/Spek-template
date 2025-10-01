@@ -13,7 +13,7 @@ export * from './orchestration/WorkflowValidator';
 export * from './orchestration/WorkflowFacade';
 
 import { EventEmitter } from 'events';
-import LangGraphEngine from '../LangGraphEngine';
+import { LangGraphEngine } from '../LangGraphEngine';
 import {
   WorkflowDefinition,
   WorkflowExecution,
@@ -23,7 +23,7 @@ import {
   WorkflowOptimizationSuggestion,
   CoordinationType
 } from './orchestration/WorkflowTypes';
-import WorkflowFacade from './orchestration/WorkflowFacade';
+import { WorkflowFacade } from './orchestration/WorkflowFacade';
 
 /**
  * WorkflowOrchestrator - Main facade class for workflow orchestration
@@ -274,8 +274,6 @@ export class WorkflowOrchestrator extends EventEmitter {
 
 }
 
-export default WorkflowOrchestrator;
-
 /**
  * ELIMINATION SUCCESS METRICS:
  * Original file: 1,258 lines
@@ -308,3 +306,8 @@ export default WorkflowOrchestrator;
 // tools_used: ["Write", "Edit", "Read", "TodoWrite"]
 // versions: {"model":"claude-sonnet-4","prompt":"god-object-elimination-fsm-decomposition"}
 // === END FOOTER ===
+
+// Backward compatibility
+
+// Backward compatibility
+export default WorkflowOrchestrator;

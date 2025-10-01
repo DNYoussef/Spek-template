@@ -15,7 +15,7 @@ import {
   IntegrationPhase,
   IntegrationComponent,
   RollbackResult
-} from '../types/IntegrationFSMTypes';
+} from '~types/IntegrationFSMTypes';
 
 export class RollbackManager extends EventEmitter implements ComponentStateContract {
   private isActive = false;

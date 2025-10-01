@@ -31,7 +31,7 @@ export {
   ProtocolTestResult,
   ActivationHistoryFilters,
   RollbackPlan
-} from './types/FallbackChainTypes';
+} from '~types/FallbackChainTypes';
 
 /**
  * FallbackChainManager - REFACTORED to delegate to FSM facade.
@@ -104,8 +104,6 @@ export class FallbackChainManager {
   }
 }
 
-export default FallbackChainManager;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -120,3 +118,8 @@ export default FallbackChainManager;
 // tools_used: ["Write"]
 // versions: {"model":"claude-sonnet-4","prompt":"fsm-refactor-clean-v1"}
 // === END FOOTER ===
+
+// Backward compatibility
+
+// Backward compatibility
+export default FallbackChainManager;

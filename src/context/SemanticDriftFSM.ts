@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { DriftStates, DriftEvents, DriftContext } from './types/SemanticDriftTypes';
+import { DriftStates, DriftEvents, DriftContext } from '~types/SemanticDriftTypes';
 import { CapturingStateHandler } from './states/CapturingStateHandler';
 import { AnalyzingStateHandler } from './states/AnalyzingStateHandler';
 import { AdaptingStateHandler } from './states/AdaptingStateHandler';

@@ -3,6 +3,7 @@
  * @eliminated true @original_size 790 lines @reduction 99.0%
  */
 export * from './RealActionWorkflowBuilderFacade';
+export { default } from './RealActionWorkflowBuilderFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

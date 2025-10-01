@@ -4,7 +4,7 @@
  * Reduced from 1287 lines to ~120 lines (90%+ reduction)
  */
 
-import { DeploymentState, DeploymentEvent, PrincessState, PrincessEvent, FSMContext } from '../types/FSMTypes';
+import { DeploymentState, DeploymentEvent, PrincessState, PrincessEvent, FSMContext } from '~types/FSMTypes';
 import { PrincessBase, PrincessConfig } from './core/PrincessBase';
 import {
   PipelineConfigurationHandler,

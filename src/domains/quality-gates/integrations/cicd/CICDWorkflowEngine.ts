@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './CICDWorkflowEngineFacade';
+export { default } from './CICDWorkflowEngineFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

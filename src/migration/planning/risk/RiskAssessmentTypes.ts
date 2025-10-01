@@ -23,23 +23,23 @@ export * from './RiskAssessmentTypesFacade';
  */
 
 // Re-export all types from decomposed FSM-based modules
-export * from './types/index';
+export * from '~types/index';
 
 // FSM State and Event Types
-export { RiskState, RiskEvent } from './types/core/BaseRiskTypes';
+export { RiskState, RiskEvent } from '~types/core/BaseRiskTypes';
 
 // Legacy compatibility - most specific types only
 export type {
   RiskAssessmentRequest,
   RiskAssessmentResult,
   RiskAssessmentOptions
-} from './types/api/RequestResponseTypes';
+} from '~types/api/RequestResponseTypes';
 
 export type {
   BaseRisk,
   BaseAssessment,
   AssessmentQuality
-} from './types/core/BaseRiskTypes';
+} from '~types/core/BaseRiskTypes';
 
 // All types are now available through re-exports from decomposed modules
 // No inline definitions needed - everything is in focused, single-responsibility modules

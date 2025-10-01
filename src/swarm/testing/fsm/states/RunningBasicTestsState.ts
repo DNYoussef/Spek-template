@@ -315,8 +315,6 @@ export class RunningBasicTestsState implements IIntegrationTestState {
   }
 }
 
-export default RunningBasicTestsState;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -331,3 +329,6 @@ export default RunningBasicTestsState;
 // tools_used: ["Write"]
 // versions: {"model":"Sonnet4","prompt":"fsm-first-integration"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default RunningBasicTestsState;

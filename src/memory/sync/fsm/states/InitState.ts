@@ -88,4 +88,5 @@ export class InitState implements StateHandler {
   }
 }
 
+// Backward compatibility
 export default InitState;

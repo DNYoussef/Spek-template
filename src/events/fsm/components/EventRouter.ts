@@ -11,7 +11,7 @@ import {
   EventFilter,
   RouteCondition,
   RoutingResult
-} from '../types/EventFSMTypes';
+} from '~types/EventFSMTypes';
 
 export interface RoutingStrategy {
   name: string;

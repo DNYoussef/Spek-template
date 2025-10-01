@@ -35,4 +35,8 @@ export class SixSigmaCalculator {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default SixSigmaCalculator;

@@ -9,6 +9,9 @@
 
 export * from './GitHubProjectManager';
 
+// Default export for backward compatibility
+export { GitHubProjectManager as default } from './GitHubProjectManager';
+
 /* AGENT FOOTER BEGIN */
 /* Version & Run Log
  * Version | Timestamp | Agent/Model | Change Summary | Status | Hash

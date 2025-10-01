@@ -35,4 +35,8 @@ export class AgentWorkflowCoordinator {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default AgentWorkflowCoordinator;

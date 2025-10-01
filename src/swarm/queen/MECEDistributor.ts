@@ -3,6 +3,7 @@
  * @eliminated true @original_size 565 lines @reduction 98%
  */
 export * from './MECEDistributorFacade';
+export { default } from './MECEDistributorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

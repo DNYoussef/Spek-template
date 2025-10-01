@@ -5,7 +5,7 @@
 
 import { promisify } from 'util';
 import { exec } from 'child_process';
-import { AuditEvent, ComplianceCheck } from '../types/deployment-types';
+import { AuditEvent, ComplianceCheck } from '~types/deployment-types';
 
 export interface SecurityNotificationConfig {
   emailNotifications: {
@@ -285,4 +285,5 @@ Timestamp: ${new Date().toISOString()}
   }
 }
 
+// Backward compatibility
 export default SecurityNotificationSystem;

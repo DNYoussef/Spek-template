@@ -458,4 +458,6 @@ export class MemoryPersistence {
     }
   }
 }
+
+// Backward compatibility
 export default MemoryPersistence;

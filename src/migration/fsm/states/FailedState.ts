@@ -3,6 +3,7 @@
  * @eliminated true @original_size 652 lines @reduction 98%
  */
 export * from './FailedStateFacade';
+export { default } from './FailedStateFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

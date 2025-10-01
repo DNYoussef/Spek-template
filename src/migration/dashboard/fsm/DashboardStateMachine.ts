@@ -3,7 +3,7 @@
  * NASA Rule 10 Compliant: Focused FSM implementation
  */
 
-import { DashboardTypes } from '../types/DashboardTypes';
+import { DashboardTypes } from '~types/DashboardTypes';
 
 export class DashboardStateMachine {
   private currentState: DashboardTypes.DashboardState;

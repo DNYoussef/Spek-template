@@ -52,6 +52,11 @@ export class StateStore extends EventEmitter {
     return this.facade.getState(princessId);
   }
 
+  setState(princessId: string, state: any): void {
+    console.assert(princessId != null && state != null, 'Princess ID and state required');
+    return this.facade.setState(princessId, state);
+  }
+
   getAllStates(): any[] {
     return this.facade.getAllStates();
   }
@@ -91,8 +96,6 @@ export class StateStore extends EventEmitter {
   }
 }
 
-export default StateStore;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -107,3 +110,6 @@ export default StateStore;
 // tools_used: ["Write"]
 // versions: {"model":"claude-sonnet-4","prompt":"FSM-First-v1.0"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default StateStore;

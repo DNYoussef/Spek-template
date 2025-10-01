@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { QualityReporterStates, QualityReporterEvents, QualityReporterContext } from './types/QualityReporterTypes';
+import { QualityReporterStates, QualityReporterEvents, QualityReporterContext } from '~types/QualityReporterTypes';
 import { TemplateStateHandler } from './states/TemplateStateHandler';
 import { GenerationStateHandler } from './states/GenerationStateHandler';
 import { DeliveryStateHandler } from './states/DeliveryStateHandler';

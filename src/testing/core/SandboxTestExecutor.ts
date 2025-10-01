@@ -6,7 +6,7 @@
 import { TestExecutor } from './TestExecutor';
 import { AssertionEngine } from './AssertionEngine';
 import { TestReporter } from './TestReporter';
-import { TestContext, TestConfig } from '../types/TestingTypes';
+import { TestContext, TestConfig } from '~types/TestingTypes';
 
 export class SandboxTestExecutor extends TestExecutor {
   private assertionEngine: AssertionEngine;

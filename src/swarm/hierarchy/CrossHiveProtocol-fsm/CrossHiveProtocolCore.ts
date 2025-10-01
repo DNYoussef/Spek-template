@@ -3,6 +3,7 @@
  * @eliminated true @original_size 726 lines @reduction 98%
  */
 export * from './CrossHiveProtocolCoreFacade';
+export { default } from './CrossHiveProtocolCoreFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

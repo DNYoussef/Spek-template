@@ -35,4 +35,8 @@ export class SemanticAnalyzerCore {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default SemanticAnalyzerCore;

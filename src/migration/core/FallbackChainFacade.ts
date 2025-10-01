@@ -23,7 +23,7 @@ import {
   TestOptions,
   FallbackActivation,
   ActivationHistoryFilters
-} from './types/FallbackChainTypes';
+} from '~types/FallbackChainTypes';
 
 /**
  * Main facade for fallback chain management.

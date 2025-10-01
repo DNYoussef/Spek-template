@@ -185,4 +185,5 @@ export * from './deployment/ProductionReadinessScorer';
 export * from './deployment/DeploymentOrchestrator';
 export * from './deployment/DeploymentReadinessValidator';
 
+// Backward compatibility
 export default Phase9Orchestrator;

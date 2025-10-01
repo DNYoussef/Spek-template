@@ -12,7 +12,7 @@ export * from './balancing/LoadBalancer';
 export * from './validation/MECEValidator';
 
 import { EventEmitter } from 'events';
-import { Task, TaskPriority, TaskStatus } from '../types/task.types';
+import { Task, TaskPriority, TaskStatus } from '~types/task.types';
 import { LoggerFactory } from '../../utils/logger';
 import { TaskDistributionState, TaskDistributionEvent, DistributionPlan } from './fsm/TaskDistributionStateMachine';
 

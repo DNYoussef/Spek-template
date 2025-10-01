@@ -8,15 +8,15 @@
  */
 
 import { EventEmitter } from 'events';
-import LangGraphEngine from '../LangGraphEngine';
-import WorkflowOrchestrator from '../workflows/WorkflowOrchestrator';
-import MessageRouter from '../communication/MessageRouter';
-import EventBus from '../communication/EventBus';
-import PrincessStateMachine from '../state-machines/PrincessStateMachine';
-import { WorkflowDefinition, ExecutionContext } from '../types/workflow.types';
-import { QueenFSMStates, QueenFSMEvents } from './types/QueenFSMTypes';
+import { LangGraphEngine } from '../LangGraphEngine';
+import { WorkflowOrchestrator } from '../workflows/WorkflowOrchestrator';
+import { MessageRouter } from '../communication/MessageRouter';
+import { EventBus } from '../communication/EventBus';
+import { PrincessStateMachineFacade as PrincessStateMachine } from '../state-machines/PrincessStateMachineFacade';
+import { WorkflowDefinition, ExecutionContext } from '~types/workflow';
+import { QueenFSMStates, QueenFSMEvents } from '~types/QueenFSMTypes';
 import { QueenConfiguration, StrategicObjective, ExecutionPlan, ResourceAllocation,
-         DecisionContext, DecisionResult, QueenMetrics } from './types/QueenTypes';
+         DecisionContext, DecisionResult, QueenMetrics } from '~types/QueenTypes';
 import { NASACompliantLoopHandler } from './utils/NASACompliantLoopHandler';
 import { QueenDecisionEngine } from './engines/QueenDecisionEngine';
 import { ResourceManager } from './managers/ResourceManager';
@@ -384,4 +384,7 @@ export class QueenOrchestrator extends EventEmitter {
 
 }
 
+// Backward compatibility
+
+// Backward compatibility
 export default QueenOrchestrator;

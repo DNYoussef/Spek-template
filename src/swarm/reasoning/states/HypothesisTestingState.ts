@@ -5,7 +5,7 @@
 
 import { EventEmitter } from 'events';
 import * as crypto from 'crypto';
-import { Hypothesis, Evidence, Analysis } from '../types/ReasoningTypes';
+import { Hypothesis, Evidence, Analysis } from '~types/ReasoningTypes';
 import { BayesianUpdater } from '../analyzers/BayesianUpdater';
 
 export class HypothesisTestingState extends EventEmitter {
@@ -209,8 +209,6 @@ interface PredictionResults {
   uncertainty: number;
 }
 
-export default HypothesisTestingState;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -225,3 +223,6 @@ export default HypothesisTestingState;
 // tools_used: ["MultiEdit"]
 // versions: {"model":"codex","prompt":"v1"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default HypothesisTestingState;

@@ -3,6 +3,7 @@
  * @eliminated true @original_size 831 lines @reduction 99.0%
  */
 export * from './ArtifactSystemIntegrationFacade';
+export { default } from './ArtifactSystemIntegrationFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

@@ -424,8 +424,6 @@ export class ContextValidator {
   }
 }
 
-export default ContextValidator;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -440,3 +438,6 @@ export default ContextValidator;
 // tools_used: ["Read", "MultiEdit", "Edit", "Bash"]
 // versions: {"model":"sonnet-4","prompt":"agent027-nasa-rule10-fsm"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default ContextValidator;

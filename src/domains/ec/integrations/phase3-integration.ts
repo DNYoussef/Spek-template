@@ -3,6 +3,7 @@
  * @eliminated true @original_size 847 lines @reduction 99.0%
  */
 export * from './phase3-integrationFacade';
+export { default } from './phase3-integrationFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

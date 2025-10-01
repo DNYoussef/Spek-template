@@ -35,4 +35,8 @@ export class PhaseTransitionProcessor {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default PhaseTransitionProcessor;

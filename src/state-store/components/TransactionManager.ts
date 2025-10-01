@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { Transaction, StateOperation } from '../types/StateStoreTypes';
+import { Transaction, StateOperation } from '~types/StateStoreTypes';
 
 export class TransactionManager extends EventEmitter {
   private activeTransactions: Map<string, Transaction> = new Map();

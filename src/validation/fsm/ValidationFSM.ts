@@ -12,7 +12,7 @@ import {
   StateTransition,
   ValidationType,
   ComplianceLevel
-} from './types/ValidationFSMTypes';
+} from '~types/ValidationFSMTypes';
 
 import { ComplianceHub } from './ComplianceHub';
 import { RuleEngine } from './components/RuleEngine';

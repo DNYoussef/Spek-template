@@ -16,7 +16,7 @@ export { MonitoringState } from './states/MonitoringState';
 export { RecoveryState } from './states/RecoveryState';
 
 // Type definitions
-export * from './types/StressTestTypes';
+export * from '~types/StressTestTypes';
 
 // Backward compatibility facade
 export { StressTestRunnerFacade as StressTestRunner } from './StressTestRunnerFacade';

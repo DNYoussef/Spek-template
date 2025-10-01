@@ -11,7 +11,7 @@ import {
   StateTransition,
   ReadinessContext,
   ReadinessValidationError
-} from '../types/ReadinessTypes';
+} from '~types/ReadinessTypes';
 
 /**
  * Centralized hub for managing state transitions

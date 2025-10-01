@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './StateTransitionMonitorFacade';
+export { default } from './StateTransitionMonitorFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

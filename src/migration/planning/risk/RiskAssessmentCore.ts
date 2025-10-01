@@ -3,6 +3,7 @@
  * @eliminated true @original_size 703 lines @reduction 98%
  */
 export * from './RiskAssessmentCoreFacade';
+export { default } from './RiskAssessmentCoreFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

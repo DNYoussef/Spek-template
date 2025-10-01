@@ -384,4 +384,6 @@ export class MemoryPartitioner extends EventEmitter {
     this.emit('shutdown');
   }
 }
+
+// Backward compatibility
 export default MemoryPartitioner;

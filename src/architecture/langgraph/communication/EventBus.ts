@@ -94,4 +94,5 @@ export class EventBus extends EventEmitter {
   }
 }
 
+// Backward compatibility
 export default EventBus;

@@ -378,4 +378,6 @@ export class SharedMemoryBus extends EventEmitter {
     }, 1000);
   }
 }
+
+// Backward compatibility
 export default SharedMemoryBus;

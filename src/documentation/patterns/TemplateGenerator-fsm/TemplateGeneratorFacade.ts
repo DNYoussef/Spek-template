@@ -23,4 +23,8 @@ export class TemplateGeneratorFacade {
 }
 
 // Export original API compatibility
+
+// Backward compatibility
+
+// Backward compatibility
 export default TemplateGeneratorFacade;

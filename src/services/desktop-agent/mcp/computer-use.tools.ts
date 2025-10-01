@@ -3,6 +3,7 @@
  * @eliminated true @original_size 698 lines @reduction 98%
  */
 export * from './computer-use.toolsFacade';
+export { default } from './computer-use.toolsFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

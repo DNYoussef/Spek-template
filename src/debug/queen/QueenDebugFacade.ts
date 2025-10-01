@@ -26,7 +26,7 @@ import { PrincessAssigner, DroneDeployer, DebugExecutor } from './QueenDebugCore
 import { AuditPipeline } from './QueenDebugValidator';
 import { EvidenceCollector, GitHubIntegrator, CompletionProcessor } from './QueenDebugProcessor';
 import { QueenDebugMonitor } from './QueenDebugMonitor';
-import { DebugSessionId, Timestamp, Duration } from '../types/base/primitives';
+import { DebugSessionId, Timestamp, Duration } from '~types/base/primitives';
 
 // Dependency Container
 export class DebugDependencyContainer {
@@ -442,6 +442,10 @@ export class QueenDebugFacade extends EventEmitter {
 }
 
 // Export the facade as default
+
+// Backward compatibility
+
+// Backward compatibility
 export default QueenDebugFacade;
 
 /**

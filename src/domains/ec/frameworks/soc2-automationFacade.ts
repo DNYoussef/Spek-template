@@ -90,3 +90,6 @@ export class SOC2AutomationEngine {
         return this.currentAssessment;
     }
 }
+
+// Default export for backward compatibility
+export default SOC2AutomationFacade;

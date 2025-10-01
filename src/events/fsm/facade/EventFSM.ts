@@ -6,6 +6,7 @@
 
 // Re-export from FSM-based facade
 export * from './EventFSMFacade';
+export { default } from './EventFSMFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

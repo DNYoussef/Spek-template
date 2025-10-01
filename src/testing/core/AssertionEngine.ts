@@ -3,7 +3,7 @@
  * NASA Rule 10 Compliant: Functions ≤60 lines, ≥2 assertions per function
  */
 
-import { TestAssertion } from '../types/TestingTypes';
+import { TestAssertion } from '~types/TestingTypes';
 
 export class AssertionEngine {
   private assertions: TestAssertion[] = [];

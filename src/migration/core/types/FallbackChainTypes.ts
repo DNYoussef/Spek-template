@@ -310,3 +310,52 @@ export interface RollbackPlan {
   steps: string[];
   estimatedTime: number;
 }
+// ADDITIONAL STUB TYPES FOR BACKWARD COMPATIBILITY
+// Added by Phase 3C - Types from old stub file
+
+export interface ActivationHistoryFilters {
+  startDate?: Date;
+  endDate?: Date;
+  protocolId?: string;
+  chainId?: string;
+}
+
+export interface ProtocolHealth {
+  status: 'healthy' | 'degraded' | 'failed';
+  lastCheck: Date;
+  consecutiveFailures: number;
+}
+
+export enum ChainHealthStatus {
+  IDLE = 'IDLE',
+  INITIALIZING = 'INITIALIZING',
+  ACTIVE = 'ACTIVE',
+  PROCESSING = 'PROCESSING',
+  VALIDATING = 'VALIDATING',
+  COMPLETE = 'COMPLETE'
+}
+
+export interface TestOptions {
+  enabled: boolean;
+  timeout: number;
+  retries: number;
+  maxConcurrency: number;
+}
+
+export interface TestResult {
+  success: boolean;
+  data: unknown;
+  error: string | undefined;
+  timestamp: number;
+}
+
+export interface ProtocolTestResult extends TestResult {
+  protocolId: string;
+  testType: 'health' | 'performance' | 'security' | 'integration';
+  metrics: {
+    latency?: number;
+    throughput?: number;
+    errorRate?: number;
+  };
+  passed: boolean;
+}

@@ -3,6 +3,7 @@
  * @eliminated true @original_size 718 lines @reduction 98%
  */
 export * from './DeploymentMetricsFacade';
+export { default } from './DeploymentMetricsFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

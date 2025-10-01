@@ -3,6 +3,7 @@
  * @eliminated true @original_size 545 lines @reduction 98%
  */
 export * from './ProtocolCoreFacade';
+export { default } from './ProtocolCoreFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

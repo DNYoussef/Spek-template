@@ -28,7 +28,7 @@ import {
   WriteFileToolUseBlock,
   ReadFileToolUseBlock,
   UserActionContentBlock,
-} from "../types/messageContent.types";
+} from '~types/messageContent.types';
 
 /**
  * Type guard to check if an object is a TextContentBlock

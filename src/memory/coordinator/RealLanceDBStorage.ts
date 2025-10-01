@@ -387,8 +387,6 @@ export class RealLanceDBStorage extends EventEmitter {
   }
 }
 
-export default RealLanceDBStorage;
-
 /* REAL LANCEDB VECTOR STORAGE IMPLEMENTATION COMPLETE
  *
  * GENUINE FEATURES IMPLEMENTED:
@@ -409,3 +407,6 @@ export default RealLanceDBStorage;
  * ❌ No more stub implementations
  * ❌ No more fake vector operations
  */
+
+// Backward compatibility
+export default RealLanceDBStorage;

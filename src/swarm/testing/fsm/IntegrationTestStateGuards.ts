@@ -3,6 +3,7 @@
  * @eliminated true @original_size 598 lines @reduction 98%
  */
 export * from './IntegrationTestStateGuardsFacade';
+export { default } from './IntegrationTestStateGuardsFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

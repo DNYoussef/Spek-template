@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { CoordinationInfo } from '../types/ManagementTypes';
+import { CoordinationInfo } from '~types/ManagementTypes';
 
 export class StateCoordinator extends EventEmitter {
   private coordinations: Map<string, CoordinationInfo> = new Map();

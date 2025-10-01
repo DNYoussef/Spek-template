@@ -408,4 +408,5 @@ export class LangroidMemory extends EventEmitter {
   }
 }
 
+// Backward compatibility
 export default LangroidMemory;

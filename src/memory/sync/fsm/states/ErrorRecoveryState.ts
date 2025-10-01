@@ -378,4 +378,5 @@ export class ErrorRecoveryState implements StateHandler {
   }
 }
 
+// Backward compatibility
 export default ErrorRecoveryState;

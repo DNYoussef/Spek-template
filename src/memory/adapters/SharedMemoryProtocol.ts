@@ -3,6 +3,7 @@
  * @eliminated true @original_size 574 lines @reduction 98%
  */
 export * from './SharedMemoryProtocolFacade';
+export { default } from './SharedMemoryProtocolFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

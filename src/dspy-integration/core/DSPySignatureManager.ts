@@ -5,7 +5,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { DSPySignature, SignatureCache, OptimizationResult, CommunicationContext } from '../types/dspy-integration.types';
+import { DSPySignature, SignatureCache, OptimizationResult, CommunicationContext } from '~types/dspy-integration.types';
 
 // FSM States for DSPy Signature Management
 enum DSPySignatureState {

@@ -35,4 +35,8 @@ export class AutomatedDecisionEngineCore {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default AutomatedDecisionEngineCore;

@@ -394,4 +394,7 @@ export class TTLManager extends EventEmitter {
   }
 }
 
+// Backward compatibility
+
+// Backward compatibility
 export default TTLManager;

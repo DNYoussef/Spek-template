@@ -35,4 +35,8 @@ export class SwarmCoordinatorCore {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default SwarmCoordinatorCore;

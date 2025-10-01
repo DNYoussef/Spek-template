@@ -3,6 +3,7 @@
  * @eliminated true @original_size 764 lines @reduction 98%
  */
 export * from './PhaseTransitionReporterFacade';
+export { default } from './PhaseTransitionReporterFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

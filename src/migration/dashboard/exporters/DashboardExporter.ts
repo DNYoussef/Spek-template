@@ -3,7 +3,7 @@
  * NASA Rule 10 Compliant: Focused export logic
  */
 
-import { DashboardTypes } from '../types/DashboardTypes';
+import { DashboardTypes } from '~types/DashboardTypes';
 
 export class DashboardExporter {
 

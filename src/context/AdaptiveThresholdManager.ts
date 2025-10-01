@@ -3,6 +3,7 @@
  * @eliminated true @original_size 794 lines @reduction 99.0%
  */
 export * from './AdaptiveThresholdManagerFacade';
+export { default } from './AdaptiveThresholdManagerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

@@ -28,4 +28,6 @@ export class MigrationStateHandler {
     return true;
   }
 }
+
+// Backward compatibility
 export default MigrationStateHandler;

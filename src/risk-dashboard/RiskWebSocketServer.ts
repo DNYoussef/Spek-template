@@ -510,4 +510,5 @@ export const createRiskWebSocketServer = (port: number = 8080): RiskWebSocketSer
   return server;
 };
 
+// Backward compatibility
 export default RiskWebSocketServer;

@@ -11,7 +11,7 @@ import {
   Analysis,
   Recommendation,
   Cost 
-} from '../types/ReasoningTypes';
+} from '~types/ReasoningTypes';
 
 export class DecisionAnalyzer {
   /**
@@ -244,8 +244,6 @@ interface UncertaintyAnalysis {
   impact: number;
 }
 
-export default DecisionAnalyzer;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -260,3 +258,6 @@ export default DecisionAnalyzer;
 // tools_used: ["MultiEdit"]
 // versions: {"model":"codex","prompt":"v1"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default DecisionAnalyzer;

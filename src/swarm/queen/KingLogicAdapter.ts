@@ -6,7 +6,7 @@
 
 import { EventEmitter } from 'events';
 import { Logger } from '../../utils/logger';
-import { Task, TaskPriority } from '../types/task.types';
+import { Task, TaskPriority } from '~types/task.types';
 import { PrincessDomain } from '../hierarchy/types';
 
 export interface KingLogicStats {
@@ -346,4 +346,5 @@ export class KingLogicAdapter extends EventEmitter {
   }
 }
 
+// Backward compatibility
 export default KingLogicAdapter;

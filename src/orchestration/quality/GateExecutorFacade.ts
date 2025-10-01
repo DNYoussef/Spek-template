@@ -22,3 +22,6 @@ export class GateExecutorFacade {
         // Implementation redirected to FSM components
     }
 }
+
+// Default export for backward compatibility
+export default GateExecutorFacade;

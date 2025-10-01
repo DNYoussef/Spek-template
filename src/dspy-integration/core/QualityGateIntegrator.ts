@@ -10,7 +10,7 @@ import {
   TheaterDetectionResult, 
   TheaterPattern, 
   PerformanceMetrics 
-} from '../types/DSPyTypes';
+} from '~types/DSPyTypes';
 
 // Import existing SPEK theater detection
 // Note: In real implementation, these would be proper imports

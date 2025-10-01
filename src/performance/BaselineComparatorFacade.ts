@@ -22,3 +22,6 @@ export class BaselineComparatorFacade {
         // Implementation redirected to FSM components
     }
 }
+
+// Default export for backward compatibility
+export default BaselineComparatorFacade;

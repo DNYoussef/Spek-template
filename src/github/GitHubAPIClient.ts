@@ -10,7 +10,7 @@ import {
   GitHubAPIConfig,
   GitHubRateLimit,
   GitHubAPIResponse
-} from '../types/github-types';
+} from '~types/github-types';
 
 export class GitHubAPIClient {
   private octokit: Octokit;
@@ -370,4 +370,5 @@ export class GitHubAPIClient {
   }
 }
 
+// Backward compatibility
 export default GitHubAPIClient;

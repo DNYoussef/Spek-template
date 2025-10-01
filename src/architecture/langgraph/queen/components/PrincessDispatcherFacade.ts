@@ -263,7 +263,6 @@ export class PrincessDispatcherFacade extends EventEmitter {
     return Date.now() + baseTime;
   }
 }
-export default PrincessDispatcherFacade;
 /*
 Version & Run Log
 Version: 1.0.0
@@ -274,3 +273,8 @@ Artifacts: PrincessDispatcherFacade.ts
 Status: OK
 Hash: e6d1b7f
 */
+
+// Backward compatibility
+
+// Backward compatibility
+export default PrincessDispatcherFacade;

@@ -4,7 +4,7 @@
  * @architecture FSM-based facade pattern
  */
 
-// Re-export from FSM-based facade
+// Re-export from FSM-based facade (types only, no default)
 export * from './QueenDebugTypesFacade';
 
 // === AGENT FOOTER ===

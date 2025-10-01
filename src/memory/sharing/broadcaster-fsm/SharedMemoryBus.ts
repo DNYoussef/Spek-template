@@ -13,6 +13,7 @@ export class SharedMemoryBus {
   async subscribe(key: string, handler: (msg: MemoryMessage) => void): Promise<void> {}
 }
 
-export default SharedMemoryBus;
-
 /* AGENT FOOTER: v1.0.0 | 2025-09-30 | wave10 | OK | 2f1e9d4 */
+
+// Backward compatibility
+export default SharedMemoryBus;

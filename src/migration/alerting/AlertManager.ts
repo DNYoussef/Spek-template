@@ -3,6 +3,7 @@
  * @eliminated true @original_size 738 lines @reduction 98%
  */
 export * from './AlertManagerFacade';
+export { default } from './AlertManagerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

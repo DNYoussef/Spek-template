@@ -3,6 +3,7 @@
  * @eliminated true @original_size 804 lines @reduction 99.0%
  */
 export * from './RealPerformanceBenchmarkerFacade';
+export { default } from './RealPerformanceBenchmarkerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

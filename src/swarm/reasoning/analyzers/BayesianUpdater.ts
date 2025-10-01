@@ -3,7 +3,7 @@
  * Implements Bayesian reasoning for belief and hypothesis updates
  */
 
-import { Evidence, Belief, Hypothesis } from '../types/ReasoningTypes';
+import { Evidence, Belief, Hypothesis } from '~types/ReasoningTypes';
 
 export class BayesianUpdater {
   /**
@@ -101,8 +101,6 @@ interface UpdateResult {
   evidenceCount: number;
 }
 
-export default BayesianUpdater;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -117,3 +115,6 @@ export default BayesianUpdater;
 // tools_used: ["MultiEdit"]
 // versions: {"model":"codex","prompt":"v1"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default BayesianUpdater;

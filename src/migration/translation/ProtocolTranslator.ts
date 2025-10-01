@@ -66,8 +66,6 @@ export class ProtocolTranslator {
   }
 }
 
-export default ProtocolTranslator;
-
 /**
  * MIGRATION NOTICE - NASA Rule 10 Compliance
  *
@@ -119,3 +117,6 @@ export default ProtocolTranslator;
 // tools_used: ["Write", "Bash"]
 // versions: {"model":"claude-sonnet-4","prompt":"god-object-elimination"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default ProtocolTranslator;

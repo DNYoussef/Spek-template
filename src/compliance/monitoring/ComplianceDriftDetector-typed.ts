@@ -47,8 +47,6 @@ export class ComplianceDriftDetector {
 }
 
 // Re-export main class for compatibility
-export default ComplianceDriftDetector;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -63,3 +61,6 @@ export default ComplianceDriftDetector;
 // tools_used: ["Write"]
 // versions: {"model":"MEGA093","prompt":"v1.0"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default ComplianceDriftDetector;

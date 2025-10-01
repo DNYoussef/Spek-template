@@ -1,6 +1,7 @@
 // ELIMINATED GOD OBJECT - Use environment-overridesFacade
 // @eliminated true @original_size 1084 lines @reduction 99.5%
 export * from './environment-overridesFacade';
+export { default } from './environment-overridesFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

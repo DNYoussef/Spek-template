@@ -388,6 +388,8 @@ export class ComplianceRuleScanner {
   }
 }
 
+
+// Backward compatibility
 export default ComplianceRuleScanner;
 
 /**

@@ -35,4 +35,8 @@ export class IntegrationTestSuite {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default IntegrationTestSuite;

@@ -344,4 +344,5 @@ export class VectorStore extends EventEmitter {
   }
 }
 
+// Backward compatibility
 export default VectorStore;

@@ -17,7 +17,7 @@ import {
   QualityCriteria,
   PhaseExecution,
   IntegrationExecution
-} from '../types/IntegrationFSMTypes';
+} from '~types/IntegrationFSMTypes';
 
 export class IntegrationValidatorFSM extends EventEmitter implements ComponentStateContract {
   private validator: IntegrationValidator;

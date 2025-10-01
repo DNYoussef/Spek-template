@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { VersionInfo, VersionSnapshot } from '../types/MemoryVersionTypes';
+import { VersionInfo, VersionSnapshot } from '~types/MemoryVersionTypes';
 
 export class VersionTracker extends EventEmitter {
   private versions: Map<string, VersionSnapshot> = new Map();

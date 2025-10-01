@@ -404,4 +404,6 @@ export class RefactoredUnifiedAnalyzer {
 }
 
 // Export the refactored analyzer as the main interface
+
+// Backward compatibility
 export default RefactoredUnifiedAnalyzer;

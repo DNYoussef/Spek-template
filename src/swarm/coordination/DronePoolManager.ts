@@ -57,8 +57,6 @@ export class DronePoolManager extends EventEmitter {
   }
 }
 
-export default DronePoolManager;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -73,3 +71,8 @@ export default DronePoolManager;
 // tools_used: ["Write"]
 // versions: {"model":"claude-sonnet-4","prompt":"v1"}
 // === END FOOTER ===
+
+// Backward compatibility
+
+// Backward compatibility
+export default DronePoolManager;

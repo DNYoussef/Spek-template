@@ -5,7 +5,7 @@ import {
   ImpactAnalysisResult,
   AnalysisRecord,
   ComponentStatus
-} from './types/MigrationAnalysisTypes';
+} from '~types/MigrationAnalysisTypes';
 
 /**
  * Main entry point for migration impact analysis.
@@ -87,10 +87,8 @@ function assert(condition: any, message: string): asserts condition {
 }
 
 // Export the refactored analyzer as default
-export default MigrationImpactAnalyzer;
-
 // Re-export all types for backward compatibility
-export * from './types/MigrationAnalysisTypes';
+export * from '~types/MigrationAnalysisTypes';
 
 // Re-export facade for direct access if needed
 export { MigrationAnalysisFacade } from './facade/MigrationAnalysisFacade';
@@ -101,3 +99,6 @@ export { RiskAssessmentEngine } from './risk/RiskAssessmentEngine';
 export { DependencyMapper } from './dependencies/DependencyMapper';
 export { MigrationPlanner } from './strategy/MigrationPlanner';
 export { AnalysisStateMachine, AnalysisState, AnalysisEvent } from './fsm/AnalysisStateMachine';
+
+// Backward compatibility
+export default MigrationImpactAnalyzer;

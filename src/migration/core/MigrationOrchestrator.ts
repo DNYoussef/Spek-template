@@ -429,8 +429,6 @@ class LatencyValidator extends StepValidator {
   }
 }
 
-export default MigrationOrchestrator;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -445,3 +443,8 @@ export default MigrationOrchestrator;
 // tools_used: ["Read", "Write", "Edit", "TodoWrite"]
 // versions: {"fsm-design":"1.0.0","nasa-rule-10":"compliant"}
 // === END FOOTER ===
+
+// Backward compatibility
+
+// Backward compatibility
+export default MigrationOrchestrator;

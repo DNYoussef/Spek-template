@@ -7,7 +7,7 @@ import {
   DriftMetrics,
   MonitoringConfig,
   IDriftCalculator
-} from '../types/DegradationTypes';
+} from '~types/DegradationTypes';
 import { ContextDNA, ContextFingerprint } from '../../ContextDNA';
 
 export class DriftCalculator implements IDriftCalculator {

@@ -8,7 +8,7 @@ import {
   ValidationState,
   ValidationContext,
   ValidationResult
-} from '../types/ValidationFSMTypes';
+} from '~types/ValidationFSMTypes';
 import { RuleEngine } from '../components/RuleEngine';
 import { ComplianceChecker } from '../components/ComplianceChecker';
 

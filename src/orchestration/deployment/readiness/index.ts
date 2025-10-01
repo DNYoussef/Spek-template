@@ -37,7 +37,7 @@ export {
   CategoryConfig,
   CheckConfig,
   ReadinessConfig
-} from './types/ReadinessTypes';
+} from '~types/ReadinessTypes';
 
 // Base validator for extending
 export { BaseValidator } from './validators/BaseValidator';

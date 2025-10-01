@@ -13,7 +13,7 @@ import {
   GuardContext,
   MigrationFSMConfig,
   StateHandler
-} from '../types/MigrationFSMTypes';
+} from '~types/MigrationFSMTypes';
 
 export class TransitionHub {
   private logger: Logger;

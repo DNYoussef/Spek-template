@@ -15,7 +15,7 @@ export { CrossPlatformAbstraction } from './abstractions/cross-platform-abstract
 export { PipelineOrchestrator } from './pipelines/pipeline-orchestrator';
 
 // Configuration and types
-export * from './types/deployment-types';
+export * from '~types/deployment-types';
 export * from './config/deployment-config';
 export * from './utils/deployment-utils';
 

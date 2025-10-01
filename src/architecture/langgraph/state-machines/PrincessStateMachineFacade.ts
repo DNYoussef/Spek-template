@@ -356,7 +356,6 @@ export class PrincessStateMachineFacade extends EventEmitter {
     return delays[severity as keyof typeof delays] || 1000;
   }
 }
-export default PrincessStateMachineFacade;
 /*
 Version & Run Log
 Version: 1.0.0
@@ -367,3 +366,8 @@ Artifacts: PrincessStateMachineFacade.ts
 Status: OK
 Hash: f9b2c1a
 */
+
+// Backward compatibility
+
+// Backward compatibility
+export default PrincessStateMachineFacade;

@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { StateRecord } from '../types/StateStoreTypes';
+import { StateRecord } from '~types/StateStoreTypes';
 
 export class PersistenceEngine extends EventEmitter {
   private states: Map<string, StateRecord> = new Map();
@@ -84,6 +84,11 @@ export class PersistenceEngine extends EventEmitter {
     console.assert(princessId != null, 'Princess ID required');
     const state = this.states.get(princessId);
     return state ? { ...state } : null;
+  }
+
+  setState(princessId: string, state: any): void {
+    console.assert(princessId != null && state != null, 'Princess ID and state required');
+    this.states.set(princessId, state);
   }
 
   getAllStates(): StateRecord[] {

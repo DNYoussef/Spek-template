@@ -1,6 +1,6 @@
 import { Octokit } from '@octokit/rest';
 import { Logger } from '../../utils/Logger';
-import { ProjectBoard, ProjectColumn, ProjectCard, ProjectMetrics, ProjectInsight } from '../types/project.types';
+import { ProjectBoard, ProjectColumn, ProjectCard, ProjectMetrics, ProjectInsight } from '~types/project.types';
 import { AutomatedTaskTracking } from './AutomatedTaskTracking';
 import { MilestoneManagement } from './MilestoneManagement';
 import { BurndownChartGeneration } from './BurndownChartGeneration';

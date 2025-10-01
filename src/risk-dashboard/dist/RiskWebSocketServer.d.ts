@@ -6,7 +6,7 @@ import { EventEmitter } from 'events';
 /**
  * WebSocket server for real-time risk data streaming
  */
-export declare class RiskWebSocketServer extends EventEmitter {
+export declare export class RiskWebSocketServer extends EventEmitter {
     private port;
     private server;
     private clients;
@@ -103,5 +103,7 @@ export declare class RiskWebSocketServer extends EventEmitter {
  * Factory function to create and start risk WebSocket server
  */
 export declare const createRiskWebSocketServer: (port?: number) => RiskWebSocketServer;
-export default RiskWebSocketServer;
 //# sourceMappingURL=RiskWebSocketServer.d.ts.map
+
+// Backward compatibility
+export default RiskWebSocketServer;

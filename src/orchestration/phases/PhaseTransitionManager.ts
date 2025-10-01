@@ -32,4 +32,8 @@ export class PhaseTransitionManager extends PhaseTransitionManagerFacade {
 }
 
 // Default export for backward compatibility
+
+// Backward compatibility
+
+// Backward compatibility
 export default PhaseTransitionManager;

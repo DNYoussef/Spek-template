@@ -76,8 +76,6 @@ export class MemorySubscriber {
   removeAllListeners = () => this.facade.removeAllListeners();
 }
 
-export default MemorySubscriber;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -92,3 +90,6 @@ export default MemorySubscriber;
 // tools_used: ["Read", "Write", "Edit", "TodoWrite", "Bash"]
 // versions: {"model":"claude-3-5-sonnet-20241022","prompt":"fsm-decomposition-v1"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default MemorySubscriber;

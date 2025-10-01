@@ -35,4 +35,8 @@ export class HiveMindCommunicationHub {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default HiveMindCommunicationHub;

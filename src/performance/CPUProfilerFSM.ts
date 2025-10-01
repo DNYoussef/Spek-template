@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { CPUProfilerStates, CPUProfilerEvents, CPUProfilerContext } from './types/CPUProfilerTypes';
+import { CPUProfilerStates, CPUProfilerEvents, CPUProfilerContext } from '~types/CPUProfilerTypes';
 import { ProfilingStateHandler } from './states/ProfilingStateHandler';
 import { AnalysisStateHandler } from './states/AnalysisStateHandler';
 import { ReportingStateHandler } from './states/ReportingStateHandler';

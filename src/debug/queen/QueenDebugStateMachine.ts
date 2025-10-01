@@ -14,7 +14,7 @@ import {
   PrincessDomain,
   DroneWorker
 } from './QueenDebugTypes';
-import { Timestamp } from '../types/base/primitives';
+import { Timestamp } from '~types/base/primitives';
 
 // State Transition Map - Centralized FSM Definition
 const STATE_TRANSITIONS: Record<DebugOrchestratorState, Partial<Record<DebugOrchestratorEvent, DebugOrchestratorState>>> = {

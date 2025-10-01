@@ -25,4 +25,6 @@ export class CompatibilityErrorHandler {
     return this.errors[this.errors.length - 1];
   }
 }
+
+// Backward compatibility
 export default CompatibilityErrorHandler;

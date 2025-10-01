@@ -8,7 +8,7 @@ import {
   BroadcasterState,
   BroadcasterEvent,
   StateContext
-} from '../types/BroadcasterTypes';
+} from '~types/BroadcasterTypes';
 import { BroadcasterStateMachineImpl } from '../states/BroadcasterStateMachine';
 import { ChannelManagerImpl } from '../components/ChannelManager';
 import { MessageProcessorImpl } from '../components/MessageProcessor';

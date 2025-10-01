@@ -300,4 +300,5 @@ export class BroadcastingState implements StateHandler {
   }
 }
 
+// Backward compatibility
 export default BroadcastingState;

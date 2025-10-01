@@ -35,4 +35,8 @@ export class ParallelExecutor {
     this.initialized  =  false;
   }
 }
+
+// Backward compatibility
+
+// Backward compatibility
 export default ParallelExecutor;

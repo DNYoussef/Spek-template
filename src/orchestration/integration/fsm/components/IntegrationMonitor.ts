@@ -14,7 +14,7 @@ import {
   IntegrationConflict,
   PhaseExecution,
   ComponentResult
-} from '../types/IntegrationFSMTypes';
+} from '~types/IntegrationFSMTypes';
 
 export class IntegrationMonitor extends EventEmitter implements ComponentStateContract {
   private isActive = false;

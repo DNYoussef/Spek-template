@@ -19,7 +19,7 @@ import {
   AlertChannelType,
   ChartType,
   TimeRange
-} from '../types/dspy-integration.types';
+} from '~types/dspy-integration.types';
 
 // Environment Types
 export enum Environment {

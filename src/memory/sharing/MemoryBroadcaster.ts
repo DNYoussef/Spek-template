@@ -487,8 +487,6 @@ export class MemoryBroadcaster extends EventEmitter {
   }
 }
 
-export default MemoryBroadcaster;
-
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
@@ -503,3 +501,6 @@ export default MemoryBroadcaster;
 // tools_used: ["MultiEdit"]
 // versions: {"model":"claude-sonnet-4","prompt":"v1"}
 // === END FOOTER ===
+
+// Backward compatibility
+export default MemoryBroadcaster;
