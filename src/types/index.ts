@@ -2,16 +2,20 @@
  * Centralized Type Exports for SPEK Enhanced Development Platform
  * Resolves TS2304 "Cannot find name" errors by exporting all types
  */
-// Re-export all missing types
-export * from './missing-types';
-// Re-export base types
+// Re-export base types (FIRST - foundation)
 export * from './base/primitives';
 export * from './base/common';
-// Re-export domain types
+
+// Re-export domain types (SECOND - domain-specific)
 export * from './domains/debug-types';
 export * from './domains/quality-gate-types';
 export * from './domains/dspy-integration-types';
-// Re-export existing types
+export * from './domains/compliance-types';
+
+// Re-export missing types (THIRD - fills gaps, may have some overlaps)
+export * from './missing-types';
+
+// Re-export existing types (FOURTH - legacy types)
 export * from './fsm-types';
 export * from './performance-types';
 export * from './quality-types';
@@ -19,8 +23,6 @@ export * from './research-types';
 export * from './task-types';
 export * from './test-types';
 export * from './validation-types';
-// Legacy compatibility exports
-export * from './domains/compliance-types';
 /* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE */
 /* Version & Run Log
 | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |

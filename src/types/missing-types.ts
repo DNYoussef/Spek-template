@@ -50,116 +50,20 @@ export interface ExtractedRelationship {
   confidence: Score;
   metadata: Record<string, unknown>;
 }
-// Debug State Types
-export enum DebugState {
-  IDLE  =  'IDLE',
-  ANALYZING  =  'ANALYZING',
-  DEBUGGING  =  'DEBUGGING',
-  VALIDATING  =  'VALIDATING',
-  RESOLVED  =  'RESOLVED',
-  FAILED  =  'FAILED'
-}
-export enum DebugEvent {
-  START_DEBUG  =  'START_DEBUG',
-  ANALYSIS_COMPLETE  =  'ANALYSIS_COMPLETE',
-  DEBUG_STEP_COMPLETE  =  'DEBUG_STEP_COMPLETE',
-  VALIDATION_PASSED  =  'VALIDATION_PASSED',
-  VALIDATION_FAILED  =  'VALIDATION_FAILED',
-  ERROR_OCCURRED  =  'ERROR_OCCURRED'
-}
-// Quality Gate Types
-export interface QualityGateEngine {
-  config: QualityGateConfig;
-  evaluate(artifacts: unknown[]): Promise<QualityGateResult>;
-  validateThresholds(metrics: QualityMetrics): boolean;
-}
-export interface QualityGateConfig extends BaseConfig {
-  thresholds: QualityThresholds;
-  rules: QualityGateRule[];
-}
-export interface QualityThresholds {
-  nasaCompliance: Percentage;
-  testCoverage: Percentage;
-  codeQuality: Score;
-  securityScore: Score;
-}
-export interface QualityGateRule {
-  id: UUID;
-  name: string;
-  condition: string;
-  threshold: number;
-  severity: 'warning' | 'error' | 'critical';
-}
-export interface QualityGateResult extends BaseResult {
-  gateId: UUID;
-  overallScore: Score;
-  passed: boolean;
-  metrics: QualityMetrics;
-  violations: QualityViolation[];
-}
-export interface QualityMetrics {
-  nasaCompliance: Percentage;
-  testCoverage: Percentage;
-  codeQuality: Score;
-  securityScore: Score;
-  artifactQuality: ArtifactQualityMetrics;
-}
-export interface ArtifactQualityMetrics {
-  completeness: Percentage;
-  accuracy: Percentage;
-  consistency: Score;
-}
-export interface QualityViolation {
-  ruleId: UUID;
-  severity: 'warning' | 'error' | 'critical';
-  message: string;
-  location: string;
-}
-export interface QualityDashboard {
-  metrics: DashboardMetrics;
-  refresh(): Promise<void>;
-  exportReport(format: 'json' | 'html' | 'pdf'): Promise<string>;
-}
-export interface DashboardMetrics {
-  totalGates: number;
-  passedGates: number;
-  failedGates: number;
-  averageScore: Score;
-}
-export interface QualityGateOrchestrator extends BaseOrchestrator {
-  config: QualityGateConfig;
-  engine: QualityGateEngine;
-}
-// System Integration Types
+// NOTE: DebugState, DebugEvent are now in domains/debug-types.ts (removed duplicates)
+// NOTE: QualityGate* types are now in domains/quality-gate-types.ts (removed duplicates)
+
+// System Integration Types (unique to this file)
 export interface SystemIntegrationOrchestrator extends BaseOrchestrator {
   integrationType: 'api' | 'database' | 'filesystem' | 'external';
   connectionConfig: Record<string, unknown>;
-}
-export interface ArtifactSystemIntegration {
-  validateArtifacts(artifacts: unknown[]): Promise<BaseResult>;
-  generateReport(artifacts: unknown[]): Promise<string>;
-}
-export interface CICDIntegration {
-  integrateWithPipeline(pipelineId: string): Promise<boolean>;
-  configureQualityGates(gates: QualityGateConfig[]): Promise<void>;
-}
-export interface PerformanceOverheadValidator {
-  validateOverhead(metrics: unknown): Promise<OverheadReport>;
-  optimizePerformance(config: QualityGateConfig): Promise<QualityGateConfig>;
 }
 export interface OverheadReport {
   overheadPercentage: Percentage;
   bottlenecks: string[];
   optimizationSuggestions: string[];
 }
-export interface EnterpriseConfiguration extends BaseConfig {
-  complianceStandards: string[];
-  qualityPolicies: string[];
-}
-export interface EnterpriseQualityConfig extends EnterpriseConfiguration {
-  gateConfigurations: QualityGateConfig[];
-  globalThresholds: QualityThresholds;
-}
+// NOTE: EnterpriseConfiguration is in domains/quality-gate-types.ts
 // Query Processing Types
 export interface QueryOptimizer {
   optimize(query: string): Promise<string>;
@@ -190,29 +94,13 @@ export interface SwarmState {
   healthStatus: 'healthy' | 'degraded' | 'critical';
   lastUpdate: Timestamp;
 }
-// NASA Rule 10 compliant validation functions
-export function isValidDebugState(value: unknown): value is DebugState {
-    console.assert(value !== null, 'DebugState cannot be null');
-    console.assert(typeof value === 'string', 'DebugState must be string');
-  return Object.values(DebugState).includes(value as DebugState);
-}
+// NASA Rule 10 compliant validation functions (kept - unique to this file)
 export function isValidTaskPriority(value: unknown): value is TaskPriority {
     console.assert(value !== null, 'TaskPriority cannot be null');
     console.assert(typeof value === 'string', 'TaskPriority must be string');
   return Object.values(TaskPriority).includes(value as TaskPriority);
 }
-export function isValidQualityGateConfig(config: unknown): config is QualityGateConfig {
-    console.assert(config !== null, 'QualityGateConfig cannot be null');
-    console.assert(typeof config === 'object', 'QualityGateConfig must be object');
-  const c  =  config as QualityGateConfig;
-  return typeof c.thresholds === 'object' && Array.isArray(c.rules);
-}
-export function isValidQualityMetrics(metrics: unknown): metrics is QualityMetrics {
-    console.assert(metrics !== null, 'QualityMetrics cannot be null');
-    console.assert(typeof metrics === 'object', 'QualityMetrics must be object');
-  const m  =  metrics as QualityMetrics;
-  return typeof m.nasaCompliance === 'number' && typeof m.testCoverage === 'number';
-}
+// NOTE: isValidDebugState, isValidQualityGateConfig, isValidQualityMetrics are in their respective domain files
 /* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE */
 /* Version & Run Log
 | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
