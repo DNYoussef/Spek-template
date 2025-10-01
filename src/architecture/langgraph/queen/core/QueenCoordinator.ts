@@ -161,15 +161,15 @@ export class QueenCoordinator extends EventEmitter {
       throw new Error('Princess ID and state machine required for monitoring setup');
     }
 
-    stateMachine.on('stateChanged', (oldState, newState) => {
+    stateMachine.on('stateChanged', (oldState: any, newState: any) => {
       this.handlePrincessStateChange(princessId, oldState, newState);
     });
 
-    stateMachine.on('taskCompleted', (taskId, result) => {
+    stateMachine.on('taskCompleted', (taskId: any, result: any) => {
       this.handlePrincessTaskCompletion(princessId, taskId, result);
     });
 
-    stateMachine.on('error', (error) => {
+    stateMachine.on('error', (error: any) => {
       this.handlePrincessError(princessId, error);
     });
   }
