@@ -348,40 +348,40 @@ export class SecurityActionBuilder {
    */
   static buildActions(): any {
     return {
-      logEntry: (context, event) => {
+      logEntry: (context: any, event: any) => {
         console.log(`[SecurityPrincessFSM] Entering state: ${context.currentState}`);
       },
-      logCompletion: (context, event) => {
+      logCompletion: (context: any, event: any) => {
         console.log('[SecurityPrincessFSM] Security workflow completed successfully');
       },
-      logFailure: (context, event) => {
+      logFailure: (context: any, event: any) => {
         console.error('[SecurityPrincessFSM] Security workflow failed', context.data.error);
       },
-      recordThreats: (context, event) => {
+      recordThreats: (context: any, event: any) => {
         console.log(`[SecurityPrincessFSM] Transition: ${context.currentState} -> ${SecurityState.VULNERABILITY_SCAN}`);
       },
-      recordVulnerabilities: (context, event) => {
+      recordVulnerabilities: (context: any, event: any) => {
         console.log(`[SecurityPrincessFSM] Transition: ${context.currentState} -> ${SecurityState.COMPLIANCE_CHECK}`);
       },
-      recordCompliance: (context, event) => {
+      recordCompliance: (context: any, event: any) => {
         console.log(`[SecurityPrincessFSM] Transition: ${context.currentState} -> ${SecurityState.AUTH_VALIDATION}`);
       },
-      recordAuth: (context, event) => {
+      recordAuth: (context: any, event: any) => {
         console.log(`[SecurityPrincessFSM] Transition: ${context.currentState} -> ${SecurityState.AUDIT_SETUP}`);
       },
-      recordAudit: (context, event) => {
+      recordAudit: (context: any, event: any) => {
         console.log(`[SecurityPrincessFSM] Transition: ${context.currentState} -> ${SecurityState.MONITORING_SETUP}`);
       },
-      recordMonitoring: (context, event) => {
+      recordMonitoring: (context: any, event: any) => {
         console.log(`[SecurityPrincessFSM] Transition: ${context.currentState} -> ${SecurityState.SECURITY_VALIDATION}`);
       },
-      recordValidation: (context, event) => {
+      recordValidation: (context: any, event: any) => {
         console.log(`[SecurityPrincessFSM] Transition: ${context.currentState} -> ${PrincessState.COMPLETE}`);
       },
-      recordRemediation: (context, event) => {
+      recordRemediation: (context: any, event: any) => {
         console.log(`[SecurityPrincessFSM] Transition: ${context.currentState} -> ${SecurityState.VULNERABILITY_SCAN}`);
       },
-      recordFailure: (context, event) => {
+      recordFailure: (context: any, event: any) => {
         console.log(`[SecurityPrincessFSM] Transition: ${context.currentState} -> ${PrincessState.FAILED}`);
       }
     };
@@ -394,19 +394,19 @@ export class SecurityGuardBuilder {
    */
   static buildGuards(): any {
     return {
-      threatsAnalyzed: (context) => {
+      threatsAnalyzed: (context: any) => {
         return context.data.threatAnalysis?.complete === true;
       },
-      scanComplete: (context) => {
+      scanComplete: (context: any) => {
         return context.vulnerabilities !== undefined;
       },
-      complianceAcceptable: (context) => {
+      complianceAcceptable: (context: any) => {
         return (context.compliance?.overallScore || 0) >= 85;
       },
-      authenticationSecure: (context) => {
+      authenticationSecure: (context: any) => {
         return context.authentication?.validated === true;
       },
-      auditComplete: (context) => {
+      auditComplete: (context: any) => {
         return context.audit?.compliant === true;
       }
     };
@@ -419,28 +419,28 @@ export class SecurityServiceBuilder {
    */
   static buildServices(services: any): any {
     return {
-      assessThreats: async (context) => {
+      assessThreats: async (context: any) => {
         return services.threatAssessmentService.performThreatAssessment(context);
       },
-      scanVulnerabilities: async (context) => {
+      scanVulnerabilities: async (context: any) => {
         return services.vulnerabilityService.performVulnerabilityScan(context);
       },
-      checkCompliance: async (context) => {
+      checkCompliance: async (context: any) => {
         return services.complianceService.performComplianceCheck(context);
       },
-      validateAuthentication: async (context) => {
+      validateAuthentication: async (context: any) => {
         return services.authenticationService.performAuthValidation(context);
       },
-      setupAuditTrail: async (context) => {
+      setupAuditTrail: async (context: any) => {
         return services.auditService.performAuditSetup(context);
       },
-      setupSecurityMonitoring: async (context) => {
+      setupSecurityMonitoring: async (context: any) => {
         return services.monitoringService.performMonitoringSetup(context);
       },
-      validateSecurityPosture: async (context) => {
+      validateSecurityPosture: async (context: any) => {
         return services.validationService.performSecurityValidation(context);
       },
-      remediateFindings: async (context) => {
+      remediateFindings: async (context: any) => {
         return services.remediationService.performRemediation(context);
       }
     };
