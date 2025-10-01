@@ -54,7 +54,7 @@ export interface ResearchTask extends TaskDefinition {
  * ResearchStateMachine - FSM-Based Research Operations Controller
  * NASA Rule 10: All functions ≤60 lines, no recursion, bounded operations
  */
-export class ResearchStateMachine extends PrincessStateMachine {
+export class ResearchStateMachine extends PrincessStateMachineFacade {
   private transitionHub: MegaTransitionHub;
   private searchEngine: ResearchSearchEngine;
   private analysisEngine: ResearchAnalysisEngine;
@@ -66,7 +66,7 @@ export class ResearchStateMachine extends PrincessStateMachine {
     const configuration: PrincessConfiguration = {
       princessId: 'research-princess',
       domain: 'research',
-      capabilities: ResearchStateMachine.getDefaultCapabilities(),
+      capabilities: ResearchStateMachine.getDefaultCapabilities().map(c => c.name),
       stateDefinition: {
         states: ResearchStateMachine.getStateNodes(),
         transitions: ResearchStateMachine.getStateTransitions(),
@@ -167,9 +167,10 @@ export class ResearchStateMachine extends PrincessStateMachine {
    * NASA Rule 10: Simple delegation pattern
    */
   private async delegateAnalysis(task: ResearchTask, context: MegaStateContext): Promise<any> {
+    const sources = Array.isArray(task.payload.sources) ? task.payload.sources as SearchResult[] : [];
     const analysisRequest: AnalysisRequest = {
       id: task.id,
-      content: task.payload.sources as SearchResult[] || [],
+      content: sources,
       analysisType: task.payload.analysisType || 'mixed',
       options: {
         extractKeywords: true,
@@ -268,7 +269,9 @@ export class ResearchStateMachine extends PrincessStateMachine {
   private cacheStateContext(taskId: string, context: MegaStateContext): void {
     if (this.contextCache.size >= MAX_CONTEXT_CACHE_SIZE) {
       const firstKey = this.contextCache.keys().next().value;
-      this.contextCache.delete(firstKey);
+      if (firstKey !== undefined) {
+        this.contextCache.delete(firstKey);
+      }
     }
     this.contextCache.set(taskId, context);
   }
@@ -314,7 +317,7 @@ export class ResearchStateMachine extends PrincessStateMachine {
 
   protected async performRecovery(error: Error): Promise<void> {
     console.log('Research Princess performing recovery:', error.message);
-    await this.transition('recover', { recoveryReason: error.message });
+    await this.transitionHub.transition('recover', { recoveryReason: error.message });
   }
 
   /**

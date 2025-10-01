@@ -14,8 +14,8 @@ export class ResearchAnalysisEngine {
     const analysisResults = {
       methodology: 'Mixed-methods analysis with quantitative and qualitative approaches',
       dataPoints: 0,
-      correlations: [],
-      patterns: [],
+      correlations: [] as any[],
+      patterns: [] as string[],
       completed: false,
       confidence: 0
     };
