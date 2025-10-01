@@ -4,6 +4,7 @@ from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
 
 from src.constants.base import MAXIMUM_NESTED_DEPTH
 
+"""
 Advanced real-time monitoring system for detector pool performance with
 automatic bottleneck detection, alert generation, and adaptive optimization
 triggers. Integrates with thread contention profiler and memory coordinator.

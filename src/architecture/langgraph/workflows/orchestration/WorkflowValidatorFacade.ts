@@ -22,17 +22,17 @@ export class WorkflowValidator {
     if (!workflow.name) {
       errors.push('Workflow name is required');
     }
-    if (!workflow.steps || workflow.steps.length === 0) {
-      errors.push('Workflow must have at least one step');
+    if (!workflow.states || workflow.states.length === 0) {
+      errors.push('Workflow must have at least one state');
     }
-    // Check for disconnected steps
-    const stepIds = new Set(workflow.steps.map(s => s.id));
-    for (const step of workflow.steps) {
-      if (step.next) {
-        const nextSteps  =  Array.isArray(step.next) ? step.next : [step.next];
-        for (const next of nextSteps) {
-          if (!stepIds.has(next)) {
-            warnings.push(`Step ${step.id} references unknown next step: ${next}`);
+    // Check for disconnected states
+    const stateIds = new Set(workflow.states.map(s => s.id));
+    for (const state of workflow.states) {
+      if ((state as any).next) {
+        const nextStates  =  Array.isArray((state as any).next) ? (state as any).next : [(state as any).next];
+        for (const next of nextStates) {
+          if (!stateIds.has(next)) {
+            warnings.push(`State ${state.id} references unknown next state: ${next}`);
           }
         }
       }
