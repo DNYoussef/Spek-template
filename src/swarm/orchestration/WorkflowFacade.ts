@@ -185,24 +185,24 @@ export class WorkflowOrchestrator extends EventEmitter {
     console.assert(this.monitor != null, 'Monitor must be available');
     
     // Forward core events
-    this.core.on('workflow:completed', (data) => this.emit('workflow:completed', data));
-    this.core.on('workflow:cancelled', (data) => this.emit('workflow:cancelled', data));
-    this.core.on('workflow:state_changed', (data) => this.emit('workflow:state_changed', data));
-    
+    this.core.on('workflow:completed', (data: any) => this.emit('workflow:completed', data));
+    this.core.on('workflow:cancelled', (data: any) => this.emit('workflow:cancelled', data));
+    this.core.on('workflow:state_changed', (data: any) => this.emit('workflow:state_changed', data));
+
     // Forward validator events
-    this.validator.on('mece:compliance_warning', (data) => this.emit('mece:compliance_warning', data));
-    this.validator.on('dependency:resolved', (data) => this.emit('dependency:resolved', data));
-    this.validator.on('dependency:conflict', (data) => this.emit('dependency:conflict', data));
-    
+    this.validator.on('mece:compliance_warning', (data: any) => this.emit('mece:compliance_warning', data));
+    this.validator.on('dependency:resolved', (data: any) => this.emit('dependency:resolved', data));
+    this.validator.on('dependency:conflict', (data: any) => this.emit('dependency:conflict', data));
+
     // Forward executor events
-    this.executor.on('stage:completed', (data) => this.emit('stage:completed', data));
-    this.executor.on('stage:failed', (data) => this.emit('stage:failed', data));
-    this.executor.on('agent:health_degraded', (data) => this.emit('agent:health_degraded', data));
-    
+    this.executor.on('stage:completed', (data: any) => this.emit('stage:completed', data));
+    this.executor.on('stage:failed', (data: any) => this.emit('stage:failed', data));
+    this.executor.on('agent:health_degraded', (data: any) => this.emit('agent:health_degraded', data));
+
     // Forward monitor events
-    this.monitor.on('health:update', (data) => this.emit('health:update', data));
-    this.monitor.on('princess:health_degraded', (data) => this.emit('princess:health_degraded', data));
-    this.monitor.on('system:high_memory_usage', (data) => this.emit('system:high_memory_usage', data));
+    this.monitor.on('health:update', (data: any) => this.emit('health:update', data));
+    this.monitor.on('princess:health_degraded', (data: any) => this.emit('princess:health_degraded', data));
+    this.monitor.on('system:high_memory_usage', (data: any) => this.emit('system:high_memory_usage', data));
     
     // Forward scheduler events
     this.scheduler.on('workflow:scheduled', (data) => this.emit('workflow:scheduled', data));
