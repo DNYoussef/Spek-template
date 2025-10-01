@@ -505,7 +505,7 @@ export class DroneStatusSignatureProcessor {
     }
 
     // Error-driven maintenance
-    const recentErrors = systemStatus.errorHistory.filter(e => (currentTime - e.timestamp) < 3600000); // Last hour
+    const recentErrors = systemStatus.errorHistory.filter((e: any) => (currentTime - e.timestamp) < 3600000); // Last hour
     if (recentErrors.length > 3) {
       requirements.push({
         action: 'Error investigation and resolution',
@@ -551,7 +551,7 @@ export class DroneStatusSignatureProcessor {
     }
 
     // System error alerts
-    const recentCriticalErrors = systemStatus.errorHistory.filter(e =>
+    const recentCriticalErrors = systemStatus.errorHistory.filter((e: any) =>
       e.severity === 'HIGH' && (Date.now() - e.timestamp) < 1800000); // Last 30 minutes
     if (recentCriticalErrors.length > 0) {
       alerts.push({
@@ -604,7 +604,7 @@ export class DroneStatusSignatureProcessor {
 
   private assessTaskStatus(taskDetails: any, executionStatus: any, challenges: any): string {
     // Critical blockers = BLOCKED
-    const criticalBlockers = challenges.blockers.filter(b => b.impact === 'HIGH').length;
+    const criticalBlockers = challenges.blockers.filter((b: any) => b.impact === 'HIGH').length;
     if (criticalBlockers > 0) return 'BLOCKED';
 
     // Quality too low = FAILED
@@ -652,7 +652,7 @@ export class DroneStatusSignatureProcessor {
     const qualityRisks: string[] = [];
 
     // Risk factors impact
-    challenges.riskFactors.forEach(risk => {
+    challenges.riskFactors.forEach((risk: any) => {
       if (risk.probability > 0.5 && risk.impact > 0.5) {
         projectedQuality -= 0.1;
         qualityRisks.push(risk.risk);
@@ -677,10 +677,10 @@ export class DroneStatusSignatureProcessor {
       return { overall: 0.8, breakdown: [] };
     }
 
-    const efficiencies = executionStatus.resourcesUsed.map(res => res.efficiency);
-    const overall = efficiencies.reduce((sum, eff) => sum + eff, 0) / efficiencies.length;
+    const efficiencies = executionStatus.resourcesUsed.map((res: any) => res.efficiency);
+    const overall = efficiencies.reduce((sum: any, eff: any) => sum + eff, 0) / efficiencies.length;
 
-    const breakdown = executionStatus.resourcesUsed.map(res => ({
+    const breakdown = executionStatus.resourcesUsed.map((res: any) => ({
       resource: res.resource,
       efficiency: res.efficiency
     })).slice(0, 5); // Bounded
@@ -727,7 +727,7 @@ export class DroneStatusSignatureProcessor {
     const requests: any[] = [];
 
     // High-impact blockers
-    challenges.blockers.forEach(blocker => {
+    challenges.blockers.forEach((blocker: any) => {
       if (blocker.impact === 'HIGH') {
         requests.push({
           escalationType: 'DEPENDENCY',
@@ -784,7 +784,7 @@ export class DroneStatusSignatureProcessor {
   }
 
   private analyzeActivePartnerships(context: any): any[] {
-    const partnerships = context.communicationHistory.map(comm => ({
+    const partnerships = context.communicationHistory.map((comm: any) => ({
       partnerId: comm.partnerId,
       relationshipStrength: comm.communicationQuality,
       effectiveness: comm.communicationQuality * (comm.messageCount > 10 ? 1.0 : 0.8)
@@ -830,7 +830,7 @@ export class DroneStatusSignatureProcessor {
     if (metrics.conflictResolutionTime > 60000) { // > 1 minute
       requests.push({
         requestType: 'CONFLICT_RESOLUTION',
-        targetPartners: context.communicationHistory.slice(0, 2).map(h => h.partnerId),
+        targetPartners: context.communicationHistory.slice(0, 2).map((h: any) => h.partnerId),
         proposedSchedule: Date.now() + 3600000, // 1 hour from now
         expectedBenefit: 'Faster conflict resolution',
         priority: 'MEDIUM'
