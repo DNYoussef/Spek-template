@@ -51,8 +51,8 @@ export class EnterpriseComplianceAutomationAgent extends EventEmitter {
     this.config = config;
     this.initializeFrameworks();
 
-    // Emit initialized event after setup
-    setImmediate(() => {
+    // Emit initialized event after setup (use Promise.resolve for cross-environment compatibility)
+    Promise.resolve().then(() => {
       this.emit('initialized', {
         timestamp: new Date(),
         frameworks: this.config.frameworks
