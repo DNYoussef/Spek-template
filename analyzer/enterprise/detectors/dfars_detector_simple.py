@@ -1,18 +1,15 @@
-from datetime import datetime, timedelta
-from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
-
-from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 """
-
 A concrete, working implementation that demonstrates enterprise integration
 without dependency issues.
 """
 
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
 import ast
 import re
-from typing import List, Dict, Any
 from pathlib import Path
-"""
+
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 class SimpleDFARSViolation:
     """Simple violation class for DFARS compliance issues."""
@@ -215,10 +212,10 @@ class SimpleDFARSDetector:
         from datetime import datetime
         return datetime.now().isoformat()
 
-    def demonstrate_enterprise_dfars_integration():
+def demonstrate_enterprise_dfars_integration():
     """
     Demonstrate concrete enterprise DFARS integration.
-    
+
     This function shows exactly how enterprise features would integrate
     with the existing analyzer system.
     """
