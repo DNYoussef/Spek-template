@@ -27,6 +27,16 @@ export enum WorkflowEvent {
   RESET_WORKFLOW = 'RESET_WORKFLOW'
 }
 
+// Workflow step definition
+export interface WorkflowStep {
+  id: string;
+  name: string;
+  type: string;
+  stateId: string;
+  configuration?: Record<string, any>;
+  dependencies?: string[];
+}
+
 // Core workflow interfaces
 export interface WorkflowDefinition {
   id: string;

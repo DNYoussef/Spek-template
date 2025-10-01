@@ -108,7 +108,8 @@ export class WorkflowExecutor {
       initialState: 'idle',
       finalStates: ['completed'],
       variables: [],
-      context: { variables }
+      context: { variables },
+      steps: []
     };
   }
 
@@ -129,7 +130,8 @@ export class WorkflowExecutor {
       initialState: 'idle',
       finalStates: ['completed'],
       variables: [],
-      context: {}
+      context: {},
+      steps: []
     };
   }
 

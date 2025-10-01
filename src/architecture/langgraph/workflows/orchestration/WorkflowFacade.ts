@@ -453,12 +453,14 @@ export class WorkflowFacade extends EventEmitter {
         id: 'start',
         name: 'Start',
         type: 'princess',
-        configuration: { princess: 'research' }
+        configuration: { princess: 'research' },
+        task: 'start-task'
       }, {
         id: 'end',
         name: 'End',
         type: 'princess',
-        configuration: { princess: 'research' }
+        configuration: { princess: 'research' },
+        task: 'end-task'
       }],
       transitions: [{
         id: 'start_to_end',
@@ -470,7 +472,18 @@ export class WorkflowFacade extends EventEmitter {
       initialState: 'start',
       finalStates: ['end'],
       variables: [],
-      context: {}
+      context: {},
+      steps: [{
+        id: 'start-step',
+        name: 'Start Step',
+        type: 'process',
+        stateId: 'start'
+      }, {
+        id: 'end-step',
+        name: 'End Step',
+        type: 'process',
+        stateId: 'end'
+      }]
     };
 
     // NASA Assertion 2: Validate workflow creation

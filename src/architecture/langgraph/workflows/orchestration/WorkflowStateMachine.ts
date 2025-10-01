@@ -256,11 +256,11 @@ export class WorkflowStateMachine extends EventEmitter {
     console.assert(context !== null && context !== undefined, 'Context is required for workflow creation');
 
     // Initialize workflow creation metadata
-    context.creationTimestamp = new Date();
-    context.creationState = 'initializing';
+    context.creationTimestamp = Date.now();
+    context.creationState = WorkflowState.CREATING;
 
     // NASA Assertion 2: Validate creation setup
-    console.assert(context.creationTimestamp instanceof Date, 'Creation timestamp must be set');
+    console.assert(typeof context.creationTimestamp === 'number', 'Creation timestamp must be set');
   }
 
   /**
@@ -271,11 +271,11 @@ export class WorkflowStateMachine extends EventEmitter {
     // NASA Assertion 1: Validate context
     console.assert(context !== null && context !== undefined, 'Context is required for validation');
 
-    context.validationTimestamp = new Date();
-    context.validationState = 'validating';
+    context.validationTimestamp = Date.now();
+    context.validationState = WorkflowState.VALIDATING;
 
     // NASA Assertion 2: Validate validation setup
-    console.assert(context.validationTimestamp instanceof Date, 'Validation timestamp must be set');
+    console.assert(typeof context.validationTimestamp === 'number', 'Validation timestamp must be set');
   }
 
   /**
@@ -286,11 +286,11 @@ export class WorkflowStateMachine extends EventEmitter {
     // NASA Assertion 1: Validate context
     console.assert(context !== null && context !== undefined, 'Context is required for execution start');
 
-    context.executionStartTimestamp = new Date();
-    context.executionState = 'running';
+    context.executionStartTimestamp = Date.now();
+    context.executionState = WorkflowState.EXECUTING;
 
     // NASA Assertion 2: Validate execution setup
-    console.assert(context.executionStartTimestamp instanceof Date, 'Execution start timestamp must be set');
+    console.assert(typeof context.executionStartTimestamp === 'number', 'Execution start timestamp must be set');
   }
 
   /**
@@ -301,11 +301,11 @@ export class WorkflowStateMachine extends EventEmitter {
     // NASA Assertion 1: Validate context
     console.assert(context !== null && context !== undefined, 'Context is required for optimization');
 
-    context.optimizationTimestamp = new Date();
-    context.optimizationState = 'optimizing';
+    context.optimizationTimestamp = Date.now();
+    context.optimizationState = WorkflowState.OPTIMIZING;
 
     // NASA Assertion 2: Validate optimization setup
-    console.assert(context.optimizationTimestamp instanceof Date, 'Optimization timestamp must be set');
+    console.assert(typeof context.optimizationTimestamp === 'number', 'Optimization timestamp must be set');
   }
 
   /**
@@ -316,11 +316,11 @@ export class WorkflowStateMachine extends EventEmitter {
     // NASA Assertion 1: Validate context
     console.assert(context !== null && context !== undefined, 'Context is required for completion');
 
-    context.completionTimestamp = new Date();
-    context.executionState = 'completed';
+    context.completionTimestamp = Date.now();
+    context.executionState = WorkflowState.COMPLETED;
 
     // NASA Assertion 2: Validate completion setup
-    console.assert(context.completionTimestamp instanceof Date, 'Completion timestamp must be set');
+    console.assert(typeof context.completionTimestamp === 'number', 'Completion timestamp must be set');
   }
 
   /**
@@ -331,8 +331,8 @@ export class WorkflowStateMachine extends EventEmitter {
     // NASA Assertion 1: Validate context
     console.assert(context !== null && context !== undefined, 'Context is required for failure handling');
 
-    context.failureTimestamp = new Date();
-    context.executionState = 'failed';
+    context.failureTimestamp = Date.now();
+    context.executionState = WorkflowState.FAILED;
 
     // NASA Assertion 2: Validate failure setup
     console.assert(context.failureTimestamp instanceof Date, 'Failure timestamp must be set');
@@ -346,11 +346,11 @@ export class WorkflowStateMachine extends EventEmitter {
     // NASA Assertion 1: Validate context
     console.assert(context !== null && context !== undefined, 'Context is required for cancellation');
 
-    context.cancellationTimestamp = new Date();
-    context.executionState = 'cancelled';
+    context.cancellationTimestamp = Date.now();
+    context.executionState = WorkflowState.CANCELLED;
 
     // NASA Assertion 2: Validate cancellation setup
-    console.assert(context.cancellationTimestamp instanceof Date, 'Cancellation timestamp must be set');
+    console.assert(typeof context.cancellationTimestamp === 'number', 'Cancellation timestamp must be set');
   }
 
   /**
@@ -374,10 +374,10 @@ export class WorkflowStateMachine extends EventEmitter {
       context.currentWorkflow = workflowDefinition;
     }
 
-    context.resetTimestamp = new Date();
+    context.resetTimestamp = Date.now();
 
     // NASA Assertion 2: Validate reset completion
-    console.assert(context.resetTimestamp instanceof Date, 'Reset timestamp must be set');
+    console.assert(typeof context.resetTimestamp === 'number' || context.resetTimestamp instanceof Date, 'Reset timestamp must be set');
   }
 
   // Guard conditions - NASA Rule 10: ≤60 lines each
@@ -392,7 +392,7 @@ export class WorkflowStateMachine extends EventEmitter {
 
     const isValid = context.currentWorkflow !== null &&
                    context.currentWorkflow !== undefined &&
-                   context.validationState === 'validating';
+                   context.validationState === WorkflowState.VALIDATING;
 
     // NASA Assertion 2: Validate validation result
     console.assert(typeof isValid === 'boolean', 'Validation result must be boolean');

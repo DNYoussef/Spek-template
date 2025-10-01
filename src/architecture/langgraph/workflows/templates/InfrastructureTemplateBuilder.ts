@@ -92,10 +92,11 @@ export class InfrastructureTemplateBuilder {
     const task = InfrastructureTemplateBuilder.createProvisionTask();
 
     const state: WorkflowStateDefinition = {
+      id: 'provision',
       name: 'provision',
       type: 'princess',
-      princess: 'infrastructure',
-      task: task
+      configuration: { princess: 'infrastructure', tasks: [task] },
+      task: 'provision-task'
     };
 
     // NASA Assertion 2: Validate state structure
@@ -116,10 +117,11 @@ export class InfrastructureTemplateBuilder {
     const task = InfrastructureTemplateBuilder.createSecurityScanTask();
 
     const state: WorkflowStateDefinition = {
+      id: 'security-scan',
       name: 'security-scan',
       type: 'princess',
-      princess: 'security',
-      task: task
+      configuration: { princess: 'security', tasks: [task] },
+      task: 'scan-task'
     };
 
     // NASA Assertion 2: Validate state structure
@@ -140,10 +142,11 @@ export class InfrastructureTemplateBuilder {
     const task = InfrastructureTemplateBuilder.createDeployTask();
 
     const state: WorkflowStateDefinition = {
+      id: 'deploy',
       name: 'deploy',
       type: 'princess',
-      princess: 'deployment',
-      task: task
+      configuration: { princess: 'deployment', tasks: [task] },
+      task: 'deploy-task'
     };
 
     // NASA Assertion 2: Validate state structure

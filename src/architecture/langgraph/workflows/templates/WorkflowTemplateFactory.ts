@@ -129,16 +129,20 @@ export class WorkflowTemplateFactory {
     console.assert(Array.isArray(stateNames) && stateNames.length > 0, 'State names must be a non-empty array');
 
     const states: WorkflowStateDefinition[] = stateNames.map((name, index) => ({
+      id: name,
       name: name,
-      type: 'princess',
-      princess: domain,
-      task: {
-        id: `${name}-task`,
-        type: name,
-        priority: 'medium',
-        payload: {},
-        dependencies: index > 0 ? [`${stateNames[index - 1]}-task`] : []
-      }
+      type: 'princess' as const,
+      configuration: {
+        princess: domain,
+        tasks: [{
+          id: `${name}-task`,
+          type: name,
+          priority: 'medium' as const,
+          payload: {},
+          dependencies: index > 0 ? [`${stateNames[index - 1]}-task`] : []
+        }]
+      },
+      task: `${name}-task`
     }));
 
     // NASA Assertion 2: Validate states creation
