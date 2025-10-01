@@ -40,7 +40,7 @@ export class AgentManager extends EventEmitter {
     assert(typeof definition.agentId === 'string' && definition.agentId.length > 0, 'Agent ID must be non-empty string');
 
     const existingDefinitions = this.fsmFacade.getAgentDefinitions();
-    if (existingDefinitions.find(d => d.agentId === definition.agentId)) {
+    if (existingDefinitions.find((d: any) => d.agentId === definition.agentId)) {
       throw new Error(`Agent definition already exists: ${definition.agentId}`);
     }
 
@@ -66,7 +66,7 @@ export class AgentManager extends EventEmitter {
     }
 
     const definitions = this.fsmFacade.getAgentDefinitions();
-    const definition = definitions.find(d => d.agentId === agentId);
+    const definition = definitions.find((d: any) => d.agentId === agentId);
     if (!definition) {
       throw new Error(`Agent definition not found: ${agentId}`);
     }
@@ -165,7 +165,7 @@ export class AgentManager extends EventEmitter {
     }
 
     // Update task lists
-    agentExecution.taskQueue = agentExecution.taskQueue.filter(t => t !== taskId);
+    agentExecution.taskQueue = agentExecution.taskQueue.filter((t: any) => t !== taskId);
     agentExecution.currentTask = undefined;
 
     if (success) {
@@ -273,25 +273,25 @@ export class AgentManager extends EventEmitter {
   getAgentDefinition(agentId: string): AgentDefinition | null {
     assert(typeof agentId === 'string' && agentId.length > 0, 'Agent ID must be non-empty string');
     const definitions = this.fsmFacade.getAgentDefinitions();
-    return definitions.find(d => d.agentId === agentId) || null;
+    return definitions.find((d: any) => d.agentId === agentId) || null;
   }
 
   // Event forwarding and helper methods
   private setupEventForwarding(): void {
     // Forward FSM facade events to maintain compatibility
-    this.fsmFacade.on('agent:spawned', (data) => {
+    this.fsmFacade.on('agent:spawned', (data: any) => {
       this.emit('agent:spawned', data);
     });
 
-    this.fsmFacade.on('agent:terminated', (data) => {
+    this.fsmFacade.on('agent:terminated', (data: any) => {
       this.emit('agent:shutdown', data);
     });
 
-    this.fsmFacade.on('agent:suspended', (data) => {
+    this.fsmFacade.on('agent:suspended', (data: any) => {
       this.emit('agent:suspended', data);
     });
 
-    this.fsmFacade.on('agent:resumed', (data) => {
+    this.fsmFacade.on('agent:resumed', (data: any) => {
       this.emit('agent:resumed', data);
     });
 
