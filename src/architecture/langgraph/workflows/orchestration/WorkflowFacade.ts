@@ -417,15 +417,15 @@ export class WorkflowFacade extends EventEmitter {
     });
 
     // Executor events
-    this.executor.on('workflowExecutionStarted', (workflowId, definition, context) => {
+    this.executor.on('workflowExecutionStarted', (workflowId: any, definition: any, context: any) => {
       this.emit('workflowStarted', workflowId, definition, context);
     });
 
-    this.executor.on('workflowExecutionCompleted', (workflowId) => {
+    this.executor.on('workflowExecutionCompleted', (workflowId: any) => {
       this.emit('workflowCompleted', workflowId);
     });
 
-    this.executor.on('workflowExecutionFailed', (workflowId, error) => {
+    this.executor.on('workflowExecutionFailed', (workflowId: any, error: any) => {
       this.emit('workflowFailed', workflowId, error);
     });
 
