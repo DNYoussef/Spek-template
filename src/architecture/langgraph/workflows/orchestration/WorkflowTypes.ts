@@ -224,9 +224,11 @@ export interface WorkflowContext {
   validationTimestamp?: number;
   validationState?: WorkflowState;
   executionStartTimestamp?: number;
-  executionState?: WorkflowState;
+  executionState?: WorkflowState | string;
   optimizationTimestamp?: number;
   optimizationState?: WorkflowState;
+  failureTimestamp?: Date;
+  resetTimestamp?: Date;
 }
 
 // Factory and builder interfaces
