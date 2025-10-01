@@ -548,8 +548,7 @@ class NASAComplianceTests(unittest.TestCase):
         self.assertEqual(len(critical_violations), 0,
                         "Refactored code must have zero critical violations for NASA compliance")
 
-    def run_validation_suite():
-        pass
+def run_validation_suite():
     """Run the complete validation test suite."""
     print("=" * 80)
     print("REFACTORED CONNASCENCE ANALYZER VALIDATION SUITE")
@@ -590,7 +589,7 @@ class NASAComplianceTests(unittest.TestCase):
         for test, traceback in result.errors:
             pass
 
-        return result.wasSuccessful()
+    return result.wasSuccessful()
 
 if __name__ == '__main__':
     success = run_validation_suite()

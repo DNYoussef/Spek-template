@@ -409,8 +409,7 @@ class UnifiedOrchestrator:
             "duplication_percentage": 5.0
         }
 
-    def main():
-        pass
+def main():
     """CLI entry point for unified orchestrator."""
     import argparse
 

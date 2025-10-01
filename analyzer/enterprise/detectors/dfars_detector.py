@@ -322,14 +322,12 @@ class DFARSDetector(DetectorBase):
         return datetime.now().isoformat()
 
 # Factory function for integration
-    def create_dfars_detector(file_path: str = "", source_lines: List[str] = None) -> DFARSDetector:
-        pass
+def create_dfars_detector(file_path: str = "", source_lines: List[str] = None) -> DFARSDetector:
     """Create a DFARS detector instance."""
     return DFARSDetector(file_path, source_lines)
 
 # Integration test function
-    def test_dfars_detector():
-        pass
+def test_dfars_detector():
     """Test DFARS detector functionality."""
     test_code = '''
 # DFARS compliance test
@@ -348,11 +346,11 @@ def send_data(data):
     response = requests.post("http://example.com/api", data=data)
     return response.status_code
 '''
-    
+
     # Create detector
     detector = DFARSDetector('test.py', test_code.split('\n'))
     detector.enable_enterprise_features({'level': 'basic'})
-    
+
     # Parse and analyze
     import ast
     tree = ast.parse(test_code)

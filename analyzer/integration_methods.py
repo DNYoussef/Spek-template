@@ -270,8 +270,7 @@ class AnalyzerIntegrationMixin:
             "duplication_percentage": duplication_percentage
         }
 
-    def integrate_unified_analyzer_with_components(analyzer_class):
-        pass
+def integrate_unified_analyzer_with_components(analyzer_class):
     """
     Class decorator to integrate UnifiedAnalyzer with component integrator.
 

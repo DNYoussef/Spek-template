@@ -30,7 +30,6 @@ class NISTSSFDFramework:
         }
 
 # Maintain backward compatibility
-    def run_nist_compliance():
-        pass
+def run_nist_compliance():
     framework = NISTSSFDFramework()
     return framework.run_compliance_check("system")

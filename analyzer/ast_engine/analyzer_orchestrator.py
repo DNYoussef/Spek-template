@@ -116,8 +116,7 @@ class AnalyzerOrchestrator:
         analyzer = analyzer_class(threshold=threshold)
         return analyzer.analyze_path(path)
 
-    def main():
-        pass
+def main():
     """Main entry point for command-line usage."""
     parser = argparse.ArgumentParser(description="AST-based analyzer orchestrator")
     parser.add_argument("--path", required=True, help="Path to analyze")

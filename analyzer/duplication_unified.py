@@ -561,8 +561,7 @@ class UnifiedDuplicationAnalyzer:
 
         return json_output
 
-    def main():
-        pass
+def main():
     """Command-line interface for unified duplication analysis."""
     import argparse
 
