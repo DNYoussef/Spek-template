@@ -1,0 +1,227 @@
+name: Incremental CI - Quarantine Strategy
+
+on:
+  push:
+    branches: [ main, develop, 'fix/**', 'feature/**' ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  # Phase 1: Critical blockers must pass
+  critical-validation:
+    name: Critical Blockers Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check for Critical Blockers (TS2307, TS2614)
+        id: critical_check
+        run: |
+          # Run typecheck and filter for critical errors
+          set +e
+          npm run typecheck 2>&1 | tee typecheck.log
+          CRITICAL_ERRORS=$(grep -E "error TS(2307|2614)" typecheck.log | wc -l)
+          echo "critical_errors=$CRITICAL_ERRORS" >> $GITHUB_OUTPUT
+
+          if [ "$CRITICAL_ERRORS" -gt 0 ]; then
+            echo "::error::Found $CRITICAL_ERRORS critical blocking errors (TS2307/TS2614)"
+            echo "These errors MUST be fixed - they are not quarantinable"
+            grep -E "error TS(2307|2614)" typecheck.log
+            exit 1
+          else
+            echo "✓ No critical blockers found"
+            exit 0
+          fi
+
+  # Phase 2: Incremental typecheck (non-critical errors allowed)
+  incremental-typecheck:
+    name: Incremental TypeScript Check
+    runs-on: ubuntu-latest
+    needs: critical-validation
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Incremental TypeScript Check
+        id: typecheck
+        continue-on-error: true
+        run: |
+          # Use incremental config for faster checks
+          npx tsc --project tsconfig.incremental.json --noEmit 2>&1 | tee typecheck-full.log || true
+
+          TOTAL_ERRORS=$(grep -c "error TS" typecheck-full.log || echo 0)
+          QUARANTINED=$(grep -c "@ts-expect-error QUARANTINE" src/**/*.ts || echo 0)
+
+          echo "total_errors=$TOTAL_ERRORS" >> $GITHUB_OUTPUT
+          echo "quarantined=$QUARANTINED" >> $GITHUB_OUTPUT
+
+          echo "### TypeScript Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "- Total errors: $TOTAL_ERRORS" >> $GITHUB_STEP_SUMMARY
+          echo "- Quarantined: $QUARANTINED" >> $GITHUB_STEP_SUMMARY
+          echo "- Active issues: $((TOTAL_ERRORS - QUARANTINED))" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload typecheck report
+        uses: actions/upload-artifact@v3
+        with:
+          name: typecheck-report
+          path: typecheck-full.log
+
+  # Phase 3: Unit tests (can run despite type errors)
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: critical-validation
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm test -- --coverage
+        continue-on-error: false
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/lcov.info
+          flags: unittests
+
+  # Phase 4: Python tests
+  python-tests:
+    name: Python Tests
+    runs-on: ubuntu-latest
+    needs: critical-validation
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Python dependencies
+        run: |
+          pip install pytest pytest-cov bandit
+          pip install -r requirements.txt || true
+
+      - name: Run Python tests
+        run: npm run test:py || pytest -v
+
+      - name: Security scan (Bandit)
+        run: npm run security:scan || bandit -r src -f json -o bandit-report.json
+        continue-on-error: true
+
+      - name: Upload security report
+        uses: actions/upload-artifact@v3
+        with:
+          name: security-report
+          path: bandit-report.json
+
+  # Phase 5: Linting (non-blocking)
+  lint:
+    name: Linting
+    runs-on: ubuntu-latest
+    needs: critical-validation
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint || npx eslint src --ext .ts,.js --format json -o eslint-report.json
+        continue-on-error: true
+
+      - name: Upload lint report
+        uses: actions/upload-artifact@v3
+        with:
+          name: lint-report
+          path: eslint-report.json
+
+  # Phase 6: Quality gate summary
+  quality-gate:
+    name: Quality Gate Summary
+    runs-on: ubuntu-latest
+    needs: [critical-validation, incremental-typecheck, unit-tests, python-tests, lint]
+    if: always()
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+
+      - name: Generate quality report
+        run: |
+          echo "# Quality Gate Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Critical Validation" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ needs.critical-validation.result }}" == "success" ]; then
+            echo "✅ **PASSED** - No critical blockers (TS2307, TS2614)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **FAILED** - Critical blockers detected" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Test Results" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ needs.unit-tests.result }}" == "success" ]; then
+            echo "✅ Unit Tests: PASSED" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Unit Tests: FAILED" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [ "${{ needs.python-tests.result }}" == "success" ]; then
+            echo "✅ Python Tests: PASSED" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️ Python Tests: ISSUES" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Code Quality" >> $GITHUB_STEP_SUMMARY
+          echo "⚠️ TypeScript: Quarantine mode (see artifacts)" >> $GITHUB_STEP_SUMMARY
+          echo "ℹ️ Linting: Non-blocking (see artifacts)" >> $GITHUB_STEP_SUMMARY
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "_Strategy: Critical blockers must pass, other errors quarantined with tracking_" >> $GITHUB_STEP_SUMMARY
+
+      - name: Check gate status
+        run: |
+          if [ "${{ needs.critical-validation.result }}" != "success" ] || [ "${{ needs.unit-tests.result }}" != "success" ]; then
+            echo "Quality gate FAILED"
+            exit 1
+          else
+            echo "Quality gate PASSED (with quarantined errors tracked)"
+            exit 0
+          fi
