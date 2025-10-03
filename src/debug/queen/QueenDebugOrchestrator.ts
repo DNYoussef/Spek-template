@@ -4,9 +4,9 @@
  * @architecture FSM-based facade pattern
  */
 
-// Re-export from FSM-based facade
-export * from './QueenDebugOrchestratorFacade';
-export { default } from './QueenDebugOrchestratorFacade';
+// Re-export from typed implementation
+export * from './QueenDebugOrchestrator-typed';
+export { QueenDebugOrchestrator, DebugTarget } from './QueenDebugOrchestrator-typed';
 
 // === AGENT FOOTER ===
 // Version & Run Log

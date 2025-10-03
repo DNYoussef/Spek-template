@@ -4,9 +4,65 @@
  * @architecture FSM-based facade pattern
  */
 
-// Re-export from FSM-based facade
-export * from './QueenDebugCoreFacade';
-export { default } from './QueenDebugCoreFacade';
+import { DebugTarget } from './QueenDebugTypes';
+
+// Stub implementation until facade is complete
+export class QueenDebugCore {
+  constructor(private target: DebugTarget) {}
+
+  async startDebug(): Promise<void> {
+    // TODO: Implement debug start - Issue #5
+  }
+
+  async analyzeTarget(): Promise<void> {
+    // TODO: Implement target analysis - Issue #5
+  }
+
+  async assignPrincess(): Promise<void> {
+    // TODO: Implement princess assignment - Issue #5
+  }
+
+  async deployDrones(): Promise<void> {
+    // TODO: Implement drone deployment - Issue #5
+  }
+
+  async executeSwarm(): Promise<void> {
+    // TODO: Implement swarm execution - Issue #5
+  }
+
+  async runAuditPipeline(): Promise<void> {
+    // TODO: Implement audit pipeline - Issue #5
+  }
+
+  async validateQuality(): Promise<void> {
+    // TODO: Implement quality validation - Issue #5
+  }
+
+  async collectEvidence(): Promise<void> {
+    // TODO: Implement evidence collection - Issue #5
+  }
+
+  async integrateGitHub(): Promise<void> {
+    // TODO: Implement GitHub integration - Issue #5
+  }
+
+  async generateResolution(): Promise<any> {
+    // TODO: Implement resolution generation - Issue #5
+    return {};
+  }
+
+  getCurrentState(): any {
+    // TODO: Implement state getter - Issue #5
+    return 'INITIALIZED';
+  }
+
+  getProgress(): number {
+    // TODO: Implement progress tracker - Issue #5
+    return 0;
+  }
+}
+
+export default QueenDebugCore;
 
 // === AGENT FOOTER ===
 // Version & Run Log
