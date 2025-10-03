@@ -6,6 +6,74 @@
 
 import { ComplianceDriftDetectorFSM } from './ComplianceDriftDetectorFSM';
 import { MonitorConfig } from '../../monitoring/shared/MonitoringFSMTypes';
+import { StateContext } from '../../../types/base/shared';
+
+// FSM State and Event Types
+export enum DriftDetectionState {
+  IDLE = 'IDLE',
+  SCANNING = 'SCANNING',
+  ANALYZING = 'ANALYZING',
+  DETECTED = 'DETECTED',
+  RECOVERING = 'RECOVERING',
+  ERROR = 'ERROR'
+}
+
+export enum DriftDetectionEvent {
+  START_SCAN = 'START_SCAN',
+  SCAN_COMPLETE = 'SCAN_COMPLETE',
+  DRIFT_DETECTED = 'DRIFT_DETECTED',
+  RECOVERY_INITIATED = 'RECOVERY_INITIATED',
+  RESET = 'RESET',
+  ERROR_OCCURRED = 'ERROR_OCCURRED'
+}
+
+export interface DriftDetectionContext extends StateContext {
+  readonly scanData: unknown;
+  readonly violations: unknown[];
+  readonly driftScore: number;
+}
+
+export interface DriftDetectionTransition {
+  readonly from: DriftDetectionState;
+  readonly to: DriftDetectionState;
+  readonly event: DriftDetectionEvent;
+}
+
+// Compliance Drift Types
+export interface ComplianceDrift {
+  readonly id: string;
+  readonly severity: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+  readonly type: string;
+  readonly timestamp: number;
+  readonly details: Record<string, unknown>;
+}
+
+// Rollback System Types
+export interface DefenseRollbackSystem {
+  createSnapshot(): Promise<RollbackSnapshot>;
+  rollback(snapshotId: string): Promise<RollbackResult>;
+  validateSnapshot(snapshotId: string): Promise<ValidationResult>;
+}
+
+export interface RollbackSnapshot {
+  readonly id: string;
+  readonly timestamp: number;
+  readonly state: Record<string, unknown>;
+  readonly metadata: Record<string, unknown>;
+}
+
+export interface RollbackResult {
+  readonly success: boolean;
+  readonly snapshotId: string;
+  readonly message: string;
+  readonly timestamp: number;
+}
+
+export interface ValidationResult {
+  readonly valid: boolean;
+  readonly errors: readonly string[];
+  readonly warnings: readonly string[];
+}
 
 // Legacy facade that delegates to FSM
 export class ComplianceDriftDetector {

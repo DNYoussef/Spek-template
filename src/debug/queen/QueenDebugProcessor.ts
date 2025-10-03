@@ -4,9 +4,31 @@
  * @architecture FSM-based facade pattern
  */
 
-// Re-export from FSM-based facade
-export * from './QueenDebugProcessorFacade';
-export { default } from './QueenDebugProcessorFacade';
+// Stub implementations for missing facade classes
+export class EvidenceCollector {
+  async collectEvidence(): Promise<unknown[]> {
+    // TODO: Implement evidence collection - Issue #5
+    return [];
+  }
+}
+
+export class GitHubIntegrator {
+  async integrate(): Promise<void> {
+    // TODO: Implement GitHub integration - Issue #5
+  }
+}
+
+export class CompletionProcessor {
+  async processCompletion(): Promise<void> {
+    // TODO: Implement completion processing - Issue #5
+  }
+}
+
+export default class QueenDebugProcessor {
+  async process(): Promise<void> {
+    // TODO: Implement debug processing - Issue #5
+  }
+}
 
 // === AGENT FOOTER ===
 // Version & Run Log

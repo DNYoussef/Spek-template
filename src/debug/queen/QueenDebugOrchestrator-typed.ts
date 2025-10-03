@@ -21,6 +21,9 @@ import {
 export { QueenDebugCore as QueenDebugOrchestratorImpl };
 export { DebugState, DebugEvent, DebugTarget, DebugResolution };
 
+// Export QueenDebugOrchestrator as named export for TS2614 fix
+export { QueenDebugOrchestrator };
+
 /**
  * COMPATIBILITY WRAPPER - DEPRECATED
  * This class has been refactored into FSM-First architecture.

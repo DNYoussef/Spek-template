@@ -4,9 +4,22 @@
  * @architecture FSM-based facade pattern
  */
 
-// Re-export from FSM-based facade
-export * from './GitHubProjectIntegrationCoreFacade';
-export { default } from './GitHubProjectIntegrationCoreFacade';
+// Stub implementation until facade is complete
+export class GitHubProjectIntegrationCore {
+  async initialize(): Promise<void> {
+    // TODO: Implement GitHub Project integration - Issue #5
+  }
+
+  async syncProject(projectId: string): Promise<void> {
+    // TODO: Implement project sync - Issue #5
+  }
+
+  async shutdown(): Promise<void> {
+    // TODO: Implement shutdown - Issue #5
+  }
+}
+
+export default GitHubProjectIntegrationCore;
 
 // === AGENT FOOTER ===
 // Version & Run Log
