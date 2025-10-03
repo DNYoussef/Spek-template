@@ -4,9 +4,23 @@
  * @architecture FSM-based facade pattern
  */
 
-// Re-export from FSM-based facade
-export * from './SixSigmaMetricsFacade';
-export { default } from './SixSigmaMetricsFacade';
+// Stub implementation until facade is complete
+export class SixSigmaMetrics {
+  async initialize(): Promise<void> {
+    // TODO: Implement Six Sigma metrics - Issue #5
+  }
+
+  async calculateMetrics(): Promise<Record<string, number>> {
+    // TODO: Implement metrics calculation - Issue #5
+    return {};
+  }
+
+  async shutdown(): Promise<void> {
+    // TODO: Implement shutdown - Issue #5
+  }
+}
+
+export default SixSigmaMetrics;
 
 // === AGENT FOOTER ===
 // Version & Run Log

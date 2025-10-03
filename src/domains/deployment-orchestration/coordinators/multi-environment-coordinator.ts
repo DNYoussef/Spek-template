@@ -4,9 +4,22 @@
  * @architecture FSM-based facade pattern
  */
 
-// Re-export from FSM-based facade
-export * from './multi-environment-coordinatorFacade';
-export { default } from './multi-environment-coordinatorFacade';
+// Stub implementation until facade is complete
+export class MultiEnvironmentCoordinator {
+  async initialize(): Promise<void> {
+    // TODO: Implement multi-environment coordinator - Issue #5
+  }
+
+  async coordinateDeployment(environments: string[]): Promise<void> {
+    // TODO: Implement deployment coordination - Issue #5
+  }
+
+  async shutdown(): Promise<void> {
+    // TODO: Implement shutdown - Issue #5
+  }
+}
+
+export default MultiEnvironmentCoordinator;
 
 // === AGENT FOOTER ===
 // Version & Run Log

@@ -4,9 +4,23 @@
  * @architecture FSM-based facade pattern
  */
 
-// Re-export from FSM-based facade
-export * from './AutomatedDecisionEngineCoreFacade';
-export { default } from './AutomatedDecisionEngineCoreFacade';
+// Stub implementation until facade is complete
+export class AutomatedDecisionEngineCore {
+  async initialize(): Promise<void> {
+    // TODO: Implement automated decision engine - Issue #5
+  }
+
+  async makeDecision(context: Record<string, unknown>): Promise<string> {
+    // TODO: Implement decision making - Issue #5
+    return 'pending';
+  }
+
+  async shutdown(): Promise<void> {
+    // TODO: Implement shutdown - Issue #5
+  }
+}
+
+export default AutomatedDecisionEngineCore;
 
 // === AGENT FOOTER ===
 // Version & Run Log

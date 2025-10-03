@@ -4,9 +4,22 @@
  * @architecture FSM-based facade pattern
  */
 
-// Re-export from FSM-based facade
-export * from './VersionSynchronizerCoreFacade';
-export { default } from './VersionSynchronizerCoreFacade';
+// Stub implementation until facade is complete
+export class VersionSynchronizerCore {
+  async initialize(): Promise<void> {
+    // TODO: Implement version synchronizer - Issue #5
+  }
+
+  async syncVersions(): Promise<void> {
+    // TODO: Implement version synchronization - Issue #5
+  }
+
+  async shutdown(): Promise<void> {
+    // TODO: Implement shutdown - Issue #5
+  }
+}
+
+export default VersionSynchronizerCore;
 
 // === AGENT FOOTER ===
 // Version & Run Log

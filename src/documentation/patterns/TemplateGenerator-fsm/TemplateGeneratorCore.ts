@@ -4,9 +4,23 @@
  * @architecture FSM-based facade pattern
  */
 
-// Re-export from FSM-based facade
-export * from './TemplateGeneratorCoreFacade';
-export { default } from './TemplateGeneratorCoreFacade';
+// Stub implementation until facade is complete
+export class TemplateGeneratorCore {
+  async initialize(): Promise<void> {
+    // TODO: Implement template generator - Issue #5
+  }
+
+  async generateTemplate(type: string): Promise<string> {
+    // TODO: Implement template generation - Issue #5
+    return '';
+  }
+
+  async shutdown(): Promise<void> {
+    // TODO: Implement shutdown - Issue #5
+  }
+}
+
+export default TemplateGeneratorCore;
 
 // === AGENT FOOTER ===
 // Version & Run Log
