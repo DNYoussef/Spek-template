@@ -43,6 +43,21 @@ export type Score = Brand<number, 'Score'>;
 export type UUID = Brand<string, 'UUID'>;
 export type Milliseconds = Brand<number, 'Milliseconds'>;
 
+// JSON types (commonly used across codebase)
+export type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
+export interface JSONObject { [key: string]: JSONValue; }
+export interface JSONArray extends Array<JSONValue> {}
+
+// Result type for error handling (commonly used in FSMs)
+export type Result<T, E = Error> =
+  | { success: true; value: T; error?: never; }
+  | { success: false; value?: never; error: E; };
+
+// State machine common types
+export type StateName = Brand<string, 'StateName'>;
+export type EventName = Brand<string, 'EventName'>;
+export type TransitionId = Brand<string, 'TransitionId'>;
+
 // Utility functions for creating branded types
 export const createConfigPath = (path: string): ConfigPath => path as ConfigPath;
 export const createValidationPath = (path: string): ValidationPath => path as ValidationPath;

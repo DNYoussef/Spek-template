@@ -1,8 +1,16 @@
 /**
  * Centralized Type Exports for SPEK Enhanced Development Platform
  * Resolves TS2304 "Cannot find name" errors by exporting all types
+ *
+ * IMPORTANT: Export order matters to prevent circular dependencies
+ * 1. shared.ts - Foundation types with NO imports (breaks circular deps)
+ * 2. primitives.ts - Branded types
+ * 3. common.ts - Common utilities
+ * 4. Domain types - Business logic types
+ * 5. Legacy types - Existing type files
  */
-// Re-export base types (FIRST - foundation)
+// Re-export base types (FIRST - foundation, no circular deps)
+export * from './base/shared';
 export * from './base/primitives';
 export * from './base/common';
 

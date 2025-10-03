@@ -346,5 +346,4 @@ export interface ResearchContext extends FSMContext {
   readonly confidence: number;
 }
 
-// Export all for centralized access
-export * from './FSMTypes';
+// Note: No self-export needed - this file is the source
