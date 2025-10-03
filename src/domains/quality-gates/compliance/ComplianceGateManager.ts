@@ -34,6 +34,14 @@ export interface ComplianceResult {
   violations: string[];
 }
 
+export interface ComplianceViolation {
+  readonly id: string;
+  readonly severity: 'low' | 'medium' | 'high' | 'critical';
+  readonly rule: string;
+  readonly description: string;
+  readonly location: string;
+}
+
 /**
  * Compliance Gate Manager - Delegates to FSM Facade
  * Eliminates god object by using ManagementHub pattern

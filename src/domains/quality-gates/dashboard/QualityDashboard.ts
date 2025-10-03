@@ -7,6 +7,26 @@ export interface DashboardMetrics {
   timestamp: number;
 }
 
+export interface QualityAlert {
+  readonly id: string;
+  readonly level: 'info' | 'warning' | 'error' | 'critical';
+  readonly message: string;
+  readonly timestamp: number;
+}
+
+export interface DashboardWidget {
+  readonly id: string;
+  readonly type: string;
+  readonly title: string;
+  readonly data: unknown;
+}
+
+export interface DashboardLayout {
+  readonly widgets: DashboardWidget[];
+  readonly columns: number;
+  readonly refreshInterval: number;
+}
+
 export class QualityDashboard {
   async getMetrics(): Promise<DashboardMetrics> {
     return { score: 0, timestamp: Date.now() };

@@ -4,15 +4,47 @@
  * @architecture FSM-based facade pattern
  */
 
+// Type exports for Six Sigma metrics
+export interface SixSigmaThresholds {
+  readonly cpk: number;
+  readonly dpmo: number;
+  readonly yield: number;
+}
+
+export interface CTQSpecification {
+  readonly name: string;
+  readonly lsl: number;
+  readonly usl: number;
+  readonly target: number;
+}
+
+export interface SixSigmaMetricsResult {
+  readonly cpk: number;
+  readonly dpmo: number;
+  readonly yield: number;
+  readonly sigmaLevel: number;
+}
+
+export interface SixSigmaMetricsData {
+  readonly measurements: number[];
+  readonly specification: CTQSpecification;
+}
+
+export interface CTQValidationResult {
+  readonly valid: boolean;
+  readonly cpk: number;
+  readonly violations: string[];
+}
+
 // Stub implementation until facade is complete
 export class SixSigmaMetrics {
   async initialize(): Promise<void> {
     // TODO: Implement Six Sigma metrics - Issue #5
   }
 
-  async calculateMetrics(): Promise<Record<string, number>> {
+  async calculateMetrics(): Promise<SixSigmaMetricsResult> {
     // TODO: Implement metrics calculation - Issue #5
-    return {};
+    return { cpk: 0, dpmo: 0, yield: 0, sigmaLevel: 0 };
   }
 
   async shutdown(): Promise<void> {
