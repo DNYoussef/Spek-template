@@ -1,6 +1,6 @@
 
 // TypesBaseFSM.ts - Generated template for types pattern
-import { StateDefinition, TransitionDefinition, FSMConfig } from '../../../types/fsm-types';
+import { StateDefinition, TransitionDefinition, FSMConfig } from '~types/fsm-types';
 
 export enum TypesState {
     IDLE = 'idle',

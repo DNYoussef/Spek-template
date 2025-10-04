@@ -1,6 +1,6 @@
 
 // DetectorBaseFSM.ts - Generated template for detector pattern
-import { StateDefinition, TransitionDefinition, FSMConfig } from '../../../types/fsm-types';
+import { StateDefinition, TransitionDefinition, FSMConfig } from '~types/fsm-types';
 
 export enum DetectorState {
     IDLE = 'idle',

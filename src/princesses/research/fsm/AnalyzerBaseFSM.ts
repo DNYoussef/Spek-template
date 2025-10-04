@@ -1,6 +1,6 @@
 
 // AnalyzerBaseFSM.ts - Generated template for analyzer pattern
-import { StateDefinition, TransitionDefinition, FSMConfig } from '../../../types/fsm-types';
+import { StateDefinition, TransitionDefinition, FSMConfig } from '~types/fsm-types';
 
 export enum AnalyzerState {
     IDLE = 'idle',

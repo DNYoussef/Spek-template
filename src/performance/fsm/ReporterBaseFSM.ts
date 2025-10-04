@@ -1,6 +1,6 @@
 
 // ReporterBaseFSM.ts - Generated template for reporter pattern
-import { StateDefinition, TransitionDefinition, FSMConfig } from '../../../types/fsm-types';
+import { StateDefinition, TransitionDefinition, FSMConfig } from '~types/fsm-types';
 
 export enum ReporterState {
     IDLE = 'idle',

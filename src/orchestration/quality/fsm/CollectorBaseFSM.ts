@@ -1,6 +1,6 @@
 
 // CollectorBaseFSM.ts - Generated template for collector pattern
-import { StateDefinition, TransitionDefinition, FSMConfig } from '../../../types/fsm-types';
+import { StateDefinition, TransitionDefinition, FSMConfig } from '~types/fsm-types';
 
 export enum CollectorState {
     IDLE = 'idle',

@@ -1,6 +1,6 @@
 
 // OrchestratorBaseFSM.ts - Generated template for orchestrator pattern
-import { StateDefinition, TransitionDefinition, FSMConfig } from '../../../types/fsm-types';
+import { StateDefinition, TransitionDefinition, FSMConfig } from '~types/fsm-types';
 
 export enum OrchestratorState {
     IDLE = 'idle',

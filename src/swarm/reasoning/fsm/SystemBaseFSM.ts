@@ -1,6 +1,6 @@
 
 // SystemBaseFSM.ts - Generated template for system pattern
-import { StateDefinition, TransitionDefinition, FSMConfig } from '../../../types/fsm-types';
+import { StateDefinition, TransitionDefinition, FSMConfig } from '~types/fsm-types';
 
 export enum SystemState {
     IDLE = 'idle',

@@ -1,6 +1,6 @@
 
 // ConfigBaseFSM.ts - Generated template for config pattern
-import { StateDefinition, TransitionDefinition, FSMConfig } from '../../../types/fsm-types';
+import { StateDefinition, TransitionDefinition, FSMConfig } from '~types/fsm-types';
 
 export enum ConfigState {
     IDLE = 'idle',

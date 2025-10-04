@@ -1,6 +1,6 @@
 
 // MonitorBaseFSM.ts - Generated template for monitor pattern
-import { StateDefinition, TransitionDefinition, FSMConfig } from '../../../types/fsm-types';
+import { StateDefinition, TransitionDefinition, FSMConfig } from '~types/fsm-types';
 
 export enum MonitorState {
     IDLE = 'idle',

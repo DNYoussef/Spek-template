@@ -1,6 +1,6 @@
 
 // GeneratorBaseFSM.ts - Generated template for generator pattern
-import { StateDefinition, TransitionDefinition, FSMConfig } from '../../../types/fsm-types';
+import { StateDefinition, TransitionDefinition, FSMConfig } from '~types/fsm-types';
 
 export enum GeneratorState {
     IDLE = 'idle',

@@ -21,7 +21,7 @@ import {
   ComplianceScore,
   ComplianceRuleId,
   Timestamp
-} from '../../types/base/primitives';
+} from '~types/base/primitives';
 
 export class ComplianceRuleScanner {
   private projectRoot: string;

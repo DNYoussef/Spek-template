@@ -1,6 +1,6 @@
 
 // ProfilerBaseFSM.ts - Generated template for profiler pattern
-import { StateDefinition, TransitionDefinition, FSMConfig } from '../../../types/fsm-types';
+import { StateDefinition, TransitionDefinition, FSMConfig } from '~types/fsm-types';
 
 export enum ProfilerState {
     IDLE = 'idle',

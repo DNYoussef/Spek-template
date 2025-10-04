@@ -1,6 +1,6 @@
 
 // ComparatorBaseFSM.ts - Generated template for comparator pattern
-import { StateDefinition, TransitionDefinition, FSMConfig } from '../../../types/fsm-types';
+import { StateDefinition, TransitionDefinition, FSMConfig } from '~types/fsm-types';
 
 export enum ComparatorState {
     IDLE = 'idle',

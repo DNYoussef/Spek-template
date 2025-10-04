@@ -12,7 +12,7 @@ import {
   Duration,
   Score,
   createTimestamp
-} from '../../types/base/primitives';
+} from '~types/base/primitives';
 
 // Branded types for validation domain
 type Brand<T, U> = T & { readonly __brand: U };

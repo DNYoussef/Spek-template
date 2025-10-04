@@ -1,6 +1,6 @@
 
 // CorrelatorBaseFSM.ts - Generated template for correlator pattern
-import { StateDefinition, TransitionDefinition, FSMConfig } from '../../../types/fsm-types';
+import { StateDefinition, TransitionDefinition, FSMConfig } from '~types/fsm-types';
 
 export enum CorrelatorState {
     IDLE = 'idle',

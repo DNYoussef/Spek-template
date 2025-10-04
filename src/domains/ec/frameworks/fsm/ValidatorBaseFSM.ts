@@ -1,6 +1,6 @@
 
 // ValidatorBaseFSM.ts - Generated template for validator pattern
-import { StateDefinition, TransitionDefinition, FSMConfig } from '../../../types/fsm-types';
+import { StateDefinition, TransitionDefinition, FSMConfig } from '~types/fsm-types';
 
 export enum ValidatorState {
     IDLE = 'idle',
