@@ -79,6 +79,13 @@ export interface DependencyInfo {
   readonly version: string;
   readonly status: 'resolved' | 'pending' | 'failed';
   readonly resolvedAt?: Timestamp;
+  readonly dependsOn?: readonly UUID[]; // Dependencies this item depends on
+  readonly requiredBy?: readonly UUID[]; // Dependencies that require this item
+  readonly resolution?: {
+    strategy: 'immediate' | 'deferred' | 'lazy';
+    version: string;
+    source: string;
+  }; // Resolution strategy information
 }
 
 export interface LifecycleInfo {
@@ -86,13 +93,20 @@ export interface LifecycleInfo {
   readonly state: LifecycleState;
   readonly actions: readonly LifecycleAction[];
   readonly duration: number;
+  readonly status?: 'initializing' | 'running' | 'paused' | 'completed' | 'failed'; // Lifecycle execution status
+  readonly startTime?: Timestamp; // When lifecycle started
+  readonly endTime?: Timestamp; // When lifecycle ended
 }
 
 export interface ResourceInfo {
+  readonly id?: UUID; // Alias for resourceId (backward compatibility)
   readonly resourceId: UUID;
   readonly allocation: ResourceAllocation;
   readonly utilization: number;
   readonly status: 'available' | 'allocated' | 'exhausted';
+  readonly available?: number; // Available resource amount
+  readonly allocated?: number; // Allocated resource amount
+  readonly capacity?: number; // Total resource capacity
 }
 
 export interface CoordinationInfo {
@@ -100,12 +114,20 @@ export interface CoordinationInfo {
   readonly participants: readonly UUID[];
   readonly status: 'coordinating' | 'synchronized' | 'conflicted';
   readonly lastSyncTime: Timestamp;
+  readonly currentState?: string; // Current coordination state
+  readonly targetState?: string; // Target coordination state
+  readonly transitionTime?: Timestamp; // When last state transition occurred
+  readonly dependencies?: readonly UUID[]; // Coordination dependencies
 }
 
 export interface TaskInfo {
   readonly taskId: UUID;
   readonly name: string;
+  readonly type?: string; // Task type identifier
   readonly status: 'pending' | 'running' | 'completed' | 'failed';
+  readonly state?: 'queued' | 'active' | 'paused' | 'cancelled' | 'done'; // Detailed task state
+  readonly priority?: number; // Task priority (0-10)
+  readonly dependencies?: readonly UUID[]; // Task dependencies
   readonly startTime?: Timestamp;
   readonly endTime?: Timestamp;
   readonly result?: unknown;
@@ -113,8 +135,11 @@ export interface TaskInfo {
 
 // FSM State Management for Management domain
 export enum ManagementState {
+  INIT = 'INIT',
   IDLE = 'IDLE',
   INITIALIZING = 'INITIALIZING',
+  PLANNING = 'PLANNING',
+  ALLOCATING = 'ALLOCATING',
   ALLOCATING_RESOURCES = 'ALLOCATING_RESOURCES',
   EXECUTING = 'EXECUTING',
   COORDINATING = 'COORDINATING',
@@ -125,7 +150,9 @@ export enum ManagementState {
 }
 
 export enum ManagementEvent {
+  START = 'START',
   INITIALIZE = 'INITIALIZE',
+  ALLOCATE = 'ALLOCATE',
   ALLOCATE_RESOURCES = 'ALLOCATE_RESOURCES',
   RESOURCES_ALLOCATED = 'RESOURCES_ALLOCATED',
   ALLOCATION_FAILED = 'ALLOCATION_FAILED',
@@ -135,16 +162,20 @@ export enum ManagementEvent {
   COORDINATE = 'COORDINATE',
   COORDINATION_COMPLETED = 'COORDINATION_COMPLETED',
   MONITOR = 'MONITOR',
+  CLEANUP = 'CLEANUP',
   CLEANUP_REQUESTED = 'CLEANUP_REQUESTED',
   CLEANUP_COMPLETED = 'CLEANUP_COMPLETED',
+  ERROR = 'ERROR',
   ERROR_OCCURRED = 'ERROR_OCCURRED',
   RESET = 'RESET'
 }
 
 export interface ManagementContext {
   readonly managementId?: UUID;
+  readonly managerId?: UUID; // Alias for managementId (backward compatibility)
   readonly resources?: readonly ResourceInfo[];
   readonly tasks?: readonly TaskInfo[];
+  readonly activeTasks?: readonly UUID[]; // Currently active task IDs
   readonly dependencies?: readonly DependencyInfo[];
   readonly lifecycle?: LifecycleInfo;
   readonly coordination?: CoordinationInfo;

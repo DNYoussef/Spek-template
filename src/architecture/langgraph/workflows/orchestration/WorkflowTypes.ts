@@ -105,6 +105,9 @@ export interface ExecutionContext {
 
 export interface WorkflowExecution {
   id: string;
+  executionId?: string; // Alias for id (backward compatibility)
+  agents?: readonly string[]; // Agents participating in execution
+  tasks?: readonly string[]; // Tasks in this workflow execution
   definition: WorkflowDefinition;
   context: ExecutionContext;
   status: 'running' | 'completed' | 'failed' | 'cancelled';
@@ -354,16 +357,25 @@ export interface RecoveryStep {
 // Agent orchestration types (for multi-agent task distribution)
 export interface WorkflowTask {
   readonly id: string;
+  readonly taskId?: string; // Alias for id (backward compatibility)
   readonly workflowId: string;
   readonly type: string;
+  readonly taskType?: string; // Alias for type (backward compatibility)
+  readonly taskName?: string; // Human-readable task name
   readonly payload: Record<string, unknown>;
   readonly priority: 'low' | 'medium' | 'high' | 'critical';
   readonly dependencies: readonly string[];
   readonly assignedAgent?: string;
+  readonly assignmentCriteria?: AssignmentCriteria; // Assignment criteria for task distribution
   readonly status: 'pending' | 'assigned' | 'running' | 'completed' | 'failed';
   readonly createdAt: number;
   readonly startedAt?: number;
   readonly completedAt?: number;
+  readonly timeline?: {
+    estimatedDuration?: number;
+    deadline?: number;
+    scheduledStart?: number;
+  }; // Task timeline information
 }
 
 export interface AssignmentCriteria {
@@ -373,6 +385,8 @@ export interface AssignmentCriteria {
   readonly excludeAgents?: readonly string[];
   readonly loadBalancing?: 'round-robin' | 'least-loaded' | 'capability-match';
   readonly maxConcurrentTasks?: number;
+  readonly loadThreshold?: number; // Load threshold for agent selection
+  readonly skillLevel?: 'beginner' | 'intermediate' | 'advanced' | 'expert'; // Required skill level
 }
 
 /**

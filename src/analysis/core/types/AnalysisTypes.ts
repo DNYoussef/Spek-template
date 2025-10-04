@@ -485,6 +485,8 @@ export interface SystemAnalysisResult {
   readonly performance: PerformanceMetrics;
   readonly security: SecurityMetrics;
   readonly timestamp: number;
+  readonly components?: string[]; // System components list
+  readonly complexity?: number; // Overall complexity score (alias for architecture.complexity)
 }
 
 export interface DependencyInfo {
@@ -518,6 +520,7 @@ export interface RiskAnalysisResult {
   readonly overallRisk: string;
   readonly mitigations: MitigationItem[];
   readonly timestamp: number;
+  readonly severity?: number; // Overall severity score (0-100)
 }
 
 export interface RiskItem {
@@ -566,6 +569,7 @@ export interface AnalysisRequest {
   readonly priority: string;
   readonly timestamp: number;
   readonly sourceSystem: string;
+  readonly migrationScope?: string; // Scope of migration for migration-specific requests
 }
 
 export interface DependencyAnalysisResult {
@@ -573,6 +577,7 @@ export interface DependencyAnalysisResult {
   readonly conflicts: string[];
   readonly recommendations: string[];
   readonly timestamp: number;
+  readonly circular?: boolean; // Whether circular dependencies were detected
 }// APPEND TO END of src/analysis/core/types/AnalysisTypes.ts
 // Additional types for migration planning FSM
 
@@ -644,6 +649,7 @@ export interface ComprehensiveMigrationPlan {
   dependencyAnalysis: DependencyAnalysisResult;
   validationChecks: ValidationCheck[];
   estimatedDuration: number;
+  timeline?: number; // Timeline in milliseconds (alias for estimatedDuration)
   resources: ResourceRequirement[];
   rollbackPlan: RollbackPlan;
   approvals: Approval[];

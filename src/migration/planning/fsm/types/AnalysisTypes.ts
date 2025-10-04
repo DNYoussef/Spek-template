@@ -148,6 +148,9 @@ export interface ImpactAnalysisRequest {
   constraints?: string[];
 }
 
+// Alias for backward compatibility
+export type AnalysisRequest = ImpactAnalysisRequest;
+
 export interface SystemAnalysisResult {
   components: string[];
   dependencies: string[];

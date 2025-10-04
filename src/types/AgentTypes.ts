@@ -36,6 +36,8 @@ export interface AgentCapability {
   readonly name: string;
   readonly version: string;
   readonly parameters: Record<string, unknown>;
+  readonly capabilityId?: string; // Unique capability identifier
+  readonly proficiency?: number; // Agent proficiency level (0-1)
 }
 
 export interface AgentMetadata {
@@ -85,11 +87,17 @@ export enum MessageType {
 // Additional exports for agent management
 export interface AgentDefinition {
   readonly id: UUID;
+  readonly agentId?: UUID; // Alias for id (backward compatibility)
   readonly name: string;
+  readonly agentName?: string; // Alias for name (backward compatibility)
   readonly type: AgentType;
   readonly capabilities: readonly AgentCapability[];
   readonly configuration: Record<string, unknown>;
   readonly version: string;
+  readonly workload?: number; // Current workload metric
+  readonly responsibilities?: readonly string[]; // Agent responsibilities
+  readonly maxConcurrentTasks?: number | { limit: number; threshold: number }; // Task concurrency limit
+  readonly preferredTaskTypes?: readonly string[]; // Preferred task types for this agent
 }
 
 export interface AgentExecution {
@@ -105,6 +113,19 @@ export interface AgentExecution {
   readonly timestamp?: Timestamp;
   readonly currentTask?: string;
   readonly monitoring?: unknown;
+  readonly assignedTasks?: readonly UUID[]; // Tasks assigned to this execution
+  readonly taskQueue?: readonly UUID[]; // Pending tasks queue
+  readonly completedTasks?: readonly UUID[]; // Completed tasks list
+  readonly failedTasks?: readonly UUID[]; // Failed tasks list
+  readonly resources?: ResourceUtilization; // Resource utilization tracking
+  readonly performance?: AgentPerformance; // Performance metrics
+  readonly communication?: {
+    messagesSent: number;
+    messagesReceived: number;
+    lastCommunication?: Timestamp;
+    messagesPending?: number;
+  }; // Communication tracking
+  logs?: AgentLog[]; // Not readonly - needs mutation (push operations)
 }
 
 export interface AgentPerformance {
@@ -114,6 +135,10 @@ export interface AgentPerformance {
   readonly averageDuration: number;
   readonly resourceUsage: ResourceUtilization;
   readonly lastUpdated: Timestamp;
+  readonly tasksFailed?: number; // Failed task count
+  readonly efficiency?: number; // Task efficiency metric (0-1)
+  readonly reliability?: number; // Agent reliability score (0-1)
+  readonly throughput?: number; // Tasks per unit time
 }
 
 export interface ResourceUtilization {
@@ -121,6 +146,12 @@ export interface ResourceUtilization {
   readonly memory: number; // bytes
   readonly network: number; // bytes/sec
   readonly storage: number; // bytes
+  readonly cpuUsage?: number; // Percentage-based CPU usage
+  readonly memoryUsage?: number; // Memory usage in bytes
+  readonly storageUsage?: number; // Storage usage in bytes
+  readonly networkUsage?: number; // Network usage in bytes/sec
+  readonly toolsInUse?: number; // Number of active tools
+  readonly costs?: number; // Resource costs
 }
 
 export interface AgentLog {
@@ -133,11 +164,13 @@ export interface AgentLog {
 
 export interface WorkflowExecution {
   readonly id: UUID;
+  readonly executionId?: UUID; // Alias for id (backward compatibility)
   readonly agents: readonly UUID[];
   readonly startTime: Timestamp;
   readonly endTime?: Timestamp;
   readonly status: 'pending' | 'running' | 'completed' | 'failed';
   readonly progress: number; // 0-100
+  readonly tasks?: readonly UUID[]; // Tasks in this workflow execution
 }
 
 export enum CommunicationStatus {

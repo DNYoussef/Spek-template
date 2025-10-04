@@ -118,6 +118,7 @@ export interface MigrationStrategy {
 
 export interface MigrationApproach {
   strategy: MigrationStrategy;
+  suitabilityScore?: number; // Strategy suitability score (0-100)
   rollback_plan: RollbackPlan;
   testing_approach: TestingApproach;
   communication_plan: CommunicationPlan;

@@ -326,6 +326,10 @@ export interface MigrationPlanningRequest {
   constraints: Record<string, unknown>;
   preferences?: MigrationPreferences;
   metadata?: Record<string, unknown>;
+  gapAnalysis?: any; // Gap analysis results
+  riskAnalysis?: any; // Risk analysis results
+  dependencyAnalysis?: any; // Dependency analysis results
+  timeline?: number; // Timeline estimate in milliseconds
 }
 
 export interface MigrationPreferences {
