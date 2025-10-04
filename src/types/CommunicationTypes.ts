@@ -18,6 +18,10 @@ export interface PrincessMessage {
   readonly messageId?: string;
   readonly fromPrincess?: string;
   readonly toPrincess?: string;
+  readonly messageType?: MessageType; // Message type (may differ from type field)
+  readonly expiresAt?: number; // Message expiration timestamp
+  readonly retryCount?: number; // Number of retry attempts
+  readonly contextFingerprint?: string; // Context fingerprint for message validation
 }
 
 // Message type
@@ -56,6 +60,8 @@ export interface CommunicationChannel {
   readonly type: ChannelType;
   readonly config: ChannelConfig;
   readonly active: boolean;
+  readonly fromDomain?: string; // Source domain for channel
+  readonly toDomain?: string; // Destination domain for channel
 }
 
 // Channel type
@@ -82,6 +88,12 @@ export interface SecurityValidation {
   readonly permissions: readonly string[];
   readonly violations: readonly string[];
   readonly timestamp: number;
+  readonly integrityCheck?: boolean; // Integrity verification result
+  readonly authenticationCheck?: boolean; // Authentication verification result
+  readonly authorizationCheck?: boolean; // Authorization verification result
+  readonly contextValidation?: boolean; // Context validation result
+  readonly contextId?: string; // Context identifier
+  readonly contextFingerprint?: string; // Context fingerprint for validation
 }
 
 // Consensus request

@@ -16,6 +16,7 @@ export interface ContextFingerprint {
   sourceAgent: string;
   targetAgent: string;
   degradationScore: number;
+  contextId?: string; // Optional context identifier for tracking
 }
 
 export interface ValidationResult {
