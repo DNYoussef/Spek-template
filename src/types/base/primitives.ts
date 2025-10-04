@@ -78,6 +78,7 @@ export interface PerformanceMetrics {
   duration?: number;
   throughput?: number;
   resources?: ResourceMetrics;
+  timestamp?: number;
 }
 
 export interface ResourceMetrics {

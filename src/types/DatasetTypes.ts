@@ -53,6 +53,10 @@ export interface DatasetMetrics {
   readonly recall: number;
   readonly f1Score: number;
   readonly samples: number;
+  readonly response_time_p95?: number;
+  readonly user_satisfaction_avg?: number;
+  readonly quality_score_avg?: number;
+  readonly token_efficiency_avg?: number;
 }
 
 export interface QualityMetrics {
@@ -68,6 +72,7 @@ export interface PerformanceMetrics {
   readonly latency: number;
   readonly errorRate: number;
   readonly availability: number;
+  readonly timestamp?: number;
 }
 
 export interface ValidationResult {
