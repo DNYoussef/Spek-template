@@ -71,6 +71,7 @@ export interface AgentMessage {
   readonly payload: unknown;
   readonly timestamp: Timestamp;
   readonly communication_type?: string;
+  readonly sourceId?: string;
 }
 
 export enum MessageType {

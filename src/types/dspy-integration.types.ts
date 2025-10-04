@@ -77,6 +77,12 @@ export interface DSPyIntegrationConfig {
   readonly retryAttempts: number;
   readonly optimizerConfig: DSPyOptimizerConfig;
   readonly cacheConfig: CacheConfiguration;
+  readonly optimization?: OptimizationConfig;
+  readonly caching?: CacheConfiguration;
+  readonly monitoring?: MonitoringConfig;
+  readonly abTesting?: ABTestingConfig;
+  readonly qualityGates?: QualityGateConfig;
+  readonly errorHandling?: ErrorHandlingConfig;
 }
 
 export interface CacheConfiguration {
@@ -163,7 +169,8 @@ export interface QualityGateConfig {
 export enum EnforcementLevel {
   ADVISORY = 'ADVISORY',
   WARNING = 'WARNING',
-  BLOCKING = 'BLOCKING'
+  BLOCKING = 'BLOCKING',
+  CRITICAL = 'CRITICAL'
 }
 
 export interface ABTestingConfig {
