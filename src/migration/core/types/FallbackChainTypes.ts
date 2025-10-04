@@ -32,6 +32,9 @@ export enum FallbackEvents {
   RETRY = 'retry'
 }
 
+// Alias for backward compatibility
+export const ChainEvents = FallbackEvents;
+
 export interface FallbackProtocol {
   id: string;
   name: string;

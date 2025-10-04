@@ -24,7 +24,21 @@ export enum ChainEvents {
   TERTIARY_SUCCESS = 'TERTIARY_SUCCESS',
   TERTIARY_FAILED = 'TERTIARY_FAILED',
   ALL_FAILED = 'ALL_FAILED',
-  RESET = 'RESET'
+  RESET = 'RESET',
+  ANALYZE_REQUEST = 'ANALYZE_REQUEST',
+  ACTIVATION_NEEDED = 'ACTIVATION_NEEDED',
+  ACTIVATION_COMPLETE = 'ACTIVATION_COMPLETE',
+  ACTIVATION_FAILED = 'ACTIVATION_FAILED',
+  PROTOCOL_FAILED = 'PROTOCOL_FAILED',
+  RECOVERY_STARTED = 'RECOVERY_STARTED',
+  RECOVERY_COMPLETE = 'RECOVERY_COMPLETE',
+  TESTING_STARTED = 'TESTING_STARTED',
+  TESTING_COMPLETE = 'TESTING_COMPLETE',
+  TESTING_FAILED = 'TESTING_FAILED',
+  DEACTIVATION_REQUESTED = 'DEACTIVATION_REQUESTED',
+  DEACTIVATION_COMPLETE = 'DEACTIVATION_COMPLETE',
+  ERROR_DETECTED = 'ERROR_DETECTED',
+  RESET_SYSTEM = 'RESET_SYSTEM'
 }
 
 // Transition context
@@ -36,6 +50,12 @@ export interface TransitionContext {
   readonly metadata: Record<string, unknown>;
   readonly startTime: number;
   readonly lastAttemptTime: number;
+  sourceState?: any;
+  targetState?: any;
+  event?: ChainEvents | string;
+  payload?: any;
+  timestamp?: Date;
+  protocolId?: string;
 }
 
 // State invariants
@@ -44,6 +64,9 @@ export interface StateInvariants {
   readonly timeoutMs: number;
   readonly protocolOrder: readonly string[];
   readonly requiredValidations: readonly string[];
+  validateState?(state: any, context?: any): boolean | Promise<boolean>;
+  checkTransitionPreconditions?(context: TransitionContext): boolean | Promise<boolean>;
+  verifyPostConditions?(context: TransitionContext): boolean | Promise<boolean>;
 }
 
 // Fallback configuration

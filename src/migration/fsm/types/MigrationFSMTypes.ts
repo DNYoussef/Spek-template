@@ -329,3 +329,29 @@ export interface TransitionGuard {
   check: (context: unknown) => boolean;
   errorMessage?: string;
 }
+
+// Transition context for FSM state transitions
+export interface TransitionContext {
+  sourceState: MigrationState | string;
+  targetState: MigrationState | string;
+  event: MigrationEvent | string;
+  payload?: any;
+  timestamp?: Date;
+  metadata?: Record<string, any>;
+}
+
+// State invariants for validation
+export interface StateInvariants {
+  validateState(state: MigrationState | string, payload?: any): Promise<boolean>;
+  checkTransitionPreconditions(
+    sourceState: MigrationState | string,
+    targetState: MigrationState | string,
+    event: MigrationEvent | string,
+    payload?: any
+  ): Promise<boolean>;
+  verifyPostConditions(
+    targetState: MigrationState | string,
+    event: MigrationEvent | string,
+    payload?: any
+  ): Promise<boolean>;
+}
