@@ -11,6 +11,9 @@ export interface ConfigSource {
   readonly name: string;
   readonly priority: number;
   readonly path: ConfigPath;
+  readonly type?: 'file' | 'env' | 'remote' | 'database';
+  readonly required?: boolean;
+  readonly encoding?: string;
   load(): Promise<Record<string, unknown>>;
 }
 
@@ -19,11 +22,9 @@ export interface ConfigData {
 }
 
 // Merge strategies
-export enum MergeStrategy {
-  SHALLOW = 'SHALLOW',
-  DEEP = 'DEEP',
-  OVERRIDE = 'OVERRIDE',
-  CONCAT = 'CONCAT'
+export interface MergeStrategy {
+  readonly type: 'deep' | 'shallow' | 'replace' | 'array_concat' | 'custom';
+  readonly resolver?: (base: any, override: any, key: string) => any;
 }
 
 export interface MergeOptions {
@@ -37,6 +38,8 @@ export interface ConfigValidationRule {
   readonly path: ConfigPath;
   readonly required: boolean;
   readonly type: 'string' | 'number' | 'boolean' | 'object' | 'array';
+  readonly message?: string;
+  readonly condition?: any;
   readonly validator?: (value: unknown) => ValidationResult;
 }
 
@@ -55,6 +58,8 @@ export interface ConfigChangeEvent {
 
 export interface ConfigWatcherOptions {
   readonly debounceMs: number;
+  readonly recursive?: boolean;
+  readonly filters?: string[];
   readonly ignorePattern?: RegExp;
 }
 
@@ -70,23 +75,29 @@ export enum ConfigState {
   IDLE = 'IDLE',
   LOADING = 'LOADING',
   VALIDATING = 'VALIDATING',
+  MERGING = 'MERGING',
   READY = 'READY',
   ERROR = 'ERROR',
   WATCHING = 'WATCHING'
 }
 
 export enum ConfigEvent {
+  LOAD = 'LOAD',
   LOAD_REQUESTED = 'LOAD_REQUESTED',
   LOAD_COMPLETED = 'LOAD_COMPLETED',
   LOAD_FAILED = 'LOAD_FAILED',
+  VALIDATE = 'VALIDATE',
   VALIDATE_REQUESTED = 'VALIDATE_REQUESTED',
   VALIDATE_COMPLETED = 'VALIDATE_COMPLETED',
   VALIDATE_FAILED = 'VALIDATE_FAILED',
+  MERGE = 'MERGE',
   CHANGE_DETECTED = 'CHANGE_DETECTED',
   RELOAD_REQUESTED = 'RELOAD_REQUESTED',
+  WATCH = 'WATCH',
   WATCH_STARTED = 'WATCH_STARTED',
   WATCH_STOPPED = 'WATCH_STOPPED',
   ERROR_OCCURRED = 'ERROR_OCCURRED',
+  ERROR = 'ERROR',
   RESET = 'RESET'
 }
 
@@ -106,9 +117,12 @@ export interface ConfigContext {
 
 export interface StateTransition {
   readonly from: ConfigState;
+  readonly fromState?: ConfigState;
   readonly to: ConfigState;
+  readonly toState?: ConfigState;
   readonly event: ConfigEvent;
   readonly guard?: TransitionGuard;
+  readonly handler?: (context: ConfigContext) => Promise<boolean>;
 }
 
 export type TransitionGuard = (context: ConfigContext) => boolean;
