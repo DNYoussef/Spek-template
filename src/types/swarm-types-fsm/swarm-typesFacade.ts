@@ -23,4 +23,4 @@ export class SwarmTypesFacade {
 }
 
 // Export original API compatibility
-export default swarm-typesFacade;
+export default SwarmTypesFacade;

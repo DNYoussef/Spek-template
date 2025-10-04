@@ -23,4 +23,4 @@ export class ResultCorrelationFrameworkFacade {
 }
 
 // Export original API compatibility
-export default result-correlation-frameworkFacade;
+export default ResultCorrelationFrameworkFacade;

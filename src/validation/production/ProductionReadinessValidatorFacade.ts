@@ -122,7 +122,7 @@ export class ProductionReadinessValidatorFacade {
   }
   async generateReport(): Promise<string> {
     // TODO: Add proper error handling for production deployment
-    result = await this.validate('.');
+    const result = await this.validate('.');
     return `Production Readiness Report
 Score: ${result.score}%
 Ready: ${result.ready}

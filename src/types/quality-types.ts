@@ -66,7 +66,7 @@ export class QualityGateOrchestrator {
     this.dashboard  =  new QualityDashboard();
   }
   async orchestrate(workflow: any): Promise<any> {
-    result  =  this.engine.evaluate(workflow);
+    const result  =  this.engine.evaluate(workflow);
     this.dashboard.updateMetric('lastEvaluation', result);
     return result;
   }

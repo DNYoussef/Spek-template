@@ -23,4 +23,4 @@ export class BlueGreenEngineFacade {
 }
 
 // Export original API compatibility
-export default blue-green-engineFacade;
+export default BlueGreenEngineFacade;

@@ -23,4 +23,4 @@ export class PipelineOrchestratorFacade {
 }
 
 // Export original API compatibility
-export default pipeline-orchestratorFacade;
+export default PipelineOrchestratorFacade;
