@@ -6,7 +6,7 @@
 
 import { EventEmitter } from 'events';
 import { AgentDefinition, AgentExecution } from '~types/AgentTypes';
-import { WorkflowExecution, WorkflowTask } from '~types/WorkflowTypes';
+import { WorkflowExecution, WorkflowTask } from '~types/workflow/WorkflowTypes';
 import { TransitionHub } from './fsm/TransitionHub';
 import { AgentManager } from './core/AgentManager';
 import { WorkflowExecutor } from './core/WorkflowExecutor';

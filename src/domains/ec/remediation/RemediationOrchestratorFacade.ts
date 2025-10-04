@@ -56,6 +56,7 @@ export class RemediationOrchestratorFacade extends EventEmitter {
   private repository: RepositoryBaseFSM;
   private activeRemediations: Map<string, RemediationResult> = new Map();
   private planTemplates: Map<string, Partial<RemediationPlan>> = new Map();
+  private storedPlans: Map<string, RemediationPlan> = new Map();
 
   constructor() {
     super();
@@ -160,8 +161,12 @@ export class RemediationOrchestratorFacade extends EventEmitter {
     });
   }
 
+  async initialize(): Promise<void> {
+    await this.initializeComponent();
+  }
+
   async initializeComponent(): Promise<void> {
-    await this.repository.initialize();
+    await this.repository.initializeComponent();
     this.emit('remediationOrchestratorInitialized');
   }
 
@@ -172,6 +177,7 @@ export class RemediationOrchestratorFacade extends EventEmitter {
 
       // Create remediation plan
       const plan = await this.createRemediationPlan(request);
+      this.storedPlans.set(plan.id, plan);
       await this.repository.write(plan, { type: 'plan' });
 
       this.emit('remediationRequested', { requestId: request.id, planId: plan.id });
@@ -184,12 +190,10 @@ export class RemediationOrchestratorFacade extends EventEmitter {
 
   async executeRemediationPlan(planId: string): Promise<string> {
     try {
-      const plans = await this.repository.read('plan', [planId]);
-      if (plans.length === 0) {
+      const plan = this.storedPlans.get(planId);
+      if (!plan) {
         throw new Error(`Remediation plan ${planId} not found`);
       }
-
-      const plan = plans[0] as RemediationPlan;
       const resultId = this.generateResultId();
 
       const result: RemediationResult = {
@@ -248,8 +252,10 @@ export class RemediationOrchestratorFacade extends EventEmitter {
     }
 
     try {
-      const plans = await this.repository.read('plan', [result.planId]);
-      const plan = plans[0] as RemediationPlan;
+      const plan = this.storedPlans.get(result.planId);
+      if (!plan) {
+        throw new Error(`Remediation plan ${result.planId} not found`);
+      }
 
       // Execute rollback plan
       for (const rollbackCommand of plan.rollbackPlan.reverse()) {
@@ -354,6 +360,7 @@ export class RemediationOrchestratorFacade extends EventEmitter {
     }
 
     this.activeRemediations.clear();
+    this.storedPlans.clear();
     await this.repository.destroy();
     this.removeAllListeners();
   }

@@ -1,0 +1,74 @@
+/**
+ * FallbackTypes.ts - Fallback Chain Type Definitions
+ * @stub true
+ * @architecture Multi-protocol fallback chain type system
+ */
+
+// Protocol states
+export enum ProtocolStates {
+  IDLE = 'IDLE',
+  PRIMARY_ACTIVE = 'PRIMARY_ACTIVE',
+  SECONDARY_ACTIVE = 'SECONDARY_ACTIVE',
+  TERTIARY_ACTIVE = 'TERTIARY_ACTIVE',
+  FALLBACK_COMPLETE = 'FALLBACK_COMPLETE',
+  FAILED = 'FAILED'
+}
+
+// Chain events
+export enum ChainEvents {
+  START_CHAIN = 'START_CHAIN',
+  PRIMARY_SUCCESS = 'PRIMARY_SUCCESS',
+  PRIMARY_FAILED = 'PRIMARY_FAILED',
+  SECONDARY_SUCCESS = 'SECONDARY_SUCCESS',
+  SECONDARY_FAILED = 'SECONDARY_FAILED',
+  TERTIARY_SUCCESS = 'TERTIARY_SUCCESS',
+  TERTIARY_FAILED = 'TERTIARY_FAILED',
+  ALL_FAILED = 'ALL_FAILED',
+  RESET = 'RESET'
+}
+
+// Transition context
+export interface TransitionContext {
+  readonly chainId: string;
+  readonly currentProtocol: string;
+  readonly attemptCount: number;
+  readonly errors: readonly Error[];
+  readonly metadata: Record<string, unknown>;
+  readonly startTime: number;
+  readonly lastAttemptTime: number;
+}
+
+// State invariants
+export interface StateInvariants {
+  readonly maxAttempts: number;
+  readonly timeoutMs: number;
+  readonly protocolOrder: readonly string[];
+  readonly requiredValidations: readonly string[];
+}
+
+// Fallback configuration
+export interface FallbackConfig {
+  readonly primaryProtocol: string;
+  readonly secondaryProtocol: string;
+  readonly tertiaryProtocol: string;
+  readonly maxRetries: number;
+  readonly timeout: number;
+  readonly invariants: StateInvariants;
+}
+
+// Fallback result
+export interface FallbackResult {
+  readonly success: boolean;
+  readonly protocol: string;
+  readonly attemptCount: number;
+  readonly duration: number;
+  readonly error?: Error;
+  readonly context: TransitionContext;
+}
+
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
+
+// Version: 1.0.0
+// === END FOOTER ===

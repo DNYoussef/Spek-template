@@ -1,0 +1,113 @@
+
+> spek-enhanced-platform@3.0.0 test
+> jest --testTimeout=10000 --forceExit tests/repository/RepositoryIntegration.test.ts
+
+FAIL tests/repository/RepositoryIntegration.test.ts (18.486 s)
+  Repository God Object Elimination Tests
+    RepositoryBaseFSM Core Functionality
+      √ should perform basic CRUD operations (657 ms)
+      × should handle transactions correctly (217 ms)
+      × should rollback failed transactions (173 ms)
+      × should use cache for read operations (484 ms)
+      √ should track metrics correctly (646 ms)
+      √ should perform health checks (2 ms)
+    ConfigurationManagerFacade
+      √ should load and manage configuration (314 ms)
+      √ should update configuration values (335 ms)
+      √ should provide health status (150 ms)
+    EventBusFacade
+      √ should publish and subscribe to events (283 ms)
+      √ should filter events correctly (432 ms)
+      √ should maintain event history (301 ms)
+      √ should provide statistics (167 ms)
+    RemediationOrchestratorFacade
+      √ should handle remediation workflow (3366 ms)
+      × should handle rollback scenarios (1301 ms)
+      √ should track active remediations (2 ms)
+    RealTimeMonitorFacade
+      √ should process metrics and trigger alerts (457 ms)
+      √ should manage monitoring rules (450 ms)
+      √ should acknowledge and resolve alerts (732 ms)
+      √ should provide monitoring statistics (2 ms)
+    Performance and Line Count Validation
+      √ should achieve 85%+ line reduction (1 ms)
+      √ should maintain performance under load (221 ms)
+      √ should handle concurrent access correctly (109 ms)
+
+  ● Repository God Object Elimination Tests › RepositoryBaseFSM Core Functionality › should handle transactions correctly
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 2
+    Received length: 1
+    Received array:  [{"data": "sample_data", "id": 1, "timestamp": 1759536402769}]
+
+    [0m [90m 69 |[39m
+     [90m 70 |[39m       [36mconst[39m data [33m=[39m [36mawait[39m repository[33m.[39mread([32m'*'[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 71 |[39m       expect(data)[33m.[39mtoHaveLength([35m2[39m)[33m;[39m
+     [90m    |[39m                    [31m[1m^[22m[39m
+     [90m 72 |[39m     })[33m;[39m
+     [90m 73 |[39m
+     [90m 74 |[39m     test([32m'should rollback failed transactions'[39m[33m,[39m [36masync[39m () [33m=>[39m {[0m
+
+      at Object.<anonymous> (tests/repository/RepositoryIntegration.test.ts:71:20)
+
+  ● Repository God Object Elimination Tests › RepositoryBaseFSM Core Functionality › should rollback failed transactions
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 0
+    Received length: 1
+    Received array:  [{"data": "sample_data", "id": 1, "timestamp": 1759536402953}]
+
+    [0m [90m 83 |[39m
+     [90m 84 |[39m       [36mconst[39m data [33m=[39m [36mawait[39m repository[33m.[39mread([32m'*'[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 85 |[39m       expect(data)[33m.[39mtoHaveLength([35m0[39m)[33m;[39m
+     [90m    |[39m                    [31m[1m^[22m[39m
+     [90m 86 |[39m     })[33m;[39m
+     [90m 87 |[39m
+     [90m 88 |[39m     test([32m'should use cache for read operations'[39m[33m,[39m [36masync[39m () [33m=>[39m {[0m
+
+      at Object.<anonymous> (tests/repository/RepositoryIntegration.test.ts:85:20)
+
+  ● Repository God Object Elimination Tests › RepositoryBaseFSM Core Functionality › should use cache for read operations
+
+    expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0
+    Received:   0
+
+    [0m [90m  95 |[39m
+     [90m  96 |[39m       [36mconst[39m metrics [33m=[39m repository[33m.[39mgetMetrics()[33m;[39m
+    [31m[1m>[22m[39m[90m  97 |[39m       expect(metrics[33m.[39mcacheHitRate)[33m.[39mtoBeGreaterThan([35m0[39m)[33m;[39m
+     [90m     |[39m                                    [31m[1m^[22m[39m
+     [90m  98 |[39m     })[33m;[39m
+     [90m  99 |[39m
+     [90m 100 |[39m     test([32m'should track metrics correctly'[39m[33m,[39m [36masync[39m () [33m=>[39m {[0m
+
+      at Object.<anonymous> (tests/repository/RepositoryIntegration.test.ts:97:36)
+
+  ● Repository God Object Elimination Tests › RemediationOrchestratorFacade › should handle rollback scenarios
+
+    Command failed: performance-analyze --deep
+
+    [0m [90m 325 |[39m
+     [90m 326 |[39m     [36mif[39m ([33mMath[39m[33m.[39mrandom() [33m>[39m [35m0.9[39m) { [90m// 10% failure rate[39m
+    [31m[1m>[22m[39m[90m 327 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m([32m`Command failed: ${command}`[39m)[33m;[39m
+     [90m     |[39m             [31m[1m^[22m[39m
+     [90m 328 |[39m     }
+     [90m 329 |[39m   }
+     [90m 330 |[39m[0m
+
+      at RemediationOrchestratorFacade.executeCommand (src/domains/ec/remediation/RemediationOrchestratorFacade.ts:327:13)
+      at RemediationOrchestratorFacade.executeRemediationStep (src/domains/ec/remediation/RemediationOrchestratorFacade.ts:313:5)
+      at src/domains/ec/remediation/RemediationOrchestratorFacade.ts:217:13
+      at RepositoryBaseFSM.withTransaction (src/repository/RepositoryBaseFSM.ts:204:22)
+      at RemediationOrchestratorFacade.executeRemediationPlan (src/domains/ec/remediation/RemediationOrchestratorFacade.ts:214:7)
+      at Object.<anonymous> (tests/repository/RepositoryIntegration.test.ts:260:24)
+
+Test Suites: 1 failed, 1 total
+Tests:       4 failed, 19 passed, 23 total
+Snapshots:   0 total
+Time:        19.374 s
+Ran all test suites matching /tests\\repository\\RepositoryIntegration.test.ts/i.

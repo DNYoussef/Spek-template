@@ -147,8 +147,12 @@ export class RealTimeMonitorFacade extends EventEmitter {
     this.updateStats();
   }
 
+  async initialize(): Promise<void> {
+    await this.initializeComponent();
+  }
+
   async initializeComponent(): Promise<void> {
-    await this.repository.initialize();
+    await this.repository.initializeComponent();
     this.startMonitoring();
     this.emit('monitorInitialized');
   }

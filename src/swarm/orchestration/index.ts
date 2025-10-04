@@ -15,8 +15,8 @@ export { default as WorkflowScheduler } from './WorkflowScheduler';
 export { default as WorkflowMonitor } from './WorkflowMonitor';
 export { default as WorkflowStateMachine } from './WorkflowStateMachine';
 
-// Types and interfaces
-export * from './WorkflowTypes';
+// Types and interfaces - re-exported from canonical source
+export * from '~types/workflow/WorkflowTypes';
 
 // Named exports for specific use cases
 export {

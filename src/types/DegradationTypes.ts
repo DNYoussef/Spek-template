@@ -75,6 +75,121 @@ export interface RecoveryResult {
   readonly timestamp: Timestamp;
 }
 
+// Additional exports for component compatibility
+export enum AlertLevel {
+  INFO = 'INFO',
+  WARNING = 'WARNING',
+  ERROR = 'ERROR',
+  CRITICAL = 'CRITICAL'
+}
+
+export interface DriftMetrics {
+  readonly contextDrift: number;
+  readonly qualityDrift: number;
+  readonly performanceDrift: number;
+  readonly timestamp: Timestamp;
+}
+
+export interface MonitoringConfig {
+  readonly enabled: boolean;
+  readonly interval: number;
+  readonly thresholds: DegradationThreshold[];
+  readonly alerts: readonly AlertLevel[];
+}
+
+export interface MonitoringContext {
+  readonly sessionId: string;
+  readonly startTime: Timestamp;
+  readonly currentMetrics: DriftMetrics;
+  readonly history: readonly DegradationEvent[];
+}
+
+export interface MonitoringEvent {
+  readonly type: 'DRIFT_DETECTED' | 'RECOVERY_STARTED' | 'RECOVERY_COMPLETED';
+  readonly severity: DegradationSeverity;
+  readonly data: Record<string, unknown>;
+  readonly timestamp: Timestamp;
+}
+
+export enum MonitoringState {
+  IDLE = 'IDLE',
+  MONITORING = 'MONITORING',
+  ALERTING = 'ALERTING',
+  RECOVERING = 'RECOVERING'
+}
+
+export enum FSMState {
+  IDLE = 'IDLE',
+  ACTIVE = 'ACTIVE',
+  DEGRADED = 'DEGRADED',
+  RECOVERING = 'RECOVERING',
+  FAILED = 'FAILED'
+}
+
+export interface StateTransition {
+  readonly from: FSMState;
+  readonly to: FSMState;
+  readonly event: string;
+  readonly timestamp: Timestamp;
+}
+
+export interface TrendAnalysis {
+  readonly metric: string;
+  readonly trend: TrendType;
+  readonly rate: number;
+  readonly confidence: number;
+}
+
+export enum TrendType {
+  IMPROVING = 'IMPROVING',
+  STABLE = 'STABLE',
+  DEGRADING = 'DEGRADING',
+  CRITICAL_DEGRADATION = 'CRITICAL_DEGRADATION'
+}
+
+export interface ValidationResult {
+  readonly valid: boolean;
+  readonly errors: readonly string[];
+  readonly warnings: readonly string[];
+  readonly score: Score;
+}
+
+export enum RecoveryType {
+  AUTOMATIC = 'AUTOMATIC',
+  MANUAL = 'MANUAL',
+  HYBRID = 'HYBRID'
+}
+
+// Interface contracts for components
+export interface IAlertManager {
+  createAlert(level: AlertLevel, message: string): Promise<void>;
+  getActiveAlerts(): Promise<readonly DegradationEvent[]>;
+  clearAlerts(): Promise<void>;
+}
+
+export interface IDriftCalculator {
+  calculateDrift(current: DriftMetrics, baseline: DriftMetrics): Promise<number>;
+  analyzeTrend(history: readonly DriftMetrics[]): Promise<TrendAnalysis>;
+}
+
+export interface IRecoveryExecutor {
+  executeRecovery(strategy: RecoveryStrategy): Promise<RecoveryResult>;
+  validateRecovery(result: RecoveryResult): Promise<ValidationResult>;
+}
+
+export interface IValidationEngine {
+  validate(data: unknown): Promise<ValidationResult>;
+  getValidationRules(): readonly string[];
+}
+
+// Default configuration
+export const DEFAULT_CONFIG: MonitoringConfig = {
+  enabled: true,
+  interval: 5000,
+  thresholds: [],
+  alerts: [AlertLevel.WARNING, AlertLevel.ERROR, AlertLevel.CRITICAL]
+}
+
 /**
  * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
  * ## Version & Run Log

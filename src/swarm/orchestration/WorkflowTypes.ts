@@ -2,6 +2,19 @@
  * Workflow Orchestrator Types and Interfaces
  * Extracted from WorkflowOrchestrator.ts for modular architecture
  * NASA Rule 10 Compliant - Type definitions only
+ *
+ * CONSOLIDATION NOTE (Week 5 Phase 2):
+ * This file contains types specific to swarm orchestration that are NOT yet in the canonical source.
+ * Canonical source: src/architecture/langgraph/workflows/orchestration/WorkflowTypes.ts
+ *
+ * Types unique to this file (need future merge):
+ * - WorkflowTask, AssignmentCriteria (used by agent workflow coordination)
+ * - Priority, WORKFLOW_CONSTANTS (swarm-specific constants)
+ * - SystemMetrics, OrchestrationHealth (swarm health monitoring)
+ * - Agent, TaskResult, ConsensusResult, SwarmHealth (swarm execution)
+ * - MECEAnalysisResult (MECE validation specific to swarm)
+ *
+ * TODO Phase 3: Merge these types into canonical source or create separate swarm-specific types file
  */
 
 import { WorkflowStage, StageExecution } from '../workflow/StageProgressionValidator';

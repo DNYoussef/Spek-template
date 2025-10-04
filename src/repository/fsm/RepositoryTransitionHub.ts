@@ -69,8 +69,8 @@ export class RepositoryTransitionHub extends EventEmitter {
       {
         from: RepositoryState.IDLE,
         to: RepositoryState.CONNECTING,
-        event: RepositoryEvent.CONNECT,
-        guard: (ctx) => !ctx.connectionId
+        event: RepositoryEvent.CONNECT
+        // Guard removed - allow re-connection for transactions
       },
       {
         from: RepositoryState.CONNECTING,

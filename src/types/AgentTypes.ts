@@ -79,6 +79,68 @@ export enum MessageType {
   COORDINATION = 'COORDINATION'
 }
 
+// Additional exports for agent management
+export interface AgentDefinition {
+  readonly id: UUID;
+  readonly name: string;
+  readonly type: AgentType;
+  readonly capabilities: readonly AgentCapability[];
+  readonly configuration: Record<string, unknown>;
+  readonly version: string;
+}
+
+export interface AgentExecution {
+  readonly id: UUID;
+  readonly agentId: UUID;
+  readonly taskId: UUID;
+  readonly startTime: Timestamp;
+  readonly endTime?: Timestamp;
+  readonly status: 'running' | 'completed' | 'failed' | 'cancelled';
+  readonly result?: unknown;
+  readonly error?: string;
+}
+
+export interface AgentPerformance {
+  readonly agentId: UUID;
+  readonly tasksCompleted: number;
+  readonly successRate: number;
+  readonly averageDuration: number;
+  readonly resourceUsage: ResourceUtilization;
+  readonly lastUpdated: Timestamp;
+}
+
+export interface ResourceUtilization {
+  readonly cpu: number; // 0-100
+  readonly memory: number; // bytes
+  readonly network: number; // bytes/sec
+  readonly storage: number; // bytes
+}
+
+export interface AgentLog {
+  readonly timestamp: Timestamp;
+  readonly agentId: UUID;
+  readonly level: 'debug' | 'info' | 'warn' | 'error';
+  readonly message: string;
+  readonly context: Record<string, unknown>;
+}
+
+export interface WorkflowExecution {
+  readonly id: UUID;
+  readonly agents: readonly UUID[];
+  readonly startTime: Timestamp;
+  readonly endTime?: Timestamp;
+  readonly status: 'pending' | 'running' | 'completed' | 'failed';
+  readonly progress: number; // 0-100
+}
+
+export enum CommunicationStatus {
+  PENDING = 'PENDING',
+  SENT = 'SENT',
+  DELIVERED = 'DELIVERED',
+  FAILED = 'FAILED',
+  TIMEOUT = 'TIMEOUT'
+}
+
 /**
  * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
  * ## Version & Run Log

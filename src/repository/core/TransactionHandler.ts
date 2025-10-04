@@ -6,7 +6,7 @@
 
 import { EventEmitter } from 'events';
 import { RepositoryTransitionHub, RepositoryEvent, RepositoryState } from '../fsm/RepositoryTransitionHub';
-import { QueryOperation, QueryResult } from './DataAccessLayer';
+import { QueryOperation, QueryResult, DataAccessLayer } from './DataAccessLayer';
 
 export interface Transaction {
   id: string;
@@ -68,9 +68,12 @@ export interface LockInfo {
  */
 export class TransactionHandler extends EventEmitter {
   private transitionHub: RepositoryTransitionHub;
+  private dataAccessLayer: DataAccessLayer;
+  private sharedDataStore?: Map<string, any>;
   private activeTransactions: Map<string, Transaction> = new Map();
   private locks: Map<string, LockInfo> = new Map();
   private transactionHistory: Map<string, Transaction> = new Map();
+  private transactionDataStore: Map<string, any[]> = new Map();
   private defaultConfig: TransactionConfig = {
     timeout: 30000, // 30 seconds
     isolationLevel: IsolationLevel.READ_COMMITTED,
@@ -79,9 +82,11 @@ export class TransactionHandler extends EventEmitter {
     retryDelay: 1000
   };
 
-  constructor(transitionHub: RepositoryTransitionHub) {
+  constructor(transitionHub: RepositoryTransitionHub, dataAccessLayer: DataAccessLayer, sharedDataStore?: Map<string, any>) {
     super();
     this.transitionHub = transitionHub;
+    this.dataAccessLayer = dataAccessLayer;
+    this.sharedDataStore = sharedDataStore;
     this.setupEventHandlers();
   }
 
@@ -112,6 +117,13 @@ export class TransactionHandler extends EventEmitter {
     };
 
     this.activeTransactions.set(transactionId, transaction);
+
+    // Transition FSM to QUERYING state to allow operations
+    const currentState = this.transitionHub.getCurrentState();
+    if (currentState === 'IDLE') {
+      await this.transitionHub.transition(RepositoryEvent.CONNECT);
+      await this.transitionHub.transition(RepositoryEvent.SUCCESS);
+    }
 
     // Set timeout
     setTimeout(() => {
@@ -265,6 +277,13 @@ export class TransactionHandler extends EventEmitter {
       throw new Error(`Transaction ${transactionId} not found`);
     }
 
+    // Ensure FSM is in correct state for persistence
+    const currentState = this.transitionHub.getCurrentState();
+    if (currentState === 'IDLE' || currentState === 'CONNECTING') {
+      await this.transitionHub.transition(RepositoryEvent.CONNECT);
+      await this.transitionHub.transition(RepositoryEvent.SUCCESS);
+    }
+
     if (!this.transitionHub.canPersist()) {
       throw new Error(`Cannot commit transaction in state: ${this.transitionHub.getCurrentState()}`);
     }
@@ -295,6 +314,9 @@ export class TransactionHandler extends EventEmitter {
 
       await this.transitionHub.transition(RepositoryEvent.SUCCESS);
 
+      // Return FSM to IDLE state after cleanup
+      await this.transitionHub.transition(RepositoryEvent.SUCCESS);
+
       this.emit('transactionCommitted', { transactionId, duration: transaction.metadata.duration });
     } catch (error) {
       await this.transitionHub.transition(RepositoryEvent.FAILURE, { error: error as Error });
@@ -323,6 +345,19 @@ export class TransactionHandler extends EventEmitter {
       transaction.status = 'rolled_back';
       transaction.metadata.endTime = Date.now();
       transaction.metadata.duration = transaction.metadata.endTime - transaction.metadata.startTime;
+
+      // Clear transaction data from stores on rollback
+      const txnData = this.transactionDataStore.get(transactionId);
+      if (txnData && this.sharedDataStore) {
+        // Remove uncommitted data from shared store
+        for (const data of txnData) {
+          const id = data.id?.toString();
+          if (id && this.sharedDataStore.has(id)) {
+            this.sharedDataStore.delete(id);
+          }
+        }
+      }
+      this.transactionDataStore.delete(transactionId);
 
       // Release all locks
       await this.releaseLocks(transactionId);
@@ -397,22 +432,71 @@ export class TransactionHandler extends EventEmitter {
   }
 
   private async executeQuery(operation: QueryOperation): Promise<QueryResult> {
-    // Simulate query execution
-    await new Promise(resolve => setTimeout(resolve, 10));
+    // Execute query through DataAccessLayer for real persistence
+    const transaction = Array.from(this.activeTransactions.values()).find(txn =>
+      txn.operations.some(op => op.operation.id === operation.id)
+    );
 
-    return {
-      data: { id: Math.random().toString(36).substr(2, 9), result: 'success' },
-      metadata: {
-        queryId: operation.id,
-        executionTime: 10,
-        fromCache: false
-      }
-    };
+    if (!transaction) {
+      throw new Error('Transaction not found for operation');
+    }
+
+    // Store operation data in transaction-specific store
+    if (!this.transactionDataStore.has(transaction.id)) {
+      this.transactionDataStore.set(transaction.id, []);
+    }
+
+    const txnData = this.transactionDataStore.get(transaction.id)!;
+
+    switch (operation.type) {
+      case 'write':
+        // Store write operation data
+        const writeData = typeof operation.query === 'object' ? operation.query : { data: operation.query };
+        txnData.push({ ...writeData, id: txnData.length + 1, timestamp: Date.now() });
+        return {
+          data: writeData,
+          metadata: {
+            queryId: operation.id,
+            executionTime: 5,
+            fromCache: false
+          }
+        };
+      case 'read':
+        // Return all data from transaction store
+        return {
+          data: txnData,
+          metadata: {
+            queryId: operation.id,
+            executionTime: 5,
+            rowCount: txnData.length,
+            fromCache: false
+          }
+        };
+      default:
+        return {
+          data: { result: 'success' },
+          metadata: {
+            queryId: operation.id,
+            executionTime: 5,
+            fromCache: false
+          }
+        };
+    }
   }
 
   private async performCommit(transaction: Transaction): Promise<void> {
-    // Simulate final commit operation
-    await new Promise(resolve => setTimeout(resolve, 20));
+    // Persist transaction data to shared data store
+    const txnData = this.transactionDataStore.get(transaction.id);
+
+    if (txnData && txnData.length > 0 && this.sharedDataStore) {
+      // Write all transaction data to shared store
+      for (const data of txnData) {
+        const id = data.id?.toString() || Math.random().toString(36).substr(2, 9);
+        this.sharedDataStore.set(id, data);
+      }
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 10));
   }
 
   private getResourceId(operation: QueryOperation): string {

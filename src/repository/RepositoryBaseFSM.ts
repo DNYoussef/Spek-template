@@ -41,6 +41,7 @@ export class RepositoryBaseFSM extends EventEmitter {
 
   private config: RepositoryConfig;
   private connectionId?: string;
+  private sharedDataStore: Map<string, any> = new Map();
   private metrics: RepositoryMetrics = {
     totalOperations: 0,
     successfulOperations: 0,
@@ -57,9 +58,9 @@ export class RepositoryBaseFSM extends EventEmitter {
     // Initialize FSM components
     this.transitionHub = new RepositoryTransitionHub();
     this.dataAccess = new DataAccessLayer(this.transitionHub);
-    this.queryEngine = new QueryEngine(this.transitionHub);
+    this.queryEngine = new QueryEngine(this.transitionHub, this.sharedDataStore);
     this.cacheManager = new CacheManager(this.transitionHub, config.cache);
-    this.transactionHandler = new TransactionHandler(this.transitionHub);
+    this.transactionHandler = new TransactionHandler(this.transitionHub, this.dataAccess, this.sharedDataStore);
 
     this.setupEventHandlers();
   }

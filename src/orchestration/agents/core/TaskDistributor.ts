@@ -5,7 +5,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { WorkflowExecution, WorkflowTask, AssignmentCriteria } from '~types/WorkflowTypes';
+import { WorkflowExecution, WorkflowTask, AssignmentCriteria } from '~types/workflow/WorkflowTypes';
 import { AgentDefinition, AgentExecution } from '~types/AgentTypes';
 
 export class TaskDistributor extends EventEmitter {

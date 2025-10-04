@@ -67,6 +67,10 @@ export class ConfigurationManagerFacade extends EventEmitter {
     });
   }
 
+  async initialize(): Promise<void> {
+    await this.initializeComponent();
+  }
+
   async initializeComponent(): Promise<ConfigLoadResult> {
     try {
       await this.repository.initializeComponent();
@@ -170,8 +174,13 @@ export class ConfigurationManagerFacade extends EventEmitter {
     target[lastKey] = value;
   }
 
-  async destroy(): Promise<void> {
+  async shutdown(): Promise<void> {
     await this.repository.destroy();
+    this.currentConfig = null;
     this.removeAllListeners();
+  }
+
+  async destroy(): Promise<void> {
+    await this.shutdown();
   }
 }

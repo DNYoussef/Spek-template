@@ -52,6 +52,7 @@ export class QueryEngine extends EventEmitter {
   private queryPlans: Map<string, QueryPlan> = new Map();
   private executionHistory: Map<string, QueryResult> = new Map();
   private optimizationRules: OptimizationRule[] = [];
+  private sharedDataStore?: Map<string, any>;
   private metrics: QueryMetrics = {
     totalQueries: 0,
     avgExecutionTime: 0,
@@ -60,9 +61,10 @@ export class QueryEngine extends EventEmitter {
     optimizationSavings: 0
   };
 
-  constructor(transitionHub: RepositoryTransitionHub) {
+  constructor(transitionHub: RepositoryTransitionHub, sharedDataStore?: Map<string, any>) {
     super();
     this.transitionHub = transitionHub;
+    this.sharedDataStore = sharedDataStore;
     this.initializeOptimizationRules();
   }
 
@@ -361,12 +363,37 @@ export class QueryEngine extends EventEmitter {
   private generateMockResult(operation: QueryOperation): any {
     switch (operation.type) {
       case 'read':
+        // Read from shared data store if available (even if empty)
+        if (this.sharedDataStore !== undefined) {
+          return Array.from(this.sharedDataStore.values());
+        }
+        // Fallback to mock data only if no shared store configured
         return [{ id: 1, data: 'sample_data', timestamp: Date.now() }];
       case 'write':
-        return { id: Math.random().toString(36).substr(2, 9), created: true };
+        // Write to shared data store if available
+        const writeData = typeof operation.query === 'object' ? operation.query : { data: operation.query };
+        const writeId = Math.random().toString(36).substr(2, 9);
+        if (this.sharedDataStore) {
+          this.sharedDataStore.set(writeId, { ...writeData, id: writeId, created: true });
+        }
+        return {
+          id: writeId,
+          data: writeData,
+          created: true
+        };
       case 'update':
         return { updated: true, rows: 1 };
       case 'delete':
+        // Delete from shared data store if available
+        if (this.sharedDataStore && typeof operation.query === 'object' && (operation.query as any).name) {
+          // Find and delete by name
+          for (const [key, value] of this.sharedDataStore.entries()) {
+            if (value.name === (operation.query as any).name) {
+              this.sharedDataStore.delete(key);
+              break;
+            }
+          }
+        }
         return { deleted: true, rows: 1 };
       default:
         return { success: true };

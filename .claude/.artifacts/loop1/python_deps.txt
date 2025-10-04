@@ -1,0 +1,40 @@
+# SPEK Enhanced Development Platform - Python Dependencies
+# Core analyzer dependencies
+
+# YAML processing for configuration files
+pyyaml>=6.0
+
+# Graph analysis for connascence detection
+networkx>=3.0
+
+# Numerical operations for similarity calculations
+numpy>=1.20.0
+pandas>=2.0.0  # Data processing for analyzer components
+
+# HTTP requests for GitHub integration
+requests>=2.31.0
+
+# Code analysis tools (already installed via Loop 3 fixes)
+radon>=5.0.0
+pylint>=2.0.0
+mypy>=1.0.0
+flake8>=4.0.0
+bandit>=1.7.0
+
+# Additional dependencies for MECE analysis
+Levenshtein>=0.20.0         # String similarity calculations (correct package name)
+# difflib is built-in, no package needed
+astunparse>=1.6.0           # AST manipulation utilities
+
+# Performance optimization
+cachetools>=5.0.0           # Result caching
+joblib>=1.3.0               # Parallel processing
+
+# Testing and quality assurance
+pytest>=7.0.0
+pytest-cov>=4.0.0
+pytest-mock>=3.0.0
+
+# Development utilities
+black>=23.0.0               # Code formatting
+isort>=5.0.0               # Import sorting
