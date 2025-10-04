@@ -13,14 +13,17 @@ export interface PhaseState {
 }
 export enum PhaseEvent {
   START  =  'START',
+  START_PHASE  =  'START_PHASE', // Explicit phase start
   COMPLETE  =  'COMPLETE',
   FAIL  =  'FAIL',
   SKIP  =  'SKIP',
   RETRY  =  'RETRY',
-  VALIDATE  =  'VALIDATE'
+  VALIDATE  =  'VALIDATE',
+  CANCEL_PHASE  =  'CANCEL_PHASE' // Phase cancellation
 }
 export interface PhaseDefinition {
   id: string;
+  phaseId?: string; // Alias for id (backward compatibility)
   name: string;
   description?: string;
   prerequisites?: PhasePrerequisite[];
@@ -30,14 +33,17 @@ export interface PhaseDefinition {
     maxRetries: number;
     retryDelay: number;
   };
+  qualityGates?: QualityGateCriteria[]; // Quality gates for phase
 }
 export interface PhaseExecution {
   phaseId: string;
   executionId: string;
   state: PhaseState;
+  status?: 'pending' | 'running' | 'completed' | 'failed' | 'cancelled'; // Execution status
   context: PhaseTransitionContext;
   results?: Record<string, unknown>;
   errors?: Error[];
+  endTime?: number; // Execution end timestamp
 }
 export interface PhaseTransition {
   fromPhase: string;
@@ -45,6 +51,7 @@ export interface PhaseTransition {
   event: PhaseEvent;
   timestamp: number;
   validation?: TransitionValidationResult;
+  transitionId?: string; // Unique transition identifier
 }
 // Transition state management
 export interface TransitionState {
@@ -55,6 +62,7 @@ export interface TransitionState {
 }
 export enum TransitionEvent {
   INITIATE  =  'INITIATE',
+  START_TRANSITION  =  'START_TRANSITION', // Explicit transition start
   VALIDATE  =  'VALIDATE',
   APPROVE  =  'APPROVE',
   REJECT  =  'REJECT',
@@ -62,6 +70,7 @@ export enum TransitionEvent {
 }
 export interface TransitionExecution {
   transitionId: string;
+  executionId?: string; // Execution identifier (may differ from transitionId)
   from: string;
   to: string;
   event: TransitionEvent;
@@ -81,6 +90,11 @@ export interface PhaseTransitionConfig {
   }>;
   globalTimeout?: number;
   enableRollback?: boolean;
+  MAX_CONCURRENT_PHASES?: number; // Maximum concurrent phases allowed
+  MAX_CONCURRENT_TRANSITIONS?: number; // Maximum concurrent transitions allowed
+  MONITORING_INTERVAL?: number; // Monitoring interval in milliseconds
+  VALIDATION_TIMEOUT?: number; // Validation timeout in milliseconds
+  TRANSITION_TIMEOUT?: number; // Transition timeout in milliseconds
 }
 export interface PhaseTransitionContext {
   executionId: string;
@@ -102,6 +116,7 @@ export interface ValidationResult {
 }
 export interface TransitionValidationResult {
   isValid: boolean;
+  passed?: boolean; // Alias for isValid (backward compatibility)
   results: ValidationResult[];
   timestamp: number;
   validatedBy?: string;
@@ -114,12 +129,18 @@ export interface QualityGateCriteria {
   comparator: 'eq' | 'gt' | 'gte' | 'lt' | 'lte' | 'ne';
   metric: string;
   required?: boolean;
+  criteriaId?: string; // Unique criteria identifier
+  category?: 'quality' | 'performance' | 'security' | 'compliance'; // Criteria category
 }
 export interface PhasePrerequisite {
   phaseId?: string;
+  prerequisiteId?: string; // Unique prerequisite identifier
   condition?: string;
   criteria?: QualityGateCriteria[];
   required: boolean;
+  blocking?: boolean; // Whether prerequisite is blocking
+  type?: 'phase' | 'condition' | 'criteria' | 'manual'; // Prerequisite type
+  timeout?: number; // Timeout for prerequisite validation
 }
 export interface CriteriaResult {
   criteria: QualityGateCriteria;
@@ -130,6 +151,10 @@ export interface CriteriaResult {
 export interface ExitCriteria {
   criteria: QualityGateCriteria[];
   requireAll?: boolean;
+  length?: number; // Number of criteria (for array-like access)
+  weight?: number; // Overall weight of criteria
+  type?: 'quality' | 'performance' | 'security' | 'compliance'; // Criteria type
+  requirement?: 'all' | 'any' | 'majority'; // Requirement mode
 }
 export interface ExitCriteriaResult {
   criteria: ExitCriteria;

@@ -54,6 +54,13 @@ export interface Evidence {
   readonly content: string;
   readonly reliability: number; // 0-1
   readonly source: string;
+  readonly weight?: number; // Evidence weight in analysis (0-1)
+  readonly supports?: readonly string[]; // Hypotheses/beliefs this evidence supports
+  readonly contradicts?: readonly string[]; // Hypotheses/beliefs this evidence contradicts
+  readonly data?: any; // Raw evidence data
+  readonly timestamp?: number; // Evidence collection timestamp
+  readonly confidence?: number; // Confidence in evidence (0-1)
+  readonly metadata?: Record<string, unknown>; // Additional metadata
 }
 
 export interface Hypothesis {
@@ -62,15 +69,24 @@ export interface Hypothesis {
   readonly evidence: readonly Evidence[];
   readonly confidence: number;
   readonly alternatives: readonly string[];
+  readonly probability?: number; // Probability estimate (0-1)
+  readonly description?: string; // Human-readable description
+  readonly status?: 'active' | 'testing' | 'validated' | 'rejected'; // Hypothesis status
+  readonly lastUpdated?: number; // Last update timestamp
+  readonly predictions?: readonly Prediction[]; // Predictions based on hypothesis
+  readonly posteriorProbability?: number; // Bayesian posterior probability (0-1)
 }
 
 export interface Analysis {
   readonly id: string;
+  readonly analysisId?: string; // Alias for id (backward compatibility)
   readonly subject: string;
   readonly methodology: ReasoningStrategy;
   readonly findings: readonly string[];
   readonly confidence: number;
   readonly limitations: readonly string[];
+  readonly recommendations?: readonly Recommendation[]; // Analysis recommendations
+  readonly results?: any; // Analysis results data
 }
 
 export interface Prediction {
@@ -90,6 +106,9 @@ export interface DecisionOption {
   readonly cons: readonly string[];
   readonly cost: Cost;
   readonly expectedOutcome: string;
+  readonly feasibility?: number; // Feasibility score (0-1)
+  readonly expected_value?: number; // Expected value calculation
+  readonly risks?: readonly string[]; // Associated risks
 }
 
 export interface Cost {
@@ -97,6 +116,7 @@ export interface Cost {
   readonly time: number;
   readonly resources: Record<string, number>;
   readonly risk: number; // 0-1
+  readonly type?: 'fixed' | 'variable' | 'opportunity'; // Cost type
 }
 
 export interface DecisionContext {
@@ -105,7 +125,14 @@ export interface DecisionContext {
   readonly criteria: readonly DecisionCriteria[];
   readonly options: readonly DecisionOption[];
   readonly timestamp: number;
-  readonly uncertainty?: number;
+  readonly uncertainty?: number | UncertaintyAnalysis; // Uncertainty level or detailed analysis
+}
+
+export interface UncertaintyAnalysis {
+  readonly epistemic: number; // Knowledge uncertainty (0-1)
+  readonly aleatory: number; // Random uncertainty (0-1)
+  readonly sources: readonly string[]; // Uncertainty sources
+  readonly impact: number; // Impact on decision (0-1)
 }
 
 export interface DecisionCriteria {
@@ -129,6 +156,8 @@ export interface Belief {
   readonly evidence: readonly Evidence[];
   readonly formed: number;
   readonly updated: number;
+  readonly credence?: number; // Degree of belief (0-1)
+  readonly proposition?: string; // Propositional content
 }
 
 export interface CognitiveBias {
@@ -136,6 +165,10 @@ export interface CognitiveBias {
   readonly description: string;
   readonly impact: 'low' | 'medium' | 'high';
   readonly mitigation: BiasMetigation[];
+  readonly name?: string; // Bias name identifier
+  readonly detected?: boolean; // Whether bias was detected
+  readonly evidence?: readonly Evidence[]; // Evidence of bias
+  readonly severity?: 'low' | 'medium' | 'high' | 'critical'; // Bias severity
 }
 
 export interface BiasMetigation {
