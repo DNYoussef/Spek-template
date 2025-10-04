@@ -44,6 +44,8 @@ export interface StateSnapshot<T = unknown> {
   readonly timestamp: number;
   readonly entries: ReadonlyMap<string, StateEntry<T>>;
   readonly metadata: Record<string, unknown>;
+  readonly id?: string; // Snapshot identifier
+  readonly states?: ReadonlyMap<string, T>; // Direct state access (alternative to entries)
 }
 
 // State record (for persistence and transactions)
@@ -53,6 +55,8 @@ export interface StateRecord<T = unknown> {
   readonly version: number;
   readonly timestamp: number;
   readonly checksum?: string;
+  readonly id?: string; // Record identifier
+  readonly context?: Record<string, unknown>; // Execution context for record
 }
 
 // Transaction support
