@@ -86,6 +86,15 @@ export interface WorkflowVariableDefinition {
   required: boolean;
   defaultValue?: any;
   description?: string;
+  validation?: {
+    pattern?: string;
+    minLength?: number;
+    maxLength?: number;
+    min?: number;
+    max?: number;
+    enum?: any[];
+    custom?: (value: any) => boolean;
+  }; // Validation rules for variable values
 }
 
 // Execution context and metrics
@@ -170,6 +179,10 @@ export interface WorkflowExecutionMetrics {
   executionMetrics: ExecutionMetrics;
   princessMetrics: Record<string, PrincessMetrics>;
   resourceMetrics: ResourceMetrics;
+  // Direct access properties (alternative to nested executionMetrics)
+  totalDuration?: number; // Total workflow execution duration (mirrors executionMetrics.totalDuration)
+  stateExecutionTimes?: Record<string, number>; // State execution times (mirrors executionMetrics.stateExecutionTimes)
+  transitionTimes?: Record<string, number>; // State transition times (mirrors executionMetrics.transitionTimes)
 }
 
 export interface ExecutionMetrics {
