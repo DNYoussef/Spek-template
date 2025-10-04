@@ -11,6 +11,23 @@ export interface MigrationMetrics {
   readonly inProgressMigrations: number;
   readonly averageDuration: number;
   readonly successRate: number;
+  readonly phase?: string;
+  readonly progressPercentage?: number;
+  readonly cpuUsagePercentage?: number;
+  readonly memoryUsageMB?: number;
+  readonly networkLatencyMs?: number;
+  readonly throughputPerSecond?: number;
+  readonly errorCount?: number;
+  readonly healthScore?: number;
+  readonly systemLoad?: number;
+  readonly successCount?: number;
+  readonly startTime?: number;
+  readonly migrationId?: string;
+  readonly estimatedRemainingMs?: number;
+  readonly activeConnections?: number;
+  readonly warningCount?: number;
+  readonly currentTime?: number;
+  readonly elapsedMs?: number;
 }
 
 export interface AggregatedMetrics {
@@ -26,6 +43,10 @@ export interface MigrationHealthCheck {
   readonly warnings: readonly string[];
   readonly recommendations: readonly string[];
   readonly lastChecked: number;
+  readonly status?: 'healthy' | 'degraded' | 'unhealthy' | 'critical';
+  readonly component?: string;
+  readonly responseTimeMs?: number;
+  readonly errorRate?: number;
 }
 
 export class MigrationMonitor {

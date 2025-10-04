@@ -19,7 +19,9 @@ export enum AnalysisState {
   INITIALIZED = 'INITIALIZED',
   PLANNING = 'PLANNING',
   RISK_ASSESSMENT = 'RISK_ASSESSMENT',
-  DEPENDENCY_MAPPING = 'DEPENDENCY_MAPPING'
+  DEPENDENCY_MAPPING = 'DEPENDENCY_MAPPING',
+  VALIDATION = 'VALIDATION',
+  CANCELLED = 'CANCELLED'
 }
 
 /**
@@ -38,7 +40,15 @@ export enum AnalysisEvent {
   RISK_ASSESSMENT = 'RISK_ASSESSMENT',
   DEPENDENCY_MAPPING = 'DEPENDENCY_MAPPING',
   PLANNING = 'PLANNING',
-  VALIDATION_FAILED = 'VALIDATION_FAILED'
+  VALIDATION_FAILED = 'VALIDATION_FAILED',
+  START_RISK_ASSESSMENT = 'START_RISK_ASSESSMENT',
+  RISK_ASSESSMENT_COMPLETE = 'RISK_ASSESSMENT_COMPLETE',
+  START_DEPENDENCY_MAPPING = 'START_DEPENDENCY_MAPPING',
+  DEPENDENCY_MAPPING_COMPLETE = 'DEPENDENCY_MAPPING_COMPLETE',
+  START_PLANNING = 'START_PLANNING',
+  PLANNING_COMPLETE = 'PLANNING_COMPLETE',
+  START_VALIDATION = 'START_VALIDATION',
+  RETRY_OPERATION = 'RETRY_OPERATION'
 }
 
 /**
@@ -574,6 +584,8 @@ export interface StateMachineConfig {
   context: unknown;
   guards?: Map<string, TransitionGuard>;
   actions?: Map<string, TransitionAction>;
+  maxRetries?: number;
+  timeoutMs?: number;
 }
 
 // State handler interface (already partially defined, this extends it)
@@ -584,6 +596,9 @@ export interface StateHandler {
   tick?(context: unknown): Promise<string | null>;
   canExit?(context: unknown): boolean;
   checkInvariants?(context: unknown): boolean;
+  init?(context: unknown): Promise<void>;
+  update?(event: unknown, context: unknown): Promise<unknown>;
+  shutdown?(context: unknown): Promise<void>;
 }
 
 // State transition definition
@@ -604,6 +619,7 @@ export interface StateTransitionRecord {
   context?: unknown;
   success: boolean;
   error?: string;
+  analysisId?: string;
 }
 
 // Transition guard function

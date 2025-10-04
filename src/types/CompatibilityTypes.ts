@@ -22,6 +22,7 @@ export enum CompatibilityEvents {
   CHECK_FAILED = 'CHECK_FAILED',
   DEGRADATION_DETECTED = 'DEGRADATION_DETECTED',
   RECOVERY_INITIATED = 'RECOVERY_INITIATED',
+  MIGRATION_COMPLETE = 'MIGRATION_COMPLETE',
   RESET = 'RESET'
 }
 
@@ -52,6 +53,7 @@ export interface CompatibilityResult {
   readonly severity: 'info' | 'warning' | 'error' | 'critical';
   readonly message: string;
   readonly details?: Record<string, unknown>;
+  readonly migrationMappingsCount?: number;
 }
 
 /**
