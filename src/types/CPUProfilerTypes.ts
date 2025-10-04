@@ -46,6 +46,13 @@ export interface CPUProfilerContext {
   readonly endTime?: number;
   readonly config: ProfilerConfig;
   readonly errors: readonly string[];
+  readonly isProfileActive?: boolean;
+  readonly sampleInterval?: number;
+  readonly baselineCPU?: number;
+  readonly v8ProfilePath?: string;
+  readonly profile?: unknown;
+  readonly outputDir?: string;
+  readonly lastError?: Error | string;
 }
 
 // Profiler configuration

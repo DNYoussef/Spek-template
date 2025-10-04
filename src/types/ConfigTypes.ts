@@ -98,6 +98,10 @@ export interface ConfigContext {
   readonly validationErrors?: readonly string[];
   readonly lastLoadTime?: number;
   readonly watcherActive?: boolean;
+  readonly errors?: readonly string[];
+  readonly currentState?: ConfigState;
+  readonly rawConfigs?: readonly ConfigData[];
+  readonly config?: ConfigData;
 }
 
 export interface StateTransition {

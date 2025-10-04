@@ -102,6 +102,12 @@ export interface MonitoringContext {
   readonly startTime: Timestamp;
   readonly currentMetrics: DriftMetrics;
   readonly history: readonly DegradationEvent[];
+  readonly config?: MonitoringConfig;
+  readonly error?: Error | string;
+  readonly recoveryActions?: readonly RecoveryAction[];
+  readonly alerts?: readonly DegradationEvent[];
+  readonly driftHistory?: readonly DriftMetrics[];
+  readonly currentTransfer?: unknown;
 }
 
 export interface MonitoringEvent {
@@ -196,12 +202,13 @@ export const DEFAULT_CONFIG: MonitoringConfig = {
  * | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
  * |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
  * | 1.0.0   | 2025-10-03T16:45:00-04:00 | coder@sonnet-4.5 | Create DegradationTypes to resolve ~types/DegradationTypes imports | DegradationTypes.ts | OK | Phase 1 critical blocker fixes - Week 2 | 0.00 | d7c2b4a |
+ * | 1.1.0   | 2025-10-04T00:35:00-04:00 | coder@sonnet-4.5 | Add 6 properties to MonitoringContext (config, error, recoveryActions, alerts, driftHistory, currentTransfer) | DegradationTypes.ts | OK | Week 3 Day 2 - Context domain Property Audit | 0.00 | a9f3c2d |
  * ### Receipt
  * - status: OK
  * - reason_if_blocked: --
- * - run_id: week2-phase1-degradation-types
- * - inputs: ["critical-blocker-fix-plan.md", "primitives.ts", "shared.ts"]
- * - tools_used: ["Write"]
- * - versions: {"model":"claude-sonnet-4-5-20250929","prompt":"week2-critical-blockers"}
+ * - run_id: week3-day2-context-monitoring
+ * - inputs: ["DegradationTypes.ts"]
+ * - tools_used: ["Read", "Edit"]
+ * - versions: {"model":"claude-sonnet-4-5-20250929","prompt":"property-audit-context-domain"}
  * AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE
  */

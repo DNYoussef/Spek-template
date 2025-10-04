@@ -90,6 +90,12 @@ export interface StressTestContext {
   readonly metrics: StressTestMetrics;
   readonly startTime: number;
   readonly elapsedTime: number;
+  readonly recoveryAttempts?: readonly RecoveryAttempt[];
+  readonly currentPhaseIndex?: number;
+  readonly systemHealthHistory?: readonly SystemHealthSnapshot[];
+  readonly alerts?: readonly Alert[];
+  readonly failures?: readonly StressFailure[];
+  readonly endTime?: number;
 }
 
 export interface StateTransition {
