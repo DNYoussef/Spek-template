@@ -62,6 +62,20 @@ export interface MigrationMetrics {
   readonly errors: number;
   readonly warnings: number;
   readonly timestamp: Timestamp;
+  readonly throughputPerSecond?: number;
+  readonly networkLatencyMs?: number;
+  readonly memoryUsageMB?: number;
+  readonly errorCount?: number;
+  readonly cpuUsagePercentage?: number;
+  readonly progressPercentage?: number;
+  readonly healthScore?: number;
+  readonly systemLoad?: number;
+  readonly successCount?: number;
+  readonly startTime?: Timestamp;
+  readonly migrationId?: string;
+  readonly estimatedRemainingMs?: number;
+  readonly activeConnections?: number;
+  readonly warningCount?: number;
 }
 
 /**
