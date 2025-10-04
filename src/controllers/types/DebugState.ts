@@ -24,6 +24,10 @@ export interface DebugContext {
   }>;
   metadata: Record<string, unknown>;
   errors: string[];
+  analysisId?: string;
+  experts?: string[];
+  assignments?: Record<string, unknown>;
+  validationResults?: Record<string, unknown>;
 }
 export function createDebugContext(sessionId: string, initialState: DebugState): DebugContext {
     console.assert(sessionId.length > 0, 'SessionId cannot be empty');

@@ -15,6 +15,9 @@ export interface PrincessMessage {
   readonly priority: MessagePriority;
   readonly requiresAck: boolean;
   readonly metadata?: Record<string, unknown>;
+  readonly messageId?: string;
+  readonly fromPrincess?: string;
+  readonly toPrincess?: string;
 }
 
 // Message type
@@ -89,6 +92,10 @@ export interface ConsensusRequest {
   readonly requiredVotes: number;
   readonly timeout: number;
   readonly priority: MessagePriority;
+  threshold?: number;
+  participants?: string[];
+  votes?: Map<string, boolean>;
+  resolved?: boolean;
 }
 
 // Consensus vote
