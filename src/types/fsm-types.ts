@@ -9,7 +9,10 @@ export enum FSMState {
   EXECUTING  =  'EXECUTING',
   COMPLETED  =  'COMPLETED',
   FAILED  =  'FAILED',
-  ERROR  =  'ERROR'
+  ERROR  =  'ERROR',
+  ERROR_RECOVERY  =  'ERROR_RECOVERY',
+  RECOVERING  =  'RECOVERING',
+  TESTING  =  'TESTING'
 }
 export enum FSMEvent {
   START  =  'START',
@@ -19,7 +22,9 @@ export enum FSMEvent {
   COMPLETE  =  'COMPLETE',
   FAIL  =  'FAIL',
   RESET  =  'RESET',
-  ERROR  =  'ERROR'
+  ERROR  =  'ERROR',
+  ERROR_DETECTED  =  'ERROR_DETECTED',
+  RESET_REQUESTED  =  'RESET_REQUESTED'
 }
 export interface FSMContext {
   currentState: FSMState;
@@ -28,6 +33,8 @@ export interface FSMContext {
   error?: Error;
   metadata?: Record<string, any>;
   timestamp?: number;
+  on?: (event: string | symbol, listener: (...args: any[]) => void) => this;
+  toString?: () => string;
 }
 export interface FSMTransition {
   from: FSMState;

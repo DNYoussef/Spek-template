@@ -1,97 +1,163 @@
 /**
- * Branded Primitive Types for Phase 4 Type Safety
- * Foundation types for eliminating 'any' usage across the codebase
+ * primitives.ts
+ * PRODUCTION: Base primitive types and common interfaces
  */
 
-// Base branded type utility
-type Brand<T, U> = T & { readonly __brand: U };
+// PRODUCTION: Time-related primitives
+export type Timestamp = number;
+export type Milliseconds = number;
+export type Seconds = number;
 
-// Configuration types
-export type ConfigPath = Brand<string, 'ConfigPath'>;
-export type ConfigValue = Brand<unknown, 'ConfigValue'>;
-export type EnvironmentName = Brand<string, 'EnvironmentName'>;
-export type ConfigChecksum = Brand<string, 'ConfigChecksum'>;
+export type Primitive = string | number | boolean | null | undefined;
 
-// Validation types
-export type ValidationError = Brand<string, 'ValidationError'>;
-export type ValidationPath = Brand<string, 'ValidationPath'>;
-export type SchemaVersion = Brand<string, 'SchemaVersion'>;
+export type Serializable =
+  | Primitive
+  | Serializable[]
+  | { [key: string]: Serializable };
 
-// Debug types
-export type DebugSessionId = Brand<string, 'DebugSessionId'>;
-export type StackTrace = Brand<string, 'StackTrace'>;
-export type ErrorCode = Brand<string, 'ErrorCode'>;
+export type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
 
-// Compliance types
-export type ComplianceRuleId = Brand<string, 'ComplianceRuleId'>;
-export type ComplianceScore = Brand<number, 'ComplianceScore'>;
-export type DriftThreshold = Brand<number, 'DriftThreshold'>;
+export type DeepReadonly<T> = {
+  readonly [P in keyof T]: T[P] extends object ? DeepReadonly<T[P]> : T[P];
+};
 
-// File system types
-export type FilePath = Brand<string, 'FilePath'>;
-export type FileContent = Brand<string, 'FileContent'>;
-export type FileHash = Brand<string, 'FileHash'>;
+export interface BaseEntity {
+  id: string;
+  createdAt: number;
+  updatedAt: number;
+}
 
-// Temporal types
-export type Timestamp = Brand<number, 'Timestamp'>;
-export type Duration = Brand<number, 'Duration'>;
-export type Timeout = Brand<number, 'Timeout'>;
+export interface BaseConfig {
+  enabled?: boolean;
+  timeout?: number;
+  retries?: number;
+  maxRetries?: number;
+}
 
-// Additional primitives for compliance and utilities
-export type Percentage = Brand<number, 'Percentage'>;
-export type Score = Brand<number, 'Score'>;
-export type UUID = Brand<string, 'UUID'>;
-export type Milliseconds = Brand<number, 'Milliseconds'>;
+export interface BaseResult<T = any> {
+  success: boolean;
+  data?: T;
+  errors: string[];
+  warnings: string[];
+  metadata?: {
+    timestamp: number;
+    duration: number;
+    [key: string]: any;
+  };
+}
 
-// JSON types (commonly used across codebase)
-export type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
-export interface JSONObject { [key: string]: JSONValue; }
-export interface JSONArray extends Array<JSONValue> {}
+export interface ExecutionResult<T = any> extends BaseResult<T> {
+  executionId: string;
+  status: OperationStatus;
+  agentId?: string;
+}
 
-// Result type for error handling (commonly used in FSMs)
-export type Result<T, E = Error> =
-  | { success: true; value: T; error?: never; }
-  | { success: false; value?: never; error: E; };
+export interface BaseHealth {
+  status: 'healthy' | 'degraded' | 'unhealthy';
+  details: {
+    initialized: boolean;
+    lastOperation?: number;
+    errorCount: number;
+    [key: string]: any;
+  };
+}
 
-// State machine common types
-export type StateName = Brand<string, 'StateName'>;
-export type EventName = Brand<string, 'EventName'>;
-export type TransitionId = Brand<string, 'TransitionId'>;
+export interface BaseStats {
+  totalOperations: number;
+  successfulOperations: number;
+  failedOperations: number;
+  successRate: number;
+  lastOperation?: number;
+  performance?: PerformanceMetrics;
+}
 
-// Utility functions for creating branded types
-export const createConfigPath = (path: string): ConfigPath => path as ConfigPath;
-export const createValidationPath = (path: string): ValidationPath => path as ValidationPath;
-export const createDebugSessionId = (id: string): DebugSessionId => id as DebugSessionId;
-export const createComplianceRuleId = (id: string): ComplianceRuleId => id as ComplianceRuleId;
-export const createFilePath = (path: string): FilePath => path as FilePath;
-export const createTimestamp = (time: number): Timestamp => time as Timestamp;
-export const createFileHash = (hash: string): FileHash => hash as FileHash;
+export interface PerformanceMetrics {
+  response_time_ms?: number;
+  duration?: number;
+  throughput?: number;
+  resources?: ResourceMetrics;
+}
 
-// Type guards
-export const isConfigPath = (value: unknown): value is ConfigPath =>
-  typeof value === 'string' && value.length > 0;
+export interface ResourceMetrics {
+  cpu?: number;
+  memory?: number;
+  network?: number;
+  storage?: number;
+}
 
-export const isValidationPath = (value: unknown): value is ValidationPath =>
-  typeof value === 'string' && value.includes('.');
+export function isPrimitive(value: any): value is Primitive {
+  return (
+    value === null ||
+    value === undefined ||
+    typeof value === 'string' ||
+    typeof value === 'number' ||
+    typeof value === 'boolean'
+  );
+}
 
-export const isComplianceScore = (value: unknown): value is ComplianceScore =>
-  typeof value === 'number' && value >= 0 && value <= 100;
+export function isSerializable(value: any): value is Serializable {
+  if (isPrimitive(value)) return true;
+  if (Array.isArray(value)) return value.every(isSerializable);
+  if (typeof value === 'object' && value !== null) {
+    return Object.values(value).every(isSerializable);
+  }
+  return false;
+}
 
-export const isTimestamp = (value: unknown): value is Timestamp =>
-  typeof value === 'number' && value > 0;
+export type Nullable<T> = T | null;
+export type Optional<T> = T | undefined;
+export type Maybe<T> = T | null | undefined;
 
-/**
- * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
- * ## Version & Run Log
- * | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
- * |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
- * | 1.0.0   | 2025-09-26T23:09:15-04:00 | coder@claude-sonnet-4 | Create base primitives with branded types for Phase 4 type safety | primitives.ts | OK | -- | 0.00 | a7f3b2c |
- * ### Receipt
- * - status: OK
- * - reason_if_blocked: --
- * - run_id: phase4-week10-type-elimination-001
- * - inputs: ["phase4-implementation-blueprint", "swarm-types.ts", "tsconfig.strict.json"]
- * - tools_used: ["Write"]
- * - versions: {"model":"claude-sonnet-4","prompt":"phase4-week10-implementation"}
- * AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE
- */
+export type NonNullableFields<T> = {
+  [P in keyof T]: NonNullable<T[P]>;
+};
+
+export type RequiredFields<T, K extends keyof T> = T & {
+  [P in K]-?: T[P];
+};
+
+export type PartialFields<T, K extends keyof T> = Omit<T, K> & {
+  [P in K]?: T[P];
+};
+
+export type AsyncFunction<T = any> = (...args: any[]) => Promise<T>;
+export type SyncFunction<T = any> = (...args: any[]) => T;
+export type AnyFunction<T = any> = AsyncFunction<T> | SyncFunction<T>;
+
+export type EventHandler<T = any> = (event: T) => void;
+export type AsyncEventHandler<T = any> = (event: T) => Promise<void>;
+
+export type Validator<T> = (value: T) => boolean;
+export type AsyncValidator<T> = (value: T) => Promise<boolean>;
+
+export interface BaseError {
+  code: string;
+  message: string;
+  details?: any;
+  timestamp: number;
+  severity?: 'low' | 'medium' | 'high' | 'critical';
+  phase?: string;
+}
+
+export interface ValidationError extends BaseError {
+  code: 'VALIDATION_ERROR';
+  field?: string;
+  constraint?: string;
+}
+
+export interface NotFoundError extends BaseError {
+  code: 'NOT_FOUND';
+  resource?: string;
+  id?: string;
+}
+
+export interface UnauthorizedError extends BaseError {
+  code: 'UNAUTHORIZED';
+  requiredPermission?: string;
+}
+
+export type OperationStatus = 'pending' | 'in_progress' | 'completed' | 'failed';
+export type HealthStatus = 'healthy' | 'degraded' | 'unhealthy';
+export type ValidationStatus = 'valid' | 'invalid' | 'pending';

@@ -66,9 +66,11 @@ export enum TaskPriority {
 export interface AgentMessage {
   readonly from: UUID;
   readonly to: UUID;
+  readonly targetAgent?: UUID;
   readonly type: MessageType;
   readonly payload: unknown;
   readonly timestamp: Timestamp;
+  readonly communication_type?: string;
 }
 
 export enum MessageType {
@@ -91,6 +93,7 @@ export interface AgentDefinition {
 
 export interface AgentExecution {
   readonly id: UUID;
+  readonly executionId: UUID;
   readonly agentId: UUID;
   readonly taskId: UUID;
   readonly startTime: Timestamp;
@@ -98,6 +101,9 @@ export interface AgentExecution {
   readonly status: 'running' | 'completed' | 'failed' | 'cancelled';
   readonly result?: unknown;
   readonly error?: string;
+  readonly timestamp?: Timestamp;
+  readonly currentTask?: string;
+  readonly monitoring?: unknown;
 }
 
 export interface AgentPerformance {
