@@ -178,7 +178,8 @@ export class RepositoryBaseFSM extends EventEmitter {
       // Cache read results
       if (useCache && operation.type === 'read' && result.data) {
         const cacheKey = this.generateCacheKey(operation);
-        await this.cacheManager.set(cacheKey, result.data, {
+        // PRODUCTION: Use setDirect() to bypass FSM gating for query result caching
+        await this.cacheManager.setDirect(cacheKey, result.data, {
           ttl: 300000, // 5 minutes
           tags: [operation.type, 'query_result']
         });

@@ -165,6 +165,39 @@ export class CacheManager extends EventEmitter {
     }
   }
 
+  // PRODUCTION: Direct cache set without FSM gating for query result caching
+  async setDirect<T>(key: string, value: T, options?: { ttl?: number; tags?: string[] }): Promise<boolean> {
+    try {
+      // Check if eviction is needed
+      if (this.cache.size >= this.config.maxSize) {
+        await this.evictEntries();
+      }
+
+      const entry: CacheEntry<T> = {
+        key,
+        value,
+        metadata: {
+          createdAt: Date.now(),
+          lastAccessed: Date.now(),
+          accessCount: 0,
+          size: this.calculateSize(value),
+          ttl: options?.ttl,
+          tags: options?.tags
+        }
+      };
+
+      this.cache.set(key, entry);
+      this.updateStats('set', entry);
+
+      this.emit('cacheSet', { key, size: entry.metadata.size });
+
+      return true;
+    } catch (error) {
+      this.emit('cacheSetFailed', { key, error });
+      return false;
+    }
+  }
+
   async get<T>(key: string): Promise<T | null> {
     const entry = this.cache.get(key) as CacheEntry<T> | undefined;
 

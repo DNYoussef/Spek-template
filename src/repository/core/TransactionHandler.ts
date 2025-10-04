@@ -415,20 +415,52 @@ export class TransactionHandler extends EventEmitter {
   }
 
   private async captureRollbackData(operation: TransactionOperation): Promise<any> {
-    // Simulate capturing current state for rollback
+    // PRODUCTION: Capture current state for rollback from shared store
+    if (!this.sharedDataStore) {
+      // No shared store = no snapshot needed
+      return { operation: operation.id, timestamp: Date.now(), snapshot: null };
+    }
+
+    // Snapshot current state before modification
+    const snapshot: any[] = [];
+    for (const [key, value] of this.sharedDataStore.entries()) {
+      snapshot.push({ key, value: { ...value } });
+    }
+
     return {
       operation: operation.id,
       timestamp: Date.now(),
-      data: `rollback_data_${operation.id}`
+      snapshot: snapshot
     };
   }
 
   private async rollbackOperation(operation: TransactionOperation): Promise<void> {
-    // Simulate operation rollback using stored rollback data
-    if (operation.rollbackData) {
-      // Perform rollback using stored data
-      this.emit('operationRolledBack', { operationId: operation.id, rollbackData: operation.rollbackData });
+    // PRODUCTION: Real rollback using captured snapshot
+    if (!operation.rollbackData || !operation.rollbackData.snapshot) {
+      this.emit('operationRolledBack', { operationId: operation.id, warning: 'No snapshot data' });
+      return;
     }
+
+    if (!this.sharedDataStore) {
+      this.emit('operationRolledBack', { operationId: operation.id, warning: 'No shared store' });
+      return;
+    }
+
+    // Restore previous state from snapshot
+    const snapshot = operation.rollbackData.snapshot as Array<{key: string; value: any}>;
+
+    // Clear current state
+    this.sharedDataStore.clear();
+
+    // Restore from snapshot
+    for (const entry of snapshot) {
+      this.sharedDataStore.set(entry.key, entry.value);
+    }
+
+    this.emit('operationRolledBack', {
+      operationId: operation.id,
+      restoredEntries: snapshot.length
+    });
   }
 
   private async executeQuery(operation: QueryOperation): Promise<QueryResult> {
@@ -485,18 +517,41 @@ export class TransactionHandler extends EventEmitter {
   }
 
   private async performCommit(transaction: Transaction): Promise<void> {
-    // Persist transaction data to shared data store
+    // PRODUCTION: Real commit to shared data store (persistent in-memory)
     const txnData = this.transactionDataStore.get(transaction.id);
 
-    if (txnData && txnData.length > 0 && this.sharedDataStore) {
-      // Write all transaction data to shared store
-      for (const data of txnData) {
-        const id = data.id?.toString() || Math.random().toString(36).substr(2, 9);
-        this.sharedDataStore.set(id, data);
-      }
+    if (!txnData || txnData.length === 0) {
+      // No data to commit - valid for read-only transactions
+      return;
     }
 
-    await new Promise(resolve => setTimeout(resolve, 10));
+    if (!this.sharedDataStore) {
+      throw new Error('Cannot commit transaction: No shared data store configured');
+    }
+
+    // Write all transaction data to shared store atomically
+    const committedKeys: string[] = [];
+    try {
+      for (const data of txnData) {
+        const id = data.id?.toString() || Math.random().toString(36).substr(2, 9);
+        this.sharedDataStore.set(id, { ...data, committed: Date.now() });
+        committedKeys.push(id);
+      }
+
+      this.emit('dataCommitted', {
+        transactionId: transaction.id,
+        recordsCommitted: committedKeys.length,
+        keys: committedKeys
+      });
+    } catch (error) {
+      // Rollback partial commits on error
+      for (const key of committedKeys) {
+        this.sharedDataStore.delete(key);
+      }
+      throw new Error(`Commit failed: ${error}. Rolled back ${committedKeys.length} records.`);
+    }
+
+    // No fake delay - real commits are fast for in-memory store
   }
 
   private getResourceId(operation: QueryOperation): string {

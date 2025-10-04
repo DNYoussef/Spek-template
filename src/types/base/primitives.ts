@@ -7,6 +7,29 @@
 export type Timestamp = number;
 export type Milliseconds = number;
 export type Seconds = number;
+export type Duration = number;
+export type Timeout = number;
+
+// PRODUCTION: Identifier types
+export type UUID = string;
+export type DebugSessionId = string;
+export type ComplianceRuleId = string;
+export type EnvironmentName = string;
+export type FilePath = string;
+export type FileHash = string;
+export type ConfigPath = string;
+export type ValidationPath = string;
+export type ErrorCode = string;
+export type StackTrace = string;
+
+// PRODUCTION: Measurement types
+export type Score = number;
+export type ComplianceScore = number;
+export type Percentage = number;
+export type DriftThreshold = number;
+
+// PRODUCTION: Configuration value type
+export type ConfigValue = string | number | boolean | null | object;
 
 export type Primitive = string | number | boolean | null | undefined;
 
@@ -162,3 +185,12 @@ export interface UnauthorizedError extends BaseError {
 export type OperationStatus = 'pending' | 'in_progress' | 'completed' | 'failed';
 export type HealthStatus = 'healthy' | 'degraded' | 'unhealthy';
 export type ValidationStatus = 'valid' | 'invalid' | 'pending';
+
+// PRODUCTION: Utility functions
+export function createTimestamp(): Timestamp {
+  return Date.now();
+}
+
+export function createDebugSessionId(): DebugSessionId {
+  return `debug_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+}
