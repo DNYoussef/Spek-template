@@ -27,6 +27,7 @@ export interface DegradationEvent {
   readonly id: string;
   readonly type: string;
   readonly severity: DegradationSeverity;
+  readonly level?: AlertLevel;
   readonly indicators: DegradationIndicator[];
   readonly timestamp: Timestamp;
   readonly context: Record<string, unknown>;
@@ -65,7 +66,12 @@ export interface RecoveryStrategy {
 export interface RecoveryAction {
   readonly name: string;
   readonly priority: number;
-  readonly execute: () => Promise<RecoveryResult>;
+  readonly execute?: () => Promise<RecoveryResult>;
+  readonly type?: RecoveryType | string;
+  readonly targetAgent?: string;
+  readonly checkpointId?: string;
+  readonly reason?: string;
+  readonly confidence?: number;
 }
 
 export interface RecoveryResult {
@@ -88,6 +94,10 @@ export interface DriftMetrics {
   readonly qualityDrift: number;
   readonly performanceDrift: number;
   readonly timestamp: Timestamp;
+  readonly currentDrift?: number;
+  readonly projectedDrift?: number;
+  readonly driftRate?: number;
+  readonly timeToThreshold?: number;
 }
 
 export interface MonitoringConfig {
@@ -95,18 +105,22 @@ export interface MonitoringConfig {
   readonly interval: number;
   readonly thresholds: DegradationThreshold[];
   readonly alerts: readonly AlertLevel[];
+  readonly criticalDrift?: number;
+  readonly warningDrift?: number;
+  readonly monitoringInterval?: number;
+  readonly maxHistoryLength?: number;
 }
 
 export interface MonitoringContext {
   readonly sessionId: string;
   readonly startTime: Timestamp;
   readonly currentMetrics: DriftMetrics;
-  readonly history: readonly DegradationEvent[];
+  readonly history: DegradationEvent[]; // Not readonly - needs mutation
   readonly config?: MonitoringConfig;
   readonly error?: Error | string;
-  readonly recoveryActions?: readonly RecoveryAction[];
-  readonly alerts?: readonly DegradationEvent[];
-  readonly driftHistory?: readonly DriftMetrics[];
+  readonly recoveryActions?: RecoveryAction[]; // Not readonly - needs mutation
+  readonly alerts?: DegradationEvent[]; // Not readonly - needs mutation
+  readonly driftHistory?: DriftMetrics[]; // Not readonly - needs mutation (get/set/push/clear)
   readonly currentTransfer?: unknown;
 }
 
@@ -121,7 +135,12 @@ export enum MonitoringState {
   IDLE = 'IDLE',
   MONITORING = 'MONITORING',
   ALERTING = 'ALERTING',
-  RECOVERING = 'RECOVERING'
+  ALERT_GENERATED = 'ALERT_GENERATED',
+  RECOVERING = 'RECOVERING',
+  RECOVERY_PENDING = 'RECOVERY_PENDING',
+  RECOVERY_EXECUTING = 'RECOVERY_EXECUTING',
+  VALIDATION = 'VALIDATION',
+  ERROR = 'ERROR'
 }
 
 export enum FSMState {
@@ -137,6 +156,8 @@ export interface StateTransition {
   readonly to: FSMState;
   readonly event: string;
   readonly timestamp: Timestamp;
+  readonly guard?: (context: MonitoringContext) => boolean;
+  readonly action?: (context: MonitoringContext) => Promise<void>;
 }
 
 export interface TrendAnalysis {
@@ -158,12 +179,17 @@ export interface ValidationResult {
   readonly errors: readonly string[];
   readonly warnings: readonly string[];
   readonly score: Score;
+  readonly checksum?: string;
 }
 
 export enum RecoveryType {
   AUTOMATIC = 'AUTOMATIC',
   MANUAL = 'MANUAL',
-  HYBRID = 'HYBRID'
+  HYBRID = 'HYBRID',
+  ROLLBACK = 'ROLLBACK',
+  RECONSTRUCT = 'RECONSTRUCT',
+  ESCALATE = 'ESCALATE',
+  QUARANTINE = 'QUARANTINE'
 }
 
 // Interface contracts for components
