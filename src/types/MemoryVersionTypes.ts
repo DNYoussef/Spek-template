@@ -58,6 +58,9 @@ export interface VersionContext {
   readonly totalVersions: number;
   readonly latestVersion: VersionInfo;
   readonly history: readonly VersionInfo[];
+  readonly config?: Record<string, unknown>;
+  readonly metrics?: Record<string, number>;
+  readonly error?: Error | string;
 }
 
 export enum VersionState {

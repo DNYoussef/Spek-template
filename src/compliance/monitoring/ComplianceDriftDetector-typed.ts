@@ -31,6 +31,9 @@ export interface DriftDetectionContext extends StateContext {
   readonly scanData: unknown;
   readonly violations: unknown[];
   readonly driftScore: number;
+  readonly currentStandard?: unknown;
+  readonly error?: Error | string;
+  readonly drift?: ComplianceDrift;
 }
 
 export interface DriftDetectionTransition {

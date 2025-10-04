@@ -105,6 +105,7 @@ export interface DecisionContext {
   readonly criteria: readonly DecisionCriteria[];
   readonly options: readonly DecisionOption[];
   readonly timestamp: number;
+  readonly uncertainty?: number;
 }
 
 export interface DecisionCriteria {

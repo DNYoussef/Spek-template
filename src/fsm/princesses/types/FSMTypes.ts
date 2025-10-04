@@ -32,7 +32,8 @@ export interface ResearchEvent {
   [key: string]: any;
 }
 export interface ResearchContext {
-  // TODO: Define proper type
+  readonly requirements?: unknown;
+  readonly analysis?: unknown;
   [key: string]: any;
 }
 export interface SecurityState {

@@ -30,6 +30,13 @@ export interface CompatibilityContext extends StateContext {
   readonly checks: CompatibilityCheck[];
   readonly results: CompatibilityResult[];
   readonly degradations: string[];
+  readonly migrationMappings?: Record<string, unknown>;
+  readonly compatibilityStatus?: CompatibilityResult;
+  readonly validationResult?: CompatibilityResult;
+  readonly migrationResult?: CompatibilityResult;
+  readonly legacyDetectorConfig?: Record<string, unknown>;
+  readonly legacyAnalysisConfig?: Record<string, unknown>;
+  readonly lastError?: Error | string;
 }
 
 export interface CompatibilityCheck {
