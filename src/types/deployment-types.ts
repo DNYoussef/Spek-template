@@ -46,6 +46,7 @@ export interface DeploymentStatus {
   readonly startTime: number;
   readonly endTime?: number;
   readonly message?: string;
+  readonly phase?: string;
 }
 
 // Additional exports for deployment management
@@ -57,6 +58,8 @@ export interface DeploymentExecution {
   readonly endTime?: number;
   readonly artifacts: readonly DeploymentArtifact[];
   readonly logs: readonly string[];
+  strategy?: DeploymentStrategy;
+  environment?: DeploymentEnvironment;
 }
 
 export interface DeploymentArtifact {
@@ -91,6 +94,7 @@ export interface Environment {
   readonly active: boolean;
   readonly config: PlatformConfig;
   readonly lastDeployed?: number;
+  readonly type?: string;
 }
 
 export interface PlatformConfig {
@@ -108,6 +112,10 @@ export interface ComplianceCheck {
   readonly status: ComplianceStatus;
   readonly message: string;
   readonly timestamp: number;
+  readonly name?: string;
+  readonly severity?: 'low' | 'medium' | 'high' | 'critical';
+  readonly description?: string;
+  readonly details?: Record<string, unknown>;
 }
 
 export enum ComplianceStatus {
@@ -125,6 +133,10 @@ export interface AuditEvent {
   readonly timestamp: number;
   readonly details: Record<string, unknown>;
   readonly compliance: readonly ComplianceCheck[];
+  readonly outcome?: 'success' | 'failure' | 'partial';
+  readonly actor?: string;
+  readonly resource?: string;
+  readonly action?: string;
 }
 
 // === AGENT FOOTER ===

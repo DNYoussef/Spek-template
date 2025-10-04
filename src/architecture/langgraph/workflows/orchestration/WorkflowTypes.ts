@@ -35,6 +35,7 @@ export interface WorkflowStep {
   stateId: string;
   configuration?: Record<string, any>;
   dependencies?: string[];
+  next?: string | string[];
 }
 
 // Core workflow interfaces
