@@ -222,7 +222,7 @@ export interface SwarmConsensusResult {
   decision?: any;
 }
 
-export interface SwarmHealth {
+export interface SwarmHealthMetrics {
   totalAgents: number;
   healthyAgents: number;
   averageResponseTime: number;
@@ -367,7 +367,7 @@ export type TaskResult = SwarmTaskResult;
 export type Agent = SwarmAgent;
 export type Task = SwarmTask;
 export type ConsensusResult = SwarmConsensusResult;
-export type SwarmHealth = SwarmHealth;
+export type SwarmHealth = SwarmHealthMetrics;
 export type SemanticSimilarityResult = SwarmSemanticSimilarityResult;
 export type MECEAnalysisResult = SwarmMECEAnalysisResult;
 export type WorkflowExecutionOptions = SwarmWorkflowExecutionOptions;
