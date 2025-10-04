@@ -81,6 +81,8 @@ export interface ComplianceRuleViolation {
   detectedAt: Timestamp;
   context: Record<string, any>;
   suggestedFix?: string;
+  violationType?: string;
+  type?: string;
 }
 
 /**
@@ -131,6 +133,8 @@ export interface ComplianceScanResult {
   violations: ComplianceRuleViolation[];
   evidence: ComplianceEvidence[];
   metadata: ScanMetadata;
+  ruleScores?: Record<string, number>;
+  duration?: number;
 }
 
 /**
@@ -143,6 +147,9 @@ export interface BaselineMetadata {
   approvedAt?: Timestamp;
   version: string;
   description: string;
+  environment?: string;
+  assessor?: string;
+  duration?: number;
 }
 
 /**
@@ -153,6 +160,7 @@ export interface BaselineEvidence {
   documentation: string[];
   attestations: Record<string, any>[];
   artifacts: string[];
+  certifications?: string[];
 }
 
 /**
@@ -199,29 +207,40 @@ export interface ComplianceDrift {
   standard?: string;
   driftPercentage?: number;
   timeToViolation?: number;
+  timestamp?: Timestamp;
+  currentScore?: number;
 }
 
 /**
  * Alert Recipient Interface
  */
 export interface AlertRecipient {
-  type: 'email' | 'slack' | 'pagerduty' | 'webhook';
-  target: string;
+  type: 'email' | 'slack' | 'pagerduty' | 'webhook' | 'sms';
+  target?: string;
   escalationLevel: number;
   address: string;
+  acknowledged?: boolean;
+  acknowledgedAt?: Timestamp;
+  acknowledgedBy?: string;
 }
 
 /**
  * Alert Metadata Interface
  */
 export interface AlertMetadata {
-  alertId: string;
-  triggeredBy: string;
-  notificationsSent: number;
+  alertId?: string;
+  triggeredBy?: string;
+  notificationsSent?: number;
   acknowledgedBy?: string;
   acknowledgedAt?: Timestamp;
   resolvedBy?: string;
   resolvedAt?: Timestamp;
+  source?: string;
+  priority?: number;
+  category?: string;
+  correlationId?: string;
+  parentAlertId?: string;
+  childAlertIds?: string[];
 }
 
 /**
@@ -229,16 +248,19 @@ export interface AlertMetadata {
  */
 export interface DriftAlert {
   id: string;
-  driftId: string;
-  level: AlertLevel;
-  message: string;
-  createdAt: Timestamp;
+  driftId?: string;
+  level?: AlertLevel;
+  message?: string;
+  createdAt?: Timestamp;
   recipients: AlertRecipient[];
-  isActive: boolean;
+  isActive?: boolean;
   metadata: AlertMetadata;
   alertLevel?: AlertLevel;
   escalationRequired?: boolean;
   suppressUntil?: Timestamp;
+  timestamp?: Timestamp;
+  drift?: ComplianceDrift;
+  rollbackRecommended?: boolean;
 }
 
 /**
@@ -273,6 +295,7 @@ export interface ImpactAssessment {
   rollbackPossible: boolean;
   riskLevel: 'low' | 'medium' | 'high' | 'critical';
   mitigationSteps: string[];
+  businessImpact?: string;
 }
 
 /**
@@ -289,6 +312,7 @@ export interface RemediationPlan {
   approvalRequired: boolean;
   approvedBy?: string;
   approvedAt?: Timestamp;
+  automated?: boolean;
 }
 
 /**
@@ -307,6 +331,9 @@ export interface RollbackSnapshot {
     verifiedAt?: Timestamp;
     verifiedBy?: string;
   };
+  description?: string;
+  size?: number;
+  checksum?: string;
 }
 
 /**
