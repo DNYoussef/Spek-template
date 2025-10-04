@@ -168,6 +168,9 @@ export interface ComplianceBaseline {
   configuration: Record<string, any>;
   evidence: BaselineEvidence;
   metadata: BaselineMetadata;
+  ruleScores?: Record<string, number>;
+  validUntil?: Timestamp;
+  timestamp?: Timestamp;
 }
 
 /**
@@ -193,6 +196,9 @@ export interface ComplianceDrift {
   trend: DriftTrend;
   rootCause?: string;
   metadata: DriftMetadata;
+  standard?: string;
+  driftPercentage?: number;
+  timeToViolation?: number;
 }
 
 /**
@@ -230,6 +236,9 @@ export interface DriftAlert {
   recipients: AlertRecipient[];
   isActive: boolean;
   metadata: AlertMetadata;
+  alertLevel?: AlertLevel;
+  escalationRequired?: boolean;
+  suppressUntil?: Timestamp;
 }
 
 /**

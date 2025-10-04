@@ -15,6 +15,9 @@ export enum DriftDetectionState {
   ANALYZING = 'ANALYZING',
   DETECTED = 'DETECTED',
   RECOVERING = 'RECOVERING',
+  ALERTING = 'ALERTING',
+  REMEDIATING = 'REMEDIATING',
+  ROLLBACK = 'ROLLBACK',
   ERROR = 'ERROR'
 }
 
@@ -23,6 +26,9 @@ export enum DriftDetectionEvent {
   SCAN_COMPLETE = 'SCAN_COMPLETE',
   DRIFT_DETECTED = 'DRIFT_DETECTED',
   RECOVERY_INITIATED = 'RECOVERY_INITIATED',
+  ALERT_SENT = 'ALERT_SENT',
+  ROLLBACK_TRIGGERED = 'ROLLBACK_TRIGGERED',
+  PROCESS_COMPLETE = 'PROCESS_COMPLETE',
   RESET = 'RESET',
   ERROR_OCCURRED = 'ERROR_OCCURRED'
 }
@@ -40,6 +46,10 @@ export interface DriftDetectionTransition {
   readonly from: DriftDetectionState;
   readonly to: DriftDetectionState;
   readonly event: DriftDetectionEvent;
+  readonly fromState?: DriftDetectionState;
+  readonly toState?: DriftDetectionState;
+  readonly guard?: (context: any) => boolean;
+  readonly action?: (context: any) => Promise<void>;
 }
 
 // Compliance Drift Types
@@ -49,6 +59,10 @@ export interface ComplianceDrift {
   readonly type: string;
   readonly timestamp: number;
   readonly details: Record<string, unknown>;
+  readonly standard?: string;
+  readonly driftPercentage?: number;
+  readonly timeToViolation?: number;
+  readonly metadata?: Record<string, unknown>;
 }
 
 // Rollback System Types
@@ -63,6 +77,9 @@ export interface RollbackSnapshot {
   readonly timestamp: number;
   readonly state: Record<string, unknown>;
   readonly metadata: Record<string, unknown>;
+  readonly description?: string;
+  readonly size?: number;
+  readonly checksum?: string;
 }
 
 export interface RollbackResult {
