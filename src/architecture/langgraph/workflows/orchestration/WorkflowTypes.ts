@@ -350,3 +350,44 @@ export interface RecoveryStep {
   parameters: Record<string, any>;
   validation: string;
 }
+
+// Agent orchestration types (for multi-agent task distribution)
+export interface WorkflowTask {
+  readonly id: string;
+  readonly workflowId: string;
+  readonly type: string;
+  readonly payload: Record<string, unknown>;
+  readonly priority: 'low' | 'medium' | 'high' | 'critical';
+  readonly dependencies: readonly string[];
+  readonly assignedAgent?: string;
+  readonly status: 'pending' | 'assigned' | 'running' | 'completed' | 'failed';
+  readonly createdAt: number;
+  readonly startedAt?: number;
+  readonly completedAt?: number;
+}
+
+export interface AssignmentCriteria {
+  readonly taskType?: string;
+  readonly requiredCapabilities?: readonly string[];
+  readonly preferredAgent?: string;
+  readonly excludeAgents?: readonly string[];
+  readonly loadBalancing?: 'round-robin' | 'least-loaded' | 'capability-match';
+  readonly maxConcurrentTasks?: number;
+}
+
+/**
+ * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
+ * ## Version & Run Log
+ * | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+ * |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+ * | 1.0.0   | 2025-10-03T00:00:00-04:00 | coder@sonnet-4.5 | Create comprehensive WorkflowTypes | WorkflowTypes.ts | OK | FSM workflow orchestration types | 0.00 | b9d2e3f |
+ * | 1.1.0   | 2025-10-04T00:30:00-04:00 | coder@sonnet-4.5 | Add WorkflowTask, AssignmentCriteria for agent orchestration | WorkflowTypes.ts | OK | Type Consolidation Phase 3 - TS2305 fixes | 0.00 | e7c5a2d |
+ * ### Receipt
+ * - status: OK
+ * - reason_if_blocked: --
+ * - run_id: type-consolidation-phase3-workflow
+ * - inputs: ["WorkflowTypes.ts"]
+ * - tools_used: ["Read", "Edit"]
+ * - versions: {"model":"claude-sonnet-4-5-20250929","prompt":"type-consolidation-ts2305-phase3"}
+ * AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE
+ */
