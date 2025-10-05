@@ -13,7 +13,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const CANONICAL_IMPORT = "import { ValidationResult } from '~/types/validation-types';";
+const CANONICAL_IMPORT = "import { ValidationResult } from '~types/validation-types';";
 
 /**
  * Find the complete interface block (export interface ValidationResult { ... })
@@ -78,10 +78,12 @@ function findImportInsertPosition(content) {
  * Check if file already has canonical import
  */
 function hasCanonicalImport(content) {
-  return content.includes("from '~/types/validation-types'") ||
-         content.includes('from "~/types/validation-types"') ||
+  return content.includes("from '~types/validation-types'") ||
+         content.includes('from "~types/validation-types"') ||
          content.includes("from '@/types/validation-types'") ||
-         content.includes('from "../types/validation-types"');
+         content.includes('from "../types/validation-types"') ||
+         content.includes("from '~/types/validation-types'") ||
+         content.includes('from "~/types/validation-types"');
 }
 
 /**

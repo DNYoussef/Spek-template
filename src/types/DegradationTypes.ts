@@ -5,6 +5,7 @@
 
 import { Timestamp, Score } from './base/primitives';
 import { MetricsCollector } from './base/shared';
+import { ValidationResult } from './validation-types';
 
 // Degradation Detection
 export interface DegradationIndicator {
@@ -174,13 +175,7 @@ export enum TrendType {
   CRITICAL_DEGRADATION = 'CRITICAL_DEGRADATION'
 }
 
-export interface ValidationResult {
-  readonly valid: boolean;
-  readonly errors: readonly string[];
-  readonly warnings: readonly string[];
-  readonly score: Score;
-  readonly checksum?: string;
-}
+
 
 export enum RecoveryType {
   AUTOMATIC = 'AUTOMATIC',

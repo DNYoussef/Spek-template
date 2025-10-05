@@ -4,6 +4,7 @@
  */
 
 import { Timestamp, Milliseconds } from './primitives';
+import { ValidationResult } from '../validation-types';
 
 // PRODUCTION: Shared configuration types
 export interface SharedConfig {
@@ -43,12 +44,7 @@ export interface StateContext {
 }
 
 // PRODUCTION: Validation result type
-export interface ValidationResult {
-  readonly valid: boolean;
-  readonly errors?: readonly string[];
-  readonly warnings?: readonly string[];
-  readonly details?: Record<string, unknown>;
-}
+
 
 // PRODUCTION: Metrics collector interface
 export interface MetricsCollector {

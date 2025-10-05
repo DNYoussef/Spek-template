@@ -4,6 +4,7 @@
  */
 
 import { ConfigPath, ConfigValue, ValidationPath, ValidationError, Timestamp, FilePath, FileHash } from './primitives';
+import { ValidationResult } from '../validation-types';
 
 // Generic result types to replace 'any' returns
 export interface Result<T = unknown, E = Error> {
@@ -43,12 +44,7 @@ export interface OverrideCondition {
 }
 
 // Validation result types
-export interface ValidationResult {
-  readonly valid: boolean;
-  readonly errors: ValidationError[];
-  readonly warnings: ValidationWarning[];
-  readonly metadata: ValidationMetadata;
-}
+
 
 export interface ValidationWarning {
   readonly path: ValidationPath;

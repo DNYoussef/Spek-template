@@ -1,3 +1,5 @@
+import { ValidationResult } from './validation-types';
+
 /**
  * DatasetTypes.ts - Dataset Management Type Definitions
  * @stub true
@@ -75,12 +77,7 @@ export interface PerformanceMetrics {
   readonly timestamp?: number;
 }
 
-export interface ValidationResult {
-  readonly valid: boolean;
-  readonly errors: readonly string[];
-  readonly warnings: readonly string[];
-  readonly score: number;
-}
+
 
 export interface ScoringResult {
   readonly score: number;
