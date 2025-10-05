@@ -354,7 +354,7 @@ export class PhaseTransitionManagerFacade extends EventEmitter {
 
     this.phaseMonitor.startMonitoring(
       () => this.core.getActivePhaseExecutions(),
-      (metrics) => {
+      (metrics: unknown) => {
         this.emit('phase:metrics-updated', { metrics });
       }
     );
@@ -373,7 +373,7 @@ export class PhaseTransitionManagerFacade extends EventEmitter {
 
     this.transitionMonitor.startMonitoring(
       () => this.core.getActiveTransitionExecutions(),
-      (metrics) => {
+      (metrics: unknown) => {
         this.emit('transition:metrics-updated', { metrics });
       }
     );

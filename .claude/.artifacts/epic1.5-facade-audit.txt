@@ -1,0 +1,198 @@
+=== FACADE IMPORT ERROR ANALYSIS ===
+
+FILE: src/architecture/langgraph/queen/core/QueenCoordinator.ts
+  IMPORT: ../state-machines/PrincessStateMachineFacade
+  ACTUAL: src/architecture/langgraph/state-machines/PrincessStateMachineFacade.ts
+
+FILE: src/context/AdaptiveThresholdManager.ts
+  IMPORT: ./AdaptiveThresholdManagerFacade
+  ACTUAL: src/facades/AdaptiveThresholdManagerFacade.ts
+
+FILE: src/context/AdaptiveThresholdManager.ts
+  IMPORT: ./AdaptiveThresholdManagerFacade
+  ACTUAL: src/facades/AdaptiveThresholdManagerFacade.ts
+
+FILE: src/domains/quality-gates/integrations/ArtifactSystemIntegrationFSM.ts
+  IMPORT: ./ArtifactSystemIntegrationFSMFacade
+  ACTUAL: src/orchestration/integration/ArtifactSystemIntegrationFSMFacade.ts
+
+FILE: src/domains/quality-gates/integrations/ArtifactSystemIntegrationFSM.ts
+  IMPORT: ./ArtifactSystemIntegrationFSMFacade
+  ACTUAL: src/orchestration/integration/ArtifactSystemIntegrationFSMFacade.ts
+
+FILE: src/fsm/monitoring/StateTransitionMonitor.ts
+  IMPORT: ./StateTransitionMonitorFacade
+  ACTUAL: src/monitoring/StateTransitionMonitorFacade.ts
+
+FILE: src/fsm/monitoring/StateTransitionMonitor.ts
+  IMPORT: ./StateTransitionMonitorFacade
+  ACTUAL: src/monitoring/StateTransitionMonitorFacade.ts
+
+FILE: src/memory/optimization/MemoryOptimizer.ts
+  IMPORT: ./MemoryOptimizerFacade
+  ACTUAL: src/memory/MemoryOptimizerFacade.ts
+
+FILE: src/memory/optimization/MemoryOptimizer.ts
+  IMPORT: ./MemoryOptimizerFacade
+  ACTUAL: src/memory/MemoryOptimizerFacade.ts
+
+FILE: src/migration/planning/risk/reporting/core/ReportGeneratorCore.ts
+  IMPORT: ./ReportGeneratorCoreFacade
+  ACTUAL: src/facades/ReportGeneratorCoreFacade.ts
+
+FILE: src/migration/planning/risk/reporting/core/ReportGeneratorCore.ts
+  IMPORT: ./ReportGeneratorCoreFacade
+  ACTUAL: src/facades/ReportGeneratorCoreFacade.ts
+
+FILE: src/migration/planning/strategy/MigrationPlanner.ts
+  IMPORT: ./MigrationPlannerFacade
+  ACTUAL: src/migration/core/MigrationPlanner-fsm/MigrationPlannerFacade.ts
+
+FILE: src/migration/planning/strategy/MigrationPlanner.ts
+  IMPORT: ./MigrationPlannerFacade
+  ACTUAL: src/migration/core/MigrationPlanner-fsm/MigrationPlannerFacade.ts
+
+FILE: src/orchestration/agents/components/AgentMonitor.ts
+  IMPORT: ./AgentMonitorFacade
+  ACTUAL: src/orchestration/agents/AgentMonitorFacade.ts
+
+FILE: src/orchestration/agents/components/AgentMonitor.ts
+  IMPORT: ./AgentMonitorFacade
+  ACTUAL: src/orchestration/agents/AgentMonitorFacade.ts
+
+FILE: src/orchestration/agents/core/CoordinationHub.ts
+  IMPORT: ./CoordinationHubFacade
+  ACTUAL: src/facades/CoordinationHubFacade.ts
+
+FILE: src/orchestration/agents/core/CoordinationHub.ts
+  IMPORT: ./CoordinationHubFacade
+  ACTUAL: src/facades/CoordinationHubFacade.ts
+
+FILE: src/orchestration/agents/core/WorkflowExecutor.ts
+  IMPORT: ./WorkflowExecutorFacade
+  ACTUAL: src/architecture/langgraph/workflows/orchestration/WorkflowExecutorFacade.ts
+
+FILE: src/orchestration/agents/core/WorkflowExecutor.ts
+  IMPORT: ./WorkflowExecutorFacade
+  ACTUAL: src/architecture/langgraph/workflows/orchestration/WorkflowExecutorFacade.ts
+
+FILE: src/orchestration/quality/CompilationErrorResolver.ts
+  IMPORT: ./CompilationErrorResolverFacade
+  ACTUAL: src/facades/CompilationErrorResolverFacade.ts
+
+FILE: src/orchestration/quality/CompilationErrorResolver.ts
+  IMPORT: ./CompilationErrorResolverFacade
+  ACTUAL: src/facades/CompilationErrorResolverFacade.ts
+
+FILE: src/performance/benchmarker/CICDPerformanceBenchmarker.ts
+  IMPORT: ./CICDPerformanceBenchmarkerFacade
+  ACTUAL: src/cicd/CICDPerformanceBenchmarkerFacade.ts
+
+FILE: src/performance/benchmarking/AdaptivePerformanceOptimizer.ts
+  IMPORT: ./AdaptivePerformanceOptimizerFacade
+  ACTUAL: src/performance/AdaptivePerformanceOptimizerFacade.ts
+
+FILE: src/performance/benchmarking/AdaptivePerformanceOptimizer.ts
+  IMPORT: ./AdaptivePerformanceOptimizerFacade
+  ACTUAL: src/performance/AdaptivePerformanceOptimizerFacade.ts
+
+FILE: src/performance/cli/BenchmarkCLI.ts
+  IMPORT: ./BenchmarkCLIFacade
+  ACTUAL: src/performance/benchmarker/BenchmarkCLIFacade.ts
+
+FILE: src/performance/cli/BenchmarkCLI.ts
+  IMPORT: ./BenchmarkCLIFacade
+  ACTUAL: src/performance/benchmarker/BenchmarkCLIFacade.ts
+
+FILE: src/performance/reporting/ReportGenerator.ts
+  IMPORT: ./ReportGeneratorFacade
+  ACTUAL: src/migration/planning/risk/reporting/ReportGeneratorFacade.ts
+
+FILE: src/performance/reporting/ReportGenerator.ts
+  IMPORT: ./ReportGeneratorFacade
+  ACTUAL: src/migration/planning/risk/reporting/ReportGeneratorFacade.ts
+
+FILE: src/princesses/deployment/CICDPipelineManager.ts
+  IMPORT: ./CICDPipelineManagerFacade
+  ACTUAL: src/cicd/CICDPipelineManagerFacade.ts
+
+FILE: src/princesses/deployment/CICDPipelineManager.ts
+  IMPORT: ./CICDPipelineManagerFacade
+  ACTUAL: src/cicd/CICDPipelineManagerFacade.ts
+
+FILE: src/protocols/security/CommunicationSecurity.ts
+  IMPORT: ./CommunicationSecurityFacade
+  ACTUAL: src/architecture/langgraph/communication/CommunicationSecurityFacade.ts
+
+FILE: src/protocols/security/CommunicationSecurity.ts
+  IMPORT: ./CommunicationSecurityFacade
+  ACTUAL: src/architecture/langgraph/communication/CommunicationSecurityFacade.ts
+
+FILE: src/routing/components/ContextStore.ts
+  IMPORT: ./ContextStoreFacade
+  ACTUAL: src/context/ContextStoreFacade.ts
+
+FILE: src/routing/components/ContextStore.ts
+  IMPORT: ./ContextStoreFacade
+  ACTUAL: src/context/ContextStoreFacade.ts
+
+FILE: src/swarm/coordination/ConflictResolver.ts
+  IMPORT: ./ConflictResolverFacade
+  ACTUAL: src/facades/ConflictResolverFacade.ts
+
+FILE: src/swarm/coordination/PrincessCoordinator.ts
+  IMPORT: ./PrincessCoordinatorFacade
+  ACTUAL: src/princesses/PrincessCoordinatorFacade.ts
+
+FILE: src/swarm/coordination/PrincessCoordinator.ts
+  IMPORT: ./PrincessCoordinatorFacade
+  ACTUAL: src/princesses/PrincessCoordinatorFacade.ts
+
+FILE: src/swarm/hierarchy/CodexQualityEnhancer.ts
+  IMPORT: ./CodexQualityEnhancerFacade
+  ACTUAL: src/codex/CodexQualityEnhancerFacade.ts
+
+FILE: src/swarm/hierarchy/CodexQualityEnhancer.ts
+  IMPORT: ./CodexQualityEnhancerFacade
+  ACTUAL: src/codex/CodexQualityEnhancerFacade.ts
+
+FILE: src/swarm/hierarchy/CodexSandboxValidator.ts
+  IMPORT: ./CodexSandboxValidatorFacade
+  ACTUAL: src/codex/CodexSandboxValidatorFacade.ts
+
+FILE: src/swarm/hierarchy/CodexSandboxValidator.ts
+  IMPORT: ./CodexSandboxValidatorFacade
+  ACTUAL: src/codex/CodexSandboxValidatorFacade.ts
+
+FILE: src/swarm/hierarchy/CodexTheaterAuditor.ts
+  IMPORT: ./CodexTheaterAuditorFacade
+  ACTUAL: src/codex/CodexTheaterAuditorFacade.ts
+
+FILE: src/swarm/hierarchy/CodexTheaterAuditor.ts
+  IMPORT: ./CodexTheaterAuditorFacade
+  ACTUAL: src/codex/CodexTheaterAuditorFacade.ts
+
+FILE: src/swarm/hierarchy/CoordinationPrincess.ts
+  IMPORT: ./CoordinationPrincessFacade
+  ACTUAL: src/princesses/CoordinationPrincessFacade.ts
+
+FILE: src/swarm/hierarchy/CoordinationPrincess.ts
+  IMPORT: ./CoordinationPrincessFacade
+  ACTUAL: src/princesses/CoordinationPrincessFacade.ts
+
+FILE: src/swarm/orchestration/WorkflowMonitor.ts
+  IMPORT: ./WorkflowMonitorFacade
+  ACTUAL: src/architecture/langgraph/workflows/orchestration/WorkflowMonitorFacade.ts
+
+FILE: src/swarm/orchestration/WorkflowMonitor.ts
+  IMPORT: ./WorkflowMonitorFacade
+  ACTUAL: src/architecture/langgraph/workflows/orchestration/WorkflowMonitorFacade.ts
+
+FILE: src/swarm/orchestration/WorkflowValidator.ts
+  IMPORT: ./WorkflowValidatorFacade
+  ACTUAL: src/architecture/langgraph/workflows/orchestration/WorkflowValidatorFacade.ts
+
+FILE: src/swarm/orchestration/WorkflowValidator.ts
+  IMPORT: ./WorkflowValidatorFacade
+  ACTUAL: src/architecture/langgraph/workflows/orchestration/WorkflowValidatorFacade.ts
+

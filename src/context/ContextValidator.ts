@@ -132,7 +132,7 @@ export class ContextValidator {
 
   constructor() {
     this.validationCore = new ContextValidationCore();
-    this.initializePlaneConnection().catch(error => {
+    this.initializePlaneConnection().catch((error: unknown) => {
       console.error('Validation initialization failed:', error);
     });
   }

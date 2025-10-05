@@ -248,7 +248,7 @@ export class SystemWideValidator {
     ];
 
     const results = await Promise.all(complianceChecks);
-    const overallCompliance = results.reduce((sum, score) => sum + score, 0) / results.length;
+    const overallCompliance = results.reduce((sum: number, score: number) => sum + score, 0) / results.length;
 
     return overallCompliance;
   }

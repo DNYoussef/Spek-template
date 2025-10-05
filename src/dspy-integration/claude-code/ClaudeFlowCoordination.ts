@@ -411,7 +411,7 @@ export class ClaudeFlowCoordinator {
 
     // Execute through hierarchy
     const executionResults = await Promise.all(
-      optimizedDistribution.map(cmd => this.delegateToPrincess(cmd))
+      optimizedDistribution.map((cmd: unknown) => this.delegateToPrincess(cmd))
     );
 
     return {
@@ -461,7 +461,7 @@ export class ClaudeFlowCoordinator {
 
     // Execute drone tasks
     const droneResults = await Promise.all(
-      optimizedAssignments.map(assignment => this.assignToDrone(assignment))
+      optimizedAssignments.map((assignment: unknown) => this.assignToDrone(assignment))
     );
 
     return {

@@ -124,11 +124,11 @@ export class EventBus {
    * NASA Rule 10: ≤60 lines, bounded setup
    */
   private setupEventForwarding(): void {
-    this.eventFSM.on('event_processed', (data) => {
+    this.eventFSM.on('event_processed', (data: unknown) => {
       // Forward processed events for legacy compatibility
     });
 
-    this.eventFSM.on('event_error', (data) => {
+    this.eventFSM.on('event_error', (data: unknown) => {
       // Forward error events for legacy compatibility
     });
   }

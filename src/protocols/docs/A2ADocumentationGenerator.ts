@@ -213,15 +213,15 @@ export class A2ADocumentationGenerator extends EventEmitter {
   }
 
   private setupFSMEventForwarding(): void {
-    this.fsm.on('documentationGenerated', (data) => {
+    this.fsm.on('documentationGenerated', (data: unknown) => {
       this.emit('documentationGenerated', data);
     });
 
-    this.fsm.on('validationComplete', (data) => {
+    this.fsm.on('validationComplete', (data: unknown) => {
       this.emit('validationComplete', data);
     });
 
-    this.fsm.on('exportComplete', (data) => {
+    this.fsm.on('exportComplete', (data: unknown) => {
       this.emit('exportComplete', data);
     });
   }

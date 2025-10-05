@@ -73,11 +73,11 @@ export class StateEventDispatcher extends EventEmitter {
    * NASA Rule 10: ≤60 lines, bounded setup
    */
   private setupEventForwarding(): void {
-    this.eventFSM.on('event_processed', (data) => {
+    this.eventFSM.on('event_processed', (data: unknown) => {
       this.emit('eventProcessed', data);
     });
 
-    this.eventFSM.on('event_error', (data) => {
+    this.eventFSM.on('event_error', (data: unknown) => {
       this.emit('eventError', data);
     });
   }

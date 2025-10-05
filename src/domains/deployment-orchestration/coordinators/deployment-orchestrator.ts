@@ -49,11 +49,11 @@ export class DeploymentOrchestrator {
    */
   private async initializeOrchestrator(): Promise<void> {
     // Set up cross-component event handling
-    this.rollbackSystem.onRollbackTriggered(async (deploymentId, reason) => {
+    this.rollbackSystem.onRollbackTriggered(async (deploymentId: unknown, reason) => {
       await this.handleAutoRollback(deploymentId, reason);
     });
 
-    this.multiEnvCoordinator.onEnvironmentStatusChange(async (env, status) => {
+    this.multiEnvCoordinator.onEnvironmentStatusChange(async (env: unknown, status) => {
       await this.handleEnvironmentStatusChange(env, status);
     });
 

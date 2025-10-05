@@ -43,7 +43,7 @@ export class RealWebSocketServer {
     try {
       this.server = new WebSocket.Server({
         port: this.port,
-        verifyClient: (info) => this.verifyClient(info)
+        verifyClient: (info: unknown) => this.verifyClient(info)
       });
 
       this.setupServerHandlers();

@@ -263,7 +263,7 @@ export class TransitionHub {
         from: AnalysisState.FAILED,
         event: AnalysisEvent.RETRY_OPERATION,
         to: AnalysisState.ANALYZING,
-        guard: (ctx) => ctx.retryCount < 3 // Max retries
+        guard: (ctx: unknown) => ctx.retryCount < 3 // Max retries
       }
     ];
   }

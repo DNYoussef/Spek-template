@@ -81,14 +81,14 @@ export class ComponentDependencyResolver extends EventEmitter {
 
     for (let i = 0; i < maxComponents; i++) {
       const component = components[i];
-      component.on('error', (error) => this.emit('error', error));
+      component.on('error', (error: unknown) => this.emit('error', error));
 
       // Forward specific events with namespace
-      component.on('graph:build_started', (data) => this.emit('dependency:graph_building_started', data));
-      component.on('graph:build_completed', (data) => this.emit('dependency:graph_built', data));
-      component.on('circular:detection_started', (data) => this.emit('dependency:circular_detection_started', data));
-      component.on('plan:creation_started', (data) => this.emit('dependency:plan_creation_started', data));
-      component.on('execution:started', (data) => this.emit('dependency:plan_execution_started', data));
+      component.on('graph:build_started', (data: unknown) => this.emit('dependency:graph_building_started', data));
+      component.on('graph:build_completed', (data: unknown) => this.emit('dependency:graph_built', data));
+      component.on('circular:detection_started', (data: unknown) => this.emit('dependency:circular_detection_started', data));
+      component.on('plan:creation_started', (data: unknown) => this.emit('dependency:plan_creation_started', data));
+      component.on('execution:started', (data: unknown) => this.emit('dependency:plan_execution_started', data));
     }
   }
 
@@ -177,7 +177,7 @@ export class ComponentDependencyResolver extends EventEmitter {
     this.activeExecutions.set(execution.executionId, execution);
 
     // Setup completion handler
-    this.executor.once('execution:completed', (data) => {
+    this.executor.once('execution:completed', (data: unknown) => {
       if (data.executionId === execution.executionId) {
         this.activeExecutions.delete(execution.executionId);
         this.executionHistory.push(execution);

@@ -293,7 +293,7 @@ export class SystemIntegrationOrchestratorFSM extends EventEmitter {
       this.emit('integration:dependency_resolved', data);
     });
 
-    this.conflictEngine.on('conflict:detected', (conflict) => {
+    this.conflictEngine.on('conflict:detected', (conflict: unknown) => {
       this.handleConflictDetected(conflict);
     });
   }

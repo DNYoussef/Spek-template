@@ -353,7 +353,7 @@ export class QueenOrchestrator extends EventEmitter {
     });
 
     // Degradation events
-    this.degradationMonitor.on('degradation:critical', (data) => {
+    this.degradationMonitor.on('degradation:critical', (data: unknown) => {
       console.error(` Critical degradation detected:`, data);
       this.initiateRecovery();
     });

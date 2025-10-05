@@ -245,7 +245,7 @@ declare global {
 }
 
 expect.extend({
-  toBeOneOf(received, expected) {
+  toBeOneOf(received: unknown, expected) {
     const pass = expected.includes(received);
     if (pass) {
       return {

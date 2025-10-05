@@ -52,7 +52,7 @@ export class RiskWebSocketServer extends EventEmitter {
     // Create WebSocket server
     this.server = new WebSocket.Server({ 
       port: this.port,
-      verifyClient: (info) => {
+      verifyClient: (info: unknown) => {
         // Add authentication/authorization logic here if needed
         return true;
       }

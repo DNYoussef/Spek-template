@@ -494,7 +494,7 @@ export class MCPBridge extends EventEmitter {
       this.emit('serverHealthChanged', server);
     });
 
-    this.failoverManager.on('failoverExecuted', (event) => {
+    this.failoverManager.on('failoverExecuted', (event: unknown) => {
       this.logger.info('Failover executed', event);
       this.emit('failoverExecuted', event);
     });

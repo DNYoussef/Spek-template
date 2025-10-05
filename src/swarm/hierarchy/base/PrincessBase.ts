@@ -76,16 +76,16 @@ export abstract class PrincessBase extends EventEmitter {
    * Setup audit event listeners
    */
   protected setupAuditListeners(): void {
-    this.auditGate.on('audit:work_rejected', async (data) => {
+    this.auditGate.on('audit:work_rejected', async (data: unknown) => {
       console.log(`[${this.domainName}] Work rejected for ${data.subagentId}`);
       await this.sendWorkBackToSubagent(data.subagentId, data.auditResult);
     });
 
-    this.auditGate.on('completion:recorded', (result) => {
+    this.auditGate.on('completion:recorded', (result: unknown) => {
       console.log(`[${this.domainName}] Completion recorded: ${result.issueId}`);
     });
 
-    this.auditGate.on('audit:theater_found', (detection) => {
+    this.auditGate.on('audit:theater_found', (detection: unknown) => {
       console.log(`[${this.domainName}] Theater detected! Immediate action required.`);
     });
   }

@@ -73,10 +73,10 @@ export class QualityGateOrchestrator extends EventEmitter {
     this.core.on('sequence:completed', (data) => this.emit('sequence:completed', data));
 
     // Forward monitoring events
-    this.monitor.on('metrics:collected', (data) => this.emit('sequence:log', data));
+    this.monitor.on('metrics:collected', (data: unknown) => this.emit('sequence:log', data));
 
     // Forward processor events
-    this.processor.on('processor:gate_started', (data) => this.emit('gate:execution_started', data));
+    this.processor.on('processor:gate_started', (data: unknown) => this.emit('gate:execution_started', data));
   }
 
   /**

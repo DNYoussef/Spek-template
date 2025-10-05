@@ -149,10 +149,10 @@ export class IntegrationApiServer extends EventEmitter {
    */
   private setupEventForwarding(): void {
     // Forward all events from FSM facade to maintain compatibility
-    this.fsmFacade.on('server_started', (data) => this.emit('server_started', data));
+    this.fsmFacade.on('server_started', (data: unknown) => this.emit('server_started', data));
     this.fsmFacade.on('server_stopped', () => this.emit('server_stopped'));
-    this.fsmFacade.on('request_processed', (data) => this.emit('api_request', data));
-    this.fsmFacade.on('request_error', (data) => this.emit('api_error', data));
+    this.fsmFacade.on('request_processed', (data: unknown) => this.emit('api_request', data));
+    this.fsmFacade.on('request_error', (data: unknown) => this.emit('api_error', data));
   }
 
   // HTTP handlers are now managed by FSM facade - no implementation needed here

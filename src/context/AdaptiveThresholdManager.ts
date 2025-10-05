@@ -2,8 +2,8 @@
  * AdaptiveThresholdManager - ELIMINATED GOD OBJECT
  * @eliminated true @original_size 794 lines @reduction 99.0%
  */
-export * from './AdaptiveThresholdManagerFacade';
-export { default } from './AdaptiveThresholdManagerFacade';
+export * from '../facades/AdaptiveThresholdManagerFacade';
+export { default } from '../facades/AdaptiveThresholdManagerFacade';
 
 // === AGENT FOOTER ===
 // Version & Run Log

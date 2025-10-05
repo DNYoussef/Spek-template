@@ -258,15 +258,15 @@ export class GitHubProjectIntegration extends EventEmitter {
    * Setup event forwarding from FSM to this facade
    */
   private setupEventForwarding(): void {
-    this.fsm.on('projectEvent', (event) => {
+    this.fsm.on('projectEvent', (event: unknown) => {
       this.emit('projectEvent', event);
     });
 
-    this.fsm.on('operationComplete', (result) => {
+    this.fsm.on('operationComplete', (result: unknown) => {
       this.emit('operationComplete', result);
     });
 
-    this.fsm.on('operationFailed', (error) => {
+    this.fsm.on('operationFailed', (error: unknown) => {
       this.emit('operationFailed', error);
     });
   }

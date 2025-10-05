@@ -37,7 +37,7 @@ export class MigrationImpactAnalyzer extends EventEmitter {
                    'systemAnalysisStarted', 'riskAssessmentStarted', 'dependencyAnalysisStarted',
                    'planningStarted', 'workflowStateChanged', 'componentFailure'];
 
-    events.forEach(event => this.facade.on(event, (data) => this.emit(event, data)));
+    events.forEach(event => this.facade.on(event, (data: unknown) => this.emit(event, data)));
   }
 
   // Status and cancellation delegated to facade

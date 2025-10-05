@@ -92,7 +92,7 @@ export class StateGuardValidator {
       condition: (context: FSMContext) => {
         const requiredDeps = context.metadata.requiredDependencies || [];
         const availableDeps = context.data.availableDependencies || [];
-        return requiredDeps.every(dep => availableDeps.includes(dep));
+        return requiredDeps.every((dep: unknown) => availableDeps.includes(dep));
       },
       errorMessage: 'Required dependencies not available'
     };

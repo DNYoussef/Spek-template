@@ -405,11 +405,11 @@ export class WorkflowExecutorFSM extends EventEmitter {
     });
 
     // Forward agent facade events
-    this.agentFacade.on('agent:spawned', (data) => {
+    this.agentFacade.on('agent:spawned', (data: unknown) => {
       this.emit('agent:spawned', data);
     });
 
-    this.agentFacade.on('agent:terminated', (data) => {
+    this.agentFacade.on('agent:terminated', (data: unknown) => {
       this.emit('agent:terminated', data);
     });
 

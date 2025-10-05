@@ -48,15 +48,15 @@ export class MigrationValidator extends EventEmitter {
     }
 
     // Forward all analysis events
-    this.analysisHub.on('analysis:stateChange', (state) => {
+    this.analysisHub.on('analysis:stateChange', (state: unknown) => {
       this.emit('validation:stateChange', state);
     });
 
-    this.analysisHub.on('analysis:complete', (result) => {
+    this.analysisHub.on('analysis:complete', (result: unknown) => {
       this.emit('validation:complete', this.convertToValidationResult(result));
     });
 
-    this.analysisHub.on('analysis:error', (error) => {
+    this.analysisHub.on('analysis:error', (error: unknown) => {
       this.emit('validation:error', error);
     });
 

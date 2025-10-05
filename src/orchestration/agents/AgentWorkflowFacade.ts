@@ -407,11 +407,11 @@ export class AgentWorkflowFacade extends EventEmitter {
    */
   private setupEventForwarding(): void {
     // Forward events from workflow executor
-    this.workflowExecutor.on('workflow:completed', (data) => {
+    this.workflowExecutor.on('workflow:completed', (data: unknown) => {
       this.emit('workflow:completed', data);
     });
 
-    this.workflowExecutor.on('workflow:cancelled', (data) => {
+    this.workflowExecutor.on('workflow:cancelled', (data: unknown) => {
       this.emit('workflow:cancelled', data);
     });
 
@@ -436,7 +436,7 @@ export class AgentWorkflowFacade extends EventEmitter {
 
     if (completedWorkflows.length === 0) return 0;
 
-    const totalDuration = completedWorkflows.reduce((sum, w) => sum + (w.endTime! - w.startTime), 0);
+    const totalDuration = completedWorkflows.reduce((sum: number, w) => sum + (w.endTime! - w.startTime), 0);
     const average = totalDuration / completedWorkflows.length;
 
     assert(average >= 0, 'Average duration must be non-negative');

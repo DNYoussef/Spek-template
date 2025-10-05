@@ -331,7 +331,7 @@ export class IntegrationExecutor extends EventEmitter implements ComponentStateC
     phase: IntegrationPhase,
     phaseExecution: PhaseExecution
   ): Promise<void> {
-    const componentPromises = phase.components.map(async (component) => {
+    const componentPromises = phase.components.map(async (component: unknown) => {
       try {
         const result = await this.executeComponent(component);
         phaseExecution.componentResults.set(component.componentId, result);

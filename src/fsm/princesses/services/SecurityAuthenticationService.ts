@@ -79,7 +79,7 @@ export class SecurityAuthenticationService {
             cwd: projectPath,
             ignore: ['node_modules/**', 'dist/**', 'build/**']
           });
-          files.push(...matches.map(file => path.join(projectPath, file)));
+          files.push(...matches.map((file: unknown) => path.join(projectPath, file)));
         } catch (error) {
           // Continue with other patterns if one fails
         }

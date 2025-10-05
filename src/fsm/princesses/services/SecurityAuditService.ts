@@ -340,7 +340,7 @@ export class SecurityAuditService {
             cwd: projectPath,
             ignore: ['node_modules/**']
           });
-          files.push(...matches.map(file => path.join(projectPath, file)));
+          files.push(...matches.map((file: unknown) => path.join(projectPath, file)));
         } catch {
           // Continue with next pattern
         }
