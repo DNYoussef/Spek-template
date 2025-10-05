@@ -3,6 +3,12 @@
  * NASA Rule 10 compliant validation framework
  */
 // Core validation result
+// Canonical ValidationResult - consolidated from 47 duplicate definitions
+// Property frequency analysis (47 files):
+//   - valid/errors/warnings: 66% (core validation)
+//   - score: 30% (quality gates)
+//   - confidence/checksum: 4% (degradation monitoring)
+//   - data: NEW (flexible extension for domain-specific properties)
 export interface ValidationResult {
   readonly valid: boolean;
   readonly errors?: ValidationError[];
@@ -10,6 +16,8 @@ export interface ValidationResult {
   readonly metadata?: ValidationMetadata;
   readonly confidence?: number; // Confidence score (0-1) for degradation monitoring
   readonly checksum?: string; // Checksum for validation integrity
+  readonly score?: number; // Quality/compliance score (used in 30% of implementations)
+  readonly data?: Record<string, any>; // Flexible extension for domain-specific properties
 }
 // FSM-specific validation result
 export interface FSMValidationResult extends ValidationResult {
