@@ -34,7 +34,7 @@ export interface AnalysisRequest {
   content: SearchResult[];
   analysisType: 'qualitative' | 'quantitative' | 'mixed';
   options: AnalysisOptions;
-  context: AnalysisContext;
+  context: ResearchAnalysisContext;
 }
 
 export interface AnalysisOptions {
@@ -46,7 +46,7 @@ export interface AnalysisOptions {
   maxDepth: number;
 }
 
-export interface AnalysisContext {
+export interface ResearchAnalysisContext {
   domain: string;
   purpose: string;
   audience: 'academic' | 'technical' | 'general';

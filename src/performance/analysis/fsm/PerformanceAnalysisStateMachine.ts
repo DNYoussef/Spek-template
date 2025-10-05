@@ -40,8 +40,8 @@ export enum AnalysisEvent {
   RESET = 'RESET'
 }
 
-// Analysis Context for FSM
-export interface AnalysisContext {
+// Analysis Context for Performance FSM
+export interface PerformanceAnalysisContext {
   results: BenchmarkResult[];
   summary?: PerformanceSummary;
   statistics?: StatisticalAnalysis;

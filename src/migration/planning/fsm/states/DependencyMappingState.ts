@@ -5,10 +5,10 @@
 
 import { BaseStateHandler } from '../core/BaseStateHandler';
 import {
-  AnalysisContext,
+  MigrationAnalysisContext,
   AnalysisEvent,
   DependencyAnalysisResult
-} from '~types/AnalysisTypes';
+} from '../types/AnalysisTypes';
 
 function assert(condition: any, message: string): asserts condition {
   if (!condition) {
@@ -25,7 +25,7 @@ export class DependencyMappingState extends BaseStateHandler {
     super('DEPENDENCY_MAPPING');
   }
 
-  protected async onEnter(context: AnalysisContext): Promise<void> {
+  protected async onEnter(context: MigrationAnalysisContext): Promise<void> {
     assert(context.riskAnalysis, 'Risk analysis required for dependency mapping');
     assert(context.systemAnalysis, 'System analysis required');
 
@@ -40,7 +40,7 @@ export class DependencyMappingState extends BaseStateHandler {
 
   protected async processEvent(
     event: AnalysisEvent,
-    context: AnalysisContext
+    context: MigrationAnalysisContext
   ): Promise<AnalysisEvent | null> {
     assert(context, 'Context required');
     assert(event, 'Event required');
@@ -63,7 +63,7 @@ export class DependencyMappingState extends BaseStateHandler {
     }
   }
 
-  checkInvariants(context: AnalysisContext): boolean {
+  checkInvariants(context: MigrationAnalysisContext): boolean {
     assert(context, 'Context required for invariant check');
 
     const hasRiskAnalysis = context.riskAnalysis !== undefined;
@@ -79,7 +79,7 @@ export class DependencyMappingState extends BaseStateHandler {
     return allInvariantsMet;
   }
 
-  private async handleDependencyMapping(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleDependencyMapping(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     assert(context.systemAnalysis, 'System analysis required');
 
     this.logger.info('Performing dependency mapping', {
@@ -103,14 +103,14 @@ export class DependencyMappingState extends BaseStateHandler {
     }
   }
 
-  private async handleDependencyMappingComplete(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleDependencyMappingComplete(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     assert(context.dependencyAnalysis, 'Dependency analysis must be complete');
 
     this.recordPhaseComplete('dependencyMapping', context);
     return AnalysisEvent.START_PLANNING;
   }
 
-  private async handleDependencyMappingError(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleDependencyMappingError(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     const maxRetries = 2;
     if (context.retryCount < maxRetries) {
       context.retryCount++;
@@ -119,12 +119,12 @@ export class DependencyMappingState extends BaseStateHandler {
     return AnalysisEvent.ERROR_OCCURRED;
   }
 
-  private async handleCancelAnalysis(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleCancelAnalysis(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     context.dependencyAnalysis = undefined;
     return AnalysisEvent.CANCEL_ANALYSIS;
   }
 
-  private async performDependencyMapping(context: AnalysisContext): Promise<DependencyAnalysisResult> {
+  private async performDependencyMapping(context: MigrationAnalysisContext): Promise<DependencyAnalysisResult> {
     assert(context.systemAnalysis, 'System analysis required');
 
     const { components, dependencies } = context.systemAnalysis;

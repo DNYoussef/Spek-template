@@ -44,8 +44,8 @@ export interface StateMachineConfig {
   persistState: boolean;
 }
 
-// State Context
-export interface AnalysisContext {
+// State Context for Migration FSM
+export interface MigrationAnalysisContext {
   analysisId: string;
   request: ImpactAnalysisRequest;
   systemAnalysis?: SystemAnalysisResult;
@@ -101,10 +101,10 @@ export interface ValidationCheck {
 
 // State Handler Interface
 export interface StateHandler {
-  init(context: AnalysisContext): Promise<void>;
-  update(event: AnalysisEvent, context: AnalysisContext): Promise<AnalysisEvent | null>;
-  shutdown(context: AnalysisContext): Promise<void>;
-  checkInvariants(context: AnalysisContext): boolean;
+  init(context: MigrationAnalysisContext): Promise<void>;
+  update(event: AnalysisEvent, context: MigrationAnalysisContext): Promise<AnalysisEvent | null>;
+  shutdown(context: MigrationAnalysisContext): Promise<void>;
+  checkInvariants(context: MigrationAnalysisContext): boolean;
 }
 
 // State Machine Transition
@@ -117,8 +117,8 @@ export interface StateTransition {
   timeout?: number;
 }
 
-export type TransitionGuard = (context: AnalysisContext) => boolean;
-export type TransitionAction = (context: AnalysisContext) => Promise<void>;
+export type TransitionGuard = (context: MigrationAnalysisContext) => boolean;
+export type TransitionAction = (context: MigrationAnalysisContext) => Promise<void>;
 
 export interface StateTransitionRecord {
   from: AnalysisState;

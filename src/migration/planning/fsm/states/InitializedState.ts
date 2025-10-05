@@ -5,9 +5,9 @@
 
 import { BaseStateHandler } from '../core/BaseStateHandler';
 import {
-  AnalysisContext,
+  MigrationAnalysisContext,
   AnalysisEvent
-} from '~types/AnalysisTypes';
+} from '../types/AnalysisTypes';
 
 function assert(condition: any, message: string): asserts condition {
   if (!condition) {
@@ -28,7 +28,7 @@ export class InitializedState extends BaseStateHandler {
    * Initialize state with context validation.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  protected async onEnter(context: AnalysisContext): Promise<void> {
+  protected async onEnter(context: MigrationAnalysisContext): Promise<void> {
     assert(context.request, 'Analysis request required');
     assert(context.analysisId, 'Analysis ID required');
 
@@ -63,7 +63,7 @@ export class InitializedState extends BaseStateHandler {
    */
   protected async processEvent(
     event: AnalysisEvent,
-    context: AnalysisContext
+    context: MigrationAnalysisContext
   ): Promise<AnalysisEvent | null> {
     assert(context, 'Context required');
     assert(event, 'Event required');
@@ -91,7 +91,7 @@ export class InitializedState extends BaseStateHandler {
    * Check state invariants for initialized state.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  checkInvariants(context: AnalysisContext): boolean {
+  checkInvariants(context: MigrationAnalysisContext): boolean {
     assert(context, 'Context required for invariant check');
 
     const hasAnalysisId = context.analysisId !== undefined && context.analysisId !== '';
@@ -122,7 +122,7 @@ export class InitializedState extends BaseStateHandler {
    * Handle analysis start event.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  private async handleStartAnalysis(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleStartAnalysis(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     assert(context, 'Context required');
     assert(context.request, 'Analysis request required');
 
@@ -148,7 +148,7 @@ export class InitializedState extends BaseStateHandler {
    * Handle analysis cancellation.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  private async handleCancelAnalysis(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleCancelAnalysis(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     assert(context, 'Context required');
 
     this.logger.info('Analysis cancelled in initialized state', {
@@ -163,7 +163,7 @@ export class InitializedState extends BaseStateHandler {
    * Handle reset event.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  private async handleReset(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleReset(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     assert(context, 'Context required');
 
     this.logger.info('Resetting analysis workflow', {
@@ -190,7 +190,7 @@ export class InitializedState extends BaseStateHandler {
    * Validate analysis request parameters.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  private validateAnalysisRequest(context: AnalysisContext): boolean {
+  private validateAnalysisRequest(context: MigrationAnalysisContext): boolean {
     assert(context.request, 'Request required for validation');
 
     const { request } = context;

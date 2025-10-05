@@ -15,7 +15,7 @@ import { EventEmitter } from 'events';
 import {
   AnalysisState,
   AnalysisEvent,
-  AnalysisContext,
+  PerformanceAnalysisContext,
   AnalysisResult,
   BenchmarkResult
 } from './analysis/fsm/PerformanceAnalysisStateMachine';
@@ -26,7 +26,7 @@ import {
  */
 export class PerformanceAnalyzer extends EventEmitter {
   private currentState: AnalysisState = AnalysisState.IDLE;
-  private context: AnalysisContext;
+  private context: PerformanceAnalysisContext;
 
   constructor() {
     super();
@@ -118,7 +118,7 @@ export class PerformanceAnalyzer extends EventEmitter {
     return this.currentState;
   }
 
-  getContext(): AnalysisContext {
+  getContext(): PerformanceAnalysisContext {
     return this.context;
   }
 }

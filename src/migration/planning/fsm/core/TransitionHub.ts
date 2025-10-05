@@ -8,11 +8,11 @@ import {
   AnalysisState,
   AnalysisEvent,
   StateTransition,
-  AnalysisContext,
+  MigrationAnalysisContext,
   StateTransitionRecord,
   TransitionGuard,
   TransitionAction
-} from '~types/AnalysisTypes';
+} from '../types/AnalysisTypes';
 
 function assert(condition: any, message: string): asserts condition {
   if (!condition) {
@@ -44,7 +44,7 @@ export class TransitionHub {
   async executeTransition(
     currentState: AnalysisState,
     event: AnalysisEvent,
-    context: AnalysisContext
+    context: MigrationAnalysisContext
   ): Promise<AnalysisState> {
     assert(context, 'Context required for transition execution');
     assert(Object.values(AnalysisState).includes(currentState), 'Invalid current state');
@@ -270,32 +270,32 @@ export class TransitionHub {
 
   // Guard factory methods
   private createSystemAnalysisGuard(): TransitionGuard {
-    return (ctx: AnalysisContext) => ctx.systemAnalysis !== undefined;
+    return (ctx: MigrationAnalysisContext) => ctx.systemAnalysis !== undefined;
   }
 
   private createRiskAnalysisGuard(): TransitionGuard {
-    return (ctx: AnalysisContext) => ctx.riskAnalysis !== undefined;
+    return (ctx: MigrationAnalysisContext) => ctx.riskAnalysis !== undefined;
   }
 
   private createDependencyAnalysisGuard(): TransitionGuard {
-    return (ctx: AnalysisContext) => ctx.dependencyAnalysis !== undefined;
+    return (ctx: MigrationAnalysisContext) => ctx.dependencyAnalysis !== undefined;
   }
 
   private createMigrationPlanGuard(): TransitionGuard {
-    return (ctx: AnalysisContext) => ctx.migrationPlan !== undefined;
+    return (ctx: MigrationAnalysisContext) => ctx.migrationPlan !== undefined;
   }
 
   private createValidationPassGuard(): TransitionGuard {
-    return (ctx: AnalysisContext) => ctx.validationResults?.overall === 'pass';
+    return (ctx: MigrationAnalysisContext) => ctx.validationResults?.overall === 'pass';
   }
 
   private createValidationFailGuard(): TransitionGuard {
-    return (ctx: AnalysisContext) => ctx.validationResults?.overall === 'fail';
+    return (ctx: MigrationAnalysisContext) => ctx.validationResults?.overall === 'fail';
   }
 
   // Action factory methods
   private createPhaseStartAction(phase: string): TransitionAction {
-    return async (ctx: AnalysisContext) => {
+    return async (ctx: MigrationAnalysisContext) => {
       ctx.phaseTimings.set(phase, {
         startTime: new Date(),
         success: false
@@ -304,7 +304,7 @@ export class TransitionHub {
   }
 
   private createPhaseCompleteAction(phase: string): TransitionAction {
-    return async (ctx: AnalysisContext) => {
+    return async (ctx: MigrationAnalysisContext) => {
       const timing = ctx.phaseTimings.get(phase);
       if (timing) {
         timing.endTime = new Date();

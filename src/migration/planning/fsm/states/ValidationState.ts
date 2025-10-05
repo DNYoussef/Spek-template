@@ -5,11 +5,11 @@
 
 import { BaseStateHandler } from '../core/BaseStateHandler';
 import {
-  AnalysisContext,
+  MigrationAnalysisContext,
   AnalysisEvent,
   ValidationResults,
   ValidationCheck
-} from '~types/AnalysisTypes';
+} from '../types/AnalysisTypes';
 
 function assert(condition: any, message: string): asserts condition {
   if (!condition) {
@@ -26,7 +26,7 @@ export class ValidationState extends BaseStateHandler {
     super('VALIDATION');
   }
 
-  protected async onEnter(context: AnalysisContext): Promise<void> {
+  protected async onEnter(context: MigrationAnalysisContext): Promise<void> {
     assert(context.migrationPlan, 'Migration plan required for validation');
     assert(context.systemAnalysis, 'System analysis required for validation');
     assert(context.riskAnalysis, 'Risk analysis required for validation');
@@ -42,7 +42,7 @@ export class ValidationState extends BaseStateHandler {
 
   protected async processEvent(
     event: AnalysisEvent,
-    context: AnalysisContext
+    context: MigrationAnalysisContext
   ): Promise<AnalysisEvent | null> {
     assert(context, 'Context required');
     assert(event, 'Event required');
@@ -68,7 +68,7 @@ export class ValidationState extends BaseStateHandler {
     }
   }
 
-  checkInvariants(context: AnalysisContext): boolean {
+  checkInvariants(context: MigrationAnalysisContext): boolean {
     assert(context, 'Context required for invariant check');
 
     const hasMigrationPlan = context.migrationPlan !== undefined;
@@ -85,7 +85,7 @@ export class ValidationState extends BaseStateHandler {
     return allInvariantsMet;
   }
 
-  private async handleValidation(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleValidation(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     assert(context.migrationPlan, 'Migration plan required');
 
     this.logger.info('Performing migration plan validation', {
@@ -112,7 +112,7 @@ export class ValidationState extends BaseStateHandler {
     }
   }
 
-  private async handleValidationComplete(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleValidationComplete(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     assert(context.validationResults, 'Validation results must exist');
     assert(context.validationResults.overall === 'pass', 'Validation must pass');
 
@@ -126,7 +126,7 @@ export class ValidationState extends BaseStateHandler {
     return AnalysisEvent.VALIDATION_COMPLETE;
   }
 
-  private async handleValidationFailed(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleValidationFailed(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     assert(context.validationResults, 'Validation results must exist');
 
     this.logger.warn('Migration plan validation failed', {
@@ -143,7 +143,7 @@ export class ValidationState extends BaseStateHandler {
     return AnalysisEvent.VALIDATION_FAILED;
   }
 
-  private async handleValidationError(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleValidationError(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     const maxRetries = 1; // Limited retries for validation
     if (context.retryCount < maxRetries) {
       context.retryCount++;
@@ -152,12 +152,12 @@ export class ValidationState extends BaseStateHandler {
     return AnalysisEvent.ERROR_OCCURRED;
   }
 
-  private async handleCancelAnalysis(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleCancelAnalysis(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     context.validationResults = undefined;
     return AnalysisEvent.CANCEL_ANALYSIS;
   }
 
-  private async validateMigrationPlan(context: AnalysisContext): Promise<ValidationResults> {
+  private async validateMigrationPlan(context: MigrationAnalysisContext): Promise<ValidationResults> {
     assert(context.migrationPlan, 'Migration plan required');
     assert(context.systemAnalysis, 'System analysis required');
     assert(context.riskAnalysis, 'Risk analysis required');
@@ -175,7 +175,7 @@ export class ValidationState extends BaseStateHandler {
     };
   }
 
-  private async performValidationChecks(context: AnalysisContext): Promise<ValidationCheck[]> {
+  private async performValidationChecks(context: MigrationAnalysisContext): Promise<ValidationCheck[]> {
     const checks: ValidationCheck[] = [];
     const maxChecks = 10; // NASA Rule 10 - fixed loop bound
 
@@ -198,7 +198,7 @@ export class ValidationState extends BaseStateHandler {
     return checks;
   }
 
-  private validatePlanCompleteness(context: AnalysisContext): ValidationCheck {
+  private validatePlanCompleteness(context: MigrationAnalysisContext): ValidationCheck {
     const plan = context.migrationPlan!;
     const hasPhases = plan.phases.length > 0;
     const hasTimeline = plan.timeline > 0;
@@ -214,7 +214,7 @@ export class ValidationState extends BaseStateHandler {
     };
   }
 
-  private validateTimelineReasonableness(context: AnalysisContext): ValidationCheck {
+  private validateTimelineReasonableness(context: MigrationAnalysisContext): ValidationCheck {
     const timeline = context.migrationPlan!.timeline;
     const complexity = context.systemAnalysis!.complexity;
 
@@ -230,7 +230,7 @@ export class ValidationState extends BaseStateHandler {
     };
   }
 
-  private validateResourceAlignment(context: AnalysisContext): ValidationCheck {
+  private validateResourceAlignment(context: MigrationAnalysisContext): ValidationCheck {
     const resources = context.migrationPlan!.resources;
     const components = context.systemAnalysis!.components;
 
@@ -247,7 +247,7 @@ export class ValidationState extends BaseStateHandler {
     };
   }
 
-  private validateRiskCoverage(context: AnalysisContext): ValidationCheck {
+  private validateRiskCoverage(context: MigrationAnalysisContext): ValidationCheck {
     const risks = context.riskAnalysis!.risks;
     const phases = context.migrationPlan!.phases;
 
@@ -261,7 +261,7 @@ export class ValidationState extends BaseStateHandler {
     };
   }
 
-  private validateDependencyHandling(context: AnalysisContext): ValidationCheck {
+  private validateDependencyHandling(context: MigrationAnalysisContext): ValidationCheck {
     const dependencies = context.dependencyAnalysis!.dependencies;
     const phases = context.migrationPlan!.phases;
 
@@ -291,7 +291,7 @@ export class ValidationState extends BaseStateHandler {
     return 'pass';
   }
 
-  private generateRecommendations(checks: ValidationCheck[], context: AnalysisContext): string[] {
+  private generateRecommendations(checks: ValidationCheck[], context: MigrationAnalysisContext): string[] {
     const recommendations: string[] = [];
 
     const failedChecks = checks.filter(c => c.status === 'fail');

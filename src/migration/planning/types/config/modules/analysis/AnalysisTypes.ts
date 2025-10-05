@@ -22,7 +22,7 @@ export interface AnalysisOptions {
   confidence_level: number;
 }
 
-export interface AnalysisContext {
+export interface AnalysisConfigurationContext {
   constraints: AnalysisConstraint[];
   options: AnalysisOptions;
   environment: AnalysisEnvironment;

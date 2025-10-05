@@ -6,10 +6,10 @@
 import { Logger } from '../../../../utils/Logger';
 import {
   StateHandler,
-  AnalysisContext,
+  MigrationAnalysisContext,
   AnalysisEvent,
   AnalysisState
-} from '~types/AnalysisTypes';
+} from '../types/AnalysisTypes';
 
 function assert(condition: any, message: string): asserts condition {
   if (!condition) {
@@ -35,7 +35,7 @@ export abstract class BaseStateHandler implements StateHandler {
    * Initialize state with context validation.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  async init(context: AnalysisContext): Promise<void> {
+  async init(context: MigrationAnalysisContext): Promise<void> {
     assert(context, 'Context required for state initialization');
     assert(context.analysisId, 'Analysis ID required in context');
 
@@ -57,7 +57,7 @@ export abstract class BaseStateHandler implements StateHandler {
    * Process event and determine next action.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  async update(event: AnalysisEvent, context: AnalysisContext): Promise<AnalysisEvent | null> {
+  async update(event: AnalysisEvent, context: MigrationAnalysisContext): Promise<AnalysisEvent | null> {
     assert(context, 'Context required for state update');
     assert(Object.values(AnalysisEvent).includes(event), 'Valid event required');
 
@@ -97,7 +97,7 @@ export abstract class BaseStateHandler implements StateHandler {
    * Clean up state before transition.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  async shutdown(context: AnalysisContext): Promise<void> {
+  async shutdown(context: MigrationAnalysisContext): Promise<void> {
     assert(context, 'Context required for state shutdown');
 
     this.logger.info('Exiting state', {
@@ -115,13 +115,13 @@ export abstract class BaseStateHandler implements StateHandler {
    * Validate state-specific invariants.
    * Must be implemented by concrete state handlers.
    */
-  abstract checkInvariants(context: AnalysisContext): boolean;
+  abstract checkInvariants(context: MigrationAnalysisContext): boolean;
 
   /**
    * Handle state entry logic.
    * Override in concrete implementations.
    */
-  protected async onEnter(context: AnalysisContext): Promise<void> {
+  protected async onEnter(context: MigrationAnalysisContext): Promise<void> {
     // Default implementation - no-op
   }
 
@@ -129,7 +129,7 @@ export abstract class BaseStateHandler implements StateHandler {
    * Handle state exit logic.
    * Override in concrete implementations.
    */
-  protected async onExit(context: AnalysisContext): Promise<void> {
+  protected async onExit(context: MigrationAnalysisContext): Promise<void> {
     // Default implementation - no-op
   }
 
@@ -139,14 +139,14 @@ export abstract class BaseStateHandler implements StateHandler {
    */
   protected abstract processEvent(
     event: AnalysisEvent,
-    context: AnalysisContext
+    context: MigrationAnalysisContext
   ): Promise<AnalysisEvent | null>;
 
   /**
    * Check if cleanup is complete before state exit.
    * Override in concrete implementations if needed.
    */
-  protected isCleanupComplete(context: AnalysisContext): boolean {
+  protected isCleanupComplete(context: MigrationAnalysisContext): boolean {
     return true; // Default - assume cleanup is complete
   }
 
@@ -154,7 +154,7 @@ export abstract class BaseStateHandler implements StateHandler {
    * Record phase timing information.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  protected recordPhaseStart(phase: string, context: AnalysisContext): void {
+  protected recordPhaseStart(phase: string, context: MigrationAnalysisContext): void {
     assert(phase, 'Phase name required');
     assert(context, 'Context required');
 
@@ -174,7 +174,7 @@ export abstract class BaseStateHandler implements StateHandler {
    * Complete phase timing and mark as successful.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  protected recordPhaseComplete(phase: string, context: AnalysisContext): void {
+  protected recordPhaseComplete(phase: string, context: MigrationAnalysisContext): void {
     assert(phase, 'Phase name required');
     assert(context, 'Context required');
 
@@ -198,7 +198,7 @@ export abstract class BaseStateHandler implements StateHandler {
    */
   protected addError(
     error: Error,
-    context: AnalysisContext,
+    context: MigrationAnalysisContext,
     recoverable: boolean = false
   ): void {
     assert(error instanceof Error, 'Error must be Error instance');

@@ -5,10 +5,10 @@
 
 import { BaseStateHandler } from '../core/BaseStateHandler';
 import {
-  AnalysisContext,
+  MigrationAnalysisContext,
   AnalysisEvent,
   ComprehensiveMigrationPlan
-} from '~types/AnalysisTypes';
+} from '../types/AnalysisTypes';
 
 function assert(condition: any, message: string): asserts condition {
   if (!condition) {
@@ -25,7 +25,7 @@ export class PlanningState extends BaseStateHandler {
     super('PLANNING');
   }
 
-  protected async onEnter(context: AnalysisContext): Promise<void> {
+  protected async onEnter(context: MigrationAnalysisContext): Promise<void> {
     assert(context.dependencyAnalysis, 'Dependency analysis required for planning');
     assert(context.riskAnalysis, 'Risk analysis required for planning');
     assert(context.systemAnalysis, 'System analysis required for planning');
@@ -41,7 +41,7 @@ export class PlanningState extends BaseStateHandler {
 
   protected async processEvent(
     event: AnalysisEvent,
-    context: AnalysisContext
+    context: MigrationAnalysisContext
   ): Promise<AnalysisEvent | null> {
     assert(context, 'Context required');
     assert(event, 'Event required');
@@ -64,7 +64,7 @@ export class PlanningState extends BaseStateHandler {
     }
   }
 
-  checkInvariants(context: AnalysisContext): boolean {
+  checkInvariants(context: MigrationAnalysisContext): boolean {
     assert(context, 'Context required for invariant check');
 
     const hasDependencyAnalysis = context.dependencyAnalysis !== undefined;
@@ -81,7 +81,7 @@ export class PlanningState extends BaseStateHandler {
     return allInvariantsMet;
   }
 
-  private async handlePlanning(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handlePlanning(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     assert(context.systemAnalysis, 'System analysis required');
     assert(context.riskAnalysis, 'Risk analysis required');
     assert(context.dependencyAnalysis, 'Dependency analysis required');
@@ -108,14 +108,14 @@ export class PlanningState extends BaseStateHandler {
     }
   }
 
-  private async handlePlanningComplete(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handlePlanningComplete(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     assert(context.migrationPlan, 'Migration plan must be complete');
 
     this.recordPhaseComplete('planning', context);
     return AnalysisEvent.START_VALIDATION;
   }
 
-  private async handlePlanningError(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handlePlanningError(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     const maxRetries = 2;
     if (context.retryCount < maxRetries) {
       context.retryCount++;
@@ -124,12 +124,12 @@ export class PlanningState extends BaseStateHandler {
     return AnalysisEvent.ERROR_OCCURRED;
   }
 
-  private async handleCancelAnalysis(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleCancelAnalysis(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     context.migrationPlan = undefined;
     return AnalysisEvent.CANCEL_ANALYSIS;
   }
 
-  private async createMigrationPlan(context: AnalysisContext): Promise<ComprehensiveMigrationPlan> {
+  private async createMigrationPlan(context: MigrationAnalysisContext): Promise<ComprehensiveMigrationPlan> {
     assert(context.systemAnalysis, 'System analysis required');
     assert(context.riskAnalysis, 'Risk analysis required');
     assert(context.dependencyAnalysis, 'Dependency analysis required');

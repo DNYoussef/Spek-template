@@ -5,9 +5,9 @@
 
 import { BaseStateHandler } from '../core/BaseStateHandler';
 import {
-  AnalysisContext,
+  MigrationAnalysisContext,
   AnalysisEvent
-} from '~types/AnalysisTypes';
+} from '../types/AnalysisTypes';
 
 function assert(condition: any, message: string): asserts condition {
   if (!condition) {
@@ -23,7 +23,7 @@ export class CompletedState extends BaseStateHandler {
     super('COMPLETED');
   }
 
-  protected async onEnter(context: AnalysisContext): Promise<void> {
+  protected async onEnter(context: MigrationAnalysisContext): Promise<void> {
     assert(context.validationResults, 'Validation results required for completion');
     assert(context.validationResults.overall === 'pass', 'Validation must pass for completion');
 
@@ -44,7 +44,7 @@ export class CompletedState extends BaseStateHandler {
 
   protected async processEvent(
     event: AnalysisEvent,
-    context: AnalysisContext
+    context: MigrationAnalysisContext
   ): Promise<AnalysisEvent | null> {
     // Terminal state - no outgoing transitions except reset
     if (event === AnalysisEvent.RESET) {
@@ -59,7 +59,7 @@ export class CompletedState extends BaseStateHandler {
     return null; // No transitions from completed state
   }
 
-  checkInvariants(context: AnalysisContext): boolean {
+  checkInvariants(context: MigrationAnalysisContext): boolean {
     assert(context, 'Context required for invariant check');
 
     const hasValidationResults = context.validationResults !== undefined;
@@ -75,7 +75,7 @@ export class CompletedState extends BaseStateHandler {
     return allInvariantsMet;
   }
 
-  private async handleReset(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleReset(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     this.logger.info('Resetting completed analysis', {
       analysisId: context.analysisId
     });
@@ -92,7 +92,7 @@ export class FailedState extends BaseStateHandler {
     super('FAILED');
   }
 
-  protected async onEnter(context: AnalysisContext): Promise<void> {
+  protected async onEnter(context: MigrationAnalysisContext): Promise<void> {
     assert(context.errors.length > 0, 'Errors required for failed state');
 
     this.logger.error('Analysis workflow failed', {
@@ -112,7 +112,7 @@ export class FailedState extends BaseStateHandler {
 
   protected async processEvent(
     event: AnalysisEvent,
-    context: AnalysisContext
+    context: MigrationAnalysisContext
   ): Promise<AnalysisEvent | null> {
     assert(context, 'Context required');
 
@@ -132,7 +132,7 @@ export class FailedState extends BaseStateHandler {
     }
   }
 
-  checkInvariants(context: AnalysisContext): boolean {
+  checkInvariants(context: MigrationAnalysisContext): boolean {
     assert(context, 'Context required for invariant check');
 
     const hasErrors = context.errors.length > 0;
@@ -145,7 +145,7 @@ export class FailedState extends BaseStateHandler {
     return allInvariantsMet;
   }
 
-  private async handleRetry(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleRetry(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     const maxRetries = 3;
 
     if (context.retryCount >= maxRetries) {
@@ -164,7 +164,7 @@ export class FailedState extends BaseStateHandler {
     return AnalysisEvent.RETRY_OPERATION;
   }
 
-  private async handleReset(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleReset(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     this.logger.info('Resetting failed analysis', {
       analysisId: context.analysisId
     });
@@ -181,7 +181,7 @@ export class CancelledState extends BaseStateHandler {
     super('CANCELLED');
   }
 
-  protected async onEnter(context: AnalysisContext): Promise<void> {
+  protected async onEnter(context: MigrationAnalysisContext): Promise<void> {
     assert(context, 'Context required for cancelled state');
 
     this.logger.info('Analysis workflow cancelled', {
@@ -203,7 +203,7 @@ export class CancelledState extends BaseStateHandler {
 
   protected async processEvent(
     event: AnalysisEvent,
-    context: AnalysisContext
+    context: MigrationAnalysisContext
   ): Promise<AnalysisEvent | null> {
     // Only reset is allowed from cancelled state
     if (event === AnalysisEvent.RESET) {
@@ -218,7 +218,7 @@ export class CancelledState extends BaseStateHandler {
     return null;
   }
 
-  checkInvariants(context: AnalysisContext): boolean {
+  checkInvariants(context: MigrationAnalysisContext): boolean {
     assert(context, 'Context required for invariant check');
 
     // Cancelled state is always valid once entered
@@ -228,7 +228,7 @@ export class CancelledState extends BaseStateHandler {
     return hasCancellationRecord;
   }
 
-  private async handleReset(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleReset(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     this.logger.info('Resetting cancelled analysis', {
       analysisId: context.analysisId
     });
@@ -240,7 +240,7 @@ export class CancelledState extends BaseStateHandler {
    * Clean up partial analysis results.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  private async cleanupPartialResults(context: AnalysisContext): Promise<void> {
+  private async cleanupPartialResults(context: MigrationAnalysisContext): Promise<void> {
     assert(context, 'Context required for cleanup');
 
     this.logger.debug('Cleaning up partial results', {

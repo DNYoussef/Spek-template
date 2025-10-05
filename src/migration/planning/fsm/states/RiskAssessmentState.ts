@@ -5,10 +5,10 @@
 
 import { BaseStateHandler } from '../core/BaseStateHandler';
 import {
-  AnalysisContext,
+  MigrationAnalysisContext,
   AnalysisEvent,
   RiskAnalysisResult
-} from '~types/AnalysisTypes';
+} from '../types/AnalysisTypes';
 
 function assert(condition: any, message: string): asserts condition {
   if (!condition) {
@@ -29,7 +29,7 @@ export class RiskAssessmentState extends BaseStateHandler {
    * Initialize risk assessment state.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  protected async onEnter(context: AnalysisContext): Promise<void> {
+  protected async onEnter(context: MigrationAnalysisContext): Promise<void> {
     assert(context.systemAnalysis, 'System analysis required for risk assessment');
     assert(context.analysisId, 'Analysis ID required');
 
@@ -51,7 +51,7 @@ export class RiskAssessmentState extends BaseStateHandler {
    */
   protected async processEvent(
     event: AnalysisEvent,
-    context: AnalysisContext
+    context: MigrationAnalysisContext
   ): Promise<AnalysisEvent | null> {
     assert(context, 'Context required');
     assert(event, 'Event required');
@@ -82,7 +82,7 @@ export class RiskAssessmentState extends BaseStateHandler {
    * Check state invariants for risk assessment state.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  checkInvariants(context: AnalysisContext): boolean {
+  checkInvariants(context: MigrationAnalysisContext): boolean {
     assert(context, 'Context required for invariant check');
 
     const hasSystemAnalysis = context.systemAnalysis !== undefined;
@@ -109,7 +109,7 @@ export class RiskAssessmentState extends BaseStateHandler {
    * Perform risk assessment.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  private async handleRiskAssessment(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleRiskAssessment(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     assert(context.systemAnalysis, 'System analysis required');
 
     this.logger.info('Performing risk assessment', {
@@ -134,14 +134,14 @@ export class RiskAssessmentState extends BaseStateHandler {
     }
   }
 
-  private async handleRiskAssessmentComplete(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleRiskAssessmentComplete(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     assert(context.riskAnalysis, 'Risk analysis must be complete');
 
     this.recordPhaseComplete('riskAssessment', context);
     return AnalysisEvent.START_DEPENDENCY_MAPPING;
   }
 
-  private async handleRiskAssessmentError(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleRiskAssessmentError(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     const maxRetries = 2;
     if (context.retryCount < maxRetries) {
       context.retryCount++;
@@ -150,12 +150,12 @@ export class RiskAssessmentState extends BaseStateHandler {
     return AnalysisEvent.ERROR_OCCURRED;
   }
 
-  private async handleCancelAnalysis(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleCancelAnalysis(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     context.riskAnalysis = undefined;
     return AnalysisEvent.CANCEL_ANALYSIS;
   }
 
-  private async performRiskAnalysis(context: AnalysisContext): Promise<RiskAnalysisResult> {
+  private async performRiskAnalysis(context: MigrationAnalysisContext): Promise<RiskAnalysisResult> {
     assert(context.systemAnalysis, 'System analysis required');
 
     const { components, dependencies, complexity } = context.systemAnalysis;

@@ -5,10 +5,10 @@
 
 import { BaseStateHandler } from '../core/BaseStateHandler';
 import {
-  AnalysisContext,
+  MigrationAnalysisContext,
   AnalysisEvent,
   SystemAnalysisResult
-} from '~types/AnalysisTypes';
+} from '../types/AnalysisTypes';
 
 function assert(condition: any, message: string): asserts condition {
   if (!condition) {
@@ -29,7 +29,7 @@ export class AnalyzingState extends BaseStateHandler {
    * Initialize analyzing state.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  protected async onEnter(context: AnalysisContext): Promise<void> {
+  protected async onEnter(context: MigrationAnalysisContext): Promise<void> {
     assert(context.request, 'Analysis request required');
     assert(context.analysisId, 'Analysis ID required');
 
@@ -56,7 +56,7 @@ export class AnalyzingState extends BaseStateHandler {
    */
   protected async processEvent(
     event: AnalysisEvent,
-    context: AnalysisContext
+    context: MigrationAnalysisContext
   ): Promise<AnalysisEvent | null> {
     assert(context, 'Context required');
     assert(event, 'Event required');
@@ -87,7 +87,7 @@ export class AnalyzingState extends BaseStateHandler {
    * Check state invariants for analyzing state.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  checkInvariants(context: AnalysisContext): boolean {
+  checkInvariants(context: MigrationAnalysisContext): boolean {
     assert(context, 'Context required for invariant check');
 
     const hasRequest = context.request !== undefined;
@@ -118,7 +118,7 @@ export class AnalyzingState extends BaseStateHandler {
    * Perform system analysis.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  private async handleSystemAnalysis(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleSystemAnalysis(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     assert(context.request, 'Request required for analysis');
 
     this.logger.info('Performing system analysis', {
@@ -150,7 +150,7 @@ export class AnalyzingState extends BaseStateHandler {
    * Handle analysis completion.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  private async handleAnalysisComplete(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleAnalysisComplete(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     assert(context.systemAnalysis, 'System analysis must be complete');
 
     this.logger.info('Analysis phase completed', {
@@ -168,7 +168,7 @@ export class AnalyzingState extends BaseStateHandler {
    * Handle analysis error.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  private async handleAnalysisError(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleAnalysisError(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     assert(context, 'Context required');
 
     this.logger.error('Analysis failed', {
@@ -196,7 +196,7 @@ export class AnalyzingState extends BaseStateHandler {
    * Handle analysis cancellation.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  private async handleCancelAnalysis(context: AnalysisContext): Promise<AnalysisEvent> {
+  private async handleCancelAnalysis(context: MigrationAnalysisContext): Promise<AnalysisEvent> {
     assert(context, 'Context required');
 
     this.logger.info('Analysis cancelled during analysis phase', {
@@ -213,7 +213,7 @@ export class AnalyzingState extends BaseStateHandler {
    * Perform actual system analysis.
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  private async performSystemAnalysis(context: AnalysisContext): Promise<SystemAnalysisResult> {
+  private async performSystemAnalysis(context: MigrationAnalysisContext): Promise<SystemAnalysisResult> {
     assert(context.request, 'Request required for analysis');
 
     const { sourceSystem, migrationScope } = context.request;
