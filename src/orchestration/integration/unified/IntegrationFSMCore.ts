@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../../types/validation-types';
+
 /**
  * MEGA SWARM AGENT 100: INTEGRATION SYSTEM KILLER
  * Unified Integration FSM Core - Eliminates All Integration God Objects
@@ -54,12 +56,6 @@ export interface ValidationRule {
   retryCount: number; // NASA Rule 10: Fixed retry bounds
 }
 
-export interface ValidationResult {
-  passed: boolean;
-  errors: string[];
-  warnings: string[];
-  metadata?: Record<string, any>;
-}
 
 export interface AdapterConfig {
   type: string;

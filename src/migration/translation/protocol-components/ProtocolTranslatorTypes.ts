@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../../types/validation-types';
+
 /**
  * Protocol Translator Types - Core Type Definitions
  * Part of ProtocolTranslator decomposition
@@ -325,12 +327,6 @@ export interface ValidationEngine {
   validateTranslation(original: ProtocolMessage, translated: ProtocolMessage): Promise<TranslationValidationResult>;
 }
 
-export interface ValidationResult {
-  valid: boolean;
-  errors: ValidationError[];
-  warnings: ValidationWarning[];
-  score: number;
-}
 
 export interface ValidationError {
   field: string;

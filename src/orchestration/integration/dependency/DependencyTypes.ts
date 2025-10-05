@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../../types/validation-types';
+
 /**
  * CODEX AGENT 008 - Dependency Types
  * NASA Rule 10 Compliant: All interfaces, enums, and type definitions
@@ -286,15 +288,6 @@ export interface ResolutionLog {
   correlationId?: string;
 }
 
-export interface ValidationResult {
-  validationId: string;
-  requirementId: string;
-  passed: boolean;
-  score: number;
-  message: string;
-  timestamp: number;
-  details?: any;
-}
 
 // FSM Configuration Interfaces
 export interface DependencyFSMConfig {

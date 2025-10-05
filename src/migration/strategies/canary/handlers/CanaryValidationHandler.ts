@@ -5,6 +5,7 @@
 
 import { Logger } from '../../../../utils/Logger';
 import { CanaryMigrationContext } from '../CanaryMigrationStates';
+import { ValidationResult } from '../../../../types/validation-types';
 
 export interface ValidationRule {
   name: string;
@@ -34,15 +35,6 @@ export interface RollbackTrigger {
   automatic: boolean;
 }
 
-export interface ValidationResult {
-  name: string;
-  type: string;
-  passed: boolean;
-  value: any;
-  threshold: number;
-  message: string;
-  timestamp: Date;
-}
 
 export interface StageConfig {
   stage: number;

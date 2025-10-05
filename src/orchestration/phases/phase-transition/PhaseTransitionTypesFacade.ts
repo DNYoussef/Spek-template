@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../../types/validation-types';
+
 /**
  * PhaseTransitionTypesFacade - Centralized type exports for phase transitions
  * Resolves ~39 TypeScript errors related to missing type definitions
@@ -107,13 +109,7 @@ export interface PhaseTransitionContext {
   timestamp: number;
 }
 // Validation types
-export interface ValidationResult {
-  ruleName: string;
-  passed: boolean;
-  message?: string;
-  severity?: 'error' | 'warning' | 'info';
-  details?: Record<string, unknown>;
-}
+
 export interface TransitionValidationResult {
   isValid: boolean;
   passed?: boolean; // Alias for isValid (backward compatibility)

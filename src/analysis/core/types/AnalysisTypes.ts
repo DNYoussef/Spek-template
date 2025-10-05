@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../../types/validation-types';
+
 /**
  * Unified Analysis Types - Shared across all analyzer/validator components
  * NASA Rule 10 Compliant: Centralized type definitions for FSM architecture
@@ -554,12 +556,6 @@ export interface MigrationPhase {
   readonly prerequisites: string[];
 }
 
-export interface ValidationResult {
-  readonly passed: boolean;
-  readonly errors: string[];
-  readonly warnings: string[];
-  readonly timestamp: number;
-}
 
 export interface AnalysisRequest {
   readonly requestId: string;

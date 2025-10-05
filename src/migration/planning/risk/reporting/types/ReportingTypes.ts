@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../../../../types/validation-types';
+
 /**
  * Reporting Types
  *
@@ -196,25 +198,6 @@ export interface ValidationRequest {
   originalRequest: any;
 }
 
-export interface ValidationResult {
-  isValid: boolean;
-  errors: string[];
-  warnings: string[];
-  metrics: {
-    completeness: number;
-    consistency: number;
-    coverage: number;
-    qualityScore: number;
-  };
-  componentResults: {
-    objectives: ComponentValidationResult;
-    indicators: ComponentValidationResult;
-    dashboards: ComponentValidationResult;
-    reports: ComponentValidationResult;
-    alerts: ComponentValidationResult;
-    reviews: ComponentValidationResult;
-  };
-}
 
 export interface ComponentValidationResult {
   isValid: boolean;

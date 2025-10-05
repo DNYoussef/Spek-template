@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../../../types/validation-types';
+
 /**
  * ReadinessTypes.ts - Type definitions for deployment readiness validation FSM
  * 
@@ -160,12 +162,7 @@ export interface CheckConfig {
 }
 
 // Validation result interface
-export interface ValidationResult {
-  success: boolean;
-  category?: CategoryReadiness;
-  error?: Error;
-  recommendations: string[];
-}
+
 
 // Transition guard function type
 export type TransitionGuard = (context: ReadinessContext) => boolean;
