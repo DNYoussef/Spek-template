@@ -288,12 +288,12 @@ export class SecurityAuthenticationService {
     // Method quality scoring
     const strongMethods = ['JWT', 'OAuth', 'SAML'];
     const weakMethods = ['Basic Auth', 'API Key'];
-    
-    const hasStrongMethod = authAnalysis.detectedMethods.some(method => 
-      strongMethods.includes(method)
+
+    const hasStrongMethod = authAnalysis.detectedMethods.some((method: unknown) =>
+      strongMethods.includes(method as string)
     );
-    const hasWeakMethod = authAnalysis.detectedMethods.some(method => 
-      weakMethods.includes(method)
+    const hasWeakMethod = authAnalysis.detectedMethods.some((method: unknown) =>
+      weakMethods.includes(method as string)
     );
 
     if (hasStrongMethod) {
@@ -305,8 +305,8 @@ export class SecurityAuthenticationService {
 
     // Encryption scoring
     const strongEncryption = ['bcrypt', 'Argon2', 'scrypt'];
-    const hasStrongEncryption = authAnalysis.encryptionMethods.some(method => 
-      strongEncryption.includes(method)
+    const hasStrongEncryption = authAnalysis.encryptionMethods.some((method: unknown) =>
+      strongEncryption.includes(method as string)
     );
 
     if (hasStrongEncryption) {
@@ -377,8 +377,8 @@ export class SecurityAuthenticationService {
     }
 
     // NIST SP 800-63B Guidelines
-    const hasStrongEncryption = authAnalysis.encryptionMethods.some(method => 
-      ['bcrypt', 'Argon2', 'scrypt', 'PBKDF2'].includes(method)
+    const hasStrongEncryption = authAnalysis.encryptionMethods.some((method: unknown) =>
+      ['bcrypt', 'Argon2', 'scrypt', 'PBKDF2'].includes(method as string)
     );
 
     if (hasStrongEncryption) {

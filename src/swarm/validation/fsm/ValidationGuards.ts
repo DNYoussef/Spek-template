@@ -322,9 +322,9 @@ export class DomainValidationGuards {
       
       for (const [, boundary] of domains) {
         const responsibilities = boundary.principalResponsibilities || [];
-        if (responsibilities.some(resp => 
-          resp.includes(func.replace('_', ' ')) ||
-          func.includes(resp.replace(' ', '_'))
+        if (responsibilities.some((resp: unknown) =>
+          (resp as string).includes(func.replace('_', ' ')) ||
+          func.includes((resp as string).replace(' ', '_'))
         )) {
           covered = true;
           break;

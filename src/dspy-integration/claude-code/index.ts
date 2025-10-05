@@ -268,7 +268,7 @@ export const QuickStart = {
    */
   getAvailableAgentTypes(): string[] {
     const signatures = AgentSignatureRegistry.getAllSignatures();
-    return signatures.map(sig => sig.agentType);
+    return signatures.map((sig: unknown) => (sig as any).agentType);
   },
 
   /**

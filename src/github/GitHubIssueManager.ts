@@ -368,7 +368,7 @@ export class GitHubIssueManager {
   private setupDefaultAutomationRules(): void {
     // Auto-assign based on issue type
     this.automationRules.set('auto-assign-bug', {
-      condition: (issue: GitHubIssue) => issue.labels?.some(label => label.name === 'bug'),
+      condition: (issue: GitHubIssue) => issue.labels?.some((label: unknown) => (label as any).name === 'bug'),
       action: async (owner: string, repo: string, issue: GitHubIssue) => {
         // Would assign to bug triage team
         console.log(`Auto-assigning bug issue #${issue.number}`);
@@ -377,7 +377,7 @@ export class GitHubIssueManager {
 
     // Auto-milestone for high priority
     this.automationRules.set('auto-milestone-priority', {
-      condition: (issue: GitHubIssue) => issue.labels?.some(label => label.name === 'priority:high'),
+      condition: (issue: GitHubIssue) => issue.labels?.some((label: unknown) => (label as any).name === 'priority:high'),
       action: async (owner: string, repo: string, issue: GitHubIssue) => {
         // Would assign to current milestone
         console.log(`Auto-milestoning high priority issue #${issue.number}`);
@@ -474,8 +474,8 @@ export class GitHubIssueManager {
     // Issues by label
     const issuesByLabel: Record<string, number> = {};
     [...openIssues, ...closedIssues].forEach(issue => {
-      issue.labels?.forEach(label => {
-        const labelName = typeof label === 'string' ? label : label.name;
+      issue.labels?.forEach((label: unknown) => {
+        const labelName = typeof label === 'string' ? label : (label as any).name;
         issuesByLabel[labelName] = (issuesByLabel[labelName] || 0) + 1;
       });
     });
@@ -483,8 +483,8 @@ export class GitHubIssueManager {
     // Issues by assignee
     const issuesByAssignee: Record<string, number> = {};
     [...openIssues, ...closedIssues].forEach(issue => {
-      issue.assignees?.forEach(assignee => {
-        issuesByAssignee[assignee.login] = (issuesByAssignee[assignee.login] || 0) + 1;
+      issue.assignees?.forEach((assignee: unknown) => {
+        issuesByAssignee[(assignee as any).login] = (issuesByAssignee[(assignee as any).login] || 0) + 1;
       });
     });
 

@@ -206,7 +206,7 @@ priority: 8
 });
 
 // Step 3: GitHub search (if technology-related)
-if (query.entities.some(e => e.type === 'technology')) {
+if (query.entities.some((e: unknown) => (e as any).type === 'technology')) {
 steps.push({
 id: 'github_search_1',
 type: 'github_search',
@@ -287,7 +287,7 @@ maxResults: 10
 }
 
 // GitHub queries (for technology entities)
-const techEntities = query.entities.filter(e => e.type === 'technology');
+const techEntities = query.entities.filter((e: unknown) => (e as any).type === 'technology');
 for (const entity of techEntities.slice(0, 3)) {
 githubQueries.push({
 query: entity.text,

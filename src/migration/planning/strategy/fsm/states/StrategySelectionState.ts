@@ -359,7 +359,7 @@ class DatabaseFirstEvaluator extends StrategyEvaluator {
 
   async evaluate(gapAnalysis: any, riskAnalysis: any): Promise<StrategyEvaluation> {
     const score = this.calculateBaseScore(gapAnalysis.changeComplexity, 'medium');
-    const hasDataChanges = gapAnalysis.impactAreas?.some(area => area.category === 'data');
+    const hasDataChanges = gapAnalysis.impactAreas?.some((area: unknown) => (area as any).category === 'data');
     
     return {
       strategyName: this.strategyName,

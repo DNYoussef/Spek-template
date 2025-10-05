@@ -122,8 +122,8 @@ export class IntegrationPlanManager extends EventEmitter implements ComponentSta
       // Check for conflicts
       const conflicts = await this.conflictEngine.detectPlanConflicts(plan);
       if (conflicts.length > 0) {
-        conflicts.forEach(conflict => {
-          if (conflict.severity === 'critical') {
+        conflicts.forEach((conflict: unknown) => {
+          if ((conflict as any).severity === 'critical') {
             errors.push({
               code: 'CRITICAL_CONFLICT',
               message: `Critical conflict: ${conflict.description}`,

@@ -142,7 +142,7 @@ export class StateGuardValidator {
       name: 'noSecurityViolations',
       condition: (context: FSMContext) => {
         const securityIssues = context.data.securityIssues || [];
-        const criticalIssues = securityIssues.filter(issue => issue.severity === 'critical');
+        const criticalIssues = securityIssues.filter((issue: unknown) => (issue as any).severity === 'critical');
         return criticalIssues.length === 0;
       },
       errorMessage: 'Critical security violations detected'

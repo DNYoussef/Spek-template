@@ -278,7 +278,7 @@ export class GitHubProjectManager {
   ): Promise<void> {
     const project = await this.getProject(projectId);
     const statusField = project.fields.nodes.find(
-      field => field.name.toLowerCase() === 'status'
+      (field: unknown) => (field as any).name.toLowerCase() === 'status'
     );
 
     if (!statusField) {
@@ -407,7 +407,7 @@ export class GitHubProjectManager {
     const itemsByStatus: Record<string, number> = {};
     for (const item of project.items.nodes) {
       const statusValue = item.fieldValues.nodes.find(
-        fv => (fv as any).field?.name?.toLowerCase() === 'status'
+        (fv: unknown) => (fv as any).field?.name?.toLowerCase() === 'status'
       ) as any;
 
       const status = statusValue?.name || 'No Status';

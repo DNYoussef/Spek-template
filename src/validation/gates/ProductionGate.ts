@@ -232,7 +232,7 @@ export class ProductionGate {
         `Rules passed: ${result.summary.passed}/10`,
         `Rules failed: ${result.summary.failed}/10`,
         `Critical violations: ${result.criticalViolations.length}`,
-        `Total violations: ${result.ruleResults.reduce((sum, r) => sum + r.violations.length, 0)}`
+        `Total violations: ${result.ruleResults.reduce((sum: number, r: unknown) => sum + (r as any).violations.length, 0)}`
       ],
       weight: this.config.weights.nasaCompliance
     };

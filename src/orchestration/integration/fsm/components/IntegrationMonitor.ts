@@ -191,7 +191,7 @@ export class IntegrationMonitor extends EventEmitter implements ComponentStateCo
         for (const conflict of conflicts) {
           // Add to execution conflicts if not already present
           const existingConflict = context.currentExecution.conflicts.find(
-            c => c.conflictId === conflict.conflictId
+            (c: unknown) => (c as any).conflictId === conflict.conflictId
           );
 
           if (!existingConflict) {
@@ -302,8 +302,8 @@ export class IntegrationMonitor extends EventEmitter implements ComponentStateCo
     }
 
     // Check conflict impact
-    const criticalConflicts = execution.conflicts.filter(c => c.severity === 'critical').length;
-    const highConflicts = execution.conflicts.filter(c => c.severity === 'high').length;
+    const criticalConflicts = execution.conflicts.filter((c: unknown) => (c as any).severity === 'critical').length;
+    const highConflicts = execution.conflicts.filter((c: unknown) => (c as any).severity === 'high').length;
 
     healthScore -= criticalConflicts * 0.3;
     healthScore -= highConflicts * 0.1;

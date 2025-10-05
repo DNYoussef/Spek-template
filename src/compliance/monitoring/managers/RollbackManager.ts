@@ -189,7 +189,7 @@ export class RollbackManager {
 
     // Recommend rollback for multiple high-severity violations
     const highSeverityViolations = drift.affectedRules.filter(
-      rule => rule.severity === 'CRITICAL' || rule.severity === 'HIGH'
+      (rule: unknown) => (rule as any).severity === 'CRITICAL' || (rule as any).severity === 'HIGH'
     ).length;
 
     return highSeverityViolations > 5;
@@ -260,7 +260,7 @@ export class RollbackManager {
     try {
       const snapshots = await this.rollbackSystem.listSnapshots();
       const recentSnapshots = snapshots.filter(
-        s => (Date.now() - s.timestamp) < 86400000 // Within 24 hours
+        (s: unknown) => (Date.now() - (s as any).timestamp) < 86400000 // Within 24 hours
       );
 
       if (recentSnapshots.length === 0) {

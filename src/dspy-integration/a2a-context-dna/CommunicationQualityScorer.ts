@@ -512,7 +512,7 @@ export class CommunicationQualityScorer {
 
   private scoreContextCoverage(context: any): number {
     if (!context || !context.essentialElements) return 0.3;
-    const elementTypes = new Set(context.essentialElements.map(e => e.type));
+    const elementTypes = new Set(context.essentialElements.map((e: unknown) => (e as any).type));
     return Math.min(0.4 + (elementTypes.size * 0.15), 1.0);
   }
 

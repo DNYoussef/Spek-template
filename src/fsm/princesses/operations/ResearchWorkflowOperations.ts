@@ -38,7 +38,7 @@ export class ResearchWorkflowOperations {
       return execSync('find . -name "*.md" -o -name "*.json" -o -name "package.json" | head -20', {
         encoding: 'utf8',
         timeout: 30000
-      }).split('\n').filter(f => f.trim());
+      }).split('\n').filter((f: unknown) => (f as string).trim());
     } catch {
       return ['package.json', 'README.md'];
     }

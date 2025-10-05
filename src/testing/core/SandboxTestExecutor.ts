@@ -216,7 +216,7 @@ export class SandboxTestExecutor extends TestExecutor {
 
     try {
       const index = this.context.data.sandboxEnvironments.findIndex(
-        sandbox => sandbox.id === sandboxId
+        (sandbox: unknown) => (sandbox as any).id === sandboxId
       );
 
       if (index !== -1) {

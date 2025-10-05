@@ -200,8 +200,8 @@ export class SandboxValidator {
 
   private simulateExecution(target: DebugTarget, results: DebugExecutionResult): boolean {
     // Simple simulation based on change types
-    const hasImportFixes = results.changes.some(c => c.type === 'import_addition');
-    const hasTypeFixes = results.changes.some(c => c.type === 'type_annotation');
+    const hasImportFixes = results.changes.some((c: unknown) => (c as any).type === 'import_addition');
+    const hasTypeFixes = results.changes.some((c: unknown) => (c as any).type === 'type_annotation');
     
     // Higher success rate for common fixes
     if (target.type === 'import_error' && hasImportFixes) return true;

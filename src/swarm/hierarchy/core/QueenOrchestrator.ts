@@ -231,7 +231,7 @@ export class QueenOrchestrator extends EventEmitter {
     });
 
     const results = await Promise.all(executions);
-    task.results = this.mergeResults(results.filter(r => r !== null));
+    task.results = this.mergeResults(results.filter((r: unknown) => r !== null));
   }
 
   /**

@@ -57,7 +57,7 @@ export class VersionCleaner extends EventEmitter {
 
     const versionsToKeep = this.selectVersionsToKeep(snapshot);
     const versionsToRemove = snapshot.versions
-      .filter(v => !versionsToKeep.has(v.version))
+      .filter((v: unknown) => !versionsToKeep.has((v as any).version))
       .slice(0, this.config.maxCleanupBatch);
 
     let removedCount = 0;
@@ -102,9 +102,9 @@ export class VersionCleaner extends EventEmitter {
   ): Promise<number> {
     console.assert(key != null && snapshot != null && versionRemover != null, 'Parameters required');
 
-    const versionsToClean = snapshot.versions.filter(v =>
-      now - v.timestamp > this.config.retentionPeriod &&
-      v.version !== snapshot.currentVersion
+    const versionsToClean = snapshot.versions.filter((v: unknown) =>
+      now - (v as any).timestamp > this.config.retentionPeriod &&
+      (v as any).version !== snapshot.currentVersion
     );
 
     let cleanedCount = 0;

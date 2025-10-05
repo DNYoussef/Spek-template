@@ -166,7 +166,7 @@ export class SecurityThreatAssessmentService {
   private async identifyMitigationStrategies(threatAnalysis: any): Promise<string[]> {
     const strategies = [];
 
-    const threatTypes = new Set(threatAnalysis.threats.map(t => t.type));
+    const threatTypes = new Set(threatAnalysis.threats.map((t: unknown) => (t as any).type));
 
     if (threatTypes.has('Injection')) {
       strategies.push('Implement parameterized queries and input validation');

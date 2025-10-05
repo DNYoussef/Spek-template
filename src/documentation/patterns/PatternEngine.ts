@@ -124,8 +124,8 @@ export class PatternEngine extends EventEmitter {
   async findSimilarPatterns(content: string, threshold: number = 0.7): Promise<DocumentationPattern[]> {
     const embeddings = await this.vectorEmbeddings.generateEmbeddings(content);
     const similar = await this.vectorEmbeddings.findSimilar(embeddings, threshold);
-    
-    return similar.map(item => this.patternCache.get(item.id)).filter(Boolean) as DocumentationPattern[];
+
+    return similar.map((item: unknown) => this.patternCache.get((item as any).id)).filter(Boolean) as DocumentationPattern[];
   }
 
   /**

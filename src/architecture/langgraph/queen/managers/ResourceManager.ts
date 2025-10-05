@@ -40,7 +40,7 @@ export class ResourceManager {
       princessId,
       allocatedCapacity: 1.0,
       currentUtilization: 0.0,
-      capabilities: stateMachine.getCapabilities().map(cap => cap.id),
+      capabilities: stateMachine.getCapabilities().map((cap: unknown) => (cap as any).id),
       performance: {
         throughput: 0,
         latency: 0,

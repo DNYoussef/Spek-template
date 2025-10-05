@@ -908,15 +908,15 @@ export class ContextDNASignatureProcessor {
   // Learning-related bounded methods
   private analyzeTrainingData(trainingData: any): any {
     return {
-      successPatterns: trainingData.successfulOptimizations.slice(0, 20).map(opt => ({
+      successPatterns: trainingData.successfulOptimizations.slice(0, 20).map((opt: unknown) => ({
         pattern: 'success_pattern',
         frequency: 0.8,
-        effectiveness: opt.resultingQuality
+        effectiveness: (opt as any).resultingQuality
       })),
-      failurePatterns: trainingData.failedOptimizations.slice(0, 10).map(opt => ({
+      failurePatterns: trainingData.failedOptimizations.slice(0, 10).map((opt: unknown) => ({
         pattern: 'failure_pattern',
         frequency: 0.2,
-        reasons: opt.failureReasons
+        reasons: (opt as any).failureReasons
       }))
     };
   }
@@ -1013,10 +1013,10 @@ export class ContextDNASignatureProcessor {
 
   private updateLearningModels(learningResults: any): void {
     // Update model parameters based on learning results
-    learningResults.modelUpdates.parameterChanges.forEach(change => {
+    learningResults.modelUpdates.parameterChanges.forEach((change: unknown) => {
       const model = this.learningModels.get('pattern_recognition');
-      if (model && model.parameters[change.parameter]) {
-        model.parameters[change.parameter] = change.newValue;
+      if (model && model.parameters[(change as any).parameter]) {
+        model.parameters[(change as any).parameter] = (change as any).newValue;
         model.lastUpdated = Date.now();
       }
     });

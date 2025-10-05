@@ -132,12 +132,12 @@ export class ValidationState extends BaseStateHandler {
     this.logger.warn('Migration plan validation failed', {
       analysisId: context.analysisId,
       score: context.validationResults.score,
-      failedChecks: context.validationResults.checks.filter(c => c.status === 'fail').length
+      failedChecks: context.validationResults.checks.filter((c: unknown) => (c as any).status === 'fail').length
     });
 
     // Add validation failure as error
-    const failedChecks = context.validationResults.checks.filter(c => c.status === 'fail');
-    const errorMessage = `Validation failed: ${failedChecks.map(c => c.name).join(', ')}`;
+    const failedChecks = context.validationResults.checks.filter((c: unknown) => (c as any).status === 'fail');
+    const errorMessage = `Validation failed: ${failedChecks.map((c: unknown) => (c as any).name).join(', ')}`;
     this.addError(new Error(errorMessage), context, false);
 
     return AnalysisEvent.VALIDATION_FAILED;

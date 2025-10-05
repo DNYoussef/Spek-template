@@ -283,16 +283,16 @@ ${gateResult.passed ?
 ${gateResult.detailedResults.nasa ? `
 ### Rule Compliance Breakdown
 
-${gateResult.detailedResults.nasa.ruleResults.map(rule => `
-#### Rule ${rule.ruleNumber}: ${rule.ruleName}
-**Description:** ${rule.description}
-**Compliance:** ${rule.compliance}%
-**Status:** ${rule.status}
-**Violations:** ${rule.violations.length}
+${gateResult.detailedResults.nasa.ruleResults.map((rule: unknown) => `
+#### Rule ${(rule as any).ruleNumber}: ${(rule as any).ruleName}
+**Description:** ${(rule as any).description}
+**Compliance:** ${(rule as any).compliance}%
+**Status:** ${(rule as any).status}
+**Violations:** ${(rule as any).violations.length}
 
-${rule.violations.length > 0 ? `
+${(rule as any).violations.length > 0 ? `
 **Violations:**
-${rule.violations.map(v => `- ${v.file}:${v.line} - ${v.message} (${v.severity})`).join('\n')}
+${(rule as any).violations.map((v: unknown) => `- ${(v as any).file}:${(v as any).line} - ${(v as any).message} (${(v as any).severity})`).join('\n')}
 ` : '✅ No violations detected'}
 `).join('\n')}
 
@@ -300,8 +300,8 @@ ${rule.violations.map(v => `- ${v.file}:${v.line} - ${v.message} (${v.severity})
 
 ${gateResult.detailedResults.nasa.criticalViolations.length === 0 ?
   '✅ No critical violations detected' :
-  gateResult.detailedResults.nasa.criticalViolations.map(v =>
-    `❌ **Rule ${v.ruleNumber}** - ${v.file}:${v.line}\n   ${v.message}`
+  gateResult.detailedResults.nasa.criticalViolations.map((v: unknown) =>
+    `❌ **Rule ${(v as any).ruleNumber}** - ${(v as any).file}:${(v as any).line}\n   ${(v as any).message}`
   ).join('\n\n')}
 
 ### Compliance Recommendations

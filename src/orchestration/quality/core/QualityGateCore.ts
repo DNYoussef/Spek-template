@@ -121,7 +121,7 @@ export class QualityGateCore extends EventEmitter {
     // Assertion 1: Valid sequence object
     assert(sequence !== null && sequence.sequenceId !== undefined, 'Sequence must be valid with ID');
     // Assertion 2: All referenced gates exist
-    assert(sequence.gates.every(gate => this.gateDefinitions.has(gate.gateId)),
+    assert(sequence.gates.every((gate: unknown) => this.gateDefinitions.has((gate as any).gateId)),
            'All sequence gates must be registered');
 
     this.qualitySequences.set(sequence.sequenceId, sequence);

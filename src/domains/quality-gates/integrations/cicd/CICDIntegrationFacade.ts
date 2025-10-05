@@ -230,7 +230,7 @@ export class CICDIntegration extends EventEmitter {
     console.assert(executionId.length > 0, 'Execution ID cannot be empty');
 
     const activeDeployments = this.deploymentManager.getActiveDeployments();
-    const execution = activeDeployments.find(e => e.executionId === executionId);
+    const execution = activeDeployments.find((e: unknown) => (e as any).executionId === executionId);
 
     if (!execution) {
       return false;

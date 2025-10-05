@@ -144,17 +144,17 @@ export class GitHubAPICalculator {
         })
       ]);
 
-      const openIssues = issuesData.data.filter(issue =>
-        issue.state === 'open' && !issue.pull_request
+      const openIssues = issuesData.data.filter((issue: unknown) =>
+        (issue as any).state === 'open' && !(issue as any).pull_request
       ).length;
 
-      const closedIssues = issuesData.data.filter(issue =>
-        issue.state === 'closed' && !issue.pull_request
+      const closedIssues = issuesData.data.filter((issue: unknown) =>
+        (issue as any).state === 'closed' && !(issue as any).pull_request
       ).length;
 
       const metrics: GitHubMetrics = {
-        issueNumber: issuesData.data.length > 0 ? Math.max(...issuesData.data.map(i => i.number)) : 1,
-        prNumber: pullsData.data.length > 0 ? Math.max(...pullsData.data.map(p => p.number)) : 1,
+        issueNumber: issuesData.data.length > 0 ? Math.max(...issuesData.data.map((i: unknown) => (i as any).number)) : 1,
+        prNumber: pullsData.data.length > 0 ? Math.max(...pullsData.data.map((p: unknown) => (p as any).number)) : 1,
         commitCount: commitsData.data.length,
         starCount: repoData.data.stargazers_count,
         forkCount: repoData.data.forks_count,

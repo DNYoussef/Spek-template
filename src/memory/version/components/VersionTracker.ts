@@ -44,7 +44,7 @@ export class VersionTracker extends EventEmitter {
     const snapshot = this.versions.get(key);
     if (!snapshot) return null;
 
-    return snapshot.versions.find(v => v.version === version) || null;
+    return snapshot.versions.find((v: unknown) => (v as any).version === version) || null;
   }
 
   getVersionHistory(key: string): VersionSnapshot | null {

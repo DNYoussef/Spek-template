@@ -245,8 +245,8 @@ declare global {
 }
 
 expect.extend({
-  toBeOneOf(received: unknown, expected) {
-    const pass = expected.includes(received);
+  toBeOneOf(received: unknown, expected: unknown) {
+    const pass = (expected as any[]).includes(received);
     if (pass) {
       return {
         message: () => `expected ${received} not to be one of ${expected.join(', ')}`,

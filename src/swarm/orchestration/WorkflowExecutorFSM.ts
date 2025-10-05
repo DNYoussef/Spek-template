@@ -218,8 +218,8 @@ export class WorkflowExecutorFSM extends EventEmitter {
 
       // Suspend any active agents
       const activeAgents = this.agentFacade.getActiveAgents();
-      const workflowAgents = activeAgents.filter(agent => 
-        agent.workflowId === execution.executionId
+      const workflowAgents = activeAgents.filter((agent: unknown) =>
+        (agent as any).workflowId === execution.executionId
       );
 
       for (const agent of workflowAgents) {

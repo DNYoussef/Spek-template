@@ -432,11 +432,11 @@ export class AgentWorkflowFacade extends EventEmitter {
    */
   private calculateAverageWorkflowDuration(): number {
     const history = this.workflowExecutor.getWorkflowHistory();
-    const completedWorkflows = history.filter(w => w.endTime);
+    const completedWorkflows = history.filter((w: unknown) => (w as any).endTime);
 
     if (completedWorkflows.length === 0) return 0;
 
-    const totalDuration = completedWorkflows.reduce((sum: number, w) => sum + (w.endTime! - w.startTime), 0);
+    const totalDuration = completedWorkflows.reduce((sum: number, w: unknown) => sum + ((w as any).endTime! - (w as any).startTime), 0);
     const average = totalDuration / completedWorkflows.length;
 
     assert(average >= 0, 'Average duration must be non-negative');
@@ -448,7 +448,7 @@ export class AgentWorkflowFacade extends EventEmitter {
    */
   private calculateWorkflowSuccessRate(): number {
     const history = this.workflowExecutor.getWorkflowHistory();
-    const completedWorkflows = history.filter(w => w.status === 'completed');
+    const completedWorkflows = history.filter((w: unknown) => (w as any).status === 'completed');
 
     const successRate = history.length > 0 ? completedWorkflows.length / history.length : 1.0;
     assert(successRate >= 0 && successRate <= 1, 'Success rate must be between 0 and 1');

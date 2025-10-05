@@ -61,8 +61,8 @@ export class SolutionDesigner {
 
       // Simple architecture detection based on directory patterns
       const directories = new Set<string>();
-      sourceFiles.forEach(file => {
-        directories.add(require('path').dirname(file));
+      sourceFiles.forEach((file: unknown) => {
+        directories.add(require('path').dirname(file as string));
       });
 
       const dirList = Array.from(directories);

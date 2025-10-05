@@ -43,7 +43,7 @@ export class ExampleValidator {
         }
 
         if (result.warnings) {
-          warnings.push(...result.warnings.map(w => `${rule.name}: ${w}`));
+          warnings.push(...result.warnings.map((w: unknown) => `${rule.name}: ${w}`));
         }
       } catch (error) {
         errors.push(`${rule.name}: ${error instanceof Error ? error.message : 'Unknown error'}`);

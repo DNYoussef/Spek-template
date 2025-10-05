@@ -131,7 +131,7 @@ export class KnowledgeGraphEngine {
    */
   private async ensureCollections(): Promise<void> {
     const collections = await this.db.collections();
-    const existingNames = collections.map(c => c.name);
+    const existingNames = collections.map((c: unknown) => (c as any).name);
 
     // Create vertex collection
     if (!existingNames.includes(this.config.collections.vertices)) {
@@ -168,7 +168,7 @@ export class KnowledgeGraphEngine {
    */
   private async ensureGraph(): Promise<void> {
     const graphs = await this.db.graphs();
-    const existingGraphs = graphs.map(g => g.name);
+    const existingGraphs = graphs.map((g: unknown) => (g as any).name);
 
     if (!existingGraphs.includes(this.config.collections.graph)) {
       this.graph = await this.db.createGraph(this.config.collections.graph, [

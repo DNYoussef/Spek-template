@@ -75,7 +75,7 @@ export class ComplianceValidator {
       criticalRemaining = context.vulnerabilities.critical;
 
       // Calculate remediation rate based on findings
-      const remediatedCount = context.vulnerabilities.findings.filter(f => f.remediated).length;
+      const remediatedCount = context.vulnerabilities.findings.filter((f: unknown) => (f as any).remediated).length;
       const totalFindings = context.vulnerabilities.findings.length;
 
       if (totalFindings > 0) {

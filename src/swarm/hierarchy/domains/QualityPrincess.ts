@@ -292,7 +292,7 @@ export class QualityPrincess extends PrincessBase {
 
       // Get theater patterns from stored entry
       const patterns = this.qualityMemory.findTheaterPatterns(this.theaterThreshold);
-      theaterPatterns.push(...patterns.map(p => p.id));
+      theaterPatterns.push(...patterns.map((p: unknown) => (p as any).id));
 
     } catch (error) {
       this.logger.warn('Theater detection failed', {
