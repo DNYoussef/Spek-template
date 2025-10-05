@@ -3,8 +3,8 @@
  * Replaces 'any' types with specific interfaces across the system
  */
 
-import { ConfigPath, ConfigValue, ValidationPath, ValidationError, Timestamp, FilePath, FileHash } from './primitives';
-import { ValidationResult } from '../validation-types';
+import { ConfigPath, ConfigValue, ValidationPath, Timestamp, FilePath, FileHash } from './primitives';
+import { ValidationResult, ValidationError, ValidationWarning, ValidationMetadata } from '../validation-types';
 
 // Generic result types to replace 'any' returns
 export interface Result<T = unknown, E = Error> {
@@ -44,20 +44,8 @@ export interface OverrideCondition {
 }
 
 // Validation result types
-
-
-export interface ValidationWarning {
-  readonly path: ValidationPath;
-  readonly message: string;
-  readonly severity: 'low' | 'medium' | 'high';
-}
-
-export interface ValidationMetadata {
-  readonly timestamp: Timestamp;
-  readonly schema_version: string;
-  readonly validation_duration: number;
-  readonly rules_applied: string[];
-}
+// NOTE: ValidationResult, ValidationError, ValidationWarning, ValidationMetadata
+// are now imported from canonical source (../validation-types.ts)
 
 // Configuration change types
 export interface ConfigChange {
@@ -149,9 +137,10 @@ export const createValidationResult = (
   warnings,
   metadata: {
     timestamp: Date.now() as Timestamp,
-    schema_version: '1.0.0',
-    validation_duration: 0,
-    rules_applied: []
+    duration: 0,
+    rulesApplied: 0,
+    rulesPassed: 0,
+    rulesFailed: 0
   }
 });
 
