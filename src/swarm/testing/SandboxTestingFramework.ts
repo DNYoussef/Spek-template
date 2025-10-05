@@ -7,21 +7,10 @@
 import { EventEmitter } from 'events';
 import { SandboxTestExecutor } from '../../testing/core/SandboxTestExecutor';
 import { TestConfig, TestDefinition } from '../../testing/types/TestingTypes';
+import { ValidationResult } from '../../types/validation-types';
 
 // Re-export legacy types for backward compatibility
-export interface ValidationResult {
-  validationId: string;
-  executionId: string;
-  fixId: string;
-  overall: boolean;
-  score: number;
-  criteria: ValidationCriteria[];
-  issues: ValidationIssue[];
-  recommendations: string[];
-  confidence: number;
-  timestamp: Date;
-  validator: string;
-}
+
 
 export interface ValidationCriteria {
   name: string;

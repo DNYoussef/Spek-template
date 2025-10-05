@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../types/validation-types';
+
 /**
  * ConfigTypes - Unified Configuration Type System
  * Replaces massive 1,029-line god object with focused, composable types
@@ -58,12 +60,7 @@ export interface ConfigSource {
 }
 
 // Validation Types
-export interface ValidationResult {
-    valid: boolean;
-    errors: string[];
-    warnings: string[];
-    score?: number;
-}
+
 
 export interface ValidationRule {
     name: string;

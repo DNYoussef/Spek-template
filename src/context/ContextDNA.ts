@@ -7,6 +7,7 @@
  */
 
 import * as crypto from 'crypto';
+import { ValidationResult } from '../types/validation-types';
 
 export interface ContextFingerprint {
   checksum: string;
@@ -19,14 +20,6 @@ export interface ContextFingerprint {
   contextId?: string; // Optional context identifier for tracking
 }
 
-export interface ValidationResult {
-  valid: boolean;
-  checksumMatch: boolean;
-  semanticSimilarity: number;
-  degradationDetected: boolean;
-  recoveryNeeded: boolean;
-  details: string[];
-}
 
 export class ContextDNA {
   private static readonly SEMANTIC_THRESHOLD = 0.85;

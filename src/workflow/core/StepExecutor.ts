@@ -7,6 +7,7 @@
 import { EventEmitter } from 'events';
 import { StepState, StepEvent, StepContext } from '../fsm/WorkflowStates';
 import { WorkflowTransitionHub } from '../fsm/WorkflowTransitionHub';
+import { ValidationResult } from '../../types/validation-types';
 
 export interface StepDefinition {
   stepId: string;
@@ -30,12 +31,6 @@ export interface StepExecutionResult {
   validationResults?: ValidationResult[];
 }
 
-export interface ValidationResult {
-  criterion: string;
-  passed: boolean;
-  message?: string;
-  details?: any;
-}
 
 export type StepExecutorFunction = (input: any, context: StepContext) => Promise<any>;
 export type StepValidatorFunction = (output: any, criteria: string[]) => Promise<ValidationResult[]>;

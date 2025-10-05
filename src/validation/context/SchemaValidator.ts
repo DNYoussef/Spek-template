@@ -5,6 +5,7 @@
  */
 
 import { EventEmitter } from 'events';
+import { ValidationResult } from '../../types/validation-types';
 
 export interface Schema {
   id: string;
@@ -49,17 +50,6 @@ export interface ValidationError {
   severity: 'error' | 'warning' | 'info';
 }
 
-export interface ValidationResult {
-  valid: boolean;
-  errors: ValidationError[];
-  warnings: ValidationError[];
-  metadata: {
-    schemaId: string;
-    schemaVersion: string;
-    validatedAt: Date;
-    duration: number;
-  };
-}
 
 export class SchemaValidator extends EventEmitter {
   /**

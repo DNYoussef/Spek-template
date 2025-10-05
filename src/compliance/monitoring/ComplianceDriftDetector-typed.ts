@@ -7,6 +7,7 @@
 import { ComplianceDriftDetectorFSM } from './ComplianceDriftDetectorFSM';
 import { MonitorConfig } from '../../monitoring/shared/MonitoringFSMTypes';
 import { StateContext } from '../../../types/base/shared';
+import { ValidationResult } from '../../types/validation-types';
 
 // FSM State and Event Types
 export enum DriftDetectionState {
@@ -89,11 +90,6 @@ export interface RollbackResult {
   readonly timestamp: number;
 }
 
-export interface ValidationResult {
-  readonly valid: boolean;
-  readonly errors: readonly string[];
-  readonly warnings: readonly string[];
-}
 
 // Legacy facade that delegates to FSM
 export class ComplianceDriftDetector {

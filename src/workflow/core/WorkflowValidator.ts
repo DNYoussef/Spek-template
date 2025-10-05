@@ -7,6 +7,7 @@
 import { EventEmitter } from 'events';
 import { WorkflowState, StepState, WorkflowContext, StepContext } from '../fsm/WorkflowStates';
 import { WorkflowTransitionHub } from '../fsm/WorkflowTransitionHub';
+import { ValidationResult } from '../../types/validation-types';
 
 export interface ValidationRule {
   ruleId: string;
@@ -18,15 +19,6 @@ export interface ValidationRule {
   enabled: boolean;
 }
 
-export interface ValidationResult {
-  ruleId: string;
-  passed: boolean;
-  score: number; // 0-1 scale
-  message: string;
-  details?: any;
-  timestamp: number;
-  recommendations?: string[];
-}
 
 export interface ValidationReport {
   workflowId: string;

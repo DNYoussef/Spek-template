@@ -1,13 +1,10 @@
+import { ValidationResult } from '../../types/validation-types';
+
 /**
  * Validation utilities for various system components
  * Domain-specific validation logic decomposed from god objects
  */
 
-export interface ValidationResult {
-  valid: boolean;
-  errors: string[];
-  warnings?: string[];
-}
 
 /**
  * Generic validation utilities

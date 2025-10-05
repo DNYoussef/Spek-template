@@ -5,6 +5,7 @@
  */
 
 import { EventEmitter } from 'events';
+import { ValidationResult } from '../../types/validation-types';
 
 export interface ValidationRule {
   id: string;
@@ -25,15 +26,6 @@ export interface ValidationContext {
   environment: Record<string, any>;
 }
 
-export interface ValidationResult {
-  ruleId: string;
-  passed: boolean;
-  severity: ValidationRule['severity'];
-  message: string;
-  timestamp: Date;
-  duration: number;
-  context: ValidationContext;
-}
 
 export interface ValidationSummary {
   stageId: string;

@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../types/validation-types';
+
 /**
  * Routing Validation Engine - Centralized Validation Logic
  * NASA Rule 10 Compliant - Extracted from god objects
@@ -13,20 +15,6 @@ export interface ValidationRule {
   suggestion?: string;
 }
 
-export interface ValidationResult {
-  isValid: boolean;
-  score: number;
-  violations: ValidationViolation[];
-  warnings: ValidationWarning[];
-  metadata: {
-    validationTime: number;
-    rulesApplied: number;
-    performance: {
-      totalTime: number;
-      ruleExecutionTimes: Record<string, number>;
-    };
-  };
-}
 
 export interface ValidationViolation {
   ruleId: string;
