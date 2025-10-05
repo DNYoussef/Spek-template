@@ -5,10 +5,10 @@
  */
 
 import { EventEmitter } from 'events';
+import { ValidationResult } from '../../../types/validation-types';
 import {
   ValidationState,
   ValidationEvent,
-  ValidationResult,
   ValidationConfig,
   FSMValidationResult,
   FSMValidationMetrics,

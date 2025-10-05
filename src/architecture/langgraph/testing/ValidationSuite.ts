@@ -7,7 +7,7 @@
 import { EventEmitter } from 'events';
 import { ValidationTestExecutor } from '../../../testing/core/ValidationTestExecutor';
 import { TestConfig, TestDefinition } from '../../../testing/types/TestingTypes';
-import { ValidationResult } from '../../../types/validation-types';
+import { ValidationResult, ValidationError, ValidationWarning, ValidationSeverity } from '../../../types/validation-types';
 
 // Re-export legacy types for backward compatibility
 export enum ValidationState {
@@ -90,18 +90,33 @@ export class ValidationSuite extends EventEmitter {
     };
 
     const result = await this.executor.executeTest(testDefinition);
+
+    // Convert string arrays to canonical ValidationError/Warning types
+    const errors: ValidationError[] = (result.errors || []).map((msg: string, idx: number) => ({
+      code: `TEST_ERROR_${idx}`,
+      message: msg,
+      severity: ValidationSeverity.HIGH
+    }));
+
+    const warnings: ValidationWarning[] = (result.warnings || []).map((msg: string, idx: number) => ({
+      code: `TEST_WARNING_${idx}`,
+      message: msg
+    }));
+
     const validationResult: ValidationResult = {
-      testName: result.testName,
-      success: result.status === 'passed',
-      message: result.status === 'passed' ? 'Test passed' : 'Test failed',
-      details: result.metadata,
-      errors: result.errors,
-      warnings: result.warnings,
-      executionTime: result.duration,
-      assertions: {
-        total: result.assertions.length,
-        passed: result.assertions.filter(a => a.passed).length,
-        failed: result.assertions.filter(a => !a.passed).length
+      valid: result.status === 'passed',
+      errors,
+      warnings,
+      data: {
+        testName: result.testName,
+        message: result.status === 'passed' ? 'Test passed' : 'Test failed',
+        details: result.metadata,
+        executionTime: result.duration,
+        assertions: {
+          total: result.assertions.length,
+          passed: result.assertions.filter((a: any) => a.passed).length,
+          failed: result.assertions.filter((a: any) => !a.passed).length
+        }
       }
     };
 
