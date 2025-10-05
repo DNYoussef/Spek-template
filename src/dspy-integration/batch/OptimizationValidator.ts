@@ -6,25 +6,8 @@
 
 import * as fs from 'fs/promises';
 import { AgentConfig } from './BatchOptimizationController';
+import { ValidationResult } from '../../types/validation-types';
 
-export interface ValidationResult {
-  passed: boolean;
-  score: number;
-  errors: string[];
-  warnings: string[];
-  compliance_scores: {
-    nasa_rule_10: number;
-    fsm_compliance: number;
-    dspy_structure: number;
-    prompt_quality: number;
-  };
-  optimization_metrics: {
-    prompt_length: number;
-    instruction_clarity: number;
-    example_coverage: number;
-    scoring_criteria: number;
-  };
-}
 
 export interface ValidationRule {
   rule_id: string;

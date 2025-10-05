@@ -7,6 +7,7 @@
  */
 
 import { OptimizationResult } from './GlobalPromptOptimizer';
+import { ValidationResult } from '../../types/validation-types';
 
 export interface ValidationConfig {
   agentCategories: AgentCategory[];
@@ -38,15 +39,6 @@ export interface PerformanceThresholds {
   maxResourceUsageIncrease: number;    // 15%
 }
 
-export interface ValidationResult {
-  overallScore: number;
-  complianceResults: ComplianceValidationResult;
-  performanceResults: PerformanceValidationResult;
-  consistencyResults: ConsistencyValidationResult;
-  riskAssessment: RiskAssessment;
-  recommendations: string[];
-  deploymentDecision: 'APPROVE' | 'APPROVE_WITH_CONDITIONS' | 'REJECT';
-}
 
 export interface ComplianceValidationResult {
   nasaRule10Score: number;

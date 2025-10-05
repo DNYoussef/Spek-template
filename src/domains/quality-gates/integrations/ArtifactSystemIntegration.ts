@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../../types/validation-types';
+
 /**
  * ArtifactSystemIntegration - ELIMINATED GOD OBJECT
  * @eliminated true @original_size 831 lines @reduction 99.0%
@@ -11,11 +13,7 @@ export interface ArtifactQualityMetrics {
   readonly traceability: number;
 }
 
-export interface ValidationResult {
-  readonly valid: boolean;
-  readonly errors: readonly string[];
-  readonly warnings: readonly string[];
-}
+
 
 export interface ArtifactValidationPlan {
   readonly rules: readonly string[];

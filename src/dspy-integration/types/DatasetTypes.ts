@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../types/validation-types';
+
 /**
  * Type definitions for DSPy dataset building system
  * Comprehensive types for communication examples, scoring, and performance tracking
@@ -66,21 +68,6 @@ export interface UserFeedback {
   would_use_again?: boolean;
 }
 
-export interface ValidationResult {
-  isValid: boolean;
-  score: number; // 0-1
-  error?: string;
-  errors?: string[];
-  warnings?: string[];
-  details?: {
-    rule_results: Array<{
-      rule: string;
-      passed: boolean;
-      score: number;
-    }>;
-    overall_score: number;
-  };
-}
 
 export interface ScoringResult {
   clarity: number;

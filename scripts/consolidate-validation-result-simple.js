@@ -13,6 +13,27 @@
 const fs = require('fs');
 const path = require('path');
 
+// NOTE: Import path is computed dynamically based on file location
+const getCanonicalImport = (filePath) => {
+  // Files in src/types/ -> './validation-types'
+  if (filePath.includes('src/types/') && !filePath.includes('src/types/base')) {
+    return "import { ValidationResult } from './validation-types';";
+  }
+  // Files in src/types/base/ -> '../validation-types'
+  if (filePath.includes('src/types/base/')) {
+    return "import { ValidationResult } from '../validation-types';";
+  }
+  // All other files -> relative path to src/types/validation-types
+  // Calculate depth: count ../ needed
+  const parts = filePath.split(/[\/\\]/);
+  const srcIndex = parts.indexOf('src');
+  if (srcIndex === -1) return "import { ValidationResult } from './validation-types';";
+
+  const depth = parts.length - srcIndex - 2; // -2 for 'src' and filename
+  const upDirs = '../'.repeat(depth);
+  return `import { ValidationResult } from '${upDirs}types/validation-types';`;
+};
+
 const CANONICAL_IMPORT = "import { ValidationResult } from '~types/validation-types';";
 
 /**
@@ -82,8 +103,13 @@ function hasCanonicalImport(content) {
          content.includes('from "~types/validation-types"') ||
          content.includes("from '@/types/validation-types'") ||
          content.includes('from "../types/validation-types"') ||
+         content.includes("from './validation-types'") ||
          content.includes("from '~/types/validation-types'") ||
-         content.includes('from "~/types/validation-types"');
+         content.includes('from "~/types/validation-types"') ||
+         content.includes('from "../../types/validation-types"') ||
+         content.includes("from '../../types/validation-types'") ||
+         content.includes('from "../../../types/validation-types"') ||
+         content.includes("from '../../../types/validation-types'");
 }
 
 /**
@@ -113,13 +139,16 @@ function consolidateFile(filePath, dryRun = true) {
   // Find import position
   const importPosition = findImportInsertPosition(content);
 
+  // Get correct import statement for this file
+  const canonicalImport = getCanonicalImport(filePath);
+
   // Build new content
   let newContent;
 
   if (importPosition === 0) {
     // No existing imports - add at top
     newContent =
-      CANONICAL_IMPORT + '\n\n' +
+      canonicalImport + '\n\n' +
       content.slice(0, interfaceBlock.start) +
       content.slice(interfaceBlock.end);
   } else {
@@ -130,7 +159,7 @@ function consolidateFile(filePath, dryRun = true) {
 
     newContent =
       beforeImports + '\n' +
-      CANONICAL_IMPORT +
+      canonicalImport +
       betweenImportsAndInterface +
       afterInterface;
   }
@@ -148,7 +177,7 @@ function consolidateFile(filePath, dryRun = true) {
       console.log(`  - ${line}`);
     });
     console.log('\nADDED:');
-    console.log(`  + ${CANONICAL_IMPORT}`);
+    console.log(`  + ${getCanonicalImport(filePath)}`);
     console.log(`\nImport position: ${importPosition === 0 ? 'Top of file' : 'After line ' + content.slice(0, importPosition).split('\n').length}`);
 
     return { modified: true, dryRun: true };

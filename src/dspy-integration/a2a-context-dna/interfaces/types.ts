@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../../types/validation-types';
+
 /**
  * A2A DSPy Context DNA System - Core Type Definitions
  * NASA Rule 10 Compliant Implementation
@@ -210,12 +212,6 @@ export interface ResourceConstraints {
   readonly priority: 'low' | 'medium' | 'high' | 'critical';
 }
 
-export interface ValidationResult {
-  isValid: boolean;
-  confidence: number;
-  validationType: 'SEMANTIC' | 'STRUCTURAL' | 'LOGICAL' | 'PERFORMANCE';
-  details: string;
-}
 
 export interface EnhancementMetadata {
   processingTime: number;

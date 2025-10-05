@@ -6,14 +6,8 @@
  */
 
 import { DSPySignature, SignatureExample } from '~types/DSPyTypes';
+import { ValidationResult } from '../../types/validation-types';
 
-export interface ValidationResult {
-  readonly isValid: boolean;
-  readonly errors: string[];
-  readonly warnings: string[];
-  readonly qualityScore: number;
-  readonly metrics: ValidationMetrics;
-}
 
 export interface ValidationMetrics {
   readonly schemaCompliance: number;

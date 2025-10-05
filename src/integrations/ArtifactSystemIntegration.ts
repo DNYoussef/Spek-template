@@ -5,6 +5,7 @@
  */
 
 import { Timestamp, Milliseconds } from '~types/base/primitives';
+import { ValidationResult } from '../types/validation-types';
 
 export interface ArtifactQualityMetrics {
   count: number;
@@ -25,12 +26,6 @@ export interface QVDomainIntegration {
   value: unknown;
 }
 
-export interface ValidationResult {
-  success: boolean;
-  data: unknown;
-  error: string | undefined;
-  timestamp: Timestamp;
-}
 
 /* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE */
 /*

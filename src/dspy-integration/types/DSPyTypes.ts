@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../types/validation-types';
+
 /**
  * DSPy Integration Type Definitions
  * 
@@ -89,14 +91,6 @@ export interface PerformanceMetrics {
   readonly timestamp: Date;
 }
 
-export interface ValidationResult {
-  readonly testId: string;
-  readonly outcome: ValidationOutcome;
-  readonly baselineMetrics: PerformanceMetrics;
-  readonly optimizedMetrics: PerformanceMetrics;
-  readonly statisticalSignificance: number;
-  readonly sampleSize: number;
-}
 
 // FSM Transition types
 export interface StateTransition {

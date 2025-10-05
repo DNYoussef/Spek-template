@@ -9,6 +9,7 @@
 
 import { PrincessDomain, QueenState, QueenEvent } from '../../../architecture/langgraph/queen/fsm/QueenFSMTypes';
 import { DSPySignature, ResourceConstraints, QualityGateConfig, PerformanceMetrics, FallbackStrategy, ValidationRule } from './QueenPrincessSignatures';
+import { ValidationResult } from '../../types/validation-types';
 
 // Drone-specific Types
 export enum DroneType {
@@ -748,14 +749,6 @@ export interface TaskDeliverable {
   readonly metadata: Record<string, any>;
 }
 
-export interface ValidationResult {
-  readonly validator_id: string;
-  readonly validation_type: string;
-  readonly passed: boolean;
-  readonly score: number;
-  readonly issues: readonly ValidationIssue[];
-  readonly suggestions: readonly string[];
-}
 
 export interface ValidationIssue {
   readonly issue_id: string;

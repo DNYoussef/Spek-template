@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../types/validation-types';
+
 /**
  * DSPy Integration Type Definitions
  * Complete type system for DSPy-SPEK integration
@@ -251,13 +253,6 @@ export interface OptimizationMetrics {
   improvementScore: number;
 }
 
-export interface ValidationResult {
-  validator: string;
-  passed: boolean;
-  score: number;
-  details: string;
-  recommendations?: string[];
-}
 
 // A/B Testing Types
 export interface ABTestResult {
