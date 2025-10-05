@@ -404,14 +404,16 @@ export class WorkflowValidator extends EventEmitter {
           : 0;
         
         const passed = completionRate === 1 && wfContext.failedSteps === 0;
-        
+
         return {
-          ruleId: 'steps_completion',
-          passed,
+          valid: passed,
           score: completionRate,
-          message: `${wfContext.completedSteps}/${wfContext.totalSteps} steps completed, ${wfContext.failedSteps} failed`,
-          timestamp: Date.now(),
-          recommendations: passed ? [] : ['Investigate failed steps', 'Check step dependencies']
+          data: {
+            ruleId: 'steps_completion',
+            message: `${wfContext.completedSteps}/${wfContext.totalSteps} steps completed, ${wfContext.failedSteps} failed`,
+            timestamp: Date.now(),
+            recommendations: passed ? [] : ['Investigate failed steps', 'Check step dependencies']
+          }
         };
       }
     });
