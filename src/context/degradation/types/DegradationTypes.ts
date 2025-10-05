@@ -4,6 +4,7 @@
  */
 
 import { ContextFingerprint } from '../../ContextDNA';
+import { ValidationResult } from '~/types/validation-types';
 
 // FSM State Enums
 export enum MonitoringState {
@@ -74,16 +75,12 @@ export interface MonitoringConfig {
   readonly maxHistoryLength: number;
 }
 
-export interface ValidationResult {
-  readonly valid: boolean;
-  readonly checksum: string;
-  readonly confidence?: number;
-}
+// ValidationResult imported from ~/types/validation-types at top of file
 
 export interface RecoveryResult {
   readonly success: boolean;
-  readonly result?: any;
-  readonly error?: string;
+  readonly result?: any; // Recovery result data
+  readonly error?: string; // Error message if recovery failed
   readonly metrics?: {
     readonly executionTime: number;
     readonly recoveryScore: number;
@@ -156,12 +153,12 @@ export interface IValidationEngine {
 }
 
 // Trend Analysis
-export type TrendType = 'stable' | 'improving' | 'degrading' | 'accelerating';
+export type TrendType = 'stable' | 'improving' | 'degrading' | 'accelerating' | 'rapid_degrading';
 
 export interface TrendAnalysis {
   readonly trend: TrendType;
   readonly confidence: number;
-  readonly dataPoints: number;
+  readonly dataPoints?: number; // Number of data points used in analysis
 }
 
 // Constants

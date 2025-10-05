@@ -8,6 +8,8 @@ export interface ValidationResult {
   readonly errors?: ValidationError[];
   readonly warnings?: ValidationWarning[];
   readonly metadata?: ValidationMetadata;
+  readonly confidence?: number; // Confidence score (0-1) for degradation monitoring
+  readonly checksum?: string; // Checksum for validation integrity
 }
 // FSM-specific validation result
 export interface FSMValidationResult extends ValidationResult {
