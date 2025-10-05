@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../../types/validation-types';
+
 /**
  * ValidationFSMTypes.ts
  * FSM-First validation system types and enums
@@ -71,14 +73,7 @@ export interface CheckResult {
 }
 
 // Validation Results (Bounded)
-export interface ValidationResult {
-  readonly validationId: string;
-  readonly rule: string;
-  readonly status: 'COMPLIANT' | 'NON_COMPLIANT' | 'PARTIAL';
-  readonly score: number; // 0-100
-  readonly evidence: string[];
-  readonly recommendations: string[];
-}
+
 
 // Report Data (Structured)
 export interface ReportData {

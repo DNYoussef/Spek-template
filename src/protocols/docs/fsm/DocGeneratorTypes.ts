@@ -1,6 +1,7 @@
 import { EventEmitter } from 'events';
 import { Logger } from '../../../utils/logger';
 import { ProtocolDescriptor } from '../../a2a/ProtocolRegistry';
+import { ValidationResult } from '../../../types/validation-types';
 import {
   ProtocolDocumentation,
   OpenAPISpec,
@@ -347,11 +348,6 @@ export class DocGeneratorTransitionHub extends EventEmitter {
   }
 }
 
-export interface ValidationResult {
-  valid: boolean;
-  errors: string[];
-  warnings: string[];
-}
 
 // === AGENT FOOTER ===
 // Version & Run Log

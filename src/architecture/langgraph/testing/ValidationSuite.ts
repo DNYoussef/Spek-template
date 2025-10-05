@@ -7,6 +7,7 @@
 import { EventEmitter } from 'events';
 import { ValidationTestExecutor } from '../../../testing/core/ValidationTestExecutor';
 import { TestConfig, TestDefinition } from '../../../testing/types/TestingTypes';
+import { ValidationResult } from '../../../types/validation-types';
 
 // Re-export legacy types for backward compatibility
 export enum ValidationState {
@@ -36,18 +37,6 @@ export enum ValidationEvent {
   RESET = 'reset'
 }
 
-export interface ValidationResult {
-  testName: string;
-  success: boolean;
-  message: string;
-  details?: any;
-  errors: string[];
-  warnings: string[];
-  executionTime: number;
-  assertions: { total: number; passed: number; failed: number; };
-  iterationCount?: number;
-  maxIterations?: number;
-}
 
 export interface ValidationConfig {
   enableIntegrationTests: boolean;

@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../../../types/validation-types';
+
 /**
  * WorkflowOrchestrator Types - Complete Type System
  * Comprehensive type definitions for FSM-based workflow orchestration
@@ -233,12 +235,7 @@ export enum OptimizationSuggestionType {
 }
 
 // Validation interfaces
-export interface ValidationResult {
-  isValid: boolean;
-  errors: string[];
-  warnings: string[];
-  suggestions: string[];
-}
+
 
 export interface WorkflowValidationContext {
   workflow: WorkflowDefinition;

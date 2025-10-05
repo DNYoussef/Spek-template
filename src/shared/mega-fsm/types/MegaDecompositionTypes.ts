@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../../types/validation-types';
+
 /**
  * MegaDecompositionTypes - Shared types for mega file decomposition
  *
@@ -87,12 +89,6 @@ export interface ValidationContext {
   customValidators: Map<string, (value: unknown) => boolean>;
 }
 
-export interface ValidationResult {
-  valid: boolean;
-  errors: ValidationError[];
-  warnings: string[];
-  metadata: Record<string, unknown>;
-}
 
 export interface ValidationError {
   field: string;

@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../../types/validation-types';
+
 /**
  * Event FSM Types - Core Type Definitions for Event System
  * Provides comprehensive type safety for FSM-based event handling
@@ -127,13 +129,6 @@ export interface EventProcessingContext {
   metadata: Record<string, any>;
 }
 
-export interface ValidationResult {
-  isValid: boolean;
-  errors: string[];
-  warnings: string[];
-  validatorName: string;
-  duration: number;
-}
 
 export interface RoutingResult {
   routeId: string;

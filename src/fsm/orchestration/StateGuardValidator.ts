@@ -4,13 +4,8 @@
  */
 
 import { FSMContext, TransitionGuard, SystemState, SystemEvent } from '~types/FSMTypes';
+import { ValidationResult } from '../../types/validation-types';
 
-export interface ValidationResult {
-  valid: boolean;
-  reason?: string;
-  guardsFailed?: string[];
-  timestamp: number;
-}
 
 export interface GuardRegistry {
   [key: string]: TransitionGuard;

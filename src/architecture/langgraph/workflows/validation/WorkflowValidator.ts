@@ -4,12 +4,8 @@
  */
 
 import { WorkflowDefinition, WorkflowTemplate, WorkflowVariableDefinition } from '../../types/workflow.types';
+import { ValidationResult } from '../../../../types/validation-types';
 
-export interface ValidationResult {
-  isValid: boolean;
-  errors: string[];
-  warnings: string[];
-}
 
 export interface VariableValidationResult {
   isValid: boolean;

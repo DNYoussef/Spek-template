@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../../types/validation-types';
+
 /**
  * Message Format Types - Centralized type definitions
  * NASA Rule 10 Compliant: All types and interfaces for message format conversion
@@ -200,12 +202,6 @@ export interface SizeChange {
   sizeIncrease: number;
 }
 
-export interface ValidationResult {
-  valid: boolean;
-  score: number;
-  issues: ValidationIssue[];
-  schemaCompliance: boolean;
-}
 
 export interface ValidationIssue {
   severity: 'error' | 'warning' | 'info';

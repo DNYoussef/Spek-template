@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../../../types/validation-types';
+
 /**
  * FSM-First Integration Types
  * Shared types and enums for SystemIntegrationOrchestrator FSM
@@ -106,12 +108,6 @@ export interface IntegrationOptions {
   customTimeout?: number;
 }
 
-export interface ValidationResult {
-  passed: boolean;
-  criticalErrors: ValidationError[];
-  warnings: ValidationWarning[];
-  score: number;
-}
 
 export interface ValidationError {
   code: string;

@@ -3,11 +3,8 @@
  * NASA Rule 10 Compliant
  */
 import { WorkflowDefinition } from '../../types/workflow.types';
-export interface ValidationResult {
-  valid: boolean;
-  errors: string[];
-  warnings: string[];
-}
+import { ValidationResult } from '../../../../types/validation-types';
+
 export class WorkflowValidator {
   /**
    * Validate a workflow definition

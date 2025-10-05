@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../../../types/validation-types';
+
 /**
  * NASA Rule 10 Compliant Validation FSM Types
  * Type definitions for FSM-based LangGraph validation system
@@ -64,9 +66,6 @@ export interface ValidationConfig {
   maxRetries: number;
 }
 
-export interface ValidationResult extends FSMValidationResult {
-  // Alias for backward compatibility
-}
 
 export interface ValidationExecutionContext {
   currentTestIndex: number;

@@ -1,3 +1,5 @@
+import { ValidationResult } from '../../types/validation-types';
+
 /**
  * Validation FSM State Type Definitions
  *
@@ -49,13 +51,7 @@ export enum ValidationEvent {
  * Validation Result Interface
  * Complete result of a validation operation
  */
-export interface ValidationResult {
-  readonly state: ValidationState;
-  readonly score: ValidationScore;
-  readonly errors: readonly ValidationError[];
-  readonly warnings: readonly ValidationWarning[];
-  readonly timestamp: Timestamp;
-}
+
 
 /**
  * Validation Error Interface
