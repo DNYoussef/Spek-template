@@ -124,11 +124,13 @@ export class WorkflowValidator extends EventEmitter {
       } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
         results.push({
-          ruleId: rule.ruleId,
-          passed: false,
+          valid: false,
           score: 0,
-          message: `Validation error: ${errorMessage}`,
-          timestamp: Date.now()
+          data: {
+            ruleId: rule.ruleId,
+            message: `Validation error: ${errorMessage}`,
+            timestamp: Date.now()
+          }
         });
       }
     }
@@ -174,11 +176,13 @@ export class WorkflowValidator extends EventEmitter {
       } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
         results.push({
-          ruleId: rule.ruleId,
-          passed: false,
+          valid: false,
           score: 0,
-          message: `Step validation error: ${errorMessage}`,
-          timestamp: Date.now()
+          data: {
+            ruleId: rule.ruleId,
+            message: `Step validation error: ${errorMessage}`,
+            timestamp: Date.now()
+          }
         });
       }
     }
@@ -373,12 +377,14 @@ export class WorkflowValidator extends EventEmitter {
         const completed = workflowMachine?.currentState === WorkflowState.COMPLETED;
         
         return {
-          ruleId: 'workflow_completion',
-          passed: completed,
+          valid: completed,
           score: completed ? 1 : 0,
-          message: completed ? 'Workflow completed successfully' : 'Workflow did not complete',
-          timestamp: Date.now(),
-          recommendations: completed ? [] : ['Check for failed steps', 'Review error logs']
+          data: {
+            ruleId: 'workflow_completion',
+            message: completed ? 'Workflow completed successfully' : 'Workflow did not complete',
+            timestamp: Date.now(),
+            recommendations: completed ? [] : ['Check for failed steps', 'Review error logs']
+          }
         };
       }
     });
@@ -424,12 +430,14 @@ export class WorkflowValidator extends EventEmitter {
         const withinTimeout = duration <= stepContext.timeout;
         
         return {
-          ruleId: 'step_timeout',
-          passed: withinTimeout,
+          valid: withinTimeout,
           score: withinTimeout ? 1 : Math.max(0, 1 - (duration / stepContext.timeout)),
-          message: `Step duration: ${duration}ms, timeout: ${stepContext.timeout}ms`,
-          timestamp: Date.now(),
-          recommendations: withinTimeout ? [] : ['Optimize step logic', 'Increase timeout threshold']
+          data: {
+            ruleId: 'step_timeout',
+            message: `Step duration: ${duration}ms, timeout: ${stepContext.timeout}ms`,
+            timestamp: Date.now(),
+            recommendations: withinTimeout ? [] : ['Optimize step logic', 'Increase timeout threshold']
+          }
         };
       }
     });
