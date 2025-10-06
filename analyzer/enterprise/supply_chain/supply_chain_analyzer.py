@@ -3,8 +3,9 @@
 # Use specialized security logging for supply chain
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+import logging
 
-logger = get_security_logger(__name__)
+logger = logging.getLogger(__name__)
 """
 Supply Chain Security Analyzer - Main Orchestrator
 Coordinates all supply chain security components and provides unified interface.
