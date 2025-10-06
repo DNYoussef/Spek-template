@@ -13,6 +13,7 @@ import re
 from dataclasses import dataclass
 from enum import Enum
 import html
+from pathlib import Path
 
 class ValidationType(Enum):
     """Types of validation."""

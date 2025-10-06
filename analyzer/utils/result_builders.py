@@ -12,6 +12,7 @@ from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional
+from pathlib import Path
 
 def build_error_result(error_msg: str, execution_time: float = 0.0,
                         **kwargs) -> Dict[str, Any]:

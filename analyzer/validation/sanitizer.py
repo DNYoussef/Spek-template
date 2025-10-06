@@ -13,6 +13,7 @@ from dataclasses import dataclass
 from enum import Enum
 import html
 import urllib.parse
+from pathlib import Path
 
 class SanitizationType(Enum):
     """Types of sanitization."""

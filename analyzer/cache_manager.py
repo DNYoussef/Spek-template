@@ -12,6 +12,8 @@ NASA Rule 4 Compliant: Single responsibility pattern.
 """
 
 import logging
+from pathlib import Path
+
 logger = logging.getLogger(__name__)
 
 # Import optimization components with fallback

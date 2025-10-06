@@ -10,6 +10,7 @@ NASA Rule 4 Compliant: Single responsibility pattern.
 """
 import logging
 from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+from pathlib import Path
 
 
 # from lib.shared.utilities.logging_setup import get_analyzer_logger

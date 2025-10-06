@@ -20,6 +20,8 @@ Provides a single, production-ready entry point for all analysis capabilities.
 import ast
 import json
 import logging
+from dataclasses import asdict
+
 logger = logging.getLogger(__name__)
 
 class UnifiedOrchestrator:
