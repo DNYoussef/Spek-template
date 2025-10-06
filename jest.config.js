@@ -152,11 +152,25 @@ module.exports = {
   // Module file extensions
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'node'],
 
-  // Module resolution
+  // Module resolution - MUST SYNC WITH tsconfig.json paths
   moduleNameMapper: {
+    // Legacy @ aliases (keep for backward compatibility)
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@domains/(.*)$': '<rootDir>/src/domains/$1',
-    '^@tests/(.*)$': '<rootDir>/tests/$1'
+    '^@tests/(.*)$': '<rootDir>/tests/$1',
+
+    // ~types aliases (synced with tsconfig.json)
+    '^~types/swarm/(.*)$': '<rootDir>/src/types/swarm/$1',
+    '^~types/swarm-fsm/(.*)$': '<rootDir>/src/types/swarm-types-fsm/$1',
+    '^~types/decomposed/(.*)$': '<rootDir>/src/types/decomposed/$1',
+    '^~types/base/(.*)$': '<rootDir>/src/types/base/$1',
+    '^~types/workflow/(.*)$': '<rootDir>/src/types/workflow/$1',
+    '^~types/domains/(.*)$': '<rootDir>/src/types/domains/$1',
+    '^~types/fsm/(.*)$': '<rootDir>/src/types/$1',
+    '^~types/core/(.*)$': '<rootDir>/src/types/$1',
+    '^~types/reporting/(.*)$': '<rootDir>/src/types/$1',
+    '^~types/events/(.*)$': '<rootDir>/src/types/$1',
+    '^~types/(.*)$': '<rootDir>/src/types/$1'
   },
 
   // Setup files
