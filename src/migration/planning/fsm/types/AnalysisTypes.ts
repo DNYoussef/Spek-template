@@ -4,7 +4,7 @@
  */
 
 // FSM States
-export enum AnalysisState {
+export enum MigrationAnalysisState {
   INITIALIZED = 'INITIALIZED',
   ANALYZING = 'ANALYZING',
   RISK_ASSESSMENT = 'RISK_ASSESSMENT',
@@ -17,7 +17,7 @@ export enum AnalysisState {
 }
 
 // FSM Events
-export enum AnalysisEvent {
+export enum MigrationAnalysisEvent {
   START_ANALYSIS = 'START_ANALYSIS',
   ANALYSIS_COMPLETE = 'ANALYSIS_COMPLETE',
   START_RISK_ASSESSMENT = 'START_RISK_ASSESSMENT',
@@ -102,16 +102,16 @@ export interface ValidationCheck {
 // State Handler Interface
 export interface StateHandler {
   init(context: MigrationAnalysisContext): Promise<void>;
-  update(event: AnalysisEvent, context: MigrationAnalysisContext): Promise<AnalysisEvent | null>;
+  update(event: MigrationAnalysisEvent, context: MigrationAnalysisContext): Promise<MigrationAnalysisEvent | null>;
   shutdown(context: MigrationAnalysisContext): Promise<void>;
   checkInvariants(context: MigrationAnalysisContext): boolean;
 }
 
 // State Machine Transition
 export interface StateTransition {
-  from: AnalysisState;
-  event: AnalysisEvent;
-  to: AnalysisState;
+  from: MigrationAnalysisState;
+  event: MigrationAnalysisEvent;
+  to: MigrationAnalysisState;
   guard?: TransitionGuard;
   action?: TransitionAction;
   timeout?: number;
@@ -121,23 +121,23 @@ export type TransitionGuard = (context: MigrationAnalysisContext) => boolean;
 export type TransitionAction = (context: MigrationAnalysisContext) => Promise<void>;
 
 export interface StateTransitionRecord {
-  from: AnalysisState;
-  event: AnalysisEvent;
-  to: AnalysisState;
+  from: MigrationAnalysisState;
+  event: MigrationAnalysisEvent;
+  to: MigrationAnalysisState;
   timestamp: Date;
   analysisId: string;
 }
 
 export interface AnalysisStatus {
   analysisId: string;
-  currentState: AnalysisState;
+  currentState: MigrationAnalysisState;
   progress: number;
   duration: number;
   errorCount: number;
   retryCount: number;
   isComplete: boolean;
   lastTransition: StateTransitionRecord | null;
-  nextPossibleEvents: AnalysisEvent[];
+  nextPossibleEvents: MigrationAnalysisEvent[];
 }
 
 // Re-export types from other modules

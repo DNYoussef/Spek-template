@@ -7,9 +7,15 @@ import { Logger } from '../../../../utils/Logger';
 import {
   StateHandler,
   MigrationAnalysisContext,
-  AnalysisEvent,
-  AnalysisState
+  MigrationAnalysisEvent,
+  MigrationAnalysisState
 } from '../types/AnalysisTypes';
+
+// Type aliases for backward compatibility
+type AnalysisEvent = MigrationAnalysisEvent;
+type AnalysisState = MigrationAnalysisState;
+const AnalysisEvent = MigrationAnalysisEvent;
+const AnalysisState = MigrationAnalysisState;
 
 function assert(condition: any, message: string): asserts condition {
   if (!condition) {

@@ -5,14 +5,20 @@
 
 import { Logger } from '../../../../utils/Logger';
 import {
-  AnalysisState,
-  AnalysisEvent,
+  MigrationAnalysisState,
+  MigrationAnalysisEvent,
   StateTransition,
   MigrationAnalysisContext,
   StateTransitionRecord,
   TransitionGuard,
   TransitionAction
 } from '../types/AnalysisTypes';
+
+// Type aliases for backward compatibility
+type AnalysisState = MigrationAnalysisState;
+type AnalysisEvent = MigrationAnalysisEvent;
+const AnalysisState = MigrationAnalysisState;
+const AnalysisEvent = MigrationAnalysisEvent;
 
 function assert(condition: any, message: string): asserts condition {
   if (!condition) {

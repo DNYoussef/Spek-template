@@ -6,7 +6,7 @@
 import { BaseStateHandler } from '../core/BaseStateHandler';
 import {
   MigrationAnalysisContext,
-  AnalysisEvent,
+  MigrationAnalysisEvent as AnalysisEvent,
   SystemAnalysisResult
 } from '../types/AnalysisTypes';
 
