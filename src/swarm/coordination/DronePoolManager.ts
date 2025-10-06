@@ -7,7 +7,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { DronePoolManagerFacade } from './fsm/DronePoolManagerFacade';
+// TODO(Phase 4): Implement facade - import { DronePoolManagerFacade } from './fsm/DronePoolManagerFacade';
 
 // Re-export types for backward compatibility
 export interface DroneInfo {

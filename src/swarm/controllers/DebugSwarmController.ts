@@ -7,7 +7,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { DebugSwarmControllerFacade } from '../../controllers/facades/DebugSwarmControllerFacade';
+// TODO(Phase 4): Implement facade - import { DebugSwarmControllerFacade } from '../../controllers/facades/DebugSwarmControllerFacade';
 
 export interface ErrorReport {
   id: string;

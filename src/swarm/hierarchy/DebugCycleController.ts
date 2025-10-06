@@ -7,7 +7,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { DebugCycleControllerFacade } from '../../controllers/facades/DebugCycleControllerFacade';
+// TODO(Phase 4): Implement facade - import { DebugCycleControllerFacade } from '../../controllers/facades/DebugCycleControllerFacade';
 
 export interface DebugIteration {
   iterationNumber: number;

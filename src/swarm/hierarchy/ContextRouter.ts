@@ -7,7 +7,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { ContextRouterFacade, RouteDecision } from '../../routing/facades/ContextRouterFacade';
+// TODO(Phase 4): Implement facade - import { ContextRouterFacade, RouteDecision } from '../../routing/facades/ContextRouterFacade';
 import { HivePrincess } from './HivePrincess';
 
 // Re-export types for backward compatibility

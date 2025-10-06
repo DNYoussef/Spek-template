@@ -5,8 +5,8 @@
  */
 
 import { EventEmitter } from 'events';
-import { WorkflowFacade } from '../../workflow/WorkflowFacade';
-import { AgentFSMFacade } from '../../orchestration/agents/components/AgentFSMFacade';
+// TODO(Phase 4): Implement facade - import { WorkflowFacade } from '../../workflow/WorkflowFacade';
+// TODO(Phase 4): Implement facade - import { AgentFSMFacade } from '../../orchestration/agents/components/AgentFSMFacade';
 import { StepDefinition, DefaultStepValidator } from '../../workflow/core/StepExecutor';
 
 export interface SwarmWorkflowExecution {

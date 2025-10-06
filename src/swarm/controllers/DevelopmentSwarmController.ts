@@ -7,7 +7,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { DevelopmentSwarmControllerFacade } from '../../controllers/facades/DevelopmentSwarmControllerFacade';
+// TODO(Phase 4): Implement facade - import { DevelopmentSwarmControllerFacade } from '../../controllers/facades/DevelopmentSwarmControllerFacade';
 
 export interface SpecDocument {
   id: string;
