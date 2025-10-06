@@ -138,7 +138,7 @@ export interface AnalysisValidationRule {
 }
 
 // Analysis Results and Reporting
-export interface AnalysisResult {
+export interface ConfigurationAnalysisResult {
   id: string;
   analysis_id: string;
   timestamp: Date;
