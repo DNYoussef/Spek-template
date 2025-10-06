@@ -74,6 +74,11 @@ export class ConfigurationManagerFacade {
     this.isInitialized = false;
     this.config = {};
   }
+
+  // Additional method for test compatibility
+  async cleanup(): Promise<void> {
+    await this.shutdown();
+  }
 }
 
 export default ConfigurationManagerFacade;

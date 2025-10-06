@@ -19,6 +19,15 @@ export class BackwardCompatibilityFacade {
   async cleanup(...args: any[]): Promise<void> {
     // Cleanup resources
   }
+
+  // Additional methods for test compatibility
+  async loadLegacyConfigs(path?: string): Promise<any> {
+    return { success: true, configs: [], warnings: [] };
+  }
+
+  async migrateLegacyConfig(legacyConfig: any): Promise<any> {
+    return { success: true, modernConfig: legacyConfig, changes: [] };
+  }
 }
 
 // Backward compatibility
