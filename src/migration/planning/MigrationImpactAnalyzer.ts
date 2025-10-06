@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { MigrationAnalysisFacade } from './facade/MigrationAnalysisFacade';
+// TODO(Phase 4): Implement facade - import { MigrationAnalysisFacade } from './facade/MigrationAnalysisFacade';
 import {
   ImpactAnalysisRequest,
   ImpactAnalysisResult,

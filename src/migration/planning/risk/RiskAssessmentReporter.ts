@@ -9,7 +9,7 @@
  * @deprecated Use components in ./reporting/ directory
  */
 
-import { ReportGeneratorFacade } from './reporting/ReportGeneratorFacade';
+// TODO(Phase 4): Implement facade - import { ReportGeneratorFacade } from './reporting/ReportGeneratorFacade';
 import { ReporterConfig } from './reporting/types/ReportingTypes';
 import {
   RiskAssessmentRequest,

@@ -6,7 +6,7 @@
 
 import { EventEmitter } from 'events';
 import { Logger } from '../../utils/Logger';
-import { CanaryMigrationFacade, CanaryConfig, CanaryResult } from './canary/CanaryMigrationFacade';
+// TODO(Phase 4): Implement facade - import { CanaryMigrationFacade, CanaryConfig, CanaryResult } from './canary/CanaryMigrationFacade';
 
 // Re-export types for backward compatibility
 export { CanaryConfig, CanaryResult };

@@ -3,7 +3,7 @@
  * Line count reduced from 758 to ~108 lines (85.7% reduction).
  * NASA Rule 10 compliant: functions ≤60 lines, delegates to focused components.
  */
-import { FallbackChainFacade } from './FallbackChainFacade';
+// TODO(Phase 4): Implement facade - import { FallbackChainFacade } from './FallbackChainFacade';
 
 // Re-export types for backward compatibility
 export {
