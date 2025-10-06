@@ -4,10 +4,13 @@ import { ValidationResult } from '../../../../types/validation-types';
  * WorkflowOrchestrator Types - Complete Type System
  * Comprehensive type definitions for FSM-based workflow orchestration
  * NASA Rule 10 Compliant - Modular type organization
+ *
+ * Epic 6.1: Renamed from WorkflowState/Event to LangGraphOrchestrationWorkflowState/Event
+ * to disambiguate from canonical workflow/fsm/WorkflowStates.ts
  */
 
 // Core workflow state definitions
-export enum WorkflowState {
+export enum LangGraphOrchestrationWorkflowState {
   IDLE = 'IDLE',
   CREATING = 'CREATING',
   VALIDATING = 'VALIDATING',
@@ -18,7 +21,7 @@ export enum WorkflowState {
   CANCELLED = 'CANCELLED'
 }
 
-export enum WorkflowEvent {
+export enum LangGraphOrchestrationWorkflowEvent {
   CREATE_WORKFLOW = 'CREATE_WORKFLOW',
   VALIDATE_WORKFLOW = 'VALIDATE_WORKFLOW',
   START_EXECUTION = 'START_EXECUTION',
@@ -244,15 +247,15 @@ export interface WorkflowValidationContext {
 }
 
 // FSM transition interfaces
-export interface WorkflowTransition {
-  fromState: WorkflowState;
-  event: WorkflowEvent;
-  toState: WorkflowState;
-  guard?: (context: WorkflowContext) => boolean;
-  action?: (context: WorkflowContext) => Promise<void>;
+export interface LangGraphOrchestrationWorkflowTransition {
+  fromState: LangGraphOrchestrationWorkflowState;
+  event: LangGraphOrchestrationWorkflowEvent;
+  toState: LangGraphOrchestrationWorkflowState;
+  guard?: (context: LangGraphOrchestrationWorkflowContext) => boolean;
+  action?: (context: LangGraphOrchestrationWorkflowContext) => Promise<void>;
 }
 
-export interface WorkflowContext {
+export interface LangGraphOrchestrationWorkflowContext {
   workflowId?: string;
   currentWorkflow?: WorkflowDefinition;
   execution?: WorkflowExecution;
@@ -260,13 +263,13 @@ export interface WorkflowContext {
   error?: Error;
   optimizations?: WorkflowOptimizationSuggestion[];
   creationTimestamp?: number;
-  creationState?: WorkflowState;
+  creationState?: LangGraphOrchestrationWorkflowState;
   validationTimestamp?: number;
-  validationState?: WorkflowState;
+  validationState?: LangGraphOrchestrationWorkflowState;
   executionStartTimestamp?: number;
-  executionState?: WorkflowState | string;
+  executionState?: LangGraphOrchestrationWorkflowState | string;
   optimizationTimestamp?: number;
-  optimizationState?: WorkflowState;
+  optimizationState?: LangGraphOrchestrationWorkflowState;
   completionTimestamp?: number;
   cancellationTimestamp?: number;
   failureTimestamp?: number | Date;

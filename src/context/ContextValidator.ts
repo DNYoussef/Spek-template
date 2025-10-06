@@ -11,7 +11,7 @@ import { ContextDNA, ContextFingerprint, ValidationResult } from './ContextDNA';
 import { ContextValidationCore } from './validation/ContextValidationCore';
 
 // FSM State Definitions
-export enum ValidationState {
+export enum ContextValidationState {
   INIT = 'INIT',
   PROCESS_VALIDATION = 'PROCESS_VALIDATION',
   SEMANTIC_VALIDATION = 'SEMANTIC_VALIDATION',
@@ -24,7 +24,7 @@ export enum ValidationState {
 }
 
 // FSM Events
-export enum ValidationEvent {
+export enum ContextValidationEvent {
   START_VALIDATION = 'START_VALIDATION',
   PROCESS_COMPLETE = 'PROCESS_COMPLETE',
   SEMANTIC_COMPLETE = 'SEMANTIC_COMPLETE',
@@ -39,26 +39,26 @@ export enum ValidationEvent {
 
 // FSM Transition Hub
 class ValidationTransitionHub {
-  private static readonly TRANSITIONS: Map<string, ValidationState> = new Map([
-    [`${ValidationState.INIT}:${ValidationEvent.START_VALIDATION}`, ValidationState.PROCESS_VALIDATION],
-    [`${ValidationState.PROCESS_VALIDATION}:${ValidationEvent.PROCESS_COMPLETE}`, ValidationState.SEMANTIC_VALIDATION],
-    [`${ValidationState.SEMANTIC_VALIDATION}:${ValidationEvent.SEMANTIC_COMPLETE}`, ValidationState.INTEGRITY_VALIDATION],
-    [`${ValidationState.INTEGRITY_VALIDATION}:${ValidationEvent.INTEGRITY_COMPLETE}`, ValidationState.SCORING],
-    [`${ValidationState.SCORING}:${ValidationEvent.VALIDATION_PASSED}`, ValidationState.COMPLETED],
-    [`${ValidationState.SCORING}:${ValidationEvent.VALIDATION_FAILED}`, ValidationState.RECOVERY],
-    [`${ValidationState.RECOVERY}:${ValidationEvent.TRIGGER_ESCALATION}`, ValidationState.ESCALATION],
-    [`${ValidationState.RECOVERY}:${ValidationEvent.RECOVERY_COMPLETE}`, ValidationState.COMPLETED],
-    [`${ValidationState.ESCALATION}:${ValidationEvent.ESCALATION_COMPLETE}`, ValidationState.FAILED]
+  private static readonly TRANSITIONS: Map<string, ContextValidationState> = new Map([
+    [`${ContextValidationState.INIT}:${ContextValidationEvent.START_VALIDATION}`, ContextValidationState.PROCESS_VALIDATION],
+    [`${ContextValidationState.PROCESS_VALIDATION}:${ContextValidationEvent.PROCESS_COMPLETE}`, ContextValidationState.SEMANTIC_VALIDATION],
+    [`${ContextValidationState.SEMANTIC_VALIDATION}:${ContextValidationEvent.SEMANTIC_COMPLETE}`, ContextValidationState.INTEGRITY_VALIDATION],
+    [`${ContextValidationState.INTEGRITY_VALIDATION}:${ContextValidationEvent.INTEGRITY_COMPLETE}`, ContextValidationState.SCORING],
+    [`${ContextValidationState.SCORING}:${ContextValidationEvent.VALIDATION_PASSED}`, ContextValidationState.COMPLETED],
+    [`${ContextValidationState.SCORING}:${ContextValidationEvent.VALIDATION_FAILED}`, ContextValidationState.RECOVERY],
+    [`${ContextValidationState.RECOVERY}:${ContextValidationEvent.TRIGGER_ESCALATION}`, ContextValidationState.ESCALATION],
+    [`${ContextValidationState.RECOVERY}:${ContextValidationEvent.RECOVERY_COMPLETE}`, ContextValidationState.COMPLETED],
+    [`${ContextValidationState.ESCALATION}:${ContextValidationEvent.ESCALATION_COMPLETE}`, ContextValidationState.FAILED]
   ]);
 
-  static transition(currentState: ValidationState, event: ValidationEvent): ValidationState {
+  static transition(currentState: ContextValidationState, event: ContextValidationEvent): ContextValidationState {
     // NASA Rule 10: Assertion 1 - Validate state parameter
-    if (!Object.values(ValidationState).includes(currentState)) {
+    if (!Object.values(ContextValidationState).includes(currentState)) {
       throw new Error(`Invalid current state: ${currentState}`);
     }
 
     // NASA Rule 10: Assertion 2 - Validate event parameter
-    if (!Object.values(ValidationEvent).includes(event)) {
+    if (!Object.values(ContextValidationEvent).includes(event)) {
       throw new Error(`Invalid event: ${event}`);
     }
 
@@ -68,7 +68,7 @@ class ValidationTransitionHub {
     return nextState || currentState;
   }
 
-  static isValidTransition(currentState: ValidationState, event: ValidationEvent): boolean {
+  static isValidTransition(currentState: ContextValidationState, event: ContextValidationEvent): boolean {
     const key = `${currentState}:${event}`;
     return this.TRANSITIONS.has(key);
   }
@@ -125,10 +125,10 @@ export class ContextValidator {
   };
 
   // FSM State Management
-  private currentState: ValidationState = ValidationState.INIT;
+  private currentState: ContextValidationState = ContextValidationState.INIT;
   private validationHistory: Map<string, ComprehensiveValidation[]> = new Map();
   private planeProjectId: string | null = null;
-  private stateHistory: Array<{ state: ValidationState; timestamp: number; event?: ValidationEvent }> = [];
+  private stateHistory: Array<{ state: ContextValidationState; timestamp: number; event?: ContextValidationEvent }> = [];
 
   constructor() {
     this.validationCore = new ContextValidationCore();
@@ -160,7 +160,7 @@ export class ContextValidator {
     }
 
     // Initialize FSM
-    this.transitionToState(ValidationState.INIT, ValidationEvent.START_VALIDATION);
+    this.transitionToState(ContextValidationState.INIT, ContextValidationEvent.START_VALIDATION);
 
     const layers: LayerValidation[] = [];
 
@@ -172,25 +172,26 @@ export class ContextValidator {
       this.storeValidationHistory(fingerprint, validation);
 
       // FSM state transition based on validation result
+      const valid = validation.valid;
       if (valid) {
-        this.transitionToState(ValidationState.SCORING, ValidationEvent.VALIDATION_PASSED);
-        this.transitionToState(ValidationState.COMPLETED);
+        this.transitionToState(ContextValidationState.SCORING, ContextValidationEvent.VALIDATION_PASSED);
+        this.transitionToState(ContextValidationState.COMPLETED);
       } else {
-        this.transitionToState(ValidationState.SCORING, ValidationEvent.VALIDATION_FAILED);
+        this.transitionToState(ContextValidationState.SCORING, ContextValidationEvent.VALIDATION_FAILED);
 
         // Handle recovery or escalation
         if (gate.action) {
           await this.handleValidationFailure(gate.action, validation, context);
         } else {
-          this.transitionToState(ValidationState.RECOVERY, ValidationEvent.RECOVERY_COMPLETE);
-          this.transitionToState(ValidationState.COMPLETED);
+          this.transitionToState(ContextValidationState.RECOVERY, ContextValidationEvent.RECOVERY_COMPLETE);
+          this.transitionToState(ContextValidationState.COMPLETED);
         }
       }
 
       return validation;
 
     } catch (error) {
-      this.transitionToState(ValidationState.FAILED);
+      this.transitionToState(ContextValidationState.FAILED);
       throw error;
     }
   }
@@ -199,9 +200,9 @@ export class ContextValidator {
    * FSM state transition helper
    * NASA Rule 10 Compliant: Proper assertions
    */
-  private transitionToState(newState: ValidationState, event?: ValidationEvent): void {
+  private transitionToState(newState: ContextValidationState, event?: ContextValidationEvent): void {
     // NASA Rule 10: Assertion 1 - Validate state parameter
-    if (!Object.values(ValidationState).includes(newState)) {
+    if (!Object.values(ContextValidationState).includes(newState)) {
       throw new Error(`Invalid state: ${newState}`);
     }
 
@@ -267,31 +268,31 @@ export class ContextValidator {
 
     switch (action) {
       case 'escalate_to_queen':
-        this.transitionToState(ValidationState.RECOVERY, ValidationEvent.TRIGGER_ESCALATION);
-        this.transitionToState(ValidationState.ESCALATION);
-        await this.escalateToQueen(validation, context);
-        this.transitionToState(ValidationState.ESCALATION, ValidationEvent.ESCALATION_COMPLETE);
-        this.transitionToState(ValidationState.FAILED);
+        this.transitionToState(ContextValidationState.RECOVERY, ContextValidationEvent.TRIGGER_ESCALATION);
+        this.transitionToState(ContextValidationState.ESCALATION);
+        await this.validationCore.escalateToQueen(validation, context);
+        this.transitionToState(ContextValidationState.ESCALATION, ContextValidationEvent.ESCALATION_COMPLETE);
+        this.transitionToState(ContextValidationState.FAILED);
         break;
 
       case 'initiate_recovery':
-        this.transitionToState(ValidationState.RECOVERY);
-        await this.initiateRecovery(validation, context);
-        this.transitionToState(ValidationState.RECOVERY, ValidationEvent.RECOVERY_COMPLETE);
-        this.transitionToState(ValidationState.COMPLETED);
+        this.transitionToState(ContextValidationState.RECOVERY);
+        await this.validationCore.initiateRecovery(validation, context);
+        this.transitionToState(ContextValidationState.RECOVERY, ContextValidationEvent.RECOVERY_COMPLETE);
+        this.transitionToState(ContextValidationState.COMPLETED);
         break;
 
       case 'alert_princesses':
-        this.transitionToState(ValidationState.RECOVERY);
-        await this.alertPrincesses(validation);
-        this.transitionToState(ValidationState.RECOVERY, ValidationEvent.RECOVERY_COMPLETE);
-        this.transitionToState(ValidationState.COMPLETED);
+        this.transitionToState(ContextValidationState.RECOVERY);
+        await this.validationCore.alertPrincesses(validation);
+        this.transitionToState(ContextValidationState.RECOVERY, ContextValidationEvent.RECOVERY_COMPLETE);
+        this.transitionToState(ContextValidationState.COMPLETED);
         break;
 
       default:
         console.log(`Unknown action: ${action}`);
-        this.transitionToState(ValidationState.RECOVERY, ValidationEvent.RECOVERY_COMPLETE);
-        this.transitionToState(ValidationState.COMPLETED);
+        this.transitionToState(ContextValidationState.RECOVERY, ContextValidationEvent.RECOVERY_COMPLETE);
+        this.transitionToState(ContextValidationState.COMPLETED);
     }
   }
 
@@ -387,7 +388,7 @@ export class ContextValidator {
    * Get current FSM state and history
    * NASA Rule 10 Compliant: State access with validation
    */
-  getCurrentState(): ValidationState {
+  getCurrentState(): ContextValidationState {
     return this.currentState;
   }
 
@@ -395,7 +396,7 @@ export class ContextValidator {
    * Get FSM state transition history
    * NASA Rule 10 Compliant: Safe state history access
    */
-  getStateHistory(): ReadonlyArray<{ state: ValidationState; timestamp: number; event?: ValidationEvent }> {
+  getStateHistory(): ReadonlyArray<{ state: ContextValidationState; timestamp: number; event?: ContextValidationEvent }> {
     return [...this.stateHistory];
   }
 
@@ -405,15 +406,15 @@ export class ContextValidator {
    */
   resetValidationState(): void {
     // NASA Rule 10: Assertion 1 - Validate current state allows reset
-    if (this.currentState === ValidationState.PROCESS_VALIDATION ||
-        this.currentState === ValidationState.SEMANTIC_VALIDATION ||
-        this.currentState === ValidationState.INTEGRITY_VALIDATION) {
+    if (this.currentState === ContextValidationState.PROCESS_VALIDATION ||
+        this.currentState === ContextValidationState.SEMANTIC_VALIDATION ||
+        this.currentState === ContextValidationState.INTEGRITY_VALIDATION) {
       throw new Error('Cannot reset state during active validation process');
     }
 
-    this.currentState = ValidationState.INIT;
+    this.currentState = ContextValidationState.INIT;
     // NASA Rule 10: Assertion 2 - Verify state was reset
-    if (this.currentState !== ValidationState.INIT) {
+    if (this.currentState !== ContextValidationState.INIT) {
       throw new Error('Failed to reset validation state');
     }
 
@@ -421,6 +422,11 @@ export class ContextValidator {
       state: this.currentState,
       timestamp: Date.now()
     });
+  }
+
+  private async initializePlaneConnection(): Promise<void> {
+    // Stub for plane connection initialization
+    return Promise.resolve();
   }
 }
 

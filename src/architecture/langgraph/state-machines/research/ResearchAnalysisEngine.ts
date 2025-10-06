@@ -54,7 +54,7 @@ export interface ResearchAnalysisContext {
   preferences: Record<string, unknown>;
 }
 
-export interface AnalysisResult {
+export interface ResearchAnalysisResult {
   id: string;
   status: 'completed' | 'partial' | 'failed';
   summary: AnalysisSummary;
@@ -113,7 +113,7 @@ export class ResearchAnalysisEngine {
   private transitionHub: MegaTransitionHub;
   private analysisEngines: Map<string, AnalysisEngine> = new Map();
   private activeAnalyses: Set<string> = new Set();
-  private resultCache: Map<string, AnalysisResult> = new Map();
+  private resultCache: Map<string, ResearchAnalysisResult> = new Map();
 
   constructor(transitionHub: MegaTransitionHub) {
     this.transitionHub = transitionHub;
@@ -170,7 +170,7 @@ export class ResearchAnalysisEngine {
    * Analyze content using specified analysis type
    * NASA Rule 10: Fixed bounds, assertions for safety
    */
-  public async analyzeContent(request: AnalysisRequest): Promise<AnalysisResult> {
+  public async analyzeContent(request: AnalysisRequest): Promise<ResearchAnalysisResult> {
     // NASA Rule 10: Input validation assertions
     console.assert(request.content.length > 0, 'Content array cannot be empty');
     console.assert(request.id.length > 0, 'Analysis request ID cannot be empty');
@@ -212,7 +212,7 @@ export class ResearchAnalysisEngine {
    * Execute analysis with specified engine
    * NASA Rule 10: Fixed bounds, assertions
    */
-  private async executeAnalysis(engine: AnalysisEngine, request: AnalysisRequest): Promise<AnalysisResult> {
+  private async executeAnalysis(engine: AnalysisEngine, request: AnalysisRequest): Promise<ResearchAnalysisResult> {
     const startTime = Date.now();
 
     // Extract content text with bounds
@@ -225,7 +225,7 @@ export class ResearchAnalysisEngine {
 
     const processingTime = Date.now() - startTime;
 
-    const result: AnalysisResult = {
+    const result: ResearchAnalysisResult = {
       id: request.id,
       status: 'completed',
       summary: {

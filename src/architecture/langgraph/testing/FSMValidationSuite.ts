@@ -7,13 +7,19 @@
 import { EventEmitter } from 'events';
 import { ValidationResult } from '../../../types/validation-types';
 import {
-  ValidationState,
-  ValidationEvent,
+  LangGraphTestValidationState,
+  LangGraphTestValidationEvent,
   ValidationConfig,
   FSMValidationResult,
   FSMValidationMetrics,
   IValidationStateMachine
 } from './types/ValidationFSM.types';
+
+// Type aliases for backward compatibility
+type ValidationState = LangGraphTestValidationState;
+type ValidationEvent = LangGraphTestValidationEvent;
+const ValidationState = LangGraphTestValidationState;
+const ValidationEvent = LangGraphTestValidationEvent;
 import { NASARule10Checker, nasaCompliant } from './compliance/NASARule10Checker';
 import { BoundsManager } from './execution/BoundsManager';
 import { StateGuards, TransitionValidator } from './fsm/StateGuards';

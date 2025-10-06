@@ -21,7 +21,7 @@ export {
 
 // Re-export component types for advanced usage
 export type { SearchQuery, SearchResult } from './research/ResearchSearchEngine';
-export type { AnalysisRequest, AnalysisResult } from './research/ResearchAnalysisEngine';
+export type { AnalysisRequest, ResearchAnalysisResult } from './research/ResearchAnalysisEngine';
 export type { SynthesisRequest, SynthesisResult } from './research/ResearchSynthesisEngine';
 
 /**

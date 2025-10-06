@@ -13,7 +13,7 @@
 
 import { MegaTransitionHub, MegaState, MegaEvent, MegaStateContext } from '../../../../shared/mega-fsm/MegaTransitionHub';
 import { ResearchSearchEngine, SearchQuery, SearchResult } from './ResearchSearchEngine';
-import { ResearchAnalysisEngine, AnalysisRequest, AnalysisResult } from './ResearchAnalysisEngine';
+import { ResearchAnalysisEngine, AnalysisRequest, ResearchAnalysisResult } from './ResearchAnalysisEngine';
 import { ResearchSynthesisEngine, SynthesisRequest, SynthesisResult } from './ResearchSynthesisEngine';
 import { PrincessStateMachineFacade, PrincessConfiguration, TaskDefinition } from '../PrincessStateMachineFacade';
 
@@ -202,7 +202,7 @@ export class ResearchStateMachine extends PrincessStateMachineFacade {
    * NASA Rule 10: Simple delegation pattern
    */
   private async delegateSynthesis(task: ResearchTask, context: MegaStateContext): Promise<any> {
-    const analysisResults = Array.from(this.researchContext.analysisResults.values()) as AnalysisResult[];
+    const analysisResults = Array.from(this.researchContext.analysisResults.values()) as ResearchAnalysisResult[];
 
     const synthesisRequest: SynthesisRequest = {
       id: task.id,

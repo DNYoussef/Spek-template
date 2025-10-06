@@ -1,8 +1,10 @@
 
 // OrchestratorBaseFSM.ts - Generated template for orchestrator pattern
+// Epic 6.3: Renamed from OrchestratorState/Event to RemediationOrchestratorState/Event
+// to disambiguate from canonical orchestration/fsm/OrchestratorStates.ts
 import { StateDefinition, TransitionDefinition, FSMConfig } from '~types/fsm-types';
 
-export enum OrchestratorState {
+export enum RemediationOrchestratorState {
     IDLE = 'idle',
     INITIALIZING = 'initializing',
     PROCESSING = 'processing',
@@ -11,7 +13,7 @@ export enum OrchestratorState {
     ERROR = 'error'
 }
 
-export enum OrchestratorEvent {
+export enum RemediationOrchestratorEvent {
     INITIALIZE = 'initialize',
     PROCESS = 'process',
     VALIDATE = 'validate',
@@ -22,53 +24,53 @@ export enum OrchestratorEvent {
 
 export const orchestratorBaseFSMConfig: FSMConfig = {
     states: {
-        [OrchestratorState.IDLE]: {
+        [RemediationOrchestratorState.IDLE]: {
             onEnter: () => console.log('Entering idle state'),
             onExit: () => console.log('Exiting idle state')
         },
-        [OrchestratorState.INITIALIZING]: {
+        [RemediationOrchestratorState.INITIALIZING]: {
             onEnter: () => console.log('Entering initializing state'),
             onExit: () => console.log('Exiting initializing state')
         },
-        [OrchestratorState.PROCESSING]: {
+        [RemediationOrchestratorState.PROCESSING]: {
             onEnter: () => console.log('Entering processing state'),
             onExit: () => console.log('Exiting processing state')
         },
-        [OrchestratorState.VALIDATING]: {
+        [RemediationOrchestratorState.VALIDATING]: {
             onEnter: () => console.log('Entering validating state'),
             onExit: () => console.log('Exiting validating state')
         },
-        [OrchestratorState.COMPLETED]: {
+        [RemediationOrchestratorState.COMPLETED]: {
             onEnter: () => console.log('Entering completed state'),
             onExit: () => console.log('Exiting completed state')
         },
-        [OrchestratorState.ERROR]: {
+        [RemediationOrchestratorState.ERROR]: {
             onEnter: () => console.log('Entering error state'),
             onExit: () => console.log('Exiting error state')
         }
     },
     transitions: {
-        [OrchestratorState.IDLE]: {
-            [OrchestratorEvent.INITIALIZE]: OrchestratorState.INITIALIZING
+        [RemediationOrchestratorState.IDLE]: {
+            [RemediationOrchestratorEvent.INITIALIZE]: RemediationOrchestratorState.INITIALIZING
         },
-        [OrchestratorState.INITIALIZING]: {
-            [OrchestratorEvent.PROCESS]: OrchestratorState.PROCESSING,
-            [OrchestratorEvent.ERROR]: OrchestratorState.ERROR
+        [RemediationOrchestratorState.INITIALIZING]: {
+            [RemediationOrchestratorEvent.PROCESS]: RemediationOrchestratorState.PROCESSING,
+            [RemediationOrchestratorEvent.ERROR]: RemediationOrchestratorState.ERROR
         },
-        [OrchestratorState.PROCESSING]: {
-            [OrchestratorEvent.VALIDATE]: OrchestratorState.VALIDATING,
-            [OrchestratorEvent.ERROR]: OrchestratorState.ERROR
+        [RemediationOrchestratorState.PROCESSING]: {
+            [RemediationOrchestratorEvent.VALIDATE]: RemediationOrchestratorState.VALIDATING,
+            [RemediationOrchestratorEvent.ERROR]: RemediationOrchestratorState.ERROR
         },
-        [OrchestratorState.VALIDATING]: {
-            [OrchestratorEvent.COMPLETE]: OrchestratorState.COMPLETED,
-            [OrchestratorEvent.ERROR]: OrchestratorState.ERROR
+        [RemediationOrchestratorState.VALIDATING]: {
+            [RemediationOrchestratorEvent.COMPLETE]: RemediationOrchestratorState.COMPLETED,
+            [RemediationOrchestratorEvent.ERROR]: RemediationOrchestratorState.ERROR
         },
-        [OrchestratorState.COMPLETED]: {
-            [OrchestratorEvent.RESET]: OrchestratorState.IDLE
+        [RemediationOrchestratorState.COMPLETED]: {
+            [RemediationOrchestratorEvent.RESET]: RemediationOrchestratorState.IDLE
         },
-        [OrchestratorState.ERROR]: {
-            [OrchestratorEvent.RESET]: OrchestratorState.IDLE
+        [RemediationOrchestratorState.ERROR]: {
+            [RemediationOrchestratorEvent.RESET]: RemediationOrchestratorState.IDLE
         }
     },
-    initialState: OrchestratorState.IDLE
+    initialState: RemediationOrchestratorState.IDLE
 };

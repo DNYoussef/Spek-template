@@ -12,7 +12,7 @@
 
 import { MegaTransitionHub, MegaState, MegaEvent, MegaStateContext } from '../../../../shared/mega-fsm/MegaTransitionHub';
 import { ComponentConfig, ProcessInput, ProcessResult } from '../../../../shared/mega-fsm/types/MegaDecompositionTypes';
-import { AnalysisResult } from './ResearchAnalysisEngine';
+import { ResearchAnalysisResult } from './ResearchAnalysisEngine';
 
 // NASA Rule 10: Fixed bounds constants
 const MAX_SYNTHESIS_ITEMS = 50;
@@ -23,7 +23,7 @@ const MAX_SYNTHESIS_QUEUE = 20;
 
 export interface SynthesisRequest {
   id: string;
-  analysisResults: AnalysisResult[];
+  analysisResults: ResearchAnalysisResult[];
   synthesisScope: 'narrow' | 'broad' | 'comprehensive';
   targetAudience: 'academic' | 'technical' | 'general';
   options: SynthesisOptions;
@@ -241,7 +241,7 @@ export class ResearchSynthesisEngine {
    * Extract nodes from analysis result
    * NASA Rule 10: Bounded operations
    */
-  private extractNodesFromAnalysis(analysis: AnalysisResult, nodes: Map<string, KnowledgeNode>): void {
+  private extractNodesFromAnalysis(analysis: ResearchAnalysisResult, nodes: Map<string, KnowledgeNode>): void {
     // Extract concept nodes from keywords
     for (let i = 0; i < Math.min(analysis.keywords.length, 50); i++) {
       const keyword = analysis.keywords[i];
@@ -291,7 +291,7 @@ export class ResearchSynthesisEngine {
    * NASA Rule 10: Bounded operations
    */
   private createEdgesFromAnalysis(
-    analysis: AnalysisResult,
+    analysis: ResearchAnalysisResult,
     nodes: Map<string, KnowledgeNode>,
     edges: Map<string, KnowledgeEdge>
   ): void {
@@ -395,19 +395,19 @@ export class ResearchSynthesisEngine {
     };
   }
 
-  private calculateNoveltyScore(results: AnalysisResult[]): number {
+  private calculateNoveltyScore(results: ResearchAnalysisResult[]): number {
     return Math.min(1.0, results.length / 10);
   }
 
-  private calculateCoherenceScore(results: AnalysisResult[]): number {
+  private calculateCoherenceScore(results: ResearchAnalysisResult[]): number {
     return 0.8; // Simplified calculation
   }
 
-  private calculateCompletenessScore(results: AnalysisResult[]): number {
+  private calculateCompletenessScore(results: ResearchAnalysisResult[]): number {
     return Math.min(1.0, results.reduce((sum, r) => sum + r.metrics.qualityScore, 0) / results.length);
   }
 
-  private calculateQualityScore(results: AnalysisResult[]): number {
+  private calculateQualityScore(results: ResearchAnalysisResult[]): number {
     return results.reduce((sum, r) => sum + r.metrics.qualityScore, 0) / results.length;
   }
 

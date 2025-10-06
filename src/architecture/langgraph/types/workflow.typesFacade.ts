@@ -2,13 +2,16 @@
  * workflow.typesFacade - Production-Ready Workflow Type Definitions
  * NASA Rule 10 Compliant: Type definitions for workflow system
  * FSM-First: Enum-based states and events, no string literals
+ *
+ * Epic 6.1: Renamed from WorkflowState/Event to WorkflowFacadeState/Event
+ * to disambiguate from canonical workflow/fsm/WorkflowStates.ts
  */
 
 /**
  * Workflow State Enumeration
  * NASA Rule 10: Fixed state vocabulary
  */
-export enum WorkflowState {
+export enum WorkflowFacadeState {
   IDLE = 'IDLE',
   INITIALIZING = 'INITIALIZING',
   RUNNING = 'RUNNING',
@@ -22,7 +25,7 @@ export enum WorkflowState {
  * Workflow Event Enumeration
  * NASA Rule 10: Fixed event vocabulary
  */
-export enum WorkflowEvent {
+export enum WorkflowFacadeEvent {
   START = 'START',
   PAUSE = 'PAUSE',
   RESUME = 'RESUME',
@@ -56,7 +59,7 @@ export interface WorkflowStateDefinition {
   id: string;
   name: string;
   type: 'princess' | 'parallel' | 'conditional' | 'split' | 'merge';
-  state: WorkflowState;
+  state: WorkflowFacadeState;
   isInitial: boolean;
   isFinal: boolean;
   transitions: string[]; // IDs of allowed transitions
@@ -70,7 +73,7 @@ export interface WorkflowStateDefinition {
  */
 export interface WorkflowTransitionDefinition {
   id: string;
-  event: WorkflowEvent;
+  event: WorkflowFacadeEvent;
   from: string; // State ID
   to: string; // State ID
   guard?: string; // Function name for transition guard
@@ -113,7 +116,7 @@ export interface ExecutionContext {
   history: Array<{
     state: string;
     timestamp: number;
-    event?: WorkflowEvent;
+    event?: WorkflowFacadeEvent;
   }>;
   errors: Array<{
     message: string;

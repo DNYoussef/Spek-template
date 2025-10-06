@@ -48,7 +48,7 @@ export interface ValidationRule {
 export interface SignatureMetadata {
   category: SignatureCategory;
   communicationType: CommunicationType;
-  agentTypes: AgentType[];
+  agentTypes: SwarmHierarchyAgentType[];
   qualityRequirements: QualityRequirement[];
   performanceProfile: PerformanceProfile;
   createdAt: Date;
@@ -74,7 +74,7 @@ export enum CommunicationType {
   QUALITY_VALIDATION = 'quality_validation'
 }
 
-export enum AgentType {
+export enum SwarmHierarchyAgentType {
   QUEEN = 'queen',
   PRINCESS = 'princess',
   DRONE = 'drone',
@@ -98,7 +98,7 @@ export interface CommunicationContext {
 
 export interface AgentIdentity {
   id: string;
-  type: AgentType;
+  type: SwarmHierarchyAgentType;
   domain?: DomainType;
   capabilities: string[];
   modelAssignment: ModelAssignment;

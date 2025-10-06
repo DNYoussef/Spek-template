@@ -7,7 +7,7 @@
 import { describe, it, expect, beforeEach, jest } from '@jest/globals';
 import MECEValidationProtocol from '../../../src/swarm/validation/MECEValidationProtocol';
 import { ValidationTransitionHub } from '../../../src/swarm/validation/fsm/ValidationTransitionHub';
-import { ValidationState, ValidationEvent } from '../../../src/swarm/validation/fsm/ValidationStates';
+import { RootValidationState as ValidationState, RootValidationEvent as ValidationEvent } from '../../../src/ValidationStates';
 import { MECEValidationGuards } from '../../../src/swarm/validation/fsm/ValidationGuards';
 import { HivePrincess } from '../../../src/swarm/hierarchy/HivePrincess';
 import { PrincessConsensus } from '../../../src/swarm/hierarchy/PrincessConsensus';

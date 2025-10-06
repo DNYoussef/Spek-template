@@ -1,9 +1,12 @@
 /**
  * WorkflowStateMachine - FSM-based Workflow State Management
  * NASA Rule 10 compliant FSM implementation for workflow orchestration
+ *
+ * Epic 6.1: Renamed from WorkflowState/Event to LangGraphWorkflowState/Event
+ * to disambiguate from canonical workflow/fsm/WorkflowStates.ts
  */
 
-export enum WorkflowState {
+export enum LangGraphWorkflowState {
   IDLE = 'IDLE',
   CREATING = 'CREATING',
   VALIDATING = 'VALIDATING',
@@ -14,7 +17,7 @@ export enum WorkflowState {
   CANCELLED = 'CANCELLED'
 }
 
-export enum WorkflowEvent {
+export enum LangGraphWorkflowEvent {
   CREATE_WORKFLOW = 'CREATE_WORKFLOW',
   VALIDATE_WORKFLOW = 'VALIDATE_WORKFLOW',
   START_EXECUTION = 'START_EXECUTION',
@@ -26,7 +29,7 @@ export enum WorkflowEvent {
   RESET_WORKFLOW = 'RESET_WORKFLOW'
 }
 
-export interface WorkflowStateContext {
+export interface LangGraphWorkflowStateContext {
   workflowId: string;
   definition?: any;
   validationErrors?: string[];
@@ -34,25 +37,25 @@ export interface WorkflowStateContext {
   error?: Error;
 }
 
-export interface StateTransition {
-  from: WorkflowState;
-  to: WorkflowState;
-  event: WorkflowEvent;
-  guard?: (context: WorkflowStateContext) => boolean;
-  action?: (context: WorkflowStateContext) => void;
+export interface LangGraphStateTransition {
+  from: LangGraphWorkflowState;
+  to: LangGraphWorkflowState;
+  event: LangGraphWorkflowEvent;
+  guard?: (context: LangGraphWorkflowStateContext) => boolean;
+  action?: (context: LangGraphWorkflowStateContext) => void;
 }
 
 export class WorkflowStateMachine {
-  private currentState: WorkflowState;
-  private context: WorkflowStateContext;
-  private transitions: Map<string, StateTransition>;
+  private currentState: LangGraphWorkflowState;
+  private context: LangGraphWorkflowStateContext;
+  private transitions: Map<string, LangGraphStateTransition>;
 
-  constructor(initialContext: WorkflowStateContext) {
+  constructor(initialContext: LangGraphWorkflowStateContext) {
     // NASA Assertion 1: Validate initialization
     console.assert(initialContext !== null && initialContext !== undefined, 'Initial context is required');
     console.assert(initialContext.workflowId, 'Workflow ID is required in context');
 
-    this.currentState = WorkflowState.IDLE;
+    this.currentState = LangGraphWorkflowState.IDLE;
     this.context = { ...initialContext };
     this.transitions = new Map();
 
@@ -66,9 +69,9 @@ export class WorkflowStateMachine {
    * Processes workflow event and executes state transition
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  async processEvent(event: WorkflowEvent, payload?: any): Promise<boolean> {
+  async processEvent(event: LangGraphWorkflowEvent, payload?: any): Promise<boolean> {
     // NASA Assertion 1: Validate event parameter
-    console.assert(Object.values(WorkflowEvent).includes(event), 'Valid workflow event required');
+    console.assert(Object.values(LangGraphWorkflowEvent).includes(event), 'Valid workflow event required');
 
     const transitionKey = this.getTransitionKey(this.currentState, event);
     const transition = this.transitions.get(transitionKey);
@@ -109,12 +112,12 @@ export class WorkflowStateMachine {
    * Gets current workflow state
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  getCurrentState(): WorkflowState {
+  getCurrentState(): LangGraphWorkflowState {
     // NASA Assertion 1: Validate current state
-    console.assert(Object.values(WorkflowState).includes(this.currentState), 'Current state must be valid');
+    console.assert(Object.values(LangGraphWorkflowState).includes(this.currentState), 'Current state must be valid');
 
     // NASA Assertion 2: Validate state enum membership
-    console.assert(this.currentState in WorkflowState, 'Current state must be in WorkflowState enum');
+    console.assert(this.currentState in LangGraphWorkflowState, 'Current state must be in LangGraphWorkflowState enum');
 
     return this.currentState;
   }
@@ -123,7 +126,7 @@ export class WorkflowStateMachine {
    * Gets current workflow context
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  getContext(): WorkflowStateContext {
+  getContext(): LangGraphWorkflowStateContext {
     // NASA Assertion 1: Validate context object
     console.assert(this.context !== null && this.context !== undefined, 'Context must exist');
 
@@ -137,9 +140,9 @@ export class WorkflowStateMachine {
    * Checks if workflow can transition to target state
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  canTransition(event: WorkflowEvent): boolean {
+  canTransition(event: LangGraphWorkflowEvent): boolean {
     // NASA Assertion 1: Validate event parameter
-    console.assert(Object.values(WorkflowEvent).includes(event), 'Valid workflow event required');
+    console.assert(Object.values(LangGraphWorkflowEvent).includes(event), 'Valid workflow event required');
 
     const transitionKey = this.getTransitionKey(this.currentState, event);
     const transition = this.transitions.get(transitionKey);
@@ -161,42 +164,42 @@ export class WorkflowStateMachine {
     // NASA Assertion 1: Validate transitions map
     console.assert(this.transitions instanceof Map, 'Transitions must be a Map');
 
-    const transitionDefinitions: StateTransition[] = [
+    const transitionDefinitions: LangGraphStateTransition[] = [
       {
-        from: WorkflowState.IDLE,
-        to: WorkflowState.CREATING,
-        event: WorkflowEvent.CREATE_WORKFLOW
+        from: LangGraphWorkflowState.IDLE,
+        to: LangGraphWorkflowState.CREATING,
+        event: LangGraphWorkflowEvent.CREATE_WORKFLOW
       },
       {
-        from: WorkflowState.CREATING,
-        to: WorkflowState.VALIDATING,
-        event: WorkflowEvent.VALIDATE_WORKFLOW
+        from: LangGraphWorkflowState.CREATING,
+        to: LangGraphWorkflowState.VALIDATING,
+        event: LangGraphWorkflowEvent.VALIDATE_WORKFLOW
       },
       {
-        from: WorkflowState.VALIDATING,
-        to: WorkflowState.EXECUTING,
-        event: WorkflowEvent.START_EXECUTION,
+        from: LangGraphWorkflowState.VALIDATING,
+        to: LangGraphWorkflowState.EXECUTING,
+        event: LangGraphWorkflowEvent.START_EXECUTION,
         guard: (context) => !context.validationErrors || context.validationErrors.length === 0
       },
       {
-        from: WorkflowState.EXECUTING,
-        to: WorkflowState.PAUSED,
-        event: WorkflowEvent.PAUSE_EXECUTION
+        from: LangGraphWorkflowState.EXECUTING,
+        to: LangGraphWorkflowState.PAUSED,
+        event: LangGraphWorkflowEvent.PAUSE_EXECUTION
       },
       {
-        from: WorkflowState.PAUSED,
-        to: WorkflowState.EXECUTING,
-        event: WorkflowEvent.RESUME_EXECUTION
+        from: LangGraphWorkflowState.PAUSED,
+        to: LangGraphWorkflowState.EXECUTING,
+        event: LangGraphWorkflowEvent.RESUME_EXECUTION
       },
       {
-        from: WorkflowState.EXECUTING,
-        to: WorkflowState.COMPLETED,
-        event: WorkflowEvent.COMPLETE_EXECUTION
+        from: LangGraphWorkflowState.EXECUTING,
+        to: LangGraphWorkflowState.COMPLETED,
+        event: LangGraphWorkflowEvent.COMPLETE_EXECUTION
       },
       {
-        from: WorkflowState.EXECUTING,
-        to: WorkflowState.FAILED,
-        event: WorkflowEvent.FAIL_EXECUTION
+        from: LangGraphWorkflowState.EXECUTING,
+        to: LangGraphWorkflowState.FAILED,
+        event: LangGraphWorkflowEvent.FAIL_EXECUTION
       }
     ];
 
@@ -210,7 +213,7 @@ export class WorkflowStateMachine {
    * Registers transition definitions
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  private registerTransitions(transitions: StateTransition[]): void {
+  private registerTransitions(transitions: LangGraphStateTransition[]): void {
     // NASA Assertion 1: Validate transitions array
     console.assert(Array.isArray(transitions), 'Transitions must be an array');
 
@@ -227,10 +230,10 @@ export class WorkflowStateMachine {
    * Generates transition key for lookup
    * NASA Rule 10: ≤60 lines, 2+ assertions
    */
-  private getTransitionKey(from: WorkflowState, event: WorkflowEvent): string {
+  private getTransitionKey(from: LangGraphWorkflowState, event: LangGraphWorkflowEvent): string {
     // NASA Assertion 1: Validate parameters
-    console.assert(Object.values(WorkflowState).includes(from), 'Valid from state required');
-    console.assert(Object.values(WorkflowEvent).includes(event), 'Valid event required');
+    console.assert(Object.values(LangGraphWorkflowState).includes(from), 'Valid from state required');
+    console.assert(Object.values(LangGraphWorkflowEvent).includes(event), 'Valid event required');
 
     const key = `${from}:${event}`;
 

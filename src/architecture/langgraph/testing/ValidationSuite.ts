@@ -10,7 +10,7 @@ import { TestConfig, TestDefinition } from '../../../testing/types/TestingTypes'
 import { ValidationResult, ValidationError, ValidationWarning, ValidationSeverity } from '../../../types/validation-types';
 
 // Re-export legacy types for backward compatibility
-export enum ValidationState {
+export enum TestingValidationState {
   IDLE = 'idle',
   INITIALIZING = 'initializing',
   RUNNING_CORE = 'running_core',
@@ -24,7 +24,7 @@ export enum ValidationState {
   CLEANUP = 'cleanup'
 }
 
-export enum ValidationEvent {
+export enum TestingValidationEvent {
   START = 'start',
   CORE_COMPLETE = 'core_complete',
   STATE_MACHINES_COMPLETE = 'state_machines_complete',

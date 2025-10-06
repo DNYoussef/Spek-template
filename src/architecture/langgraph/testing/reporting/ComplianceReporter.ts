@@ -11,7 +11,7 @@ import {
   ExecutionBounds,
   ValidationTestExecution
 } from '../types/ValidationFSM.types';
-import { ValidationState, ValidationEvent } from '../ValidationSuite';
+import { TestingValidationState as ValidationState, TestingValidationEvent as ValidationEvent } from '../ValidationSuite';
 import { NASARule10Checker } from '../compliance/NASARule10Checker';
 import { BoundsManager } from '../execution/BoundsManager';
 import { StateGuards } from '../fsm/StateGuards';

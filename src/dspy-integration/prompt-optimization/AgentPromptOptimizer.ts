@@ -9,14 +9,14 @@ import { assert } from 'console';
 
 // Core interfaces for prompt optimization
 interface PromptOptimizationConfig {
-  agentType: AgentType;
+  agentType: DeveloperAgentType;
   complianceRequirements: ComplianceRequirements;
   exampleBank: ExampleBank;
   scoringCriteria: ScoringCriteria;
   optimizationTargets: OptimizationTargets;
 }
 
-enum AgentType {
+enum DeveloperAgentType {
   BACKEND_DEVELOPER = 'BACKEND_DEVELOPER',
   FRONTEND_DEVELOPER = 'FRONTEND_DEVELOPER',
   FSM_DESIGNER = 'FSM_DESIGNER',
@@ -225,25 +225,25 @@ export class AgentPromptOptimizer {
   /**
    * Create default examples for agent type
    */
-  private createDefaultExamples(agentType: AgentType): ExampleBank {
+  private createDefaultExamples(agentType: DeveloperAgentType): ExampleBank {
     assert(agentType !== undefined, 'Agent type must be defined');
-    
+
     const examples: IOExample[] = [];
-    
+
     switch (agentType) {
-      case AgentType.BACKEND_DEVELOPER:
+      case DeveloperAgentType.BACKEND_DEVELOPER:
         examples.push(...this.createBackendExamples());
         break;
-      case AgentType.FRONTEND_DEVELOPER:
+      case DeveloperAgentType.FRONTEND_DEVELOPER:
         examples.push(...this.createFrontendExamples());
         break;
-      case AgentType.FSM_DESIGNER:
+      case DeveloperAgentType.FSM_DESIGNER:
         examples.push(...this.createFSMExamples());
         break;
-      case AgentType.CODE_REVIEWER:
+      case DeveloperAgentType.CODE_REVIEWER:
         examples.push(...this.createReviewerExamples());
         break;
-      case AgentType.TESTER:
+      case DeveloperAgentType.TESTER:
         examples.push(...this.createTesterExamples());
         break;
       default:

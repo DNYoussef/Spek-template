@@ -21,14 +21,14 @@ export interface AgentSignatureRegistry {
 export interface AgentSignature {
   id: UUID;
   name: string;
-  type: AgentType;
+  type: AgentCategoryType;
   capabilities: AgentCapability[];
   modelConfig: ModelConfiguration;
   mcpServers: string[];
   qualityThreshold: Score;
   lastUpdated: Timestamp;
 }
-export enum AgentType {
+export enum AgentCategoryType {
   BROWSER_AUTOMATION  =  'browser_automation',
   LARGE_CONTEXT  =  'large_context',
   QUALITY_ASSURANCE  =  'quality_assurance',
@@ -56,7 +56,7 @@ export interface ModelParameters {
   presencePenalty?: number;
 }
 export interface AgentFilter {
-  type?: AgentType;
+  type?: AgentCategoryType;
   capabilities?: string[];
   minQualityThreshold?: Score;
   available?: boolean;
@@ -83,11 +83,11 @@ export interface SwarmState {
 }
 export interface AgentInstance {
   signature: AgentSignature;
-  status: AgentStatus;
+  status: DSPyAgentStatus;
   currentTask?: TaskExecution;
   metrics: AgentMetrics;
 }
-export enum AgentStatus {
+export enum DSPyAgentStatus {
   IDLE  =  'idle',
   BUSY  =  'busy',
   OFFLINE  =  'offline',

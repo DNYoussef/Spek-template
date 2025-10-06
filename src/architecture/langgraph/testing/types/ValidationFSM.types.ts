@@ -6,7 +6,7 @@ import { ValidationResult } from '../../../../types/validation-types';
  */
 
 // FSM-First: Export ValidationState and ValidationEvent enums
-export enum ValidationState {
+export enum LangGraphTestValidationState {
   IDLE = 'IDLE',
   INITIALIZING = 'INITIALIZING',
   RUNNING_CORE = 'RUNNING_CORE',
@@ -24,7 +24,7 @@ export enum ValidationState {
   SKIPPED = 'SKIPPED'
 }
 
-export enum ValidationEvent {
+export enum LangGraphTestValidationEvent {
   START = 'START',
   CORE_COMPLETE = 'CORE_COMPLETE',
   STATE_MACHINES_COMPLETE = 'STATE_MACHINES_COMPLETE',
@@ -42,9 +42,9 @@ export enum ValidationEvent {
 }
 
 export interface ValidationTransition {
-  fromState: ValidationState;
-  event: ValidationEvent;
-  toState: ValidationState;
+  fromState: LangGraphTestValidationState;
+  event: LangGraphTestValidationEvent;
+  toState: LangGraphTestValidationState;
   condition?: () => boolean;
   action?: () => Promise<void>;
 }
@@ -68,6 +68,9 @@ export interface ValidationConfig {
 
 
 export interface ValidationExecutionContext {
+  currentState: LangGraphTestValidationState;
+  previousState?: LangGraphTestValidationState;
+  lastEvent?: LangGraphTestValidationEvent;
   currentTestIndex: number;
   totalTests: number;
   executionQueue: Array<() => Promise<void>>;
@@ -85,6 +88,14 @@ export interface ValidationBounds {
 }
 
 export interface FSMValidationMetrics {
+  stateTransitions: Array<{
+    from: LangGraphTestValidationState;
+    to: LangGraphTestValidationState;
+    event: LangGraphTestValidationEvent;
+    timestamp: number;
+    duration: number;
+  }>;
+  stateExecutionTime: Record<LangGraphTestValidationState, number>;
   stateTransitionCount: number;
   validTransitions: number;
   invalidTransitions: number;
@@ -106,11 +117,11 @@ export interface ValidationTestExecution {
  * FSM State Machine Contract
  */
 export interface ValidationStateMachine {
-  currentState: ValidationState;
-  transitionState(event: ValidationEvent): boolean;
-  isValidTransition(fromState: ValidationState, event: ValidationEvent): boolean;
-  getValidTransitions(state: ValidationState): ValidationEvent[];
-  getCurrentState(): ValidationState;
+  currentState: LangGraphTestValidationState;
+  transitionState(event: LangGraphTestValidationEvent): boolean;
+  isValidTransition(fromState: LangGraphTestValidationState, event: LangGraphTestValidationEvent): boolean;
+  getValidTransitions(state: LangGraphTestValidationState): LangGraphTestValidationEvent[];
+  getCurrentState(): LangGraphTestValidationState;
   reset(): void;
 }
 
@@ -175,9 +186,9 @@ export interface ValidationGuard {
 }
 
 export interface StateTransitionGuard extends ValidationGuard {
-  fromState: ValidationState;
-  toState: ValidationState;
-  event: ValidationEvent;
+  fromState: LangGraphTestValidationState;
+  toState: LangGraphTestValidationState;
+  event: LangGraphTestValidationEvent;
 }
 
 /**
@@ -224,8 +235,8 @@ export interface FSMValidationResult {
 export class ValidationFSMError extends Error {
   constructor(
     message: string,
-    public state: ValidationState,
-    public event: ValidationEvent,
+    public state: LangGraphTestValidationState,
+    public event: LangGraphTestValidationEvent,
     public context?: any
   ) {
     super(message);
@@ -236,8 +247,8 @@ export class ValidationFSMError extends Error {
 export class NASARule10ViolationError extends ValidationFSMError {
   constructor(
     message: string,
-    state: ValidationState,
-    event: ValidationEvent,
+    state: LangGraphTestValidationState,
+    event: LangGraphTestValidationEvent,
     public violationType: 'RECURSION' | 'UNBOUNDED_LOOP' | 'VARIABLE_ITERATION',
     context?: any
   ) {
@@ -265,8 +276,8 @@ export const FSM_VALIDATION_CONSTANTS = {
 export interface IValidationStateMachine {
   // State Management
   initialize(): Promise<void>;
-  getCurrentState(): ValidationState;
-  transitionState(event: ValidationEvent): Promise<boolean>;
+  getCurrentState(): LangGraphTestValidationState;
+  transitionState(event: LangGraphTestValidationEvent): Promise<boolean>;
 
   // Validation Execution
   executeValidationSuite(): Promise<FSMValidationResult[]>;
