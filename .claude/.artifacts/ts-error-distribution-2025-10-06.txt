@@ -1,0 +1,15 @@
+   5041 
+    166 template/node_modules/@types/node/events.d.ts")<DefaultEventMap>'
+     43 template/node_modules/@types/node/events.d.ts")<DefaultEventMap>'.
+     30 number;
+     26 {
+     17 string;
+     13 template/node_modules/glob/glob.js'
+      9 template/src/memory/coordinator/MemoryCoordinator").PrincessDomain'
+      9 number]
+      9 number
+      9 length,
+      9 boolean;
+      8 any)
+      6 string[];
+      4 RecoveryType;
