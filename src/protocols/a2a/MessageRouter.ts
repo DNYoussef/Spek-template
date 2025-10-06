@@ -7,7 +7,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { MessageRouterFacade, A2AMessage, RoutingRule } from '../../routing/facades/MessageRouterFacade';
+// TODO(Phase 4): Implement facade - import { MessageRouterFacade, A2AMessage, RoutingRule } from '../../routing/facades/MessageRouterFacade';
 import { Logger } from '../../utils/logger';
 
 // Legacy interfaces for backward compatibility

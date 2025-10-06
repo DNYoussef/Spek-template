@@ -7,7 +7,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { CryptographyManagerFacade } from './fsm/CryptographyManagerFacade';
+// TODO(Phase 4): Implement facade - import { CryptographyManagerFacade } from './fsm/CryptographyManagerFacade';
 
 // Re-export key types for backward compatibility
 export interface CryptographicKey {
