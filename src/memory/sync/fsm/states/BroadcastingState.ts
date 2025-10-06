@@ -3,7 +3,7 @@
  * NASA Rule 10 Compliant: ≤60 lines per function, 2+ assertions
  */
 
-// TODO(Phase 4): Implement state handler - import { StateHandler, SyncContext, BroadcastResult } from '../SyncTypes';
+import { StateHandler, SyncContext, BroadcastResult } from '../SyncTypes';
 import { SyncMessage } from '../../DistributedMemorySync';
 
 export class BroadcastingState implements StateHandler {

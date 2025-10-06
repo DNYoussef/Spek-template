@@ -3,7 +3,7 @@
  * NASA Rule 10 Compliant: ≤60 lines per function, 2+ assertions
  */
 
-// TODO(Phase 4): Implement state handler - import { StateHandler, SyncContext, SyncOperation } from '../SyncTypes';
+import { StateHandler, SyncContext, SyncOperation } from '../SyncTypes';
 import { MemoryEntry } from '../../../langroid/LangroidMemoryManager';
 import { SyncMessage } from '../../DistributedMemorySync';
 
