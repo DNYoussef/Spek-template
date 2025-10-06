@@ -4,7 +4,7 @@
  * Creates and configures sandbox for validation pipeline
  */
 
-// TODO(Phase 4): Implement state handler - import { BaseStateHandler } from './BaseStateHandler';
+import { BaseStateHandler } from './BaseStateHandler';
 import {
   SwarmHierarchyValidationState,
   SwarmHierarchyValidationEvent,

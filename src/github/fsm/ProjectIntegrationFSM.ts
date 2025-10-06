@@ -7,7 +7,7 @@
 import { GitHubBaseFSM } from './GitHubBaseFSM';
 import { GitHubFSMState, GitHubFSMEvent, GitHubOperationContext } from './GitHubSharedTypes';
 import { GitHubClientCore } from './components/GitHubClientCore';
-import { WebhookHandlerCore } from './components/WebhookHandlerCore';
+// TODO(Phase 4): Implement core module - import { WebhookHandlerCore } from './components/WebhookHandlerCore';
 
 export interface ProjectIntegrationConfig {
   repository: string;

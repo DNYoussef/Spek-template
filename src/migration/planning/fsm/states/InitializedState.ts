@@ -3,7 +3,7 @@
  * NASA Rule 10 compliant: Functions ≤60 lines, explicit assertions.
  */
 
-// TODO(Phase 4): Implement state handler - import { BaseStateHandler } from '../core/BaseStateHandler';
+import { BaseStateHandler } from '../core/BaseStateHandler';
 import {
   MigrationAnalysisContext,
   AnalysisEvent

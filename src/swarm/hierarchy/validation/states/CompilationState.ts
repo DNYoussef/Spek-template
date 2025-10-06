@@ -4,7 +4,7 @@
  * Comprehensive compilation checking for TypeScript, JavaScript, Python
  */
 
-// TODO(Phase 4): Implement state handler - import { BaseStateHandler } from './BaseStateHandler';
+import { BaseStateHandler } from './BaseStateHandler';
 import {
   SwarmHierarchyValidationState,
   SwarmHierarchyValidationEvent,

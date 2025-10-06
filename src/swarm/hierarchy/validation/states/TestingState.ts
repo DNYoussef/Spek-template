@@ -4,7 +4,7 @@
  * Automated test discovery, generation, and execution
  */
 
-// TODO(Phase 4): Implement state handler - import { BaseStateHandler } from './BaseStateHandler';
+import { BaseStateHandler } from './BaseStateHandler';
 import {
   SwarmHierarchyValidationState,
   SwarmHierarchyValidationEvent,

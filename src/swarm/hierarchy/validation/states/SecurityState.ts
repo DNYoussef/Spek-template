@@ -4,7 +4,7 @@
  * Comprehensive security scanning with guaranteed detection
  */
 
-// TODO(Phase 4): Implement state handler - import { BaseStateHandler } from './BaseStateHandler';
+import { BaseStateHandler } from './BaseStateHandler';
 import {
   SwarmHierarchyValidationState,
   SwarmHierarchyValidationEvent,
