@@ -5,6 +5,9 @@
 export * from './backward-compatibilityFacade';
 export { default } from './backward-compatibilityFacade';
 
+// Type alias for test compatibility
+export { BackwardCompatibilityFacade as BackwardCompatibilityManager } from './backward-compatibilityFacade';
+
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History

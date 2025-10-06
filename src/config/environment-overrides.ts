@@ -3,6 +3,9 @@
 export * from './environment-overridesFacade';
 export { default } from './environment-overridesFacade';
 
+// Type alias for test compatibility
+export { EnvironmentOverridesFacade as EnvironmentOverrideSystem } from './environment-overridesFacade';
+
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History

@@ -13,6 +13,9 @@
 // FSM-based facade re-export (will be implemented)
 export * from './configuration-managerFacade';
 
+// Type alias for test compatibility
+export { ConfigurationManagerFacade as ConfigurationManager } from './configuration-managerFacade';
+
 // === AGENT FOOTER ===
 // Version & Run Log
 // Version History
