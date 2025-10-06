@@ -5,13 +5,19 @@
  */
 
 import {
-  ValidationState,
-  ValidationEvent,
+  SwarmHierarchyValidationState,
+  SwarmHierarchyValidationEvent,
   ValidationContext,
   StateHandler,
   StateResult,
   StateTransition
 } from '../ValidationTypes';
+
+// Type aliases for backward compatibility
+type ValidationState = SwarmHierarchyValidationState;
+type ValidationEvent = SwarmHierarchyValidationEvent;
+const ValidationState = SwarmHierarchyValidationState;
+const ValidationEvent = SwarmHierarchyValidationEvent;
 
 export abstract class BaseStateHandler implements StateHandler {
   abstract readonly stateName: ValidationState;

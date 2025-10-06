@@ -2,6 +2,9 @@
  * Workflow State Machine Facade
  * FSM-First workflow state management
  * State isolation with centralized transitions
+ *
+ * Epic 6.1: Renamed from WorkflowState/Event to SwarmWorkflowState/Event
+ * to disambiguate from canonical workflow/fsm/WorkflowStates.ts
  */
 
 import { EventEmitter } from 'events';
@@ -10,7 +13,7 @@ import { EventEmitter } from 'events';
 // TYPE DEFINITIONS
 // ============================================================================
 
-export enum WorkflowState {
+export enum SwarmWorkflowState {
   IDLE = 'IDLE',
   VALIDATING = 'VALIDATING',
   EXECUTING = 'EXECUTING',
@@ -19,7 +22,7 @@ export enum WorkflowState {
   FAILED = 'FAILED'
 }
 
-export enum WorkflowEvent {
+export enum SwarmWorkflowEvent {
   START = 'START',
   VALIDATE = 'VALIDATE',
   EXECUTE = 'EXECUTE',
@@ -29,7 +32,7 @@ export enum WorkflowEvent {
   RESET = 'RESET'
 }
 
-export interface WorkflowContext {
+export interface SwarmWorkflowContext {
   readonly workflowId: string;
   readonly startTime: number;
   readonly endTime?: number;
@@ -39,22 +42,22 @@ export interface WorkflowContext {
   readonly completedSteps: number;
 }
 
-export interface WorkflowResult {
+export interface SwarmWorkflowResult {
   readonly success: boolean;
   readonly message: string;
   readonly data?: Record<string, unknown>;
   readonly errors: string[];
 }
 
-interface TransitionResult {
-  readonly nextState: WorkflowState;
-  readonly context?: Partial<WorkflowContext>;
-  readonly result?: Partial<WorkflowResult>;
+interface SwarmTransitionResult {
+  readonly nextState: SwarmWorkflowState;
+  readonly context?: Partial<SwarmWorkflowContext>;
+  readonly result?: Partial<SwarmWorkflowResult>;
 }
 
-interface WorkflowData {
-  context: WorkflowContext;
-  result: WorkflowResult;
+interface SwarmWorkflowData {
+  context: SwarmWorkflowContext;
+  result: SwarmWorkflowResult;
 }
 
 // ============================================================================
@@ -63,7 +66,7 @@ interface WorkflowData {
 
 interface StateContract {
   init(): void;
-  update(event: WorkflowEvent, data: Partial<WorkflowData>): Promise<TransitionResult>;
+  update(event: SwarmWorkflowEvent, data: Partial<SwarmWorkflowData>): Promise<SwarmTransitionResult>;
   shutdown(): void;
   checkInvariants(): boolean;
 }
@@ -77,14 +80,14 @@ class IdleState implements StateContract {
     // No initialization needed
   }
 
-  async update(event: WorkflowEvent, data: Partial<WorkflowData>): Promise<TransitionResult> {
+  async update(event: SwarmWorkflowEvent, data: Partial<SwarmWorkflowData>): Promise<SwarmTransitionResult> {
     console.assert(event !== null, 'Event must not be null');
 
-    if (event === WorkflowEvent.START) {
-      return { nextState: WorkflowState.VALIDATING };
+    if (event === SwarmWorkflowEvent.START) {
+      return { nextState: SwarmWorkflowState.VALIDATING };
     }
 
-    return { nextState: WorkflowState.IDLE };
+    return { nextState: SwarmWorkflowState.IDLE };
   }
 
   shutdown(): void {

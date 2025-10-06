@@ -6,13 +6,19 @@
 
 import { BaseStateHandler } from './BaseStateHandler';
 import {
-  ValidationState,
-  ValidationEvent,
+  SwarmHierarchyValidationState,
+  SwarmHierarchyValidationEvent,
   ValidationContext,
   StateResult,
   TestError,
   SandboxTestResult
 } from '../ValidationTypes';
+
+// Type aliases for backward compatibility
+type ValidationState = SwarmHierarchyValidationState;
+type ValidationEvent = SwarmHierarchyValidationEvent;
+const ValidationState = SwarmHierarchyValidationState;
+const ValidationEvent = SwarmHierarchyValidationEvent;
 
 export class TestingState extends BaseStateHandler {
   readonly stateName = ValidationState.TESTING;

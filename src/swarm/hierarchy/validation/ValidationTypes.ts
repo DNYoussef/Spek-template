@@ -4,7 +4,7 @@
  */
 
 // FSM State Definitions
-export enum ValidationState {
+export enum SwarmHierarchyValidationState {
   IDLE = 'IDLE',
   INITIALIZING = 'INITIALIZING',
   SETTING_UP = 'SETTING_UP',
@@ -20,7 +20,7 @@ export enum ValidationState {
 }
 
 // FSM Event Definitions
-export enum ValidationEvent {
+export enum SwarmHierarchyValidationEvent {
   START_VALIDATION = 'START_VALIDATION',
   INITIALIZATION_COMPLETE = 'INITIALIZATION_COMPLETE',
   SETUP_COMPLETE = 'SETUP_COMPLETE',
@@ -40,13 +40,20 @@ export enum ValidationEvent {
 
 // Validation Context (passed between states)
 export interface ValidationContext {
+  state: SwarmHierarchyValidationState;
   sandboxId: string;
   files: string[];
   context: any;
-  config: SandboxConfiguration;
-  startTime: number;
-  currentState?: ValidationState;
-  previousState?: ValidationState;
+  configuration: SandboxConfiguration;
+  testResult?: SandboxTestResult;
+  metrics?: {
+    startTime: number;
+    endTime?: number;
+    duration?: number;
+  };
+  errors: Array<{ message: string; timestamp: number }>;
+  currentState?: SwarmHierarchyValidationState;
+  previousState?: SwarmHierarchyValidationState;
 
   // State Results
   sandbox?: SandboxInstance;
@@ -69,66 +76,18 @@ export interface ValidationContext {
   }>;
 }
 
-// State Handler Contract
-export interface StateHandler {
-  readonly stateName: ValidationState;
+export type StateHandler = (context: ValidationContext) => Promise<StateResult>;
 
-  /**
-   * Enter state and execute state logic
-   * NASA Rule 10: Must be ≤60 lines with 2+ assertions
-   */
-  enter(context: ValidationContext): Promise<StateResult>;
+export type StateResult = {
+  nextState: SwarmHierarchyValidationState;
+  error?: string;
+};
 
-  /**
-   * Handle events while in this state
-   * NASA Rule 10: Must be ≤60 lines with 2+ assertions
-   */
-  handleEvent(event: ValidationEvent, context: ValidationContext): Promise<StateTransition>;
-
-  /**
-   * Exit state and cleanup
-   * NASA Rule 10: Must be ≤60 lines with 2+ assertions
-   */
-  exit(context: ValidationContext): Promise<void>;
-
-  /**
-   * Check state invariants
-   * NASA Rule 10: Must be ≤60 lines with 2+ assertions
-   */
-  checkInvariants(context: ValidationContext): boolean;
-}
-
-// State execution result
-export interface StateResult {
-  success: boolean;
-  nextEvent?: ValidationEvent;
-  data?: any;
-  errors?: string[];
-  warnings?: string[];
-}
-
-// State transition definition
-export interface StateTransition {
-  targetState: ValidationState;
-  shouldTransition: boolean;
-  guards?: TransitionGuard[];
-  data?: any;
-}
-
-// Transition guard for complex transitions
-export interface TransitionGuard {
-  name: string;
-  condition: (context: ValidationContext) => boolean;
-  errorMessage?: string;
-}
-
-// FSM Transition Rules
-export interface TransitionRule {
-  fromState: ValidationState;
-  toState: ValidationState;
-  event: ValidationEvent;
-  guards?: TransitionGuard[];
-}
+export type StateTransition = {
+  from: SwarmHierarchyValidationState;
+  event: SwarmHierarchyValidationEvent;
+  to: SwarmHierarchyValidationState;
+};
 
 // Re-export existing types for compatibility
 export interface SandboxConfiguration {

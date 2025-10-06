@@ -44,7 +44,7 @@ export interface CrossDomainHandoff {
 }
 
 // FSM States for validation
-export enum ValidationState {
+export enum MECEValidationState {
   IDLE = 'idle',
   INITIALIZING = 'initializing',
   VALIDATING_EXCLUSIVITY = 'validating_exclusivity',
@@ -55,7 +55,7 @@ export enum ValidationState {
 }
 
 // FSM Events for validation
-export enum ValidationEvent {
+export enum MECEValidationEvent {
   START_VALIDATION = 'start_validation',
   INITIALIZATION_COMPLETE = 'initialization_complete',
   EXCLUSIVITY_CHECK_COMPLETE = 'exclusivity_check_complete',

@@ -27,7 +27,7 @@ export type WarningCount = Brand<number, 'WarningCount'>;
  * FSM State Enumeration for Validation
  * Defines all possible states in the validation lifecycle
  */
-export enum ValidationState {
+export enum FSMValidationState {
   PENDING = 'PENDING',
   VALIDATING = 'VALIDATING',
   PASSED = 'PASSED',
@@ -39,7 +39,7 @@ export enum ValidationState {
  * FSM Event Enumeration for Validation
  * Defines all possible events that trigger state transitions
  */
-export enum ValidationEvent {
+export enum FSMValidationEvent {
   START = 'START',
   COMPLETE = 'COMPLETE',
   FAIL = 'FAIL',
@@ -86,28 +86,28 @@ export interface ValidationMetrics {
 }
 
 // Type guard functions with NASA Rule 10 assertions
-export function isValidValidationState(state: unknown): state is ValidationState {
-  const validStates: ValidationState[] = [
-    ValidationState.PENDING,
-    ValidationState.VALIDATING,
-    ValidationState.PASSED,
-    ValidationState.FAILED,
-    ValidationState.SKIPPED
+export function isValidValidationState(state: unknown): state is FSMValidationState {
+  const validStates: FSMValidationState[] = [
+    FSMValidationState.PENDING,
+    FSMValidationState.VALIDATING,
+    FSMValidationState.PASSED,
+    FSMValidationState.FAILED,
+    FSMValidationState.SKIPPED
   ];
   if (typeof state !== 'string') return false;
-  return validStates.includes(state as ValidationState);
+  return validStates.includes(state as FSMValidationState);
 }
 
-export function isValidValidationEvent(event: unknown): event is ValidationEvent {
-  const validEvents: ValidationEvent[] = [
-    ValidationEvent.START,
-    ValidationEvent.COMPLETE,
-    ValidationEvent.FAIL,
-    ValidationEvent.SKIP,
-    ValidationEvent.RETRY
+export function isValidValidationEvent(event: unknown): event is FSMValidationEvent {
+  const validEvents: FSMValidationEvent[] = [
+    FSMValidationEvent.START,
+    FSMValidationEvent.COMPLETE,
+    FSMValidationEvent.FAIL,
+    FSMValidationEvent.SKIP,
+    FSMValidationEvent.RETRY
   ];
   if (typeof event !== 'string') return false;
-  return validEvents.includes(event as ValidationEvent);
+  return validEvents.includes(event as FSMValidationEvent);
 }
 
 // Utility functions for creating branded types

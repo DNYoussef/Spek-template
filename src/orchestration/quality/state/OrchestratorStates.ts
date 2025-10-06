@@ -1,10 +1,13 @@
 /**
  * FSM States for Quality Gate Orchestrator
  * Following FSM-first development with centralized transitions
+ *
+ * Epic 6.3: Renamed from OrchestratorState/Event to QualityOrchestratorState/Event
+ * to disambiguate from canonical orchestration/fsm/OrchestratorStates.ts
  */
 
 // State Enums (NO string literals)
-export enum OrchestratorState {
+export enum QualityOrchestratorState {
   INITIALIZING = 'INITIALIZING',
   READY = 'READY',
   EXECUTING_SEQUENCE = 'EXECUTING_SEQUENCE',
@@ -18,7 +21,7 @@ export enum OrchestratorState {
   DESTROYED = 'DESTROYED'
 }
 
-export enum OrchestratorEvent {
+export enum QualityOrchestratorEvent {
   INITIALIZE = 'INITIALIZE',
   READY_TO_EXECUTE = 'READY_TO_EXECUTE',
   EXECUTE_SEQUENCE = 'EXECUTE_SEQUENCE',
@@ -40,7 +43,7 @@ export enum OrchestratorEvent {
   RESET = 'RESET'
 }
 
-export interface OrchestratorStateContext {
+export interface QualityOrchestratorStateContext {
   currentSequenceId?: string;
   currentGateId?: string;
   activeExecutions: Map<string, any>;
@@ -53,17 +56,17 @@ export interface OrchestratorStateContext {
   endTime?: number;
 }
 
-export interface StateTransition {
-  fromState: OrchestratorState;
-  event: OrchestratorEvent;
-  toState: OrchestratorState;
-  guard?: (context: OrchestratorStateContext) => boolean;
-  action?: (context: OrchestratorStateContext) => Promise<void>;
+export interface QualityStateTransition {
+  fromState: QualityOrchestratorState;
+  event: QualityOrchestratorEvent;
+  toState: QualityOrchestratorState;
+  guard?: (context: QualityOrchestratorStateContext) => boolean;
+  action?: (context: QualityOrchestratorStateContext) => Promise<void>;
 }
 
 // Transition Guards (NASA Rule 10: Functions ≤60 lines with 2+ assertions)
-export class TransitionGuards {
-  static canExecuteSequence(context: OrchestratorStateContext): boolean {
+export class QualityTransitionGuards {
+  static canExecuteSequence(context: QualityOrchestratorStateContext): boolean {
     // Assertion 1: No active executions beyond limit
     assert(context.activeExecutions.size >= 0, 'Active executions cannot be negative');
     // Assertion 2: Current sequence must be set
@@ -73,7 +76,7 @@ export class TransitionGuards {
            context.currentSequenceId !== undefined;
   }
 
-  static canProcessCheckpoint(context: OrchestratorStateContext): boolean {
+  static canProcessCheckpoint(context: QualityOrchestratorStateContext): boolean {
     // Assertion 1: Valid checkpoint numbers
     assert(context.checkpointsPassed >= 0, 'Checkpoints passed cannot be negative');
     // Assertion 2: Valid total checkpoints
@@ -82,7 +85,7 @@ export class TransitionGuards {
     return context.checkpointsPassed < context.totalCheckpoints;
   }
 
-  static canTriggerRollback(context: OrchestratorStateContext): boolean {
+  static canTriggerRollback(context: QualityOrchestratorStateContext): boolean {
     // Assertion 1: Not already in rollback
     assert(typeof context.rollbackInProgress === 'boolean', 'Rollback flag must be boolean');
     // Assertion 2: Must have error or failed gate
@@ -92,7 +95,7 @@ export class TransitionGuards {
            (context.errorCount > 0 || context.lastError !== undefined);
   }
 
-  static canCompleteSequence(context: OrchestratorStateContext): boolean {
+  static canCompleteSequence(context: QualityOrchestratorStateContext): boolean {
     // Assertion 1: All checkpoints must be passed
     assert(context.checkpointsPassed >= 0, 'Checkpoints passed cannot be negative');
     // Assertion 2: Total checkpoints must be valid
@@ -102,7 +105,7 @@ export class TransitionGuards {
            context.errorCount === 0;
   }
 
-  static canReset(context: OrchestratorStateContext): boolean {
+  static canReset(context: QualityOrchestratorStateContext): boolean {
     // Assertion 1: No active executions
     assert(context.activeExecutions instanceof Map, 'Active executions must be a Map');
     // Assertion 2: Not in rollback state
@@ -114,8 +117,8 @@ export class TransitionGuards {
 }
 
 // State Actions (NASA Rule 10: Functions ≤60 lines with 2+ assertions)
-export class StateActions {
-  static async initializeOrchestrator(context: OrchestratorStateContext): Promise<void> {
+export class QualityStateActions {
+  static async initializeOrchestrator(context: QualityOrchestratorStateContext): Promise<void> {
     // Assertion 1: Context is valid
     assert(context !== null && context !== undefined, 'Context cannot be null');
     // Assertion 2: Active executions map exists
@@ -131,7 +134,7 @@ export class StateActions {
     // Additional initialization logic would go here
   }
 
-  static async startSequenceExecution(context: OrchestratorStateContext): Promise<void> {
+  static async startSequenceExecution(context: QualityOrchestratorStateContext): Promise<void> {
     // Assertion 1: Sequence ID is set
     assert(context.currentSequenceId !== undefined, 'Sequence ID must be set');
     // Assertion 2: Start time is valid
@@ -144,7 +147,7 @@ export class StateActions {
     // Additional sequence start logic would go here
   }
 
-  static async processCheckpoint(context: OrchestratorStateContext): Promise<void> {
+  static async processCheckpoint(context: QualityOrchestratorStateContext): Promise<void> {
     // Assertion 1: Valid checkpoint numbers
     assert(context.checkpointsPassed >= 0, 'Checkpoints passed cannot be negative');
     // Assertion 2: Not exceeding total checkpoints
@@ -155,7 +158,7 @@ export class StateActions {
     // Additional checkpoint processing logic would go here
   }
 
-  static async handleFailure(context: OrchestratorStateContext): Promise<void> {
+  static async handleFailure(context: QualityOrchestratorStateContext): Promise<void> {
     // Assertion 1: Error count is valid
     assert(context.errorCount >= 0, 'Error count cannot be negative');
     // Assertion 2: Context is valid
@@ -166,7 +169,7 @@ export class StateActions {
     // Additional failure handling logic would go here
   }
 
-  static async executeRollback(context: OrchestratorStateContext): Promise<void> {
+  static async executeRollback(context: QualityOrchestratorStateContext): Promise<void> {
     // Assertion 1: Not already in rollback
     assert(!context.rollbackInProgress, 'Rollback already in progress');
     // Assertion 2: Context is valid
@@ -185,7 +188,7 @@ export class StateActions {
     }
   }
 
-  static async generateReports(context: OrchestratorStateContext): Promise<void> {
+  static async generateReports(context: QualityOrchestratorStateContext): Promise<void> {
     // Assertion 1: Sequence execution completed
     assert(context.currentSequenceId !== undefined, 'Sequence ID must be defined');
     // Assertion 2: End time should be set
@@ -194,7 +197,7 @@ export class StateActions {
     // Report generation logic would go here
   }
 
-  static async completeSequence(context: OrchestratorStateContext): Promise<void> {
+  static async completeSequence(context: QualityOrchestratorStateContext): Promise<void> {
     // Assertion 1: All checkpoints passed
     assert(context.checkpointsPassed >= context.totalCheckpoints, 'All checkpoints must be passed');
     // Assertion 2: No errors
@@ -205,7 +208,7 @@ export class StateActions {
     // Sequence completion logic would go here
   }
 
-  static async resetOrchestrator(context: OrchestratorStateContext): Promise<void> {
+  static async resetOrchestrator(context: QualityOrchestratorStateContext): Promise<void> {
     // Assertion 1: No active executions
     assert(context.activeExecutions.size === 0, 'No active executions should remain');
     // Assertion 2: Context is valid
@@ -222,7 +225,7 @@ export class StateActions {
     context.endTime = undefined;
   }
 
-  static async destroyOrchestrator(context: OrchestratorStateContext): Promise<void> {
+  static async destroyOrchestrator(context: QualityOrchestratorStateContext): Promise<void> {
     // Assertion 1: Context exists
     assert(context !== null && context !== undefined, 'Context must exist');
     // Assertion 2: Active executions map exists

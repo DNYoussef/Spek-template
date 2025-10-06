@@ -5,7 +5,7 @@
  */
 
 import { CodexSandboxValidator } from '../CodexSandboxValidator';
-import { ValidationState, ValidationEvent, SandboxConfiguration } from './ValidationTypes';
+import { SwarmHierarchyValidationState as ValidationState, SwarmHierarchyValidationEvent as ValidationEvent, SandboxConfiguration } from './ValidationTypes';
 
 describe('Validation FSM Integration Tests', () => {
   let validator: CodexSandboxValidator;

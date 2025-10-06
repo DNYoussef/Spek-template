@@ -66,7 +66,7 @@ export interface Analysis {
   type: 'decision' | 'hypothesis_evaluation' | 'evidence_assessment' | 'bias_check' | 'failure_mode';
   input: any;
   methodology: AnalysisMethodology;
-  results: AnalysisResult[];
+  results: ReasoningAnalysisResult[];
   confidence: number;
   limitations: string[];
   recommendations: Recommendation[];
@@ -187,7 +187,7 @@ export interface AnalysisMethodology {
   validity_conditions: string[];
 }
 
-export interface AnalysisResult {
+export interface ReasoningAnalysisResult {
   finding: string;
   confidence: number;
   evidence: string[];

@@ -5,7 +5,11 @@
  */
 
 import { ValidationStateMachine } from './ValidationStateMachine';
-import { ValidationState } from './ValidationTypes';
+import { SwarmHierarchyValidationState } from './ValidationTypes';
+
+// Type alias for backward compatibility
+type ValidationState = SwarmHierarchyValidationState;
+const ValidationState = SwarmHierarchyValidationState;
 
 // Import all state handlers
 import { InitializationState } from './states/InitializationState';

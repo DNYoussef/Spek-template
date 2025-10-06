@@ -3,7 +3,13 @@
  * Centralized state management with comprehensive transition rules
  */
 
-import { ValidationState, ValidationEvent, ValidationStateContext, ValidationStateBase, STATE_FACTORY } from './ValidationStates';
+import { RootValidationState, RootValidationEvent, ValidationStateContext, ValidationStateBase, STATE_FACTORY } from '../../../ValidationStates';
+
+// Type aliases for backward compatibility
+type ValidationState = RootValidationState;
+type ValidationEvent = RootValidationEvent;
+const ValidationState = RootValidationState;
+const ValidationEvent = RootValidationEvent;
 
 export interface TransitionRule {
   fromState: ValidationState;

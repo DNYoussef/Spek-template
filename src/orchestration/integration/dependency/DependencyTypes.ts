@@ -32,7 +32,7 @@ export enum StepState {
   SKIPPED = 'skipped'
 }
 
-export enum ValidationState {
+export enum DependencyValidationState {
   PENDING = 'pending',
   CHECKING = 'checking',
   SATISFIED = 'satisfied',
@@ -81,7 +81,7 @@ export interface DependencyEdge {
   targetNodeId: string;
   dependencyType: 'hard' | 'soft' | 'optional' | 'critical' | 'runtime' | 'build' | 'test';
   requirement: DependencyRequirement;
-  status: ValidationState;
+  status: DependencyValidationState;
   lastChecked: number;
   checkCount: number;
   maxRetries: number;

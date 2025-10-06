@@ -25,7 +25,7 @@ export {
   type DecisionOption,
   type Analysis,
   type AnalysisMethodology,
-  type AnalysisResult,
+  type RationalistAnalysisResult,
   type Belief
 } from './rationalist/RationalistReasoningEngineFacade';
 

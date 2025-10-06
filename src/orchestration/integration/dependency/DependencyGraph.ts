@@ -171,7 +171,7 @@ export class DependencyGraphBuilder extends EventEmitter {
           escalationThreshold: 2
         }
       },
-      status: 'pending',
+      status: DependencyValidationState.PENDING,
       lastChecked: 0,
       checkCount: 0,
       maxRetries: DEFAULT_CONFIG.RETRY_LIMIT

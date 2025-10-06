@@ -31,7 +31,7 @@ export interface Analysis {
   type: 'decision' | 'hypothesis_evaluation' | 'evidence_assessment' | 'bias_check' | 'failure_mode';
   input: any;
   methodology: AnalysisMethodology;
-  results: AnalysisResult[];
+  results: RationalistAnalysisResult[];
   confidence: number;
   limitations: string[];
   timestamp: Date;
@@ -45,7 +45,7 @@ export interface AnalysisMethodology {
   biasChecks: string[];
 }
 
-export interface AnalysisResult {
+export interface RationalistAnalysisResult {
   type: string;
   finding: string;
   confidence: number;

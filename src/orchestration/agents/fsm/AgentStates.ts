@@ -1,6 +1,9 @@
 /**
  * Agent State Machine Definitions
  * Defines all possible agent states and events for FSM-first workflow coordination
+ *
+ * Epic 6.1: Renamed from WorkflowState/Event to AgentWorkflowState/Event
+ * to disambiguate from canonical workflow/fsm/WorkflowStates.ts
  */
 
 // Agent States
@@ -33,7 +36,7 @@ export enum AgentEvent {
 }
 
 // Workflow States
-export enum WorkflowState {
+export enum AgentWorkflowState {
   PLANNING = 'planning',
   EXECUTING = 'executing',
   SYNCHRONIZING = 'synchronizing',
@@ -45,7 +48,7 @@ export enum WorkflowState {
 }
 
 // Workflow Events
-export enum WorkflowEvent {
+export enum AgentWorkflowEvent {
   START_PLANNING = 'start_planning',
   PLANNING_COMPLETE = 'planning_complete',
   START_EXECUTION = 'start_execution',
@@ -87,18 +90,18 @@ export const AGENT_TRANSITIONS: StateTransition<AgentState, AgentEvent>[] = [
 ];
 
 // Workflow State Transitions
-export const WORKFLOW_TRANSITIONS: StateTransition<WorkflowState, WorkflowEvent>[] = [
-  { from: WorkflowState.PLANNING, event: WorkflowEvent.PLANNING_COMPLETE, to: WorkflowState.EXECUTING },
-  { from: WorkflowState.EXECUTING, event: WorkflowEvent.EXECUTION_COMPLETE, to: WorkflowState.SYNCHRONIZING },
-  { from: WorkflowState.SYNCHRONIZING, event: WorkflowEvent.SYNC_COMPLETE, to: WorkflowState.VALIDATING },
-  { from: WorkflowState.VALIDATING, event: WorkflowEvent.VALIDATION_COMPLETE, to: WorkflowState.COMPLETED },
-  { from: WorkflowState.PLANNING, event: WorkflowEvent.FAIL, to: WorkflowState.FAILED },
-  { from: WorkflowState.EXECUTING, event: WorkflowEvent.FAIL, to: WorkflowState.FAILED },
-  { from: WorkflowState.SYNCHRONIZING, event: WorkflowEvent.FAIL, to: WorkflowState.FAILED },
-  { from: WorkflowState.VALIDATING, event: WorkflowEvent.FAIL, to: WorkflowState.FAILED },
-  { from: WorkflowState.PLANNING, event: WorkflowEvent.CANCEL, to: WorkflowState.CANCELLED },
-  { from: WorkflowState.EXECUTING, event: WorkflowEvent.CANCEL, to: WorkflowState.CANCELLED },
-  { from: WorkflowState.SYNCHRONIZING, event: WorkflowEvent.CANCEL, to: WorkflowState.CANCELLED }
+export const AGENT_WORKFLOW_TRANSITIONS: StateTransition<AgentWorkflowState, AgentWorkflowEvent>[] = [
+  { from: AgentWorkflowState.PLANNING, event: AgentWorkflowEvent.PLANNING_COMPLETE, to: AgentWorkflowState.EXECUTING },
+  { from: AgentWorkflowState.EXECUTING, event: AgentWorkflowEvent.EXECUTION_COMPLETE, to: AgentWorkflowState.SYNCHRONIZING },
+  { from: AgentWorkflowState.SYNCHRONIZING, event: AgentWorkflowEvent.SYNC_COMPLETE, to: AgentWorkflowState.VALIDATING },
+  { from: AgentWorkflowState.VALIDATING, event: AgentWorkflowEvent.VALIDATION_COMPLETE, to: AgentWorkflowState.COMPLETED },
+  { from: AgentWorkflowState.PLANNING, event: AgentWorkflowEvent.FAIL, to: AgentWorkflowState.FAILED },
+  { from: AgentWorkflowState.EXECUTING, event: AgentWorkflowEvent.FAIL, to: AgentWorkflowState.FAILED },
+  { from: AgentWorkflowState.SYNCHRONIZING, event: AgentWorkflowEvent.FAIL, to: AgentWorkflowState.FAILED },
+  { from: AgentWorkflowState.VALIDATING, event: AgentWorkflowEvent.FAIL, to: AgentWorkflowState.FAILED },
+  { from: AgentWorkflowState.PLANNING, event: AgentWorkflowEvent.CANCEL, to: AgentWorkflowState.CANCELLED },
+  { from: AgentWorkflowState.EXECUTING, event: AgentWorkflowEvent.CANCEL, to: AgentWorkflowState.CANCELLED },
+  { from: AgentWorkflowState.SYNCHRONIZING, event: AgentWorkflowEvent.CANCEL, to: AgentWorkflowState.CANCELLED }
 ];
 
 // State Machine Interface

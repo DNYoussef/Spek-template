@@ -6,8 +6,8 @@
 
 import { EventEmitter } from 'events';
 import {
-  ValidationState,
-  ValidationEvent,
+  SwarmHierarchyValidationState,
+  SwarmHierarchyValidationEvent,
   ValidationContext,
   StateHandler,
   StateTransition,
@@ -15,6 +15,12 @@ import {
   TransitionGuard,
   SandboxTestResult
 } from './ValidationTypes';
+
+// Type aliases for backward compatibility
+type ValidationState = SwarmHierarchyValidationState;
+type ValidationEvent = SwarmHierarchyValidationEvent;
+const ValidationState = SwarmHierarchyValidationState;
+const ValidationEvent = SwarmHierarchyValidationEvent;
 
 export class ValidationStateMachine extends EventEmitter {
   private currentState: ValidationState = ValidationState.IDLE;
