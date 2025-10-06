@@ -5,12 +5,12 @@
 
 import { EventEmitter } from 'events';
 import { DriftStates, DriftEvents, DriftContext } from '~types/SemanticDriftTypes';
-import { CapturingStateHandler } from './states/CapturingStateHandler';
-import { AnalyzingStateHandler } from './states/AnalyzingStateHandler';
-import { AdaptingStateHandler } from './states/AdaptingStateHandler';
-import { ReportingStateHandler } from './states/ReportingStateHandler';
-import { DriftErrorHandler } from './core/DriftErrorHandler';
-import { DriftTransitionGuard } from './core/DriftTransitionGuard';
+// TODO(Phase 4): Implement state handler - import { CapturingStateHandler } from './states/CapturingStateHandler';
+// TODO(Phase 4): Implement state handler - import { AnalyzingStateHandler } from './states/AnalyzingStateHandler';
+// TODO(Phase 4): Implement state handler - import { AdaptingStateHandler } from './states/AdaptingStateHandler';
+// TODO(Phase 4): Implement state handler - import { ReportingStateHandler } from './states/ReportingStateHandler';
+// TODO(Phase 4): Implement FSM core - import { DriftErrorHandler } from './core/DriftErrorHandler';
+// TODO(Phase 4): Implement FSM core - import { DriftTransitionGuard } from './core/DriftTransitionGuard';
 
 export class SemanticDriftFSM extends EventEmitter {
   private currentState: DriftStates = DriftStates.IDLE;

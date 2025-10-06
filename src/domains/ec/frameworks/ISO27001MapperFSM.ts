@@ -5,12 +5,12 @@
 
 import { EventEmitter } from 'events';
 import { ISO27001States, ISO27001Events, ISO27001Context } from '~types/ISO27001Types';
-import { InitializationStateHandler } from './states/InitializationStateHandler';
-import { AssessmentStateHandler } from './states/AssessmentStateHandler';
-import { ValidationStateHandler } from './states/ValidationStateHandler';
-import { ReportingStateHandler } from './states/ReportingStateHandler';
-import { ISO27001ErrorHandler } from './core/ISO27001ErrorHandler';
-import { ISO27001TransitionGuard } from './core/ISO27001TransitionGuard';
+// TODO(Phase 4): Implement state handler - import { InitializationStateHandler } from './states/InitializationStateHandler';
+// TODO(Phase 4): Implement state handler - import { AssessmentStateHandler } from './states/AssessmentStateHandler';
+// TODO(Phase 4): Implement state handler - import { ValidationStateHandler } from './states/ValidationStateHandler';
+// TODO(Phase 4): Implement state handler - import { ReportingStateHandler } from './states/ReportingStateHandler';
+// TODO(Phase 4): Implement FSM core - import { ISO27001ErrorHandler } from './core/ISO27001ErrorHandler';
+// TODO(Phase 4): Implement FSM core - import { ISO27001TransitionGuard } from './core/ISO27001TransitionGuard';
 
 export class ISO27001MapperFSM extends EventEmitter {
   private currentState: ISO27001States = ISO27001States.UNINITIALIZED;

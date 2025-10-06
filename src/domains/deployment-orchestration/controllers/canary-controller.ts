@@ -6,7 +6,7 @@
  * God object ELIMINATED via FSM decomposition
  */
 
-import { CanaryControllerFacade } from '../../../controllers/facades/CanaryControllerFacade';
+// TODO(Phase 4): Implement facade - import { CanaryControllerFacade } from '../../../controllers/facades/CanaryControllerFacade';
 import {
   DeploymentExecution,
   DeploymentResult

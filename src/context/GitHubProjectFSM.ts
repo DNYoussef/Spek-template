@@ -5,11 +5,11 @@
 
 import { EventEmitter } from 'events';
 import { GitHubProjectStates, GitHubProjectEvents, GitHubProjectContext } from '~types/GitHubProjectTypes';
-import { ConnectionStateHandler } from './states/ConnectionStateHandler';
-import { ValidationStateHandler } from './states/ValidationStateHandler';
-import { SyncStateHandler } from './states/SyncStateHandler';
-import { GitHubErrorHandler } from './core/GitHubErrorHandler';
-import { GitHubTransitionGuard } from './core/GitHubTransitionGuard';
+// TODO(Phase 4): Implement state handler - import { ConnectionStateHandler } from './states/ConnectionStateHandler';
+// TODO(Phase 4): Implement state handler - import { ValidationStateHandler } from './states/ValidationStateHandler';
+// TODO(Phase 4): Implement state handler - import { SyncStateHandler } from './states/SyncStateHandler';
+// TODO(Phase 4): Implement FSM core - import { GitHubErrorHandler } from './core/GitHubErrorHandler';
+// TODO(Phase 4): Implement FSM core - import { GitHubTransitionGuard } from './core/GitHubTransitionGuard';
 
 export class GitHubProjectFSM extends EventEmitter {
   private currentState: GitHubProjectStates = GitHubProjectStates.DISCONNECTED;

@@ -7,7 +7,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { ComplianceGateManagerFacade } from './fsm/ComplianceGateManagerFacade';
+// TODO(Phase 4): Implement facade - import { ComplianceGateManagerFacade } from './fsm/ComplianceGateManagerFacade';
 
 // Re-export types for backward compatibility
 export interface NASAThresholds {

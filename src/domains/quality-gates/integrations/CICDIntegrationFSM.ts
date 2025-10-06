@@ -7,7 +7,7 @@
  * ELIMINATION TARGET: CICDIntegration.ts (1259 lines) -> FSM-compliant facade (85% reduction)
  */
 
-import { UnifiedIntegrationFacade } from '../../../orchestration/integration/unified/UnifiedIntegrationFacade';
+// TODO(Phase 4): Implement facade - import { UnifiedIntegrationFacade } from '../../../orchestration/integration/unified/UnifiedIntegrationFacade';
 import {
   IntegrationContract,
   ContractRequirement,

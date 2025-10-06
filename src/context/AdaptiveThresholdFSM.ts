@@ -5,11 +5,11 @@
 
 import { EventEmitter } from 'events';
 import { ThresholdStates, ThresholdEvents, ThresholdContext } from '~types/AdaptiveThresholdTypes';
-import { InitializationStateHandler } from './states/InitializationStateHandler';
-import { MonitoringStateHandler } from './states/MonitoringStateHandler';
-import { AdaptationStateHandler } from './states/AdaptationStateHandler';
-import { ThresholdErrorHandler } from './core/ThresholdErrorHandler';
-import { ThresholdTransitionGuard } from './core/ThresholdTransitionGuard';
+// TODO(Phase 4): Implement state handler - import { InitializationStateHandler } from './states/InitializationStateHandler';
+// TODO(Phase 4): Implement state handler - import { MonitoringStateHandler } from './states/MonitoringStateHandler';
+// TODO(Phase 4): Implement state handler - import { AdaptationStateHandler } from './states/AdaptationStateHandler';
+// TODO(Phase 4): Implement FSM core - import { ThresholdErrorHandler } from './core/ThresholdErrorHandler';
+// TODO(Phase 4): Implement FSM core - import { ThresholdTransitionGuard } from './core/ThresholdTransitionGuard';
 
 export class AdaptiveThresholdFSM extends EventEmitter {
   private currentState: ThresholdStates = ThresholdStates.UNINITIALIZED;
