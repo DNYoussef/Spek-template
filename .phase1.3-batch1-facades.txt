@@ -1,0 +1,23 @@
+# Phase 1.3 Batch 1: Top Priority Facades (Based on Scan Results)
+# Format: source_file|facade_name|base_class|key_methods
+
+src/orchestration/agents/components/AgentMonitor.ts|AgentMonitorFacade|EventEmitter|getMetrics,startMonitoring,stopMonitoring
+src/orchestration/quality/QualityGateStateMachine.ts|QualityGateStateMachineFacade|EventEmitter|initialize,transition,getState
+src/migration/planning/facade/MigrationAnalysisFacade.ts|MigrationAnalysisFacadeFacade|EventEmitter|analyze,getResults,reset
+src/fsm/FSMOrchestrator.ts|FSMOrchestratorFacade|EventEmitter|createMachine,getMachine,transition
+src/performance/PerformanceAnalyzer.ts|PerformanceAnalyzerFacade|EventEmitter|analyze,getMetrics,reset
+src/memory/coordination/CrossPrincessMemoryCoordinator.ts|CrossPrincessMemoryCoordinatorFacade|EventEmitter|coordinate,sync,getStatus
+src/github/GitHubPRManager.ts|GitHubPRManagerFacade|EventEmitter|createPR,updatePR,mergePR
+src/migration/core/MigrationOrchestratorFSM.ts|MigrationOrchestratorFSMFacade|EventEmitter|initialize,execute,getStatus
+src/orchestration/quality/ErrorHandlingSystem.ts|ErrorHandlingSystemFacade|EventEmitter|handleError,getErrors,clearErrors
+src/events/fsm/facade/EventFSM.ts|EventFSMFacade|EventEmitter|dispatchEvent,subscribe,unsubscribe
+src/documentation/patterns/DocumentationStore.ts|DocumentationStoreFacade|EventEmitter|store,retrieve,search
+src/langgraph/LangGraphAdapter.ts|LangGraphAdapterFacade|EventEmitter|initialize,execute,getGraph
+src/memory/optimization/MemoryOptimizer.ts|MemoryOptimizerFacade|EventEmitter|optimize,getMetrics,reset
+src/github/GitHubWorkflowManager.ts|GitHubWorkflowManagerFacade|EventEmitter|createWorkflow,triggerWorkflow,getStatus
+src/performance/testing/PerformanceBenchmarker.ts|PerformanceBenchmarkerFacade|EventEmitter|benchmark,getResults,compare
+src/migration/planning/strategy/MigrationPlannerFSM.ts|MigrationPlannerFSMFacade|EventEmitter|initialize,plan,execute
+src/orchestration/agents/core/CoordinationHub.ts|CoordinationHubFacade|EventEmitter|coordinate,dispatch,getStatus
+src/memory/analytics/MemoryUsageAnalyzer.ts|MemoryUsageAnalyzerFacade|EventEmitter|analyze,getReport,reset
+src/github/webhooks/RealWebhookEventProcessor.ts|RealWebhookEventProcessorFacade|EventEmitter|process,subscribe,getStatus
+src/fsm/monitoring/StateTransitionMonitor.ts|StateTransitionMonitorFacade|EventEmitter|monitor,getHistory,reset
