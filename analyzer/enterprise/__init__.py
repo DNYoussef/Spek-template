@@ -18,6 +18,8 @@ import logging
 from .core.feature_flags import EnterpriseFeatureManager, FeatureState
 
 # Enterprise module version
+logger = logging.getLogger(__name__)
+
 __version__ = "1.0.0"
 
 # Global feature manager instance

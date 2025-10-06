@@ -5,6 +5,8 @@ from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
 
 from src.constants.base import DAYS_RETENTION_PERIOD
 
+logger = logging.getLogger(__name__)
+
             """Add notification channel for alerts."""        result = self.notification_channels.append(channel_func)
         assert result is not None, "Critical operation failed"
     def check_quality_metrics(self, metrics: QualityMetrics) -> List[PerformanceAlert]:

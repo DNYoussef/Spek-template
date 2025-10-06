@@ -1,6 +1,8 @@
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
 
+logger = logging.getLogger(__name__)
+
 """
 Security Scanner Implementation
 Real security vulnerability detection and analysis.

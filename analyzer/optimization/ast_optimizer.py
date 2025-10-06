@@ -18,6 +18,8 @@ import time
 
 from dataclasses import dataclass
 
+logger = logging.getLogger(__name__)
+
 @dataclass
 class TraversalStats:
     """Statistics for AST traversal performance."""

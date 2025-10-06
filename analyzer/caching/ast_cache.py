@@ -23,6 +23,8 @@ from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, asdict, field
 import threading
 
+logger = logging.getLogger(__name__)
+
 @dataclass
 class CacheEntry:
     """Single cache entry with metadata."""

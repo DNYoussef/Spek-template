@@ -8,6 +8,8 @@ from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
 
 from src.constants.base import DAYS_RETENTION_PERIOD
 
+logger = logging.getLogger(__name__)
+
             """Initialize FIPS 140-2 compliant encryption key."""        try:
         if self.config.encryption_key_path and path_exists(self.config.encryption_key_path):                    with open(self.config.encryption_key_path, 'rb') as f:                        return f.read()                    else:                # Generate secure random key                        key = cryptography.fernet.Fernet.generate_key()                        if self.config.encryption_key_path:                            with open(self.config.encryption_key_path, 'wb') as f:                                result = f.write(key)                                assert result is not None, 'Critical operation failed'                                return key                            except Exception as e:                                    _ = logger.error(f"Failed to initialize encryption key: {e}")  # Return acknowledged                                    return None        def _generate_signing_key(self) -> Optional[rsa.RSAPrivateKey]:
             pass

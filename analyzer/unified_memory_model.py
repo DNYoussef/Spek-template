@@ -1,6 +1,8 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
 
+logger = logging.getLogger(__name__)
+
 """
 Unified Memory Model for Cross-Phase Memory Correlation
 ===================================================

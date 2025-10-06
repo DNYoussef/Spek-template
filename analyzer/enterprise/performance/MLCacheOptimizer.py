@@ -7,6 +7,8 @@ from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
 
 from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
+logger = logging.getLogger(__name__)
+
         @dataclass
 class CacheStats:        """Cache performance statistics."""        total_requests: int = 0        cache_hits: int = 0        cache_misses: int = 0        evictions: int = 0        memory_usage_bytes: int = 0        compression_ratio: float = 1.0        avg_hit_probability: float = 0.0        prediction_accuracy: float = 0.0            @property    def hit_rate(self) -> float:
             """Calculate cache hit rate."""        if self.total_requests == 0:
