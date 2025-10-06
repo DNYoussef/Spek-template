@@ -5,7 +5,7 @@
  */
 
 import { SharedMemoryBus, MemoryEvent } from './SharedMemoryBus';
-import { SubscriberFSMFacade } from './subscriber-fsm/SubscriberFSMFacade';
+// TODO(Phase 4): Implement facade - import { SubscriberFSMFacade } from './subscriber-fsm/SubscriberFSMFacade';
 import { SubscriptionFilter } from './subscriber-fsm/FilterEngine';
 import { SubscriberMetrics } from './subscriber-fsm/MetricsCollector';
 

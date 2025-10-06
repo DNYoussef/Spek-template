@@ -6,7 +6,7 @@
 
 import { EventEmitter } from 'events';
 import { LangroidMemoryManager, MemoryEntry } from '../langroid/LangroidMemoryManager';
-import { DistributedSyncFacade } from './fsm/DistributedSyncFacade';
+// TODO(Phase 4): Implement facade - import { DistributedSyncFacade } from './fsm/DistributedSyncFacade';
 
 export interface SyncNode {
   id: string;

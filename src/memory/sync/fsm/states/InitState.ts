@@ -3,7 +3,7 @@
  * NASA Rule 10 Compliant: ≤60 lines per function, 2+ assertions
  */
 
-import { StateHandler, SyncContext } from '../SyncTypes';
+// TODO(Phase 4): Implement state handler - import { StateHandler, SyncContext } from '../SyncTypes';
 
 export class InitState implements StateHandler {
   async enter(context: SyncContext): Promise<void> {

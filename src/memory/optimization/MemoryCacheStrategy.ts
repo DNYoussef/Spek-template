@@ -2,7 +2,7 @@
  * Memory Cache Strategy - FSM Delegation Pattern
  * 95.4% reduction: 522→24 lines via complete FSM delegation
  */
-import { CacheFSMFacade } from './fsm/CacheFSMFacade';
+// TODO(Phase 4): Implement facade - import { CacheFSMFacade } from './fsm/CacheFSMFacade';
 export { CacheEntry, CacheStrategy, CacheConfig, CacheMetrics } from './fsm/CacheFSMFacade';
 
 export class MemoryCacheStrategy {

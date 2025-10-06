@@ -7,7 +7,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { StateManagerFacade } from './fsm/StateManagerFacade';
+// TODO(Phase 4): Implement facade - import { StateManagerFacade } from './fsm/StateManagerFacade';
 
 // Re-export types for backward compatibility
 export interface StateSnapshot {

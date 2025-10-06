@@ -6,7 +6,7 @@
  * Uses PhaseTransitionFacade for backward compatibility
  */
 
-import { PhaseTransitionManagerFacade } from './phase-transition/PhaseTransitionFacade';
+// TODO(Phase 4): Implement facade - import { PhaseTransitionManagerFacade } from './phase-transition/PhaseTransitionFacade';
 
 // Re-export types for backward compatibility
 export * from './phase-transition/PhaseTransitionTypes';

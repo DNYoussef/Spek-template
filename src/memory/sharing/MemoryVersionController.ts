@@ -7,7 +7,7 @@
  */
 
 import { MemoryEntry } from '../langroid/LangroidMemoryManager';
-import { MemoryVersionFacade } from '../version/core/MemoryVersionFacade';
+// TODO(Phase 4): Implement facade - import { MemoryVersionFacade } from '../version/core/MemoryVersionFacade';
 
 // Re-export types for backward compatibility
 export {

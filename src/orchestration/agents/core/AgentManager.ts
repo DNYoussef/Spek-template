@@ -8,7 +8,7 @@ import { EventEmitter } from 'events';
 import { AgentDefinition, AgentExecution, AgentPerformance, CommunicationStatus, ResourceUtilization, AgentLog } from '~types/AgentTypes';
 import { AgentState, AgentEvent } from '../fsm/AgentStates';
 import { TransitionHub } from '../fsm/TransitionHub';
-import { AgentFSMFacade } from '../components/AgentFSMFacade';
+// TODO(Phase 4): Implement facade - import { AgentFSMFacade } from '../components/AgentFSMFacade';
 
 export class AgentManager extends EventEmitter {
   private fsmFacade: AgentFSMFacade;

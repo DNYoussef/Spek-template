@@ -9,7 +9,7 @@ export * from './stress-test/types/StressTestTypes';
 export { StressTestRunnerFacade as StressTestRunner } from './stress-test/StressTestRunnerFacade';
 
 // Legacy import compatibility
-import { StressTestRunnerFacade } from './stress-test/StressTestRunnerFacade';
+// TODO(Phase 4): Implement facade - import { StressTestRunnerFacade } from './stress-test/StressTestRunnerFacade';
 
 // Default export compatibility for legacy usage
 export default StressTestRunnerFacade;
