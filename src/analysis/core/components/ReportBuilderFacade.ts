@@ -3,7 +3,7 @@
  * NASA Rule 10 Compliant: All functions ≤60 lines
  */
 
-// TODO(Phase 4): Implement facade - import { ComponentFacade } from '../../../fsm/shared/MidRangeFSM';
+import { ComponentFacade } from '../../../fsm/shared/MidRangeFSM';
 import { ReportBuilderCore } from './ReportBuilderCore';
 import { ReportBuilderFSM } from './ReportBuilderFSM';
 import { AnalysisResult, AnalysisReport } from '~types/AnalysisTypes';
