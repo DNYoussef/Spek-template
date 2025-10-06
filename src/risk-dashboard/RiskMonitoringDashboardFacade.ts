@@ -14,6 +14,7 @@ export interface RiskSummary {
 // Additional exports for component compatibility
 export interface RiskMetrics {
   readonly probabilityOfRuin: ProbabilityOfRuin;
+  readonly pRuin: ProbabilityOfRuin; // Alias for probabilityOfRuin (backward compatibility)
   readonly expectedLoss: number;
   readonly maxDrawdown: number;
   readonly sharpeRatio: number;

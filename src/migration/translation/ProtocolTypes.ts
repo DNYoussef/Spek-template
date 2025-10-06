@@ -139,6 +139,9 @@ export interface PerformanceMetrics {
   totalTime: number;
   memoryUsage: number;
   cpuUsage: number;
+  response_time_ms?: number; // Response time in milliseconds (optional)
+  token_count?: number; // Token count for AI operations (optional)
+  user_satisfaction_estimate?: number; // User satisfaction estimate 0-1 (optional)
 }
 
 export interface ProtocolSchema {

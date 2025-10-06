@@ -11,6 +11,7 @@
 //   - data: NEW (flexible extension for domain-specific properties)
 export interface ValidationResult {
   readonly valid: boolean;
+  readonly passed?: boolean; // Backward compatibility alias for valid
   readonly errors?: ValidationError[];
   readonly warnings?: ValidationWarning[];
   readonly metadata?: ValidationMetadata;

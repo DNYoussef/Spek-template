@@ -75,6 +75,7 @@ export interface ComplianceRuleViolation {
   ruleId: ComplianceRuleId;
   severity: ComplianceSeverity;
   message: string;
+  description: string;
   filePath: FilePath;
   lineNumber?: number;
   columnNumber?: number;
@@ -83,6 +84,7 @@ export interface ComplianceRuleViolation {
   suggestedFix?: string;
   violationType?: string;
   type?: string;
+  autoFixable?: boolean;
 }
 
 /**

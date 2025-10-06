@@ -37,7 +37,8 @@ export interface ResearchContext {
   };
 }
 
-export interface ResearchTask extends TaskDefinition {
+export interface ResearchTask {
+  id: string;
   type: 'search' | 'analyze' | 'synthesize' | 'validate' | 'publish' | 'cite';
   payload: {
     query?: string;
