@@ -31,7 +31,7 @@ import {
 } from './result-correlation-framework';
 
 // Import new FSM-based implementation
-import { IntegrationApiFacade, createIntegrationApi } from './fsm';
+// TODO(Phase 4): Implement facade - import { IntegrationApiFacade, createIntegrationApi } from './fsm';
 
 // API Request/Response types
 interface ApiRequest {
