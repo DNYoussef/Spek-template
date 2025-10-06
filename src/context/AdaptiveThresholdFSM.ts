@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { ThresholdStates, ThresholdEvents, ThresholdContext } from '~types/AdaptiveThresholdTypes';
+// TODO(Phase 4): Create AdaptiveThresholdTypes.ts - import { ThresholdStates, ThresholdEvents, ThresholdContext } from '~types/AdaptiveThresholdTypes';
 // TODO(Phase 4): Implement state handler - import { InitializationStateHandler } from './states/InitializationStateHandler';
 // TODO(Phase 4): Implement state handler - import { MonitoringStateHandler } from './states/MonitoringStateHandler';
 // TODO(Phase 4): Implement state handler - import { AdaptationStateHandler } from './states/AdaptationStateHandler';
