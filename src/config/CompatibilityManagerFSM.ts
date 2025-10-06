@@ -5,11 +5,11 @@
 
 import { EventEmitter } from 'events';
 import { CompatibilityStates, CompatibilityEvents, CompatibilityContext } from '~types/CompatibilityTypes';
-import { LegacyLoaderStateHandler } from './states/LegacyLoaderStateHandler';
-import { MigrationStateHandler } from './states/MigrationStateHandler';
-import { ValidationStateHandler } from './states/ValidationStateHandler';
-import { CompatibilityErrorHandler } from './core/CompatibilityErrorHandler';
-import { CompatibilityTransitionGuard } from './core/CompatibilityTransitionGuard';
+// TODO(Phase 4): Implement state handler - import { LegacyLoaderStateHandler } from './states/LegacyLoaderStateHandler';
+// TODO(Phase 4): Implement state handler - import { MigrationStateHandler } from './states/MigrationStateHandler';
+// TODO(Phase 4): Implement state handler - import { ValidationStateHandler } from './states/ValidationStateHandler';
+// TODO(Phase 4): Implement FSM core - import { CompatibilityErrorHandler } from './core/CompatibilityErrorHandler';
+// TODO(Phase 4): Implement FSM core - import { CompatibilityTransitionGuard } from './core/CompatibilityTransitionGuard';
 
 export class CompatibilityManagerFSM extends EventEmitter {
   private currentState: CompatibilityStates = CompatibilityStates.IDLE;
