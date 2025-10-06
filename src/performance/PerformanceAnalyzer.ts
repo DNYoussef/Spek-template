@@ -13,12 +13,18 @@ export * from './analysis/benchmarks/BenchmarkEngine';
 
 import { EventEmitter } from 'events';
 import {
-  AnalysisState,
-  AnalysisEvent,
+  PerformanceAnalysisState,
+  PerformanceAnalysisEvent,
   PerformanceAnalysisContext,
-  AnalysisResult,
+  PerformanceBenchmarkResult,
   BenchmarkResult
 } from './analysis/fsm/PerformanceAnalysisStateMachine';
+
+// Type aliases for backward compatibility
+type AnalysisState = PerformanceAnalysisState;
+type AnalysisEvent = PerformanceAnalysisEvent;
+const AnalysisState = PerformanceAnalysisState;
+const AnalysisEvent = PerformanceAnalysisEvent;
 
 /**
  * PerformanceAnalyzer - Main facade class for performance analysis
@@ -36,7 +42,7 @@ export class PerformanceAnalyzer extends EventEmitter {
     };
   }
 
-  async analyzeResults(results: BenchmarkResult[]): Promise<AnalysisResult> {
+  async analyzeResults(results: BenchmarkResult[]): Promise<PerformanceBenchmarkResult> {
     this.transitionTo(AnalysisState.COLLECTING);
     this.context.results = results;
 
@@ -61,7 +67,7 @@ export class PerformanceAnalyzer extends EventEmitter {
     this.transitionTo(AnalysisState.GENERATING_RECOMMENDATIONS);
   }
 
-  private generateFinalResult(): AnalysisResult {
+  private generateFinalResult(): PerformanceBenchmarkResult {
     // Create minimal result for facade
     return {
       summary: {

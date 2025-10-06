@@ -5,7 +5,7 @@
  */
 
 // FSM State and Event Enums
-export enum AnalysisState {
+export enum PerformanceAnalysisState {
   IDLE = 'IDLE',
   COLLECTING = 'COLLECTING',
   SUMMARIZING = 'SUMMARIZING',
@@ -25,7 +25,7 @@ export enum AnalysisState {
   DEPENDENCY_MAPPING = 'DEPENDENCY_MAPPING',
 }
 
-export enum AnalysisEvent {
+export enum PerformanceAnalysisEvent {
   START_ANALYSIS = 'START_ANALYSIS',
   DATA_COLLECTED = 'DATA_COLLECTED',
   SUMMARY_COMPLETE = 'SUMMARY_COMPLETE',
@@ -51,11 +51,11 @@ export interface PerformanceAnalysisContext {
   trends?: TrendAnalysis;
   recommendations?: AnalysisRecommendation[];
   riskAssessment?: RiskAssessment;
-  currentState: AnalysisState;
+  currentState: PerformanceAnalysisState;
   error?: Error;
 }
 
-export interface AnalysisResult {
+export interface PerformanceBenchmarkResult {
   summary: PerformanceSummary;
   statistics: StatisticalAnalysis;
   patterns: PerformancePattern[];
