@@ -10,7 +10,7 @@ export interface STATE_FACTORY {
   value: unknown;
 }
 
-export enum ValidationEvent {
+export enum RootValidationEvent {
   INITIALIZE = 'INITIALIZE',
   START = 'START',
   UPDATE = 'UPDATE',
@@ -19,7 +19,7 @@ export enum ValidationEvent {
   ERROR = 'ERROR'
 }
 
-export enum ValidationState {
+export enum RootValidationState {
   IDLE = 'IDLE',
   INITIALIZING = 'INITIALIZING',
   ACTIVE = 'ACTIVE',
