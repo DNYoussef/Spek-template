@@ -5,7 +5,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { PrincessStateMachineFacade as PrincessStateMachine } from '../state-machines/PrincessStateMachineFacade';
+// TODO(Phase 4): Implement facade - import { PrincessStateMachineFacade as PrincessStateMachine } from '../state-machines/PrincessStateMachineFacade';
 import { QueenFSMStates, QueenFSMEvents } from '~types/QueenFSMTypes';
 import { QueenConfiguration } from '~types/QueenTypes';
 import { ResourceManager } from '../managers/ResourceManager';

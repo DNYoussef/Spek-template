@@ -5,7 +5,7 @@
 
 import { ComponentFactory } from '../../fsm/shared/ComponentLibrary';
 import { LangGraphEngineCore, LangGraphConfig } from './LangGraphEngineCore';
-import { GenericComponentFacade } from '../../fsm/shared/ComponentLibrary';
+// TODO(Phase 4): Implement facade - import { GenericComponentFacade } from '../../fsm/shared/ComponentLibrary';
 
 export class LangGraphEngineFacade {
   private facade: GenericComponentFacade;

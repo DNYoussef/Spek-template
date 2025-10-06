@@ -5,8 +5,8 @@
  */
 
 import { StateStore } from '../StateStore';
-import { PrincessStateMachineFacade } from '../state-machines/PrincessStateMachineFacade';
-import { MessageRouterFacade } from './MessageRouterFacade';
+// TODO(Phase 4): Implement facade - import { PrincessStateMachineFacade } from '../state-machines/PrincessStateMachineFacade';
+// TODO(Phase 4): Implement facade - import { MessageRouterFacade } from './MessageRouterFacade';
 
 // Re-export types for backward compatibility
 export {

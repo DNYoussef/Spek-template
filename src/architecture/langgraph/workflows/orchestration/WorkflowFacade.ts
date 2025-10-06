@@ -7,7 +7,7 @@
 import { EventEmitter } from 'events';
 import { LangGraphEngine } from '../../LangGraphEngine';
 import { WorkflowCore } from './WorkflowCore';
-import { WorkflowExecutorFacade as WorkflowExecutor } from './WorkflowExecutorFacade';
+// TODO(Phase 4): Implement facade - import { WorkflowExecutorFacade as WorkflowExecutor } from './WorkflowExecutorFacade';
 import { WorkflowValidator } from './WorkflowValidatorFacade';
 import { WorkflowStateMachine, WorkflowState, WorkflowEvent } from './WorkflowStateMachine';
 import {

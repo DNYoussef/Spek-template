@@ -5,7 +5,7 @@
 
 import { ResourceAllocation } from '~types/QueenTypes';
 import { NASACompliantLoopHandler } from '../utils/NASACompliantLoopHandler';
-import { PrincessStateMachineFacade as PrincessStateMachine } from '../../state-machines/PrincessStateMachineFacade';
+// TODO(Phase 4): Implement facade - import { PrincessStateMachineFacade as PrincessStateMachine } from '../../state-machines/PrincessStateMachineFacade';
 
 export interface EscalationCheck {
   needed: boolean;

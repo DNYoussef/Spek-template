@@ -23,7 +23,7 @@ import {
   WorkflowOptimizationSuggestion,
   CoordinationType
 } from './orchestration/WorkflowTypes';
-import { WorkflowFacade } from './orchestration/WorkflowFacade';
+// TODO(Phase 4): Implement facade - import { WorkflowFacade } from './orchestration/WorkflowFacade';
 
 /**
  * WorkflowOrchestrator - Main facade class for workflow orchestration

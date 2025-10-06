@@ -7,7 +7,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { StateStoreFacade } from '../../state-store/core/StateStoreFacade';
+// TODO(Phase 4): Implement facade - import { StateStoreFacade } from '../../state-store/core/StateStoreFacade';
 
 // Re-export types for backward compatibility
 export {
