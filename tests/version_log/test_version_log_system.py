@@ -14,13 +14,13 @@ import pytest
 # Add src directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from src.version_log import ContentHasher
+from src.version_log import (
     VersionLogManager,
     ContentHasher,
     SemverManager,
     ChangeType,
     FooterRenderer
-()
+)
 
 def test_content_hasher():
     """Test ContentHasher functionality"""
