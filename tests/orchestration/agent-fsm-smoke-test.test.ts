@@ -77,17 +77,17 @@ describe('Agent FSM System Smoke Test', () => {
     });
 
     it('should handle agent definition registration gracefully', () => {
-      // Test with minimal valid definition structure
+      // Test with AgentDefinition interface structure from AgentTypes.ts
       const testDefinition = {
-        agentId: 'smoke-test-agent',
-        agentName: 'Smoke Test Agent',
-        agentType: 'test' as any,
-        specialization: 'testing',
-        workload: 'light' as any,
-        description: 'Agent for smoke testing',
-        capabilities: [] as any[],
+        id: 'smoke-test-agent',
+        agentId: 'smoke-test-agent', // Backward compatibility alias
+        name: 'Smoke Test Agent',
+        agentName: 'Smoke Test Agent', // Backward compatibility alias
+        type: 'TESTER' as any, // AgentType enum value
+        capabilities: [{ name: 'testing', version: '1.0.0', parameters: {} }],
         responsibilities: ['test'],
-        configuration: {}
+        configuration: {},
+        version: '1.0.0'
       };
 
       expect(() => {
@@ -105,8 +105,13 @@ describe('Agent FSM System Smoke Test', () => {
 
       expect(() => {
         agentManager.registerAgentDefinition({
+          id: '',
           agentId: '',
-          agentName: 'Empty ID Agent'
+          name: 'Empty ID Agent',
+          type: 'TESTER',
+          capabilities: [],
+          configuration: {},
+          version: '1.0.0'
         } as any);
       }).toThrow();
     });
