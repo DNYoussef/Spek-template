@@ -1,0 +1,191 @@
+
+> spek-enhanced-platform@3.0.0 test
+> jest --testTimeout=10000 --forceExit
+
+FAIL tests/services/service-fsm.test.ts (7.81 s)
+  ServiceFSM Tests
+    × should handle FSM state transitions correctly (12 ms)
+    × should handle security remediation requests (12 ms)
+    × should handle security validation requests (4 ms)
+    × should cache responses correctly (3 ms)
+    × should handle errors gracefully (3 ms)
+    √ should respect handler priority (3 ms)
+
+  ● ServiceFSM Tests › should handle FSM state transitions correctly
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    [0m [90m 40 |[39m     [36mconst[39m response [33m=[39m [36mawait[39m serviceFSM[33m.[39mhandleRequest(mockRequest)[33m;[39m
+     [90m 41 |[39m
+    [31m[1m>[22m[39m[90m 42 |[39m     expect(response[33m.[39msuccess)[33m.[39mtoBe([36mtrue[39m)[33m;[39m
+     [90m    |[39m                              [31m[1m^[22m[39m
+     [90m 43 |[39m     expect(serviceFSM[33m.[39mgetState())[33m.[39mtoBe([33mServiceState[39m[33m.[39m[33mIDLE[39m)[33m;[39m
+     [90m 44 |[39m   })[33m;[39m
+     [90m 45 |[39m[0m
+
+      at Object.<anonymous> (tests/services/service-fsm.test.ts:42:30)
+
+  ● ServiceFSM Tests › should handle security remediation requests
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    [0m [90m 66 |[39m     [36mconst[39m response [33m=[39m [36mawait[39m serviceFSM[33m.[39mhandleRequest(request)[33m;[39m
+     [90m 67 |[39m
+    [31m[1m>[22m[39m[90m 68 |[39m     expect(response[33m.[39msuccess)[33m.[39mtoBe([36mtrue[39m)[33m;[39m
+     [90m    |[39m                              [31m[1m^[22m[39m
+     [90m 69 |[39m     expect(response[33m.[39mdata[33m.[39mtotalIssuesAddressed)[33m.[39mtoBeGreaterThanOrEqual([35m0[39m)[33m;[39m
+     [90m 70 |[39m   })[33m;[39m
+     [90m 71 |[39m[0m
+
+      at Object.<anonymous> (tests/services/service-fsm.test.ts:68:30)
+
+  ● ServiceFSM Tests › should handle security validation requests
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    [0m [90m 90 |[39m     [36mconst[39m response [33m=[39m [36mawait[39m serviceFSM[33m.[39mhandleRequest(request)[33m;[39m
+     [90m 91 |[39m
+    [31m[1m>[22m[39m[90m 92 |[39m     expect(response[33m.[39msuccess)[33m.[39mtoBe([36mtrue[39m)[33m;[39m
+     [90m    |[39m                              [31m[1m^[22m[39m
+     [90m 93 |[39m     expect(response[33m.[39mdata[33m.[39moverallScore)[33m.[39mtoBeGreaterThanOrEqual([35m0[39m)[33m;[39m
+     [90m 94 |[39m   })[33m;[39m
+     [90m 95 |[39m[0m
+
+      at Object.<anonymous> (tests/services/service-fsm.test.ts:92:30)
+
+  ● ServiceFSM Tests › should cache responses correctly
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    [0m [90m 115 |[39m     [90m// First request[39m
+     [90m 116 |[39m     [36mconst[39m response1 [33m=[39m [36mawait[39m serviceFSM[33m.[39mhandleRequest(request)[33m;[39m
+    [31m[1m>[22m[39m[90m 117 |[39m     expect(response1[33m.[39msuccess)[33m.[39mtoBe([36mtrue[39m)[33m;[39m
+     [90m     |[39m                               [31m[1m^[22m[39m
+     [90m 118 |[39m
+     [90m 119 |[39m     [90m// Second identical request should be cached[39m
+     [90m 120 |[39m     [36mconst[39m response2 [33m=[39m [36mawait[39m serviceFSM[33m.[39mhandleRequest(request)[33m;[39m[0m
+
+      at Object.<anonymous> (tests/services/service-fsm.test.ts:117:31)
+
+  ● ServiceFSM Tests › should handle errors gracefully
+
+    expect(received).toContain(expected) // indexOf
+
+    Expected substring: "Test error"
+    Received string:    "Invalid transition: PROCESSING:PROCESSING_STARTED"
+
+    [0m [90m 146 |[39m
+     [90m 147 |[39m     expect(response[33m.[39msuccess)[33m.[39mtoBe([36mfalse[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 148 |[39m     expect(response[33m.[39merror)[33m.[39mtoContain([32m'Test error'[39m)[33m;[39m
+     [90m     |[39m                            [31m[1m^[22m[39m
+     [90m 149 |[39m   })[33m;[39m
+     [90m 150 |[39m
+     [90m 151 |[39m   [90m/**[39m[0m
+
+      at Object.<anonymous> (tests/services/service-fsm.test.ts:148:28)
+
+Summary of all failing tests
+FAIL tests/services/service-fsm.test.ts (7.81 s)
+  ● ServiceFSM Tests › should handle FSM state transitions correctly
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    [0m [90m 40 |[39m     [36mconst[39m response [33m=[39m [36mawait[39m serviceFSM[33m.[39mhandleRequest(mockRequest)[33m;[39m
+     [90m 41 |[39m
+    [31m[1m>[22m[39m[90m 42 |[39m     expect(response[33m.[39msuccess)[33m.[39mtoBe([36mtrue[39m)[33m;[39m
+     [90m    |[39m                              [31m[1m^[22m[39m
+     [90m 43 |[39m     expect(serviceFSM[33m.[39mgetState())[33m.[39mtoBe([33mServiceState[39m[33m.[39m[33mIDLE[39m)[33m;[39m
+     [90m 44 |[39m   })[33m;[39m
+     [90m 45 |[39m[0m
+
+      at Object.<anonymous> (tests/services/service-fsm.test.ts:42:30)
+
+  ● ServiceFSM Tests › should handle security remediation requests
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    [0m [90m 66 |[39m     [36mconst[39m response [33m=[39m [36mawait[39m serviceFSM[33m.[39mhandleRequest(request)[33m;[39m
+     [90m 67 |[39m
+    [31m[1m>[22m[39m[90m 68 |[39m     expect(response[33m.[39msuccess)[33m.[39mtoBe([36mtrue[39m)[33m;[39m
+     [90m    |[39m                              [31m[1m^[22m[39m
+     [90m 69 |[39m     expect(response[33m.[39mdata[33m.[39mtotalIssuesAddressed)[33m.[39mtoBeGreaterThanOrEqual([35m0[39m)[33m;[39m
+     [90m 70 |[39m   })[33m;[39m
+     [90m 71 |[39m[0m
+
+      at Object.<anonymous> (tests/services/service-fsm.test.ts:68:30)
+
+  ● ServiceFSM Tests › should handle security validation requests
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    [0m [90m 90 |[39m     [36mconst[39m response [33m=[39m [36mawait[39m serviceFSM[33m.[39mhandleRequest(request)[33m;[39m
+     [90m 91 |[39m
+    [31m[1m>[22m[39m[90m 92 |[39m     expect(response[33m.[39msuccess)[33m.[39mtoBe([36mtrue[39m)[33m;[39m
+     [90m    |[39m                              [31m[1m^[22m[39m
+     [90m 93 |[39m     expect(response[33m.[39mdata[33m.[39moverallScore)[33m.[39mtoBeGreaterThanOrEqual([35m0[39m)[33m;[39m
+     [90m 94 |[39m   })[33m;[39m
+     [90m 95 |[39m[0m
+
+      at Object.<anonymous> (tests/services/service-fsm.test.ts:92:30)
+
+  ● ServiceFSM Tests › should cache responses correctly
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    [0m [90m 115 |[39m     [90m// First request[39m
+     [90m 116 |[39m     [36mconst[39m response1 [33m=[39m [36mawait[39m serviceFSM[33m.[39mhandleRequest(request)[33m;[39m
+    [31m[1m>[22m[39m[90m 117 |[39m     expect(response1[33m.[39msuccess)[33m.[39mtoBe([36mtrue[39m)[33m;[39m
+     [90m     |[39m                               [31m[1m^[22m[39m
+     [90m 118 |[39m
+     [90m 119 |[39m     [90m// Second identical request should be cached[39m
+     [90m 120 |[39m     [36mconst[39m response2 [33m=[39m [36mawait[39m serviceFSM[33m.[39mhandleRequest(request)[33m;[39m[0m
+
+      at Object.<anonymous> (tests/services/service-fsm.test.ts:117:31)
+
+  ● ServiceFSM Tests › should handle errors gracefully
+
+    expect(received).toContain(expected) // indexOf
+
+    Expected substring: "Test error"
+    Received string:    "Invalid transition: PROCESSING:PROCESSING_STARTED"
+
+    [0m [90m 146 |[39m
+     [90m 147 |[39m     expect(response[33m.[39msuccess)[33m.[39mtoBe([36mfalse[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 148 |[39m     expect(response[33m.[39merror)[33m.[39mtoContain([32m'Test error'[39m)[33m;[39m
+     [90m     |[39m                            [31m[1m^[22m[39m
+     [90m 149 |[39m   })[33m;[39m
+     [90m 150 |[39m
+     [90m 151 |[39m   [90m/**[39m[0m
+
+      at Object.<anonymous> (tests/services/service-fsm.test.ts:148:28)
+
+
+Test Suites: 1 failed, 1 of 116 total
+Tests:       5 failed, 1 passed, 6 total
+Snapshots:   0 total
+Time:        8.701 s, estimated 11 s
+Ran all test suites.
