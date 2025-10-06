@@ -351,10 +351,10 @@ class ContainerScope:
         _container = self.original_container
 
 # Utility functions for common patterns
-    def resolve(service_name: str) -> Any:
+def resolve(service_name: str) -> Any:
     """Resolve a service by name."""
     return get_container().get(service_name)
 
-    def resolve_interface(interface: Type[T]) -> T:
+def resolve_interface(interface: Type[T]) -> T:
     """Resolve a service by interface type."""
     return get_container().get_interface(interface)

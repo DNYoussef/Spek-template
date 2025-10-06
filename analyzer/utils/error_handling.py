@@ -333,7 +333,7 @@ def handle_errors(
     """
     def decorator(func):
         @wraps(func)
-    def wrapper(self, *args, **kwargs):
+        def wrapper(self, *args, **kwargs):
             try:
                 return func(self, *args, **kwargs)
             except Exception as e:
