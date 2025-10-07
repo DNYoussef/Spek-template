@@ -13,7 +13,7 @@ import warnings
 # Add src to path for testing
 sys.path.insert(0, str(Path(__file__).parent.parent / 'src'))
 
-from analyzer.unified_analyzer import UnifiedAnalyzer
+from analyzer.unified_analyzer import UnifiedConnascenceAnalyzer as UnifiedAnalyzer
 from analyzer.architecture.refactored_unified_analyzer import RefactoredUnifiedAnalyzer
 from src.compatibility_layer import (
     generateConnascenceReport,
@@ -104,7 +104,7 @@ class TestNamingStandardization(unittest.TestCase):
         """Test that imports still work after renaming"""
         # Test that we can import the analyzers
         try:
-            from analyzer.unified_analyzer import UnifiedAnalyzer
+            from analyzer.unified_analyzer import UnifiedConnascenceAnalyzer as UnifiedAnalyzer
             from analyzer.architecture.refactored_unified_analyzer import RefactoredUnifiedAnalyzer
 
             analyzer1 = UnifiedAnalyzer()

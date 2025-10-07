@@ -10,7 +10,7 @@ import pytest
 
 from analyzer import UnifiedConnascenceAnalyzer as UnifiedAnalyzer
 from analyzer.detectors.connascence_ast_analyzer import ConnascenceASTAnalyzer
-from analyzer.architecture.enhanced_metrics import EnhancedMetricsCalculator
+from analyzer.architecture.enhanced_metrics import EnhancedMetricsCalculator as EnhancedMetricsCalculator
 
 class TestAnalyzerIntegration:
     """Integration tests for analyzer components working together."""

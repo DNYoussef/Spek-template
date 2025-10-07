@@ -10,7 +10,7 @@ import tempfile
 import pytest
 
 from analyzer.core import UnifiedAnalyzer
-from analyzer.utils.config_manager import ConfigManager
+from analyzer.utils.config_manager import ConfigurationManager as ConfigManager
 
 class TestCompleteWorkflow:
     """End-to-end tests for complete analysis workflow."""

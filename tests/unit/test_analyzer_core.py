@@ -7,8 +7,8 @@ import sys
 import pytest
 
 from analyzer.core import UnifiedAnalyzer
-from analyzer.ast_engine.core_analyzer import CoreASTAnalyzer
-from analyzer.architecture.enhanced_metrics import EnhancedMetrics
+from analyzer.ast_engine.core_analyzer import ConnascenceASTAnalyzer as CoreASTAnalyzer
+from analyzer.architecture.enhanced_metrics import EnhancedMetricsCalculator as EnhancedMetrics
 
 class TestUnifiedAnalyzer:
     """Test unified analyzer functionality."""
