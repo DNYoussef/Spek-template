@@ -1,0 +1,2474 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.5, pytest-7.4.4, pluggy-1.5.0
+benchmark: 4.0.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+Using --randomly-seed=289844474
+rootdir: C:\Users\17175\Desktop\spek template
+configfile: pytest.ini
+plugins: anyio-4.4.0, Faker-18.13.0, hypothesis-6.138.2, langsmith-0.4.21, asyncio-0.21.2, bandit-0.6.1, benchmark-4.0.0, cov-6.0.0, env-1.1.5, flask-1.3.0, json-report-1.5.0, metadata-3.1.1, mock-3.14.0, randomly-3.16.0, timeout-2.3.1, xdist-3.6.1
+asyncio: mode=Mode.STRICT
+collected 166 items / 85 errors
+
+<Module tests/version_log/test_import_validation.py>
+  <Function test_moved_file_imports>
+<Package tests>
+  <Module standalone_facade_test.py>
+    <Function test_facade_functionality>
+  <Module test_analyzer_fixes.py>
+    <Function test_fixed_analyzer_imports>
+    <Function test_core_analyzer_delegation>
+    <Function test_nasa_analyzer>
+<Package phase7_adas>
+  <Module test_sensor_fusion.py>
+    <Class TestSensorSynchronization>
+      <Function test_synchronization_under_load>
+      <Function test_temporal_synchronization>
+      <Function test_time_synchronization_failure_detection>
+    <Class TestFailureModeHandling>
+      <Function test_multiple_sensor_failure>
+      <Function test_sensor_degraded_mode>
+      <Function test_single_sensor_failure>
+    <Class TestCalibrationValidation>
+      <Function test_calibration_drift_detection>
+      <Function test_automatic_recalibration_trigger>
+      <Function test_calibration_parameter_validation>
+    <Class TestDataFusionAccuracy>
+      <Function test_sensor_confidence_weighting>
+      <Function test_redundancy_and_cross_validation>
+      <Function test_multi_sensor_object_fusion>
+    <Class TestReporting>
+      <Function test_fusion_metrics_collection>
+    <Class TestPerformanceAndScalability>
+      <Function test_concurrent_fusion_processing>
+      <Function test_high_object_density_performance>
+<Package tests>
+  <Module test_modules.py>
+    <Function test_critical_modules>
+    <Function test_functionality>
+  <Module test_discovery_report.py>
+    <Function test_collection_status>
+<Module tests/unit/test_analyzer_core.py>
+  <Class TestCoreASTAnalyzer>
+    <Function test_parse_simple_python_code>
+    <Function test_ast_analyzer_creation>
+  <Class TestEnhancedMetrics>
+    <Function test_metrics_initialization>
+    <Function test_calculate_basic_metrics>
+  <Class TestUnifiedAnalyzer>
+    <Function test_analyze_empty_codebase>
+    <Function test_analyzer_initialization>
+    <Function test_analyzer_config_loading>
+<Module tests/unit/test_connascence_detectors.py>
+  <Class TestConnascenceASTAnalyzer>
+    <Function test_detect_simple_connascence>
+    <Function test_analyzer_initialization>
+  <Class TestTimingDetector>
+    <Function test_detect_timing_violations>
+    <Function test_detector_creation>
+  <Class TestPositionDetector>
+    <Function test_detect_position_violations>
+    <Function test_detector_creation>
+<Module tests/integration/test_analyzer_integration.py>
+  <Class TestAnalyzerIntegration>
+    <Function test_metrics_with_violations_correlation>
+    <Function test_full_analysis_pipeline>
+    <Function test_connascence_detection_integration>
+<Package tests>
+  <Module test_command_factory_patterns.py>
+    <UnitTestCase TestCommandPatternCompliance>
+      <TestCaseFunction test_command_execution_pattern>
+      <TestCaseFunction test_command_interface_consistency>
+    <UnitTestCase TestBatch8SecurityAnalysis>
+      <TestCaseFunction test_security_pattern_detection>
+    <UnitTestCase TestBatch4AnalysisFunctions>
+      <TestCaseFunction test_pattern_matcher_functionality>
+      <TestCaseFunction test_profiler_facade_analysis>
+    <UnitTestCase TestFactoryPatternCompliance>
+      <TestCaseFunction test_pattern_matcher_factory>
+      <TestCaseFunction test_profiler_facade_factory>
+    <UnitTestCase TestBatch5CLIIntegration>
+      <TestCaseFunction test_command_dispatcher_integration>
+    <UnitTestCase TestBackwardCompatibility>
+      <TestCaseFunction test_pattern_matcher_compatibility>
+      <TestCaseFunction test_profiler_facade_compatibility>
+    <UnitTestCase TestBatch6ReportGeneration>
+      <TestCaseFunction test_report_generation_factory>
+    <UnitTestCase TestBatch9EnterpriseIntegration>
+      <TestCaseFunction test_enterprise_analyzer_integration>
+    <UnitTestCase TestQualityGates>
+      <TestCaseFunction test_quality_score_calculation>
+    <UnitTestCase TestBatch7PerformanceAnalysis>
+      <TestCaseFunction test_performance_profiler_commands>
+<Module tests/batch2_validation/test_builder_patterns.py>
+  <Class TestPerformance>
+    <Function test_initialization_performance>
+  <Class TestInitializationBehavior>
+    <Function test_dfars_certification_initialization>
+    <Function test_failure_pattern_detector_initialization>
+    <Function test_compliance_core_initialization>
+    <Function test_queen_swarm_initialization>
+  <Class TestBuilderPatternValidation>
+    <Function test_builder_immutability>
+    <Function test_builder_fluent_interface>
+    <Function test_config_objects_are_dataclasses>
+    <Function test_builder_produces_valid_output>
+<Package tests>
+  <Module test_github_fixes.py>
+    <Function test_fixes>
+<Module tests/integration/production_integration_test.py>
+  <Function test_error_handling>
+  <Function test_github_workflow_simulation>
+  <Function test_performance_benchmarks>
+  <Function test_cli_integration>
+<Package phase7_adas>
+  <Module test_perception_accuracy.py>
+    <Class TestObjectDetectionMetrics>
+      <Function test_detection_precision_recall>
+      <Function test_false_positive_rate>
+      <Function test_false_negative_rate>
+      <Function test_map_performance>
+    <Class TestTrackingConsistency>
+      <Function test_track_lifecycle_management>
+      <Function test_tracking_id_consistency>
+    <Class TestEdgeCaseScenarios>
+      <Function test_occlusion_handling>
+      <Function test_small_object_detection>
+      <Function test_adverse_weather_performance>
+    <Class TestPerformanceAndLatency>
+      <Function test_detection_latency>
+      <Function test_throughput_under_load>
+    <Class TestReportingAndMetrics>
+      <Function test_benchmark_comparison>
+      <Function test_comprehensive_metrics_collection>
+<Package tests>
+  <Module test_naming_standardization.py>
+    <UnitTestCase TestNamingStandardization>
+      <TestCaseFunction test_new_methods_are_callable>
+      <TestCaseFunction test_import_compatibility>
+      <TestCaseFunction test_new_method_names_exist>
+      <TestCaseFunction test_no_broken_references>
+      <TestCaseFunction test_backward_compatibility_functions>
+      <TestCaseFunction test_method_signature_consistency>
+    <UnitTestCase TestCompatibilityLayer>
+      <TestCaseFunction test_deprecated_function_mappings>
+      <TestCaseFunction test_compatibility_mixin>
+<Package phase7_adas>
+  <Module test_safety_compliance.py>
+    <Class TestISO26262Compliance>
+      <Function test_fail_safe_activation_time>
+      <Function test_redundancy_coverage>
+      <Function test_fault_detection_time_compliance>
+      <Function test_system_availability_requirement>
+    <Class TestSystemStates>
+      <Function test_emergency_stop_conditions>
+      <Function test_operational_to_degraded_transition>
+      <Function test_fail_safe_state_entry>
+    <Class TestSafetyEventLogging>
+      <Function test_safety_event_logging>
+      <Function test_audit_trail_generation>
+    <Class TestFailSafeMechanisms>
+      <Function test_emergency_braking_fail_safe>
+      <Function test_lane_keeping_degraded_mode>
+      <Function test_collision_avoidance_redundancy>
+    <Class TestASILDVerification>
+      <Function test_comprehensive_asil_d_compliance>
+<Module tests/batch2_validation/test_regression.py>
+  <Class TestRegressionSuite>
+    <Function test_queen_swarm_deployment_still_works>
+    <Function test_failure_pattern_detection_still_works>
+    <Function test_dfars_compliance_checks_still_work>
+    <Function test_no_circular_imports>
+    <Function test_compliance_core_still_works>
+    <Function test_all_imports_successful>
+<Package tests>
+  <Module test_main.py>
+    <UnitTestCase TestMain>
+      <TestCaseFunction test_calculate_discount_valid>
+      <TestCaseFunction test_add_numbers_mixed>
+      <TestCaseFunction test_add_numbers_type_error>
+      <TestCaseFunction test_add_numbers_floats>
+      <TestCaseFunction test_add_numbers_positive>
+      <TestCaseFunction test_calculate_discount_zero_percent>
+      <TestCaseFunction test_add_numbers_negative>
+      <TestCaseFunction test_hello_world>
+      <TestCaseFunction test_calculate_discount_invalid_percent>
+      <TestCaseFunction test_calculate_discount_invalid_price>
+    <UnitTestCase TestCalculator>
+      <TestCaseFunction test_multiply>
+      <TestCaseFunction test_add>
+      <TestCaseFunction test_history>
+<Package phase7_adas>
+  <Module test_real_time_performance.py>
+    <Class TestLatencyRequirements>
+      <Function test_sensor_processing_latency>
+      <Function test_emergency_braking_latency>
+      <Function test_obstacle_detection_latency>
+    <Class TestStressConditions>
+      <Function test_memory_leak_detection>
+      <Function test_high_load_stress_test>
+    <Class TestPerformanceReporting>
+      <Function test_metrics_collection>
+    <Class TestThroughputValidation>
+      <Function test_sustained_throughput>
+      <Function test_concurrent_sensor_processing>
+    <Class TestResourceUsageMonitoring>
+      <Function test_memory_usage_under_load>
+      <Function test_cpu_usage_monitoring>
+<Package tests>
+  <Module test_analyzer.py>
+    <Function test_import_fallbacks>
+    <Function test_analyzer_import>
+    <Function test_analyzer_structure>
+    <Function test_performance_modules_availability>
+    <Function test_analyzer_basic_functionality>
+    <Function test_no_critical_import_errors>
+    <Function test_unified_analyzer_import>
+    <Function test_core_types_import>
+  <Module test_core_functionality.py>
+    <Class TestSixSigmaTelemetry>
+      <Function test_six_sigma_basic_functionality>
+      <Function test_six_sigma_imports>
+    <Class TestSystemIntegration>
+      <Function test_no_impossible_precision>
+      <Function test_error_handling_is_realistic>
+    <Class TestConstants>
+      <Function test_constants_import>
+      <Function test_constants_are_reasonable>
+    <Class TestConnascenceAnalyzer>
+      <Function test_analyzer_imports>
+      <Function test_analyzer_basic_functionality>
+    <Class TestNASAAnalyzer>
+      <Function test_nasa_basic_analysis>
+      <Function test_nasa_imports>
+<Module tests/e2e/test_complete_workflow.py>
+  <Class TestCompleteWorkflow>
+    <Function test_output_format_validation>
+    <Function test_configuration_driven_analysis>
+    <Function test_analyze_real_project_structure>
+<Package phase7_adas>
+  <Module test_simulation_scenarios.py>
+    <Class TestAdverseWeatherScenarios>
+      <Function test_fog_scenario>
+      <Function test_night_driving>
+      <Function test_rain_scenario>
+    <Class TestReportingAndAnalysis>
+      <Function test_comprehensive_simulation_report>
+    <Class TestEmergencyScenarios>
+      <Function test_sudden_vehicle_cut_in>
+      <Function test_emergency_braking>
+    <Class TestUrbanScenarios>
+      <Function test_urban_intersection>
+      <Function test_pedestrian_crossing>
+    <Class TestHighwayScenarios>
+      <Function test_highway_lane_change>
+      <Function test_highway_normal_driving>
+<Package tests>
+  <Module test_fixes_simple.py>
+    <Function test_lib_module>
+    <Function test_compliance_files>
+    <Function test_syntax>
+    <Function test_import_basic>
+    <Function test_workflow_config>
+
+Run started:2025-10-07 13:23:06.381489
+
+Test results:
+	No issues identified.
+
+Code scanned:
+	Total lines of code: 0
+	Total lines skipped (#nosec): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+Files skipped (0):
+
+=================================== ERRORS ====================================
+____________________ ERROR collecting tests/audit_test.py _____________________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\audit_test.py", line 38
+E       json_fields = re.findall(r"\.get\(['\"](\w+)['\"]", content))
+E                                                                   ^
+E   SyntaxError: unmatched ')'
+______________ ERROR collecting tests/phase1_functional_test.py _______________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\phase1_functional_test.py", line 28
+E       type="test_violation",
+E   IndentationError: unexpected indent
+____________ ERROR collecting tests/production_validation_test.py _____________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\production_validation_test.py", line 71
+E       def test_02_cross_platform_compatibility(self):
+E   IndentationError: unexpected indent
+______________ ERROR collecting tests/simple_kill_switch_test.py ______________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\simple_kill_switch_test.py", line 67
+E       TriggerType.MANUAL_PANIC,
+E   IndentationError: unexpected indent
+____________ ERROR collecting tests/simplified_integration_test.py ____________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\simplified_integration_test.py", line 304
+E       bad_file.write_text("def incomplete(\n# Missing closing paren"))
+E                                                                      ^
+E   SyntaxError: unmatched ')'
+____________________ ERROR collecting tests/test_fixes.py _____________________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\test_fixes.py", line 281
+E       """Run all validation tests."""
+E                                   ^
+E   SyntaxError: unterminated triple-quoted string literal (detected at line 336)
+__________ ERROR collecting tests/test_focused_pattern_validation.py __________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\test_focused_pattern_validation.py", line 34
+E       pattern_id="test_1",
+E   IndentationError: unexpected indent
+_________________ ERROR collecting tests/test_import_fixes.py _________________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\test_import_fixes.py", line 67
+E       config=None,  # Will use defaults
+E   IndentationError: unexpected indent
+___________ ERROR collecting tests/test_kill_switch_integration.py ____________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\test_kill_switch_integration.py", line 6
+E       - Performance validation (<500ms)
+E                                    ^
+E   SyntaxError: invalid decimal literal
+______________ ERROR collecting tests/test_phase3_100_percent.py ______________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\test_phase3_100_percent.py", line 4
+E       Comprehensive test suite to verify that ComponentIntegrator achieves 100% reality
+E                     ^^^^
+E   SyntaxError: invalid syntax
+______________ ERROR collecting tests/test_phase3_integration.py ______________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\test_phase3_integration.py", line 601
+E       """Run Phase MAXIMUM_RETRY_ATTEMPTS integration tests."""
+E                                                             ^
+E   SyntaxError: unterminated triple-quoted string literal (detected at line 617)
+_________ ERROR collecting tests/test_phase4_config_wiring_reality.py _________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\test_phase4_config_wiring_reality.py", line 119
+E       config_dir_3 = self.setup_test_config({)
+E                                              ^
+E   SyntaxError: closing parenthesis ')' does not match opening parenthesis '{'
+_____________ ERROR collecting tests/test_phase4_configuration.py _____________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\test_phase4_configuration.py", line 194
+E       'sigmaShift': 1.MAXIMUM_NESTED_DEPTH,
+E                      ^
+E   SyntaxError: invalid decimal literal
+______________ ERROR collecting tests/test_phase5_integration.py ______________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\test_phase5_integration.py", line 5
+E       Tests the complete integration of all analyzer components:
+E             ^^^
+E   SyntaxError: invalid syntax
+____________ ERROR collecting tests/test_phase5_sandbox_reality.py ____________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\test_phase5_sandbox_reality.py", line 91
+E       type=ConnascenceType.ALGORITHM,
+E   IndentationError: unexpected indent
+____________ ERROR collecting tests/test_supply_chain_security.py _____________
+tests\test_supply_chain_security.py:22: in <module>
+    from analyzer.enterprise.supply_chain.config_loader import SupplyChainConfigLoader
+analyzer\enterprise\supply_chain\config_loader.py:22: in <module>
+    class SupplyChainConfigLoader:
+analyzer\enterprise\supply_chain\config_loader.py:299: in SupplyChainConfigLoader
+    def _run_config_validations(self, engine: ValidationEngine, config: Dict) -> Dict:
+E   NameError: name 'ValidationEngine' is not defined
+____________________ ERROR collecting tests/test_utils.py _____________________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\test_utils.py", line 60
+E       self.assertEqual(result, MAXIMUM_GOD_OBJECTS_ALLOWED.0)
+E                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   SyntaxError: invalid syntax. Perhaps you forgot a comma?
+_ ERROR collecting tests/batch3_validation/test_strategy_pattern_validation.py _
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\batch3_validation\test_strategy_pattern_validation.py", line 612
+E       """Run comprehensive Batch 3 validation tests."""
+E                                                     ^
+E   SyntaxError: unterminated triple-quoted string literal (detected at line 671)
+_ ERROR collecting tests/batches_10_18_validation/test_suite_orchestrator.py __
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\batches_10_18_validation\test_suite_orchestrator.py", line 854
+E       - Passed: {passed} ({passed/max(1, total)*100:.1f}%)
+E                                                      ^
+E   SyntaxError: invalid decimal literal
+__________ ERROR collecting tests/byzantium/test_byzantine_stress.py __________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\byzantium\test_byzantine_stress.py", line 695
+E       """Run comprehensive Byzantine stress testing."""
+E                                                     ^
+E   SyntaxError: unterminated triple-quoted string literal (detected at line 709)
+______ ERROR collecting tests/cache_analyzer/comprehensive_cache_test.py ______
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\cache_analyzer\comprehensive_cache_test.py", line 105
+E       max_partial_results=1000,
+E   IndentationError: unexpected indent
+______ ERROR collecting tests/cache_analyzer/test_cache_functionality.py ______
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\cache_analyzer\test_cache_functionality.py", line 515
+E       """Run all cache analyzer tests."""
+E                                       ^
+E   SyntaxError: unterminated triple-quoted string literal (detected at line 537)
+__________ ERROR collecting tests/compliance/test_compliance_demo.py __________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\compliance\test_compliance_demo.py", line 41
+E       """Main demonstration function"""
+E                                     ^
+E   SyntaxError: unterminated triple-quoted string literal (detected at line 217)
+_________ ERROR collecting tests/compliance/test_compliance_simple.py _________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\compliance\test_compliance_simple.py", line 18
+E       level=logging.INFO,
+E   IndentationError: unexpected indent
+______________ ERROR collecting tests/cycles/test_integration.py ______________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\cycles\test_integration.py", line 402
+E       """Test that Friday 6:00pm scheduling is correctly configured."""
+E                              ^
+E   SyntaxError: invalid decimal literal
+_________ ERROR collecting tests/debug/test_circular_imports_audit.py _________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\debug\test_circular_imports_audit.py", line 22
+E       (                              capture_output=True, text=True, cwd=Path.cwd())
+E   SyntaxError: expected 'except' or 'finally' block
+_________________ ERROR collecting tests/debug/test_debug.py __________________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\debug\test_debug.py", line 20
+E       file_path=str(test_file),
+E   IndentationError: unexpected indent
+_______________ ERROR collecting tests/debug/test_hash_debug.py _______________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\debug\test_hash_debug.py", line 25
+E       file_path=str(test_file),
+E   IndentationError: unexpected indent
+_____ ERROR collecting tests/enterprise/e2e/test_enterprise_workflows.py ______
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\enterprise\e2e\test_enterprise_workflows.py", line 645
+E       (self.project_root / "src" / "myapp" / "main.py").write_text(""")
+E                                                                       ^
+E   SyntaxError: unmatched ')'
+_ ERROR collecting tests/enterprise/integration/test_analyzer_integration.py __
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\enterprise\integration\test_analyzer_integration.py", line 3
+E       Tests all functionality of the enterprise analyzer integration including:
+E             ^^^
+E   SyntaxError: invalid syntax
+_ ERROR collecting tests/enterprise/performance/test_zero_impact_disabled.py __
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\enterprise\performance\test_zero_impact_disabled.py", line 3
+E       Tests that enterprise features have zero performance impact when disabled,
+E             ^^^^
+E   SyntaxError: invalid syntax
+______ ERROR collecting tests/enterprise/unit/test_compliance_matrix.py _______
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\enterprise\unit\test_compliance_matrix.py", line 25
+E       from enterprise.compliance.matrix import ()
+E                                                 ^
+E   SyntaxError: invalid syntax
+________ ERROR collecting tests/enterprise/unit/test_feature_flags.py _________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\enterprise\unit\test_feature_flags.py", line 17
+E       from feature_flags import ()
+E                                  ^
+E   SyntaxError: invalid syntax
+________ ERROR collecting tests/enterprise/unit/test_sbom_generator.py ________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\enterprise\unit\test_sbom_generator.py", line 26
+E       from enterprise.security.sbom_generator import ()
+E                                                       ^
+E   SyntaxError: invalid syntax
+_______ ERROR collecting tests/enterprise/unit/test_six_sigma_python.py _______
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\enterprise\unit\test_six_sigma_python.py", line 277
+E       self.telemetry.current_session_data.update({)
+E                                                   ^
+E   SyntaxError: closing parenthesis ')' does not match opening parenthesis '{'
+_____ ERROR collecting tests/enterprise/unit/test_six_sigma_telemetry.py ______
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\enterprise\unit\test_six_sigma_telemetry.py", line 26
+E       from enterprise.telemetry.six_sigma import ()
+E                                                   ^
+E   SyntaxError: invalid syntax
+________ ERROR collecting tests/integration/queen_remediation_test.py _________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\integration\queen_remediation_test.py", line 409
+E       """Run the Queen remediation simulation"""
+E                                              ^
+E   SyntaxError: unterminated triple-quoted string literal (detected at line 414)
+______ ERROR collecting tests/integration/simplified_integration_test.py ______
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\integration\simplified_integration_test.py", line 420
+E       total_complexity < 50 and
+E   IndentationError: unexpected indent
+________ ERROR collecting tests/integration/test_enterprise_domains.py ________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\integration\test_enterprise_domains.py", line 175
+E       (self.test_project / "main.py").write_text(""")
+E                                                     ^
+E   SyntaxError: unmatched ')'
+______ ERROR collecting tests/integration/test_enterprise_integration.py ______
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\integration\test_enterprise_integration.py", line 4
+E       Comprehensive integration tests for enterprise modules with the existing analyzer.
+E                     ^^^^^^^^^^^
+E   SyntaxError: invalid syntax
+__________ ERROR collecting tests/integration/test_error_handling.py __________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\integration\test_error_handling.py", line 45
+E       return FailingConfigManager()
+E                                    ^
+E   IndentationError: unindent does not match any outer indentation level
+______ ERROR collecting tests/integration/test_github_bridge_reality.py _______
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\integration\test_github_bridge_reality.py", line 412
+E       """Calculate overall reality score for Phase 2 GitHub integration."""
+E                                                                         ^
+E   SyntaxError: unterminated triple-quoted string literal (detected at line 470)
+_________ ERROR collecting tests/integration/test_performance_load.py _________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\integration\test_performance_load.py", line 138
+E       file_path.write_text(f""")
+E                                ^
+E   SyntaxError: unmatched ')'
+____ ERROR collecting tests/integration/test_phase2_reality_validation.py _____
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\integration\test_phase2_reality_validation.py", line 22
+E       from integrations.github_bridge import ()
+E                                               ^
+E   SyntaxError: invalid syntax
+____ ERROR collecting tests/integration/test_phase3_distributed_context.py ____
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\integration\test_phase3_distributed_context.py", line 96
+E       ['node', str(test_file)],
+E   IndentationError: unexpected indent
+___ ERROR collecting tests/integration/test_swarm_hierarchy_integration.py ____
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\integration\test_swarm_hierarchy_integration.py", line 335
+E       'total_channels': sum([)
+E                              ^
+E   SyntaxError: closing parenthesis ')' does not match opening parenthesis '['
+_____ ERROR collecting tests/integration/test_tool_coordinator_sandbox.py _____
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\integration\test_tool_coordinator_sandbox.py", line 170
+E       validation["tests"].append({)
+E                                   ^
+E   SyntaxError: closing parenthesis ')' does not match opening parenthesis '{'
+_ ERROR collecting tests/json_schema_validation/test_full_pipeline_integration.py _
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\json_schema_validation\test_full_pipeline_integration.py", line 58
+E       main_file.write_text(""")
+E                               ^
+E   SyntaxError: unmatched ')'
+_ ERROR collecting tests/json_schema_validation/test_json_schema_validation.py _
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\json_schema_validation\test_json_schema_validation.py", line 282
+E       """Test SARIF generation overhead (baseline: 6x standard JSON)."""
+E                                                    ^
+E   SyntaxError: invalid decimal literal
+____ ERROR collecting tests/json_schema_validation/test_risk_mitigation.py ____
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\json_schema_validation\test_risk_mitigation.py", line 449
+E       """Test graceful degradation when some violations cannot be serialized."""
+E                                                                              ^
+E   SyntaxError: unterminated triple-quoted string literal (detected at line 521)
+________ ERROR collecting tests/json_schema_validation/test_runner.py _________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\json_schema_validation\test_runner.py", line 310
+E       """Main entry point for test runner."""
+E                                           ^
+E   SyntaxError: unterminated triple-quoted string literal (detected at line 343)
+___ ERROR collecting tests/json_schema_validation/test_sarif_compliance.py ____
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\json_schema_validation\test_sarif_compliance.py", line 52
+E       def _create_sample_violation(self, rule_id: str, conn_type: ConnascenceType,)
+E                                                                                    ^
+E   SyntaxError: expected ':'
+_____ ERROR collecting tests/linter_integration/test_adapter_patterns.py ______
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\linter_integration\test_adapter_patterns.py", line 22
+E       from models.linter_models import ()
+E                                         ^
+E   SyntaxError: invalid syntax
+_______ ERROR collecting tests/linter_integration/test_api_endpoints.py _______
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\linter_integration\test_api_endpoints.py", line 33
+E       self.executions.append({)
+E                               ^
+E   SyntaxError: closing parenthesis ')' does not match opening parenthesis '{'
+_______ ERROR collecting tests/linter_integration/test_failure_modes.py _______
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\linter_integration\test_failure_modes.py", line 74
+E       (                            if node.status == NodeStatus.ACTIVE)
+E                                    ^^
+E   SyntaxError: invalid syntax
+_______ ERROR collecting tests/linter_integration/test_full_pipeline.py _______
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\linter_integration\test_full_pipeline.py", line 75
+E       file_paths, options or {}
+E   IndentationError: unexpected indent
+_____ ERROR collecting tests/linter_integration/test_mesh_coordination.py _____
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\linter_integration\test_mesh_coordination.py", line 19
+E       from linter_integration.mesh_coordinator import ()
+E                                                        ^
+E   SyntaxError: invalid syntax
+__ ERROR collecting tests/linter_integration/test_performance_scalability.py __
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\linter_integration\test_performance_scalability.py", line 87
+E       throughput_score = (violations_per_second * 0.4 +)
+E                                                        ^
+E   SyntaxError: invalid syntax
+__ ERROR collecting tests/linter_integration/test_real_linter_validation.py ___
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\linter_integration\test_real_linter_validation.py", line 175
+E       result = subprocess.run([)
+E                                ^
+E   SyntaxError: closing parenthesis ')' does not match opening parenthesis '['
+___ ERROR collecting tests/linter_integration/test_real_time_processing.py ____
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\linter_integration\test_real_time_processing.py", line 74
+E       self.event_emitter.emit("violation_detected", {)
+E                                                      ^
+E   SyntaxError: closing parenthesis ')' does not match opening parenthesis '{'
+_____ ERROR collecting tests/linter_integration/test_severity_mapping.py ______
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\linter_integration\test_severity_mapping.py", line 19
+E       from linter_integration.severity_mapping.unified_severity import ()
+E                                                                         ^
+E   SyntaxError: invalid syntax
+______ ERROR collecting tests/linter_integration/test_tool_management.py ______
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\linter_integration\test_tool_management.py", line 18
+E       from linter_integration.tool_management_system import ()
+E                                                              ^
+E   SyntaxError: invalid syntax
+____ ERROR collecting tests/memory_integration/test_cross_phase_memory.py _____
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\memory_integration\test_cross_phase_memory.py", line 663
+E       """Test calculation and tracking of cross-phase correlation strength."""
+E                                                                            ^
+E   SyntaxError: unterminated triple-quoted string literal (detected at line 697)
+___________ ERROR collecting tests/ml/test_compliance_forecaster.py ___________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\ml\test_compliance_forecaster.py", line 138
+E       sample['current_metrics']['security_score'] * 0.3 +
+E   IndentationError: unexpected indent
+________________ ERROR collecting tests/ml/test_integration.py ________________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\ml\test_integration.py", line 701
+E       """Test that response times meet real-time requirements."""
+E                                                               ^
+E   SyntaxError: unterminated triple-quoted string literal (detected at line 740)
+_____________ ERROR collecting tests/ml/test_quality_predictor.py _____________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\ml\test_quality_predictor.py", line 193
+E       historical_data.append({)
+E                               ^
+E   SyntaxError: closing parenthesis ')' does not match opening parenthesis '{'
+____________ ERROR collecting tests/ml/test_theater_classifier.py _____________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\ml\test_theater_classifier.py", line 377
+E       features, change_data, theater_prob, gaming_scores
+E   IndentationError: unexpected indent
+_________ ERROR collecting tests/nasa-compliance/test_nasa_agents.py __________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\nasa-compliance\test_nasa_agents.py", line 25
+E       from src.analyzers.nasa.security_manager import ()
+E                                                        ^
+E   SyntaxError: invalid syntax
+_________ ERROR collecting tests/phase4/test_precision_validation.py __________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\phase4\test_precision_validation.py", line 125
+E       def test_performance_baselines_maintained(self):
+E   IndentationError: unexpected indent
+___ ERROR collecting tests/refactored/batch2/test_agent_database_builder.py ___
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\refactored\batch2\test_agent_database_builder.py", line 3
+E       from src.coordination.agent_database_builder import ()
+E                                                            ^
+E   SyntaxError: invalid syntax
+__ ERROR collecting tests/refactored/batch2/test_deployment_task_builder.py ___
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\refactored\batch2\test_deployment_task_builder.py", line 3
+E       from scripts.dfars_deployment_task_builder import ()
+E                                                          ^
+E   SyntaxError: invalid syntax
+___ ERROR collecting tests/refactored/batch2/test_dfars_controls_builder.py ___
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\refactored\batch2\test_dfars_controls_builder.py", line 3
+E       from src.security.dfars_controls_builder import ()
+E                                                        ^
+E   SyntaxError: invalid syntax
+____ ERROR collecting tests/refactored/batch2/test_test_pattern_builder.py ____
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\refactored\batch2\test_test_pattern_builder.py", line 3
+E       from src.analysis.test_pattern_builder import ()
+E                                                      ^
+E   SyntaxError: invalid syntax
+___ ERROR collecting tests/refactored/batch3/test_validation_strategies.py ____
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\refactored\batch3\test_validation_strategies.py", line 61
+E       invalid_code = "def hello(\n    return 'world'")
+E                                                      ^
+E   SyntaxError: unmatched ')'
+___________ ERROR collecting tests/safety/test_import_validation.py ___________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\safety\test_import_validation.py", line 208
+E       primary_endpoint="http://test:8080",
+E   IndentationError: unexpected indent
+_____________ ERROR collecting tests/safety/test_safety_system.py _____________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\safety\test_safety_system.py", line 136
+E       """Test that recovery times are validated against <60s requirement."""
+E                                                           ^
+E   SyntaxError: invalid decimal literal
+__________ ERROR collecting tests/security/test_dfars_compliance.py ___________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\security\test_dfars_compliance.py", line 14
+E       from security.dfars_compliance_engine import ()
+E                                                     ^
+E   SyntaxError: invalid syntax
+______ ERROR collecting tests/security/test_dfars_workflow_automation.py ______
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\security\test_dfars_workflow_automation.py", line 21
+E       from security.dfars_workflow_automation import ()
+E                                                       ^
+E   SyntaxError: invalid syntax
+____ ERROR collecting tests/security/test_enterprise_theater_detection.py _____
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\security\test_enterprise_theater_detection.py", line 10
+E       from src.security.enterprise_theater_detection import ()
+E                                                              ^
+E   SyntaxError: invalid syntax
+_____ ERROR collecting tests/self-dogfooding/workflow_simulation_test.py ______
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\self-dogfooding\workflow_simulation_test.py", line 163
+E       results.append({)
+E                       ^
+E   SyntaxError: closing parenthesis ')' does not match opening parenthesis '{'
+_____________ ERROR collecting tests/sixsigma/test_integration.py _____________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\sixsigma\test_integration.py", line 175
+E       self.assertLess(metrics.sigma_level, MAXIMUM_RETRY_ATTEMPTS.0)  # Below acceptable threshold
+E                                            ^^^^^^^^^^^^^^^^^^^^^^^^
+E   SyntaxError: invalid syntax. Perhaps you forgot a comma?
+_____ ERROR collecting tests/theater-detection/test_theater_detection.py ______
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\theater-detection\test_theater_detection.py", line 179
+E       TheaterPattern()
+E       ^^^^^^^^^^^^
+E   SyntaxError: invalid syntax. Perhaps you forgot a comma?
+_____________ ERROR collecting tests/unit/test_flake8_adapter.py ______________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\unit\test_flake8_adapter.py", line 18
+E       tool_name="flake8",
+E   IndentationError: unexpected indent
+_____________ ERROR collecting tests/unit/test_pylint_adapter.py ______________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\unit\test_pylint_adapter.py", line 17
+E       tool_name="pylint",
+E   IndentationError: unexpected indent
+________ ERROR collecting tests/version_log/test_unified_validation.py ________
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+..\..\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+C:\Python312\Lib\ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "C:\Users\17175\Desktop\spek template\tests\version_log\test_unified_validation.py", line 51
+E       status="OK",
+E   IndentationError: unexpected indent
+============================== warnings summary ===============================
+tests\enterprise\conftest.py:41
+  Could not import enterprise modules, using mocks: No module named 'enterprise.compliance.assessor'
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+ERROR tests/audit_test.py
+ERROR tests/phase1_functional_test.py
+ERROR tests/production_validation_test.py
+ERROR tests/simple_kill_switch_test.py
+ERROR tests/simplified_integration_test.py
+ERROR tests/test_fixes.py
+ERROR tests/test_focused_pattern_validation.py
+ERROR tests/test_import_fixes.py
+ERROR tests/test_kill_switch_integration.py
+ERROR tests/test_phase3_100_percent.py
+ERROR tests/test_phase3_integration.py
+ERROR tests/test_phase4_config_wiring_reality.py
+ERROR tests/test_phase4_configuration.py
+ERROR tests/test_phase5_integration.py
+ERROR tests/test_phase5_sandbox_reality.py
+ERROR tests/test_supply_chain_security.py - NameError: name 'ValidationEngine...
+ERROR tests/test_utils.py
+ERROR tests/batch3_validation/test_strategy_pattern_validation.py
+ERROR tests/batches_10_18_validation/test_suite_orchestrator.py
+ERROR tests/byzantium/test_byzantine_stress.py
+ERROR tests/cache_analyzer/comprehensive_cache_test.py
+ERROR tests/cache_analyzer/test_cache_functionality.py
+ERROR tests/compliance/test_compliance_demo.py
+ERROR tests/compliance/test_compliance_simple.py
+ERROR tests/cycles/test_integration.py
+ERROR tests/debug/test_circular_imports_audit.py
+ERROR tests/debug/test_debug.py
+ERROR tests/debug/test_hash_debug.py
+ERROR tests/enterprise/e2e/test_enterprise_workflows.py
+ERROR tests/enterprise/integration/test_analyzer_integration.py
+ERROR tests/enterprise/performance/test_zero_impact_disabled.py
+ERROR tests/enterprise/unit/test_compliance_matrix.py
+ERROR tests/enterprise/unit/test_feature_flags.py
+ERROR tests/enterprise/unit/test_sbom_generator.py
+ERROR tests/enterprise/unit/test_six_sigma_python.py
+ERROR tests/enterprise/unit/test_six_sigma_telemetry.py
+ERROR tests/integration/queen_remediation_test.py
+ERROR tests/integration/simplified_integration_test.py
+ERROR tests/integration/test_enterprise_domains.py
+ERROR tests/integration/test_enterprise_integration.py
+ERROR tests/integration/test_error_handling.py
+ERROR tests/integration/test_github_bridge_reality.py
+ERROR tests/integration/test_performance_load.py
+ERROR tests/integration/test_phase2_reality_validation.py
+ERROR tests/integration/test_phase3_distributed_context.py
+ERROR tests/integration/test_swarm_hierarchy_integration.py
+ERROR tests/integration/test_tool_coordinator_sandbox.py
+ERROR tests/json_schema_validation/test_full_pipeline_integration.py
+ERROR tests/json_schema_validation/test_json_schema_validation.py
+ERROR tests/json_schema_validation/test_risk_mitigation.py
+ERROR tests/json_schema_validation/test_runner.py
+ERROR tests/json_schema_validation/test_sarif_compliance.py
+ERROR tests/linter_integration/test_adapter_patterns.py
+ERROR tests/linter_integration/test_api_endpoints.py
+ERROR tests/linter_integration/test_failure_modes.py
+ERROR tests/linter_integration/test_full_pipeline.py
+ERROR tests/linter_integration/test_mesh_coordination.py
+ERROR tests/linter_integration/test_performance_scalability.py
+ERROR tests/linter_integration/test_real_linter_validation.py
+ERROR tests/linter_integration/test_real_time_processing.py
+ERROR tests/linter_integration/test_severity_mapping.py
+ERROR tests/linter_integration/test_tool_management.py
+ERROR tests/memory_integration/test_cross_phase_memory.py
+ERROR tests/ml/test_compliance_forecaster.py
+ERROR tests/ml/test_integration.py
+ERROR tests/ml/test_quality_predictor.py
+ERROR tests/ml/test_theater_classifier.py
+ERROR tests/nasa-compliance/test_nasa_agents.py
+ERROR tests/phase4/test_precision_validation.py
+ERROR tests/refactored/batch2/test_agent_database_builder.py
+ERROR tests/refactored/batch2/test_deployment_task_builder.py
+ERROR tests/refactored/batch2/test_dfars_controls_builder.py
+ERROR tests/refactored/batch2/test_test_pattern_builder.py
+ERROR tests/refactored/batch3/test_validation_strategies.py
+ERROR tests/safety/test_import_validation.py
+ERROR tests/safety/test_safety_system.py
+ERROR tests/security/test_dfars_compliance.py
+ERROR tests/security/test_dfars_workflow_automation.py
+ERROR tests/security/test_enterprise_theater_detection.py
+ERROR tests/self-dogfooding/workflow_simulation_test.py
+ERROR tests/sixsigma/test_integration.py
+ERROR tests/theater-detection/test_theater_detection.py
+ERROR tests/unit/test_flake8_adapter.py
+ERROR tests/unit/test_pylint_adapter.py
+ERROR tests/version_log/test_unified_validation.py
+!!!!!!!!!!!!!!!!!! Interrupted: 85 errors during collection !!!!!!!!!!!!!!!!!!!
+================== 166 tests collected, 85 errors in 11.33s ===================

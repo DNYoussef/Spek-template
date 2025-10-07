@@ -135,7 +135,7 @@ class TestProjectGenerator:
         # Create simple Python files
         for i in range(5):
             file_path = project_path / f"module_{i}.py"
-            file_path.write_text(f""")
+            file_path.write_text(f"""
 def function_{i}():
     '''Function {i} with some violations.'''
     magic_number = {42 + i}  # Magic literal

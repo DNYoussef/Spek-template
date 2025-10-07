@@ -6,7 +6,7 @@
  */
 
 import { ContextDNA } from './ClaudeCodeDSPyIntegration';
-import { DSPySignature, DSPyOptimizer } from '../core/DSPyCore';
+// TODO(Phase 4): Implement core module - import { DSPySignature, DSPyOptimizer } from '../core/DSPyCore';
 
 /**
  * A2A Communication message structure

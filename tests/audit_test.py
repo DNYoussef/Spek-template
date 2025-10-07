@@ -35,12 +35,12 @@ def audit_workflow(workflow_path):
         warnings.append("No explicit error handling")
     
     # Check 4: JSON field extraction
-    json_fields = re.findall(r"\.get\(['\"](\w+)['\"]", content))
+    json_fields = re.findall(r"\.get\(['\"](\w+)['\"]", content)
     if json_fields:
         successes.append(f"Extracts fields: {', '.join(set(json_fields)[:5])}")
     
     # Check 5: Threshold validation
-    thresholds = re.findall(r"THRESHOLD['\rr"]?\s*[:=]\s*(\d+)", content)
+    thresholds = re.findall(r"THRESHOLD['\"]?\s*[:=]\s*(\d+)", content)
     if thresholds:
         successes.append(f"Has thresholds: {', '.join(thresholds[:3])}")
     

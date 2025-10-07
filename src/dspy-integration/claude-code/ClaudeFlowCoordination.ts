@@ -6,7 +6,7 @@
  */
 
 import { ContextDNA, CoordinationMetadata } from './ClaudeCodeDSPyIntegration';
-import { DSPySignature, DSPyOptimizer } from '../core/DSPyCore';
+// TODO(Phase 4): Implement core module - import { DSPySignature, DSPyOptimizer } from '../core/DSPyCore';
 import { PromptOptimizationEngine } from './PromptOptimizationEngine';
 
 /**

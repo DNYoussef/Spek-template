@@ -65,14 +65,14 @@ class ProductionValidationTestSuite(unittest.TestCase):
             except (subprocess.TimeoutExpired, FileNotFoundError) as e:
                 missing_deps.append(f"{dep_name}: {str(e)}")
         
-        self.assertEqual(len(missing_deps), 0,)
-(                        f"Missing or failing dependencies: {missing_deps}")
+        self.assertEqual(len(missing_deps), 0,
+                        f"Missing or failing dependencies: {missing_deps}")
 
     def test_02_cross_platform_compatibility(self):
         """Test cross-platform compatibility of cleanup scripts."""
         # Test path handling
         test_paths = [
-            rr"C:\\Windows\\path\\to\\file",
+            r"C:\\Windows\\path\\to\\file",
             "/unix/path/to/file",
             "relative/path/file",
             "./local/file"
@@ -84,22 +84,22 @@ class ProductionValidationTestSuite(unittest.TestCase):
         try:
             if os.name == 'nt':  # Windows
                 # Test Windows-specific functionality
-                result = subprocess.run(['bash', '-c', 'echo "Windows test"'],)
-(                                        capture_output=True, text=True, timeout=5)
+                result = subprocess.run(['bash', '-c', 'echo "Windows test"'],
+                                        capture_output=True, text=True, timeout=5)
                 if result.returncode != 0:
                     compatibility_issues.append("Bash unavailable on Windows")
             else:  # Unix-like
                 # Test Unix-specific functionality
-                result = subprocess.run(['bash', '-c', 'echo "Unix test"'],)
-(                                        capture_output=True, text=True, timeout=5)
+                result = subprocess.run(['bash', '-c', 'echo "Unix test"'],
+                                        capture_output=True, text=True, timeout=5)
                 if result.returncode != 0:
                     compatibility_issues.append("Bash issues on Unix")
                     
         except Exception as e:
             compatibility_issues.append(f"Platform compatibility error: {e}")
         
-        self.assertEqual(len(compatibility_issues), 0,)
-(                        f"Cross-platform issues: {compatibility_issues}")
+        self.assertEqual(len(compatibility_issues), 0,
+                        f"Cross-platform issues: {compatibility_issues}")
 
     def test_03_error_handling_robustness(self):
         """Test comprehensive error handling and recovery mechanisms."""
@@ -107,9 +107,9 @@ class ProductionValidationTestSuite(unittest.TestCase):
         
         # Test script with invalid arguments
         try:
-            result = subprocess.run([)
+            result = subprocess.run([
                 'bash', str(self.cleanup_script), '--invalid-flag'
-(            ], capture_output=True, text=True, timeout=10)
+            ], capture_output=True, text=True, timeout=10)
             
             if result.returncode == 0:
                 error_scenarios.append("Script should reject invalid flags")
@@ -126,9 +126,9 @@ class ProductionValidationTestSuite(unittest.TestCase):
             env = os.environ.copy()
             env['PATH'] = ''  # Remove PATH to simulate missing tools
 
-            result = subprocess.run([)
+            result = subprocess.run([
                 'bash', str(self.cleanup_script), '--help'
-(            ], capture_output=True, text=True, timeout=5, env=env)
+            ], capture_output=True, text=True, timeout=5, env=env)
 
             # Should still show help even with missing PATH
             if result.returncode != 0 and "USAGE:" not in result.stdout:
@@ -141,8 +141,8 @@ class ProductionValidationTestSuite(unittest.TestCase):
             # This is expected in some cases
             pass
 
-        self.assertEqual(len(error_scenarios), 0,)
-(                        f"Error handling issues: {error_scenarios}")
+        self.assertEqual(len(error_scenarios), 0,
+                        f"Error handling issues: {error_scenarios}")
 
     def test_04_security_audit_trail(self):
         """Test security features and comprehensive audit trail generation."""
@@ -174,8 +174,8 @@ class ProductionValidationTestSuite(unittest.TestCase):
         if not (self.scripts_dir / "lib" / "cleanup-commons.sh").exists():
             security_issues.append("Cleanup commons library missing")
             
-        self.assertEqual(len(security_issues), 0,)
-(                        f"Security issues: {security_issues}")
+        self.assertEqual(len(security_issues), 0,
+                        f"Security issues: {security_issues}")
 
     def test_05_enterprise_compliance(self):
         """Test enterprise environment compatibility and compliance."""
@@ -198,7 +198,7 @@ class ProductionValidationTestSuite(unittest.TestCase):
             with open(self.cleanup_script, 'r') as f:
                 content = f.read()
                 
-            if 'log(' not in content:)
+            if 'log(' not in content:
                 compliance_issues.append("Insufficient logging framework")
                 
             if 'timestamp' not in content.lower():
@@ -210,8 +210,8 @@ class ProductionValidationTestSuite(unittest.TestCase):
         except Exception as e:
             compliance_issues.append(f"Compliance check failed: {e}")
             
-        self.assertEqual(len(compliance_issues), 0,)
-(                        f"Enterprise compliance issues: {compliance_issues}")
+        self.assertEqual(len(compliance_issues), 0,
+                        f"Enterprise compliance issues: {compliance_issues}")
 
     def test_06_rollback_mechanisms(self):
         """Test comprehensive rollback procedures."""
@@ -219,9 +219,9 @@ class ProductionValidationTestSuite(unittest.TestCase):
         
         try:
             # Test rollback help
-            result = subprocess.run([)
+            result = subprocess.run([
                 'bash', str(self.cleanup_script), '--help'
-(            ], capture_output=True, text=True, timeout=10)
+            ], capture_output=True, text=True, timeout=10)
             
             if result.returncode != 0:
                 rollback_issues.append("Cannot access help for rollback info")
@@ -246,8 +246,8 @@ class ProductionValidationTestSuite(unittest.TestCase):
         except Exception as e:
             rollback_issues.append(f"Rollback validation failed: {e}")
             
-        self.assertEqual(len(rollback_issues), 0,)
-(                        f"Rollback mechanism issues: {rollback_issues}")
+        self.assertEqual(len(rollback_issues), 0,
+                        f"Rollback mechanism issues: {rollback_issues}")
 
     def test_07_scale_performance_validation(self):
         """Test performance with large codebase simulation."""
@@ -273,9 +273,9 @@ class ProductionValidationTestSuite(unittest.TestCase):
             start_time = time.time()
             
             # Test dry-run mode for performance
-            result = subprocess.run([)
+            result = subprocess.run([
                 'bash', str(self.cleanup_script), '--dry-run', '--help'
-(            ], capture_output=True, text=True, timeout=30)  # 30 second timeout
+            ], capture_output=True, text=True, timeout=30)  # 30 second timeout
             
             duration = time.time() - start_time
             
@@ -294,8 +294,8 @@ class ProductionValidationTestSuite(unittest.TestCase):
             if 'large_test_dir' in locals() and large_test_dir.exists():
                 shutil.rmtree(large_test_dir, ignore_errors=True)
         
-        self.assertEqual(len(performance_issues), 0,)
-(                        f"Performance issues: {performance_issues}")
+        self.assertEqual(len(performance_issues), 0,
+                        f"Performance issues: {performance_issues}")
 
     def test_08_integration_testing(self):
         """Test integration with GitHub workflows and quality systems."""
@@ -355,8 +355,8 @@ class ProductionValidationTestSuite(unittest.TestCase):
         except Exception as e:
             integration_issues.append(f"Integration test failed: {e}")
             
-        self.assertEqual(len(integration_issues), 0,)
-(                        f"Integration issues: {integration_issues}")
+        self.assertEqual(len(integration_issues), 0,
+                        f"Integration issues: {integration_issues}")
 
     def test_09_failure_scenario_recovery(self):
         """Test recovery from various failure scenarios."""
@@ -368,10 +368,10 @@ class ProductionValidationTestSuite(unittest.TestCase):
             test_state_file.write_text("INVALID STATE DATA\nBROKEN=true")
             
             # Test script handles corrupted state gracefully
-            result = subprocess.run([)
+            result = subprocess.run([
                 'bash', str(self.cleanup_script), '--status'
-            ], capture_output=True, text=True, timeout=10, 
-(            cwd=str(self.test_dir))
+            ], capture_output=True, text=True, timeout=10,
+            cwd=str(self.test_dir))
             
             # Should handle gracefully, not crash
             if result.returncode == 0 or "error" in result.stderr.lower():
@@ -401,8 +401,8 @@ class ProductionValidationTestSuite(unittest.TestCase):
             except:
                 pass
         
-        self.assertEqual(len(recovery_issues), 0,)
-(                        f"Failure recovery issues: {recovery_issues}")
+        self.assertEqual(len(recovery_issues), 0,
+                        f"Failure recovery issues: {recovery_issues}")
 
     def test_10_maintenance_monitoring(self):
         """Test maintenance and monitoring capabilities."""
@@ -410,9 +410,9 @@ class ProductionValidationTestSuite(unittest.TestCase):
         
         try:
             # Test status reporting
-            result = subprocess.run([)
+            result = subprocess.run([
                 'bash', str(self.cleanup_script), '--status'
-(            ], capture_output=True, text=True, timeout=10)
+            ], capture_output=True, text=True, timeout=10)
             
             if result.returncode != 0:
                 monitoring_issues.append(f"Status command failed: {result.stderr}")
@@ -444,8 +444,8 @@ class ProductionValidationTestSuite(unittest.TestCase):
         except Exception as e:
             monitoring_issues.append(f"Monitoring test failed: {e}")
             
-        self.assertEqual(len(monitoring_issues), 0,)
-(                        f"Monitoring issues: {monitoring_issues}")
+        self.assertEqual(len(monitoring_issues), 0,
+                        f"Monitoring issues: {monitoring_issues}")
 
     def generate_production_report(self) -> Dict[str, Any]:
         """Generate comprehensive production readiness report."""
@@ -463,8 +463,8 @@ class ProductionValidationTestSuite(unittest.TestCase):
             'test_06_rollback_mechanisms'
         ]
         
-        critical_passed = sum(1 for test in critical_tests)
-(                            if test in self.results and self.results[test]['status'] == 'passed')
+        critical_passed = sum(1 for test in critical_tests
+                            if test in self.results and self.results[test]['status'] == 'passed')
         deployment_ready = critical_passed == len(critical_tests)
         
         # Risk assessment

@@ -1,5 +1,5 @@
 import { DashboardStateMachine } from './fsm/DashboardStateMachine';
-import { DashboardCore } from './core/DashboardCore';
+// TODO(Phase 4): Implement core module - import { DashboardCore } from './core/DashboardCore';
 // TODO(Phase 4): Implement facade - import { DashboardFacade } from './facade/DashboardFacade';
 import { DashboardTypes } from '~types/DashboardTypes';
 export * from '~types/DashboardTypes';

@@ -7,7 +7,7 @@
 
 import { ContextDNA, OptimizedTaskResult } from './ClaudeCodeDSPyIntegration';
 import { HistoricalPerformance, FeedbackScores } from './PromptOptimizationEngine';
-import { DSPyOptimizer } from '../core/DSPyCore';
+// TODO(Phase 4): Implement core module - import { DSPyOptimizer } from '../core/DSPyCore';
 
 /**
  * Feedback collection configuration

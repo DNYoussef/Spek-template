@@ -1,4 +1,4 @@
-import { Logger } from '../../utils/logger';
+import { Logger } from '../../utils/Logger';
 import { EventEmitter } from 'events';
 import { ProtocolRegistry, ProtocolDescriptor } from '../a2a/ProtocolRegistry';
 import { A2AMessage, AgentIdentifier } from '../a2a/A2AProtocolEngine';

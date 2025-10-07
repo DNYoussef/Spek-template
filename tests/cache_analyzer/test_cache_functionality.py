@@ -1,6 +1,7 @@
 from src.constants.base import THEATER_DETECTION_WARNING_THRESHOLD
 import pytest
 
+"""
 Test suite for validating the Cache Optimization analyzer functionality including:
     pass
 1. FileContentCache class import and basic functionality 
@@ -324,12 +325,12 @@ def test_quality_gate_logic(sample_json):
             }
             scenario_pass = all(scenario_gates.values())
             scenario_correct = scenario_pass == scenario["should_pass"]
-            scenario_results.append({)
+            scenario_results.append({
                 "scenario": i + 1,
                 "expected": scenario["should_pass"],
                 "actual": scenario_pass,
                 "correct": scenario_correct
-(            })
+            })
         
         all_scenarios_correct = all(s["correct"] for s in scenario_results)
         

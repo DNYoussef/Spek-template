@@ -24,7 +24,7 @@ class TestCompleteWorkflow:
             # Create main module
             (project_path / 'src').mkdir()
             (project_path / 'src' / '__init__.py').write_text('')
-            (project_path / 'src' / 'main.py').write_text(""")
+            (project_path / 'src' / 'main.py').write_text("""
 #!/usr/bin/env python3
 from .utils import helper_function
 from .models import DataModel
@@ -36,10 +36,10 @@ def main():
 
 if __name__ == '__main__':
     main()
-(""")
+""")
             
             # Create utils module
-            (project_path / 'src' / 'utils.py').write_text(""")
+            (project_path / 'src' / 'utils.py').write_text("""
 def helper_function(data_model):
     if hasattr(data_model, 'data'):
         return process_data(data_model.data)
@@ -47,21 +47,21 @@ def helper_function(data_model):
 
 def process_data(data):
     return {k: v.upper() if isinstance(v, str) else v for k, v in data.items()}
-(""")
+""")
             
             # Create models module
-            (project_path / 'src' / 'models.py').write_text(""")
+            (project_path / 'src' / 'models.py').write_text("""
 class DataModel:
     def __init__(self, data):
         self.data = data
         self.metadata = {'created': True}
-    
+
     def get_data(self):
         return self.data
-    
+
     def update_data(self, new_data):
         self.data.update(new_data)
-(""")
+""")
             
             # Run complete analysis
             analyzer = UnifiedAnalyzer()

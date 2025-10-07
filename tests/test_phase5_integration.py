@@ -2,6 +2,7 @@ from lib.shared.utilities import path_exists
 from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 import pytest
 
+"""
 Tests the complete integration of all analyzer components:
 - All 9 connascence detectors
 - Component integrator
@@ -18,7 +19,6 @@ import os
 from pathlib import Path
 import tempfile
 import shutil
-"""
 
 # Add analyzer to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "analyzer"))
@@ -97,12 +97,12 @@ def test_unified_analyzer_integration():
         # Test 4: Full analysis integration
         try:
             # Run analysis using the integration method
-            violations = analyzer._execute_analysis_with_component_integrator()
+            violations = analyzer._execute_analysis_with_component_integrator(
                 test_project,
                 "service-defaults",
                 [],
                 {"mode": "auto"}
-(            )
+            )
 
             print(f"[OK] Analysis completed: {len(violations)} violations found")
 
@@ -155,11 +155,11 @@ def test_unified_analyzer_integration():
 
         # Test 7: Legacy fallback
         try:
-            legacy_violations = analyzer._fallback_legacy_analysis()
+            legacy_violations = analyzer._fallback_legacy_analysis(
                 test_project,
                 "service-defaults",
                 []
-(            )
+            )
 
             print(f"[OK] Legacy fallback works: {len(legacy_violations)} violations")
 

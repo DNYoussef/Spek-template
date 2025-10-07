@@ -851,12 +851,12 @@ EXECUTIVE SUMMARY - Batches 10-18 Validation Results
 
 Overall Results:
 - Total Batches: {total}
-- Passed: {passed} ({passed/max(1, total)*100:.1f}%)
-- Failed: {failed} ({failed/max(1, total)*100:.1f}%)
-- Partial: {partial} ({partial/max(1, total)*100:.1f}%)
+- Passed: {passed} ({(passed / max(1, total) * 100):.1f}%)
+- Failed: {failed} ({(failed / max(1, total) * 100):.1f}%)
+- Partial: {partial} ({(partial / max(1, total) * 100):.1f}%)
 
 Key Metrics:
-- Pattern Compliance: {self.validation_report.overall_pattern_compliance*100:.1f}%
+- Pattern Compliance: {self.validation_report.overall_pattern_compliance * 100:.1f}%
 - Functional Tests: {self.validation_report.total_functional_tests_passed}/{self.validation_report.total_functional_tests} passed
 - CoP Reduction: {self.validation_report.overall_cop_reduction:.1f}%
 - Average Quality Score: {self.validation_report.average_quality_score:.1f}/100

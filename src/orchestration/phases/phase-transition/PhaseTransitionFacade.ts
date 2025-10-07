@@ -17,7 +17,7 @@ import {
   TransitionEvent,
   PhaseTransitionContext
 } from './PhaseTransitionTypes';
-import { PhaseTransitionCore, PhaseStartOptions, TransitionOptions } from './PhaseTransitionCore';
+// TODO(Phase 4): Implement core module - import { PhaseTransitionCore, PhaseStartOptions, TransitionOptions } from './PhaseTransitionCore';
 import { PhasePrerequisitesValidator, ExitCriteriaValidator, TransitionValidator } from './PhaseTransitionValidator';
 import { PhaseExecutionProcessor, TransitionExecutionProcessor } from './PhaseTransitionProcessor';
 import { PhaseExecutionMonitor, TransitionExecutionMonitor, SystemMetricsMonitor } from './PhaseTransitionMonitor';

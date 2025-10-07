@@ -16,7 +16,7 @@ import { ResearchPrincess } from '../hierarchy/domains/ResearchPrincess';
 import { InfrastructurePrincess } from '../hierarchy/domains/InfrastructurePrincess';
 import { CoordinationPrincess } from '../hierarchy/CoordinationPrincess';
 import { ConsensusCoordinator } from '../hierarchy/consensus/ConsensusCoordinator';
-import { LoggerFactory } from '../../utils/logger';
+import { LoggerFactory } from '../../utils/Logger';
 
 export interface SwarmConfig {
   maxConcurrentFiles: number;

@@ -4,7 +4,9 @@
  */
 
 import { EventEmitter } from 'events';
-// TODO(Phase 4): Create GitHubProjectTypes.ts - import { GitHubProjectStates, GitHubProjectEvents, GitHubProjectContext } from '~types/GitHubProjectTypes';
+import { GitHubProjectState as GitHubProjectStates } from '../github/projects/GitHubProjectStates';
+import { GitHubProjectEvent as GitHubProjectEvents } from '../github/projects/GitHubProjectEvents';
+// TODO(Phase 4): Create GitHubProjectTypes.ts - import { GitHubProjectContext } from '~types/GitHubProjectTypes';
 // TODO(Phase 4): Implement state handler - import { ConnectionStateHandler } from './states/ConnectionStateHandler';
 // TODO(Phase 4): Implement state handler - import { ValidationStateHandler } from './states/ValidationStateHandler';
 // TODO(Phase 4): Implement state handler - import { SyncStateHandler } from './states/SyncStateHandler';

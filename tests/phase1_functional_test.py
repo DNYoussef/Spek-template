@@ -24,7 +24,7 @@ def test_types_functionality():
     """Test that types module provides real functionality."""
 
     # Create a violation with all fields
-    violation = ConnascenceViolation()
+    violation = ConnascenceViolation(
         type="test_violation",
         severity="high",
         description="Test description with details",
@@ -39,7 +39,7 @@ def test_types_functionality():
         function_name="test_function",
         class_name="TestClass",
         module_name="test_module"
-(    )
+    )
 
     # Test validation
     assert violation.severity == "high", "Severity validation failed"
@@ -117,12 +117,12 @@ def test_github_bridge_functionality():
     """Test that GitHub bridge provides real integration."""
 
     # Test configuration
-    config = GitHubConfig()
+    config = GitHubConfig(
         token="test_token_12345",
         owner="test_org",
         repo="test_repo",
         base_url="https://api.github.com"
-(    )
+    )
 
     assert config.token == "test_token_12345", "Config token incorrect"
     assert config.timeout == 30, "Default timeout incorrect"

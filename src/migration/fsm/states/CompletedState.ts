@@ -4,7 +4,7 @@
  */
 
 import { Logger } from '../../../utils/Logger';
-// TODO(Phase 4): Implement state handler - import { StateHandler, MigrationContext, MigrationEvent } from '~types/MigrationFSMTypes';
+import { StateHandler, MigrationContext, MigrationEvent } from '~types/MigrationFSMTypes';
 
 export class CompletedState implements StateHandler {
   private logger: Logger;

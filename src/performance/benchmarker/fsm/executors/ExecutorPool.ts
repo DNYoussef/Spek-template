@@ -3,7 +3,7 @@
  * Extracted from BenchmarkExecutor god object
  */
 
-import { BenchmarkCore } from '../core/BenchmarkCore';
+// TODO(Phase 4): Implement core module - import { BenchmarkCore } from '../core/BenchmarkCore';
 import { ExecutionConfig } from '../BenchmarkExecutorFSM';
 
 export class ExecutorPool {

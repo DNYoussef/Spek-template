@@ -5,7 +5,7 @@
  * enabling intelligent prompt optimization for agent summoning and coordination.
  */
 
-import { DSPySignature, DSPyModule, DSPyOptimizer } from '../core/DSPyCore';
+// TODO(Phase 4): Implement core module - import { DSPySignature, DSPyModule, DSPyOptimizer } from '../core/DSPyCore';
 import { ClaudeFlowCoordinator } from './ClaudeFlowCoordination';
 import { AgentSummoningSignatures } from './AgentSummoningSignatures';
 import { PromptOptimizationEngine } from './PromptOptimizationEngine';

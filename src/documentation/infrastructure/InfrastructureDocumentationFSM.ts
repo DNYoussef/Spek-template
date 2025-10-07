@@ -4,7 +4,9 @@
  */
 
 import { EventEmitter } from 'events';
-import { DocStates, DocEvents, DocContext } from '~types/InfrastructureDocTypes';
+import { DocState as DocStates } from '../patterns/fsm/DocStates';
+import { DocEvent as DocEvents } from '../patterns/fsm/DocEvents';
+// TODO(Phase 4): Create InfrastructureDocTypes.ts - import { DocContext } from '~types/InfrastructureDocTypes';
 // TODO(Phase 4): Implement state handler - import { TemplateLoadingStateHandler } from './states/TemplateLoadingStateHandler';
 // TODO(Phase 4): Implement state handler - import { GeneratingStateHandler } from './states/GeneratingStateHandler';
 // TODO(Phase 4): Implement state handler - import { DeployingStateHandler } from './states/DeployingStateHandler';

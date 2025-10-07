@@ -9,7 +9,7 @@
  * Use RiskAssessmentCore in risk-assessment/ directory for new implementations.
  */
 
-import { RiskAssessmentCore } from './risk-assessment/RiskAssessmentCore';
+// TODO(Phase 4): Implement core module - import { RiskAssessmentCore } from './risk-assessment/RiskAssessmentCore';
 import {
   RiskAssessmentRequest,
   RiskAssessmentResult,

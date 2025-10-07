@@ -22,7 +22,7 @@ import {
   createDebugSession
 } from './QueenDebugTypes';
 import { QueenDebugStateMachine, StateMachineContext } from './QueenDebugStateMachine';
-import { PrincessAssigner, DroneDeployer, DebugExecutor } from './QueenDebugCore';
+// TODO(Phase 4): Implement core module - import { PrincessAssigner, DroneDeployer, DebugExecutor } from './QueenDebugCore';
 import { AuditPipeline } from './QueenDebugValidator';
 import { EvidenceCollector, GitHubIntegrator, CompletionProcessor } from './QueenDebugProcessor';
 import { QueenDebugMonitor } from './QueenDebugMonitor';

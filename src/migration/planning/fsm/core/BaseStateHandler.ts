@@ -1,21 +1,15 @@
 /**
- * Base state handler providing common functionality for all states.
- * NASA Rule 10 compliant: Functions ≤60 lines, explicit assertions.
+ * Base State Handler for Analysis State Machine
+ * NASA Rule 10 compliant: Functions <=60 lines, explicit assertions
+ * Provides common functionality for all state handlers
  */
 
 import { Logger } from '../../../../utils/Logger';
 import {
-  StateHandler,
   MigrationAnalysisContext,
   MigrationAnalysisEvent,
-  MigrationAnalysisState
+  StateHandler
 } from '../types/AnalysisTypes';
-
-// Type aliases for backward compatibility
-type AnalysisEvent = MigrationAnalysisEvent;
-type AnalysisState = MigrationAnalysisState;
-const AnalysisEvent = MigrationAnalysisEvent;
-const AnalysisState = MigrationAnalysisState;
 
 function assert(condition: any, message: string): asserts condition {
   if (!condition) {
@@ -24,222 +18,159 @@ function assert(condition: any, message: string): asserts condition {
 }
 
 /**
- * Abstract base class for all analysis state handlers.
- * Provides common functionality and enforces state handler contract.
+ * Abstract base class for all analysis state handlers
+ * Provides common logging, phase tracking, and lifecycle management
  */
 export abstract class BaseStateHandler implements StateHandler {
   protected logger: Logger;
-  protected readonly stateName: string;
+  private readonly stateName: string;
+  private phaseStartTimes: Map<string, number>;
 
   constructor(stateName: string) {
-    assert(stateName, 'State name required for handler');
+    assert(stateName && stateName.length > 0, 'State name required');
     this.stateName = stateName;
-    this.logger = new Logger(`${stateName}StateHandler`);
+    this.logger = new Logger(`${stateName}State`);
+    this.phaseStartTimes = new Map();
   }
 
   /**
-   * Initialize state with context validation.
-   * NASA Rule 10: ≤60 lines, 2+ assertions
+   * Enter state lifecycle hook
+   * NASA Rule 10: <=60 lines
    */
-  async init(context: MigrationAnalysisContext): Promise<void> {
-    assert(context, 'Context required for state initialization');
-    assert(context.analysisId, 'Analysis ID required in context');
+  async enter(context: MigrationAnalysisContext): Promise<void> {
+    assert(context, 'Context required for state entry');
+    assert(context.analysisId, 'Analysis ID required');
 
     this.logger.info('Entering state', {
-      analysisId: context.analysisId,
       state: this.stateName,
-      timestamp: new Date().toISOString()
+      analysisId: context.analysisId
     });
 
     await this.onEnter(context);
 
-    // Validate state invariants after initialization
-    if (!this.checkInvariants(context)) {
-      throw new Error(`State invariants violated after entering ${this.stateName}`);
-    }
+    this.logger.debug('State entry complete', {
+      state: this.stateName,
+      analysisId: context.analysisId
+    });
   }
 
   /**
-   * Process event and determine next action.
-   * NASA Rule 10: ≤60 lines, 2+ assertions
+   * Process event in current state
+   * NASA Rule 10: <=60 lines
    */
-  async update(event: AnalysisEvent, context: MigrationAnalysisContext): Promise<AnalysisEvent | null> {
-    assert(context, 'Context required for state update');
-    assert(Object.values(AnalysisEvent).includes(event), 'Valid event required');
+  async handleEvent(
+    event: MigrationAnalysisEvent,
+    context: MigrationAnalysisContext
+  ): Promise<MigrationAnalysisEvent | null> {
+    assert(event, 'Event required');
+    assert(context, 'Context required');
 
     this.logger.debug('Processing event', {
-      analysisId: context.analysisId,
       state: this.stateName,
-      event
+      event,
+      analysisId: context.analysisId
     });
 
-    // Check pre-conditions
-    if (!this.checkInvariants(context)) {
-      throw new Error(`State invariants violated in ${this.stateName}`);
-    }
+    const result = await this.processEvent(event, context);
 
-    try {
-      const nextEvent = await this.processEvent(event, context);
-
-      // Validate result
-      if (nextEvent !== null) {
-        assert(Object.values(AnalysisEvent).includes(nextEvent), 'Valid next event required');
-      }
-
-      return nextEvent;
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      this.logger.error('Event processing failed', {
-        analysisId: context.analysisId,
+    if (result) {
+      this.logger.debug('Event produced transition', {
         state: this.stateName,
         event,
-        error: errorMessage
+        nextEvent: result,
+        analysisId: context.analysisId
       });
-      throw error;
     }
+
+    return result;
   }
 
   /**
-   * Clean up state before transition.
-   * NASA Rule 10: ≤60 lines, 2+ assertions
+   * Exit state lifecycle hook
+   * NASA Rule 10: <=60 lines
    */
-  async shutdown(context: MigrationAnalysisContext): Promise<void> {
-    assert(context, 'Context required for state shutdown');
+  async exit(context: MigrationAnalysisContext): Promise<void> {
+    assert(context, 'Context required for state exit');
 
     this.logger.info('Exiting state', {
-      analysisId: context.analysisId,
       state: this.stateName,
-      timestamp: new Date().toISOString()
+      analysisId: context.analysisId
     });
 
     await this.onExit(context);
 
-    assert(this.isCleanupComplete(context), 'State cleanup must be complete');
+    this.logger.debug('State exit complete', {
+      state: this.stateName,
+      analysisId: context.analysisId
+    });
   }
 
   /**
-   * Validate state-specific invariants.
-   * Must be implemented by concrete state handlers.
-   */
-  abstract checkInvariants(context: MigrationAnalysisContext): boolean;
-
-  /**
-   * Handle state entry logic.
-   * Override in concrete implementations.
-   */
-  protected async onEnter(context: MigrationAnalysisContext): Promise<void> {
-    // Default implementation - no-op
-  }
-
-  /**
-   * Handle state exit logic.
-   * Override in concrete implementations.
-   */
-  protected async onExit(context: MigrationAnalysisContext): Promise<void> {
-    // Default implementation - no-op
-  }
-
-  /**
-   * Process state-specific events.
-   * Must be implemented by concrete state handlers.
-   */
-  protected abstract processEvent(
-    event: AnalysisEvent,
-    context: MigrationAnalysisContext
-  ): Promise<AnalysisEvent | null>;
-
-  /**
-   * Check if cleanup is complete before state exit.
-   * Override in concrete implementations if needed.
-   */
-  protected isCleanupComplete(context: MigrationAnalysisContext): boolean {
-    return true; // Default - assume cleanup is complete
-  }
-
-  /**
-   * Record phase timing information.
-   * NASA Rule 10: ≤60 lines, 2+ assertions
+   * Record phase start time for duration tracking
+   * NASA Rule 10: <=60 lines
    */
   protected recordPhaseStart(phase: string, context: MigrationAnalysisContext): void {
-    assert(phase, 'Phase name required');
+    assert(phase && phase.length > 0, 'Phase name required');
     assert(context, 'Context required');
 
-    context.phaseTimings.set(phase, {
-      startTime: new Date(),
-      success: false
-    });
+    const startTime = Date.now();
+    this.phaseStartTimes.set(phase, startTime);
 
     this.logger.debug('Phase started', {
-      analysisId: context.analysisId,
       phase,
-      startTime: new Date().toISOString()
+      startTime,
+      analysisId: context.analysisId
     });
   }
 
   /**
-   * Complete phase timing and mark as successful.
-   * NASA Rule 10: ≤60 lines, 2+ assertions
+   * Record phase completion and calculate duration
+   * NASA Rule 10: <=60 lines
    */
   protected recordPhaseComplete(phase: string, context: MigrationAnalysisContext): void {
-    assert(phase, 'Phase name required');
+    assert(phase && phase.length > 0, 'Phase name required');
     assert(context, 'Context required');
 
-    const timing = context.phaseTimings.get(phase);
-    if (timing) {
-      timing.endTime = new Date();
-      timing.duration = timing.endTime.getTime() - timing.startTime.getTime();
-      timing.success = true;
-
+    const startTime = this.phaseStartTimes.get(phase);
+    if (startTime) {
+      const duration = Date.now() - startTime;
       this.logger.info('Phase completed', {
-        analysisId: context.analysisId,
         phase,
-        duration: timing.duration
+        duration: `${duration}ms`,
+        analysisId: context.analysisId
       });
+      this.phaseStartTimes.delete(phase);
     }
   }
 
   /**
-   * Add error to context with recovery information.
-   * NASA Rule 10: ≤60 lines, 2+ assertions
+   * Get state name
+   * NASA Rule 10: Simple getter
    */
-  protected addError(
-    error: Error,
-    context: MigrationAnalysisContext,
-    recoverable: boolean = false
-  ): void {
-    assert(error instanceof Error, 'Error must be Error instance');
-    assert(context, 'Context required');
+  getStateName(): string {
+    return this.stateName;
+  }
 
-    const analysisError = {
-      phase: this.stateName,
-      error,
-      timestamp: new Date(),
-      recoverable,
-      retryAttempts: context.retryCount
-    };
+  /**
+   * Subclasses must implement state entry logic
+   * NASA Rule 10: <=60 lines per implementation
+   */
+  protected abstract onEnter(context: MigrationAnalysisContext): Promise<void>;
 
-    context.errors.push(analysisError);
+  /**
+   * Subclasses must implement event processing logic
+   * NASA Rule 10: <=60 lines per implementation
+   */
+  protected abstract processEvent(
+    event: MigrationAnalysisEvent,
+    context: MigrationAnalysisContext
+  ): Promise<MigrationAnalysisEvent | null>;
 
-    this.logger.error('Error added to context', {
-      analysisId: context.analysisId,
-      phase: this.stateName,
-      error: error.message,
-      recoverable
-    });
+  /**
+   * Subclasses can override state exit logic
+   * NASA Rule 10: <=60 lines per implementation
+   */
+  protected async onExit(context: MigrationAnalysisContext): Promise<void> {
+    // Default: no-op
   }
 }
-
-// === AGENT FOOTER ===
-// Version & Run Log
-// Version History
-
-// Version: 1.0.0
-
-// Receipt
-// status: OK
-// reason_if_blocked: --
-// run_id: fsm-refactor-003
-// inputs: ["AnalysisStateMachine.ts"]
-// tools_used: ["filesystem"]
-// versions: {"model":"claude-sonnet-4","prompt":"v1.0"}
-// === END FOOTER ===

@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import { Logger } from '../../utils/Logger';
-import { ProtocolCore } from './ProtocolCore';
+// TODO(Phase 4): Implement core module - import { ProtocolCore } from './ProtocolCore';
 import { 
   ProtocolMessage, 
   TranslationRule,

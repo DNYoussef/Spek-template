@@ -1,5 +1,6 @@
 from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
+"""
 This script demonstrates the complete compliance evidence generation system
 for SOC2, ISO27001:2022, and NIST-SSDF v1.1 regulatory frameworks.
 
@@ -29,10 +30,10 @@ from datetime import datetime
 from pathlib import Path
 
 # Configure logging
-logging.basicConfig()
+logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-()
+)
 
 # Add analyzer to Python path
 sys.path.append(str(Path(__file__).parent))
@@ -177,7 +178,7 @@ async def main():
         # Save results
         results_file = project_path / "compliance_demo_results.json"
         with open(results_file, 'w') as f:
-            json.dump({)
+            json.dump({
                 "demonstration_timestamp": datetime.now().isoformat(),
                 "project_path": str(project_path),
                 "overall_success": overall_success,
@@ -188,7 +189,7 @@ async def main():
                     "validation_duration_seconds": validation_duration,
                     "total_duration_seconds": demo_duration + validation_duration
                 }
-(            }, indent=2, default=str)
+            }, indent=2, default=str)
         
         print(f"[DOCUMENT] Results saved to: {results_file}")
         

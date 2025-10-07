@@ -12,7 +12,7 @@ import * as path from 'path';
 import { SwarmInitializer } from './SwarmInitializer';
 import { ParallelPipelineManager } from './ParallelPipelineManager';
 import { SwarmMonitor } from './SwarmMonitor';
-import { LoggerFactory } from '../../utils/logger';
+import { LoggerFactory } from '../../utils/Logger';
 
 export interface GodObjectTarget {
   filePath: string;

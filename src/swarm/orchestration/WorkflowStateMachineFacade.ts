@@ -32,6 +32,12 @@ export enum SwarmWorkflowEvent {
   RESET = 'RESET'
 }
 
+// Type aliases for backward compatibility with unqualified names
+export type WorkflowState = SwarmWorkflowState;
+export type WorkflowEvent = SwarmWorkflowEvent;
+export type WorkflowData = SwarmWorkflowData;
+export type TransitionResult = SwarmTransitionResult;
+
 export interface SwarmWorkflowContext {
   readonly workflowId: string;
   readonly startTime: number;

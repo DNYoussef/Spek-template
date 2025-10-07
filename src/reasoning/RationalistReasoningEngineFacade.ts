@@ -5,7 +5,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { ReasoningCore, Hypothesis, Evidence, Argument, BeliefState } from './core/ReasoningCore';
+// TODO(Phase 4): Implement core module - import { ReasoningCore, Hypothesis, Evidence, Argument, BeliefState } from './core/ReasoningCore';
 import { InferenceEngine, Proposition, InferenceRule, InferenceResult } from './core/InferenceEngine';
 import { DecisionMaker, Option, Decision, DecisionCriteria } from './core/DecisionMaker';
 

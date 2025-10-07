@@ -63,14 +63,14 @@ async def test_kill_switch_performance():
         # Test kill switch execution
         start_time = time.time()
 
-        result = await kill_switch.trigger_kill_switch()
+        result = await kill_switch.trigger_kill_switch(
             TriggerType.MANUAL_PANIC,
             {'test': scenario['name']}
-(        )
+        )
 
         actual_time = (time.time() - start_time) * 1000
 
-        results.append({)
+        results.append({
             'scenario': scenario['name'],
             'positions': scenario['positions'],
             'response_time_ms': result.response_time_ms,
@@ -78,7 +78,7 @@ async def test_kill_switch_performance():
             'positions_closed': result.positions_flattened,
             'success': result.success,
             'target_met': result.response_time_ms < 500
-(        })
+        })
 
         print(f"  Response Time: {result.response_time_ms:.1f}ms")
         print(f"  Positions Closed: {result.positions_flattened}/{scenario['positions']}")
@@ -109,20 +109,20 @@ async def test_hardware_auth():
     auth_manager = HardwareAuthManager(config)
 
     # Test valid master key
-    result = await auth_manager.authenticate({)
+    result = await auth_manager.authenticate({
         'method': 'master_key',
         'key': 'test_key_123',
         'user_id': 'test_user'
-(    })
+    })
 
     print(f"Master Key Auth (Valid): {'PASS' if result.success else 'FAIL'}")
 
     # Test invalid master key
-    result = await auth_manager.authenticate({)
+    result = await auth_manager.authenticate({
         'method': 'master_key',
         'key': 'wrong_key',
         'user_id': 'test_user'
-(    })
+    })
 
     print(f"Master Key Auth (Invalid): {'PASS' if not result.success else 'FAIL'}")
 
@@ -154,12 +154,12 @@ async def test_integration():
     auth_manager = HardwareAuthManager(auth_config)
 
     # Authentication
-    auth_result = await auth_manager.authenticate({)
+    auth_result = await auth_manager.authenticate({
         'method': 'master_key',
         'key': 'emergency_key',
         'key_id': 'emergency',
         'user_id': 'emergency_user'
-(    })
+    })
 
     if not auth_result.success:
         print("Authentication FAILED")
@@ -168,11 +168,11 @@ async def test_integration():
     print("Authentication PASSED")
 
     # Kill switch execution
-    kill_result = await kill_switch.trigger_kill_switch()
+    kill_result = await kill_switch.trigger_kill_switch(
         TriggerType.LOSS_LIMIT,
         {'current_loss': -1500, 'authenticated_by': auth_result.user_id},
         authentication_method=auth_result.method.value
-(    )
+    )
 
     print(f"Kill Switch Response: {kill_result.response_time_ms:.1f}ms")
     print(f"Positions Flattened: {kill_result.positions_flattened}")

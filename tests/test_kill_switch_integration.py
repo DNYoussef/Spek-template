@@ -1,6 +1,7 @@
 from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH
 import pytest
 
+"""
 Tests the complete kill switch system including:
 - Import functionality
 - Performance validation (<500ms)
@@ -66,11 +67,11 @@ except ImportError as e:
             return True
 
         async def trigger_kill_switch(self, trigger_type, trigger_data, authentication_method="automatic"):
-            return KillSwitchEvent()
+            return KillSwitchEvent(
                 success=True,
                 response_time_ms=150.0,
                 positions_flattened=len(self.broker.positions)
-(            )
+            )
 
         def get_performance_metrics(self):
             return {"execution_count": 1, "average_response_time_ms": 150.0}
@@ -95,10 +96,10 @@ class MockBroker:
         self.position_count = position_count
         self.delay_ms = delay_ms
         self.positions = [
-            type('Position', (), {)
+            type('Position', (), {
                 'symbol': f'STOCK_{i}',
                 'qty': 100 + i * 10
-(            })()
+            })()
             for i in range(position_count)
         ]
         self.close_calls = []
@@ -111,13 +112,13 @@ class MockBroker:
     async def close_position(self, symbol, qty, side, order_type):
         """Simulate closing position."""
         await asyncio.sleep(10 / 1000.0)  # 10ms per close
-        self.close_calls.append({)
+        self.close_calls.append({
             'symbol': symbol,
             'qty': qty,
             'side': side,
             'order_type': order_type,
             'timestamp': time.time()
-(        })
+        })
         return True
 
 def test_kill_switch_imports():
@@ -182,15 +183,15 @@ async def test_kill_switch_performance():
         # Execute kill switch and measure performance
         start_time = time.time()
 
-        result = await kill_switch.trigger_kill_switch()
+        result = await kill_switch.trigger_kill_switch(
             TriggerType.MANUAL_PANIC,
             {'test_scenario': scenario['name']}
-(        )
+        )
 
         actual_time = (time.time() - start_time) * 1000
         reported_time = result.response_time_ms
 
-        performance_results.append({)
+        performance_results.append({
             'scenario': scenario['name'],
             'positions': scenario['positions'],
             'actual_time_ms': actual_time,
@@ -198,7 +199,7 @@ async def test_kill_switch_performance():
             'positions_closed': result.positions_flattened,
             'target_met': reported_time < 500,
             'success': result.success
-(        })
+        })
 
         print(f"  Response Time: {reported_time:.1f}ms (actual: {actual_time:.1f}ms)")
         print(f"  Positions Closed: {result.positions_flattened}/{scenario['positions']}")
@@ -236,20 +237,20 @@ async def test_hardware_authentication():
     print(f"Available Methods: {[m.value for m in available_methods]}")
 
     # Test master key authentication (valid)
-    result = await auth_manager.authenticate({)
+    result = await auth_manager.authenticate({
         'method': 'master_key',
         'key': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
         'user_id': 'test_user'
-(    })
+    })
 
     print(f"Master Key Auth (Valid): {'' if result.success else ''} - {result.error_message or 'Success'}")
 
     # Test master key authentication (invalid)
-    result = await auth_manager.authenticate({)
+    result = await auth_manager.authenticate({
         'method': 'master_key',
         'key': 'invalid_key',
         'user_id': 'test_user_2'
-(    })
+    })
 
     print(f"Master Key Auth (Invalid): {'' if not result.success else ''} - {result.error_message or 'Unexpected success'}")
 
@@ -288,11 +289,11 @@ async def test_integration_scenario():
     # Scenario: Emergency liquidation with authentication
     print("1. Authenticating emergency user...")
 
-    auth_result = await auth_manager.authenticate({)
+    auth_result = await auth_manager.authenticate({
         'method': 'master_key',
         'key': 'emergency_key_789',
         'user_id': 'emergency_operator'
-(    })
+    })
 
     if not auth_result.success:
         print(f" Authentication failed: {auth_result.error_message}")
@@ -303,7 +304,7 @@ async def test_integration_scenario():
     # Trigger kill switch
     print("2. Triggering kill switch...")
 
-    kill_result = await kill_switch.trigger_kill_switch()
+    kill_result = await kill_switch.trigger_kill_switch(
         TriggerType.LOSS_LIMIT,
         {
             'current_loss': -1500,
@@ -311,7 +312,7 @@ async def test_integration_scenario():
             'authenticated_by': auth_result.user_id
         },
         authentication_method=auth_result.method.value
-(    )
+    )
 
     print(f" Kill switch executed in {kill_result.response_time_ms:.1f}ms")
     print(f" Positions flattened: {kill_result.positions_flattened}")

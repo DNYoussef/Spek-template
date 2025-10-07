@@ -8,7 +8,7 @@
  * Use ProtocolTranslatorCore in protocol-components/ directory for new implementations.
  */
 
-import { ProtocolTranslatorCore } from './protocol-components/ProtocolTranslatorCore';
+// TODO(Phase 4): Implement core module - import { ProtocolTranslatorCore } from './protocol-components/ProtocolTranslatorCore';
 import {
   TranslationRequest,
   TranslationResult,

@@ -13,7 +13,7 @@ import { StageProgressionValidator } from '../workflow/StageProgressionValidator
 import { DependencyConflictResolver } from '../resolution/DependencyConflictResolver';
 import { CrossDomainIntegrationTester } from '../testing/CrossDomainIntegrationTester';
 
-import { WorkflowCore } from './WorkflowCore';
+// TODO(Phase 4): Implement core module - import { WorkflowCore } from './WorkflowCore';
 import { WorkflowValidator } from './WorkflowValidator';
 import { WorkflowExecutor } from './WorkflowExecutor';
 import { WorkflowScheduler } from './WorkflowScheduler';

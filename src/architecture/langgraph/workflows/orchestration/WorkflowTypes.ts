@@ -333,6 +333,9 @@ export interface WorkflowEventEmitter {
   removeListener(event: string, listener: (...args: any[]) => void): void;
 }
 
+// WorkflowEvent type - import from canonical location or define locally
+export type WorkflowEvent = string; // Generic event type for workflows
+
 export interface WorkflowEventData {
   workflowId: string;
   event: WorkflowEvent;

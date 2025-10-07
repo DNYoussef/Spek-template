@@ -30,13 +30,13 @@ class TestPatternMatcherValidation(unittest.TestCase):
             self.assertGreater(len(matcher.patterns), 0)
 
             # Test pattern creation
-            pattern = FailurePattern()
+            pattern = FailurePattern(
                 pattern_id="test_1",
                 pattern_type="test",
                 regex=r"test.*error",
                 frequency=0,
                 confidence=0.8
-(            )
+            )
             self.assertIsInstance(pattern, FailurePattern)
             self.assertEqual(pattern.pattern_type, "test")
 

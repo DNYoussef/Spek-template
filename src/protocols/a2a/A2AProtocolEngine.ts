@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { Logger } from '../../utils/logger';
+import { Logger } from '../../utils/Logger';
 import { MessageRouter } from './MessageRouter';
 import { ProtocolRegistry } from './ProtocolRegistry';
 import { CommunicationSecurity } from '../security/CommunicationSecurity';

@@ -4,7 +4,7 @@
  */
 
 import { QualityState, QualityEvent, QualityTask, QualityContext, QualityConfig, QualityReport } from './QualityPrincessTypes';
-import { QualityPrincessCore } from './QualityPrincessCore';
+// TODO(Phase 4): Implement core module - import { QualityPrincessCore } from './QualityPrincessCore';
 import { QualityTransitionHub } from './QualityPrincessTransitions';
 import { QualityValidators } from './QualityPrincessValidators';
 import { QualityPrincessActions } from './QualityPrincessActions';

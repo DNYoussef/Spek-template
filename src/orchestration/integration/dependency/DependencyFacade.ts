@@ -21,7 +21,7 @@ import { DependencyGraphBuilder, TopologicalSorter, CriticalPathCalculator } fro
 import { CircularDependencyDetector, DependencyValidator } from './DependencyAnalyzer';
 import { ResolutionPlanCreator, ResolutionExecutor } from './DependencyResolver';
 import { ValidatorRegistry } from './DependencyValidator';
-import { DependencyStateMachine, ResolutionStateMachine } from './DependencyCore';
+// TODO(Phase 4): Implement core module - import { DependencyStateMachine, ResolutionStateMachine } from './DependencyCore';
 
 /**
  * Main facade providing backward compatibility with original ComponentDependencyResolver API

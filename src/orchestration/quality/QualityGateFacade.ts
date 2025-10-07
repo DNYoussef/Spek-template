@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { QualityGateCore, SequenceExecutionOptions } from './core/QualityGateCore';
+// TODO(Phase 4): Implement core module - import { QualityGateCore, SequenceExecutionOptions } from './core/QualityGateCore';
 import { QualityGateValidator } from './validation/QualityGateValidator';
 import { QualityGateProcessor } from './validation/QualityGateProcessor';
 import { QualityGateMonitor } from './monitoring/QualityGateMonitor';

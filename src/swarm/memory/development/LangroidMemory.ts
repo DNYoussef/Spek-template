@@ -8,7 +8,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { Logger } from '../../../utils/logger';
+import { Logger } from '../../../utils/Logger';
 import { LangroidAdapter, LangroidAgentConfig } from '../langroid/LangroidAdapter';
 
 export interface MemoryEntry {

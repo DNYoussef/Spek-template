@@ -1,5 +1,6 @@
 from src.constants.base import NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
 
+"""
 Test incremental enablement of each enterprise domain:
 - SR: Six Sigma and Statistical Process Control
 - SC: Supply Chain Governance and SBOM
@@ -172,7 +173,7 @@ class BaseDomainTest(unittest.TestCase):
     def _create_test_files(self):
         """Create test files for analysis."""
         # Main module
-        (self.test_project / "main.py").write_text(""")
+        (self.test_project / "main.py").write_text("""
 def main():
     '''Main function with some violations.'''
     magic_value = 42  # Magic literal
@@ -188,30 +189,29 @@ def process_data(value):
 class DataProcessor:
     def __init__(self):
         self.multiplier = 42  # Another magic number
-        
+
     def calculate(self):
         return self.multiplier * 2  # Connascence of Meaning
-(""")
+""")
         
         # Test file
-        (self.test_project / "test_main.py").write_text(""")
+        (self.test_project / "test_main.py").write_text("""
 import unittest
 from main import DataProcessor
-"""
 
 class TestDataProcessor(unittest.TestCase):
     def test_calculate(self):
         processor = DataProcessor()
         result = processor.calculate()
         self.assertEqual(result, 84)
-(""")
+""")
         
         # Configuration file
-        (self.test_project / "config.py").write_text(""")
+        (self.test_project / "config.py").write_text("""
 DATABASE_URL = "localhost:5432"  # Hardcoded connection
 API_KEY = "abc123"  # Hardcoded API key
 DEBUG = True
-(""")
+""")
 
 class SixSigmaDomainTest(BaseDomainTest):
     """Test Six Sigma (SR) domain integration."""
@@ -219,12 +219,12 @@ class SixSigmaDomainTest(BaseDomainTest):
     def test_sixsigma_domain_initialization(self):
         """Test SR domain initializes correctly."""
         config_manager = TestConfigManager(enabled_features=["sixsigma"])
-        
-        feature_manager = self.performance_tracker.measure_operation()
+
+        feature_manager = self.performance_tracker.measure_operation(
             "sixsigma_init",
             initialize_enterprise_features,
             config_manager
-(        )
+        )
         
         self.assertIsNotNone(feature_manager)
         self.assertTrue(feature_manager.is_enabled("sixsigma"))
@@ -241,12 +241,12 @@ class SixSigmaDomainTest(BaseDomainTest):
         
         # Test analysis with Six Sigma enabled
         analyzer = ConnascenceAnalyzer()
-        
-        result = self.performance_tracker.measure_operation()
+
+        result = self.performance_tracker.measure_operation(
             "sixsigma_analysis",
             analyzer.analyze_path,
             str(self.test_project)
-(        )
+        )
         
         self.assertIsNotNone(result)
         self.assertTrue(result.get("success", False))
@@ -275,12 +275,12 @@ class SupplyChainDomainTest(BaseDomainTest):
     def test_supply_chain_domain_initialization(self):
         """Test SC domain initializes correctly."""
         config_manager = TestConfigManager(enabled_features=["supply_chain_governance"])
-        
-        feature_manager = self.performance_tracker.measure_operation()
+
+        feature_manager = self.performance_tracker.measure_operation(
             "supply_chain_init",
             initialize_enterprise_features,
             config_manager
-(        )
+        )
         
         self.assertIsNotNone(feature_manager)
         self.assertTrue(feature_manager.is_enabled("supply_chain_governance"))
@@ -292,12 +292,12 @@ class SupplyChainDomainTest(BaseDomainTest):
         feature_manager = initialize_enterprise_features(config_manager)
         
         analyzer = ConnascenceAnalyzer()
-        
-        result = self.performance_tracker.measure_operation()
+
+        result = self.performance_tracker.measure_operation(
             "supply_chain_analysis",
             analyzer.analyze_path,
             str(self.test_project)
-(        )
+        )
         
         self.assertIsNotNone(result)
         self.assertTrue(result.get("success", False))
@@ -322,12 +322,12 @@ class ComplianceDomainTest(BaseDomainTest):
     def test_compliance_domain_initialization(self):
         """Test CE domain initializes correctly."""
         config_manager = TestConfigManager(enabled_features=["compliance_evidence"])
-        
-        feature_manager = self.performance_tracker.measure_operation()
+
+        feature_manager = self.performance_tracker.measure_operation(
             "compliance_init",
             initialize_enterprise_features,
             config_manager
-(        )
+        )
         
         self.assertIsNotNone(feature_manager)
         self.assertTrue(feature_manager.is_enabled("compliance_evidence"))
@@ -352,12 +352,12 @@ class QualityValidationDomainTest(BaseDomainTest):
     def test_quality_validation_domain_initialization(self):
         """Test QV domain initializes correctly."""
         config_manager = TestConfigManager(enabled_features=["quality_validation"])
-        
-        feature_manager = self.performance_tracker.measure_operation()
+
+        feature_manager = self.performance_tracker.measure_operation(
             "quality_validation_init",
             initialize_enterprise_features,
             config_manager
-(        )
+        )
         
         self.assertIsNotNone(feature_manager)
         self.assertTrue(feature_manager.is_enabled("quality_validation"))
@@ -381,12 +381,12 @@ class WorkflowOptimizationDomainTest(BaseDomainTest):
     def test_workflow_optimization_domain_initialization(self):
         """Test WO domain initializes correctly."""
         config_manager = TestConfigManager(enabled_features=["workflow_optimization"])
-        
-        feature_manager = self.performance_tracker.measure_operation()
+
+        feature_manager = self.performance_tracker.measure_operation(
             "workflow_optimization_init",
             initialize_enterprise_features,
             config_manager
-(        )
+        )
         
         self.assertIsNotNone(feature_manager)
         self.assertTrue(feature_manager.is_enabled("workflow_optimization"))
@@ -407,12 +407,12 @@ class MultiDomainIntegrationTest(BaseDomainTest):
     def test_two_domain_integration(self):
         """Test two domains enabled simultaneously."""
         config_manager = TestConfigManager(enabled_features=["sixsigma", "supply_chain_governance"])
-        
-        feature_manager = self.performance_tracker.measure_operation()
+
+        feature_manager = self.performance_tracker.measure_operation(
             "two_domain_init",
             initialize_enterprise_features,
             config_manager
-(        )
+        )
         
         self.assertIsNotNone(feature_manager)
         self.assertTrue(feature_manager.is_enabled("sixsigma"))
@@ -427,12 +427,12 @@ class MultiDomainIntegrationTest(BaseDomainTest):
         """Test three domains enabled simultaneously."""
         enabled_features = ["sixsigma", "supply_chain_governance", "quality_validation"]
         config_manager = TestConfigManager(enabled_features=enabled_features)
-        
-        feature_manager = self.performance_tracker.measure_operation()
+
+        feature_manager = self.performance_tracker.measure_operation(
             "three_domain_init",
             initialize_enterprise_features,
             config_manager
-(        )
+        )
         
         self.assertIsNotNone(feature_manager)
         
@@ -452,12 +452,12 @@ class MultiDomainIntegrationTest(BaseDomainTest):
             "workflow_optimization"
         ]
         config_manager = TestConfigManager(enabled_features=all_features)
-        
-        feature_manager = self.performance_tracker.measure_operation()
+
+        feature_manager = self.performance_tracker.measure_operation(
             "all_domains_init",
             initialize_enterprise_features,
             config_manager
-(        )
+        )
         
         self.assertIsNotNone(feature_manager)
         
@@ -533,8 +533,8 @@ class DomainPerformanceTest(BaseDomainTest):
                 
                 # Performance should scale reasonably
                 expected_max_time = 200 * i  # 200ms per domain
-                self.assertLess(init_time_ms, expected_max_time,)
-(                                f"Performance degrades too much with {i} domains")
+                self.assertLess(init_time_ms, expected_max_time,
+                                f"Performance degrades too much with {i} domains")
 
 if __name__ == "__main__":
     # Create test suite
@@ -551,7 +551,7 @@ if __name__ == "__main__":
     # Run all tests
     for test_class in test_classes:
         print(f"\n{'='*60}")
-        print('='*60)
+        print(f"{'='*60}")
         
         suite = unittest.TestLoader().loadTestsFromTestCase(test_class)
         runner = unittest.TextTestRunner(verbosity=2)
@@ -564,4 +564,4 @@ if __name__ == "__main__":
                 print(f"  ERROR: {error[0]}")
     
     print(f"\n{'='*60}")
-    print('='*60)
+    print(f"{'='*60}")

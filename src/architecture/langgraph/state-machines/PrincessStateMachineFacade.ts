@@ -299,6 +299,27 @@ export class PrincessStateMachineFacade extends EventEmitter {
       throw error;
     }
   }
+
+  /**
+   * Get current state of Princess
+   * NASA Rule 10: Simple getter
+   */
+  getCurrentState(): string {
+    return this.isInitialized ? 'ACTIVE' : 'INACTIVE';
+  }
+
+  /**
+   * Get Princess capabilities
+   * NASA Rule 10: Returns capability list
+   */
+  getCapabilities(): string[] {
+    return [
+      'task-execution',
+      'drone-coordination',
+      'report-generation',
+      'queen-escalation'
+    ];
+  }
   /**
    * Private helper methods with NASA Rule 10 compliance
    */

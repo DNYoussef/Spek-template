@@ -4,7 +4,9 @@
  */
 
 import { EventEmitter } from 'events';
-import { ISO27001States, ISO27001Events, ISO27001Context } from '~types/ISO27001Types';
+import { ISO27001State as ISO27001States } from '../../../security/compliance/ISO27001States';
+import { ISO27001Event as ISO27001Events } from '../../../security/compliance/ISO27001Events';
+// TODO(Phase 4): Create ISO27001Types.ts - import { ISO27001Context } from '~types/ISO27001Types';
 // TODO(Phase 4): Implement state handler - import { InitializationStateHandler } from './states/InitializationStateHandler';
 // TODO(Phase 4): Implement state handler - import { AssessmentStateHandler } from './states/AssessmentStateHandler';
 // TODO(Phase 4): Implement state handler - import { ValidationStateHandler } from './states/ValidationStateHandler';

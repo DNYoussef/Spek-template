@@ -10,7 +10,7 @@
  */
 
 import { Logger } from './utils/Logger';
-import { ReportGeneratorCore } from './core/ReportGeneratorCore';
+// TODO(Phase 4): Implement core module - import { ReportGeneratorCore } from './core/ReportGeneratorCore';
 import {
   ReporterConfig,
   DEFAULT_REPORTER_CONFIG,

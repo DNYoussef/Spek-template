@@ -4,7 +4,9 @@
  */
 
 import { EventEmitter } from 'events';
-import { QualityReporterStates, QualityReporterEvents, QualityReporterContext } from '~types/QualityReporterTypes';
+import { QualityReporterState as QualityReporterStates } from '../../../quality/reporting/QualityReporterStates';
+import { QualityReporterEvent as QualityReporterEvents } from '../../../quality/reporting/QualityReporterEvents';
+// TODO(Phase 4): Create QualityReporterTypes.ts - import { QualityReporterContext } from '~types/QualityReporterTypes';
 // TODO(Phase 4): Implement state handler - import { TemplateStateHandler } from './states/TemplateStateHandler';
 // TODO(Phase 4): Implement state handler - import { GenerationStateHandler } from './states/GenerationStateHandler';
 // TODO(Phase 4): Implement state handler - import { DeliveryStateHandler } from './states/DeliveryStateHandler';

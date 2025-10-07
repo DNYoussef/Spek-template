@@ -101,11 +101,11 @@ def test_incremental_cache():
     try:
         from analyzer.streaming.incremental_cache import IncrementalCache, FileDelta
         
-        cache = IncrementalCache()
+        cache = IncrementalCache(
             max_partial_results=1000,
             max_dependency_nodes=500,
             cache_retention_hours=1.0
-(        )
+        )
         
         # Create test scenario with file changes
         temp_dir = tempfile.mkdtemp()
@@ -137,11 +137,11 @@ class Class{i}:
             test_file.write_text(modified_content)
             
             # Track change
-            delta = cache.track_file_change()
-                test_file, 
+            delta = cache.track_file_change(
+                test_file,
                 old_content=original_content,
                 new_content=modified_content
-(            )
+            )
             if delta:
                 deltas.append(delta)
         
@@ -153,15 +153,15 @@ class Class{i}:
             violations_data = [
                 {"type": "test_violation", "file": str(test_file), "line": i+1}
             ]
-            cache.store_partial_result()
+            cache.store_partial_result(
                 test_file, "violations", violations_data, content_hash,
                 dependencies={str(test_files[j]) for j in range(i)},
                 metadata={"analysis_time": 0.1}
-(            )
+            )
             
             # Store metrics result
             metrics_data = {"complexity": i * 2, "lines": 10 + i}
-            cache.store_partial_result()
+            cache.store_partial_result(
                 test_file, "metrics", metrics_data, content_hash,
                 dependencies=set(),
                 metadata={"metric_type": "basic"}
@@ -462,7 +462,7 @@ def evaluate_quality_gates(health_data):
             scenario_pass = all(scenario_gates.values())
             correct_result = scenario_pass == scenario["should_pass"]
             
-            scenario_results.append({)
+            scenario_results.append({
                 "name": scenario["name"],
                 "expected": scenario["should_pass"],
                 "actual": scenario_pass,

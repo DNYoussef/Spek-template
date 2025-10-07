@@ -5,7 +5,8 @@
  * usage across all 85+ specialized agent types with model-specific optimizations.
  */
 
-import { DSPySignature, DSPyField, DSPyConstraint } from '../core/DSPyCore';
+import { DSPySignature, DSPyField } from '../../types/dspy-integration.types';
+// TODO(Phase 4): Implement core module - import { DSPyConstraint } from '../core/DSPyCore';
 
 /**
  * Base signature interface for all agent types

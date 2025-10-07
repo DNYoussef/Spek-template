@@ -5,7 +5,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { Logger } from '../../utils/logger';
+import { Logger } from '../../utils/Logger';
 import { Task, TaskPriority } from '~types/task.types';
 import { PrincessDomain } from '../hierarchy/types';
 

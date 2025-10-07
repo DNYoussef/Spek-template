@@ -6,7 +6,7 @@
 import { EventEmitter } from 'events';
 import { SubscriberStates, SubscriberEvents, SubscriberContext } from './SubscriberFSMTypes';
 import { SubscriberTransitionHub } from './SubscriberTransitionHub';
-import { SubscriberCore } from './SubscriberCore';
+// TODO(Phase 4): Implement core module - import { SubscriberCore } from './SubscriberCore';
 import { EventProcessor } from './EventProcessor';
 import { FilterEngine, SubscriptionFilter } from './FilterEngine';
 import { MetricsCollector, SubscriberMetrics } from './MetricsCollector';

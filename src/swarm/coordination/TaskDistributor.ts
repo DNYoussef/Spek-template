@@ -13,7 +13,7 @@ export * from './validation/MECEValidator';
 
 import { EventEmitter } from 'events';
 import { Task, TaskPriority, TaskStatus } from '~types/task.types';
-import { LoggerFactory } from '../../utils/logger';
+import { LoggerFactory } from '../../utils/Logger';
 import { TaskDistributionState, TaskDistributionEvent, DistributionPlan } from './fsm/TaskDistributionStateMachine';
 
 // NASA Rule 10 Compliance Constants

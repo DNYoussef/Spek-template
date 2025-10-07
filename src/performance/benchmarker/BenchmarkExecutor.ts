@@ -27,7 +27,7 @@ export { BenchmarkCore } from './fsm/core/BenchmarkCore';
 export { ExecutorPool } from './fsm/executors/ExecutorPool';
 
 // Legacy compatibility imports
-import { BenchmarkCore } from './fsm/core/BenchmarkCore';
+// TODO(Phase 4): Implement core module - import { BenchmarkCore } from './fsm/core/BenchmarkCore';
 import { ExecutorPool } from './fsm/executors/ExecutorPool';
 import { ExecutionConfig } from './fsm/BenchmarkExecutorFSM';
 

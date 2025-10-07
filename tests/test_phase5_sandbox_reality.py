@@ -87,7 +87,7 @@ class RealityViolationDetector:
         if isinstance(node, ast.ClassDef):
             method_count = sum(1 for n in node.body if isinstance(n, ast.FunctionDef))
             if method_count > 20:
-                violation = ConnascenceViolation()
+                violation = ConnascenceViolation(
                     type=ConnascenceType.ALGORITHM,
                     severity=ViolationSeverity.HIGH,
                     description=f"God object detected: '{node.name}' has {method_count} methods (>20 threshold)",
@@ -95,7 +95,7 @@ class RealityViolationDetector:
                     line_number=node.lineno,
                     confidence=0.9,
                     recommendation="Break this class into smaller, focused classes"
-(                )
+                )
                 self.violations.append(violation)
 
     def _check_magic_literals(self, node, file_path):
@@ -104,7 +104,7 @@ class RealityViolationDetector:
             if isinstance(node.value, (int, float)):
                 # Skip common acceptable values
                 if node.value not in (0, 1, -1, 2, 10, 100, 1000) and abs(node.value) > 2:
-                    violation = ConnascenceViolation()
+                    violation = ConnascenceViolation(
                         type=ConnascenceType.MEANING,
                         severity=ViolationSeverity.MEDIUM,
                         description=f"Magic literal detected: {node.value}",
@@ -112,7 +112,7 @@ class RealityViolationDetector:
                         line_number=node.lineno,
                         confidence=0.8,
                         recommendation="Replace with named constant"
-(                    )
+                    )
                     self.violations.append(violation)
 
     def _check_position_violations(self, node, file_path):
@@ -120,15 +120,15 @@ class RealityViolationDetector:
         if isinstance(node, ast.FunctionDef):
             param_count = len(node.args.args)
             if param_count > 5:
-                violation = ConnascenceViolation()
+                violation = ConnascenceViolation(
                     type=ConnascenceType.POSITION,
                     severity=ViolationSeverity.MEDIUM,
-                    description=f"Function '{node.name}' has {param_count} parameters (>MAXIMUM_NESTED_DEPTH threshold)",
+                    description=f"Function '{node.name}' has {param_count} parameters (>5 threshold)",
                     file_path=str(file_path),
                     line_number=node.lineno,
                     confidence=0.7,
                     recommendation="Reduce parameter count or use parameter object"
-(                )
+                )
                 self.violations.append(violation)
 
 class RealComponentIntegrator:
@@ -265,11 +265,11 @@ def test_sandbox_reality():
 
         # Test component integration
         integrator = RealComponentIntegrator()
-        result = integrator.analyze_with_components()
+        result = integrator.analyze_with_components(
             str(test_project),
             [detector],
             mode="auto"
-(        )
+        )
 
         # Analyze results
         print("\n[STEP 5] Reality validation results...")

@@ -5,7 +5,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { Logger } from '../../../utils/logger';
+import { Logger } from '../../../utils/Logger';
 
 export interface ContextSnapshot {
   id: string;

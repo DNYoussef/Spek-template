@@ -5,7 +5,7 @@
 
 import { QualityTask, QualityValidation, QualityPattern, QualityReport } from './QualityPrincessTypes';
 import { QualityValidators } from './QualityPrincessValidators';
-import { QualityPrincessCore } from './QualityPrincessCore';
+// TODO(Phase 4): Implement core module - import { QualityPrincessCore } from './QualityPrincessCore';
 
 export class QualityPrincessActions {
   private validators: QualityValidators;

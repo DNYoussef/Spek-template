@@ -4,7 +4,9 @@
  */
 
 import { EventEmitter } from 'events';
-import { WorkflowStates, WorkflowEvents, WorkflowContext } from '~types/WorkflowBuilderTypes';
+import { WorkflowState as WorkflowStates } from '../../orchestration/workflows/types/WorkflowStates';
+import { WorkflowEvent as WorkflowEvents } from '../../orchestration/workflows/types/WorkflowEvents';
+// TODO(Phase 4): Create WorkflowBuilderTypes.ts - import { WorkflowContext } from '~types/WorkflowBuilderTypes';
 // TODO(Phase 4): Implement state handler - import { TemplateStateHandler } from './states/TemplateStateHandler';
 // TODO(Phase 4): Implement state handler - import { BuildingStateHandler } from './states/BuildingStateHandler';
 // TODO(Phase 4): Implement state handler - import { DeploymentStateHandler } from './states/DeploymentStateHandler';

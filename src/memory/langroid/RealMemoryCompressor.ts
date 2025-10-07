@@ -1,5 +1,5 @@
 import lz4 from 'lz4';
-import { Logger } from '../../utils/logger';
+import { Logger } from '../../utils/Logger';
 
 export interface CompressionResult {
   compressedData: Buffer;

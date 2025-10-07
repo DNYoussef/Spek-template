@@ -8,7 +8,7 @@
  */
 
 import { ContextDNA, ContextFingerprint, ValidationResult } from './ContextDNA';
-import { ContextValidationCore } from './validation/ContextValidationCore';
+// TODO(Phase 4): Implement core module - import { ContextValidationCore } from './validation/ContextValidationCore';
 
 // FSM State Definitions
 export enum ContextValidationState {

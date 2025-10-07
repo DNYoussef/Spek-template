@@ -1,5 +1,6 @@
 from src.constants.base import MAXIMUM_GOD_OBJECTS_ALLOWED, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
+"""
 Tests complete enterprise workflows from start to finish including:
 - Full analysis lifecycle with all enterprise features enabled
 - Multi-framework compliance validation workflows
@@ -125,11 +126,11 @@ class TestCompleteEnterpriseWorkflow:
         
         results = []
         for file_path in test_files:
-            result = await integration.analyze_with_enterprise_features()
+            result = await integration.analyze_with_enterprise_features(
                 "production",
                 file_path,
                 options={"deep_analysis": True}
-(            )
+            )
             results.append(result)
             
         # Verify all analyses completed
@@ -197,28 +198,28 @@ class TestCompleteEnterpriseWorkflow:
         for i, control in enumerate(soc2_controls):
             if i < 2:
                 # Implement first 2 controls
-                compliance_matrix.update_control_status()
+                compliance_matrix.update_control_status(
                     control.id,
                     ComplianceStatus.IMPLEMENTED,
                     notes=f"Implemented {control.title}"
-(                )
+                )
                 
                 # Add evidence
                 evidence_file = self.project_root / f"evidence_{control.id.replace('.', '_')}.pdf"
                 evidence_file.write_text(f"Evidence for {control.title}")
-                compliance_matrix.add_evidence()
+                compliance_matrix.add_evidence(
                     control.id,
                     evidence_file,
                     f"Implementation evidence for {control.title}"
-(                )
+                )
                 
             elif i < 4:
                 # Mark as in progress
-                compliance_matrix.update_control_status()
+                compliance_matrix.update_control_status(
                     control.id,
                     ComplianceStatus.IN_PROGRESS,
                     notes="Implementation in progress"
-(                )
+                )
                 
         # Phase 2: Test implemented controls
         implemented_controls = [c for c in soc2_controls if c.status == ComplianceStatus.IMPLEMENTED]
@@ -642,7 +643,7 @@ class TestRealWorldIntegrationScenarios:
         # Python project structure
         (self.project_root / "src" / "myapp").mkdir(parents=True)
         (self.project_root / "src" / "myapp" / "__init__.py").write_text("")
-        (self.project_root / "src" / "myapp" / "main.py").write_text(""")
+        (self.project_root / "src" / "myapp" / "main.py").write_text("""
 import os
 import json
 from lib.shared.utilities import get_logger
@@ -669,10 +670,10 @@ logger = get_logger(__name__)
         except Exception as e:
             self.logger.error(f"Failed to create user: {e}")
             return None
-(""")
+""")
         
         # Configuration files
-        (self.project_root / "requirements.txt").write_text(""")
+        (self.project_root / "requirements.txt").write_text("""
 requests>=2.25.0
 dataclasses-json>=0.5.4
 pytest>=6.2.0
@@ -680,12 +681,12 @@ pytest-cov>=2.12.0
 black>=21.0.0
 flake8>=3.9.0
 mypy>=0.812
-(""")
+""")
         
-        (self.project_root / "setup.py").write_text(""")
+        (self.project_root / "setup.py").write_text("""
 from setuptools import setup, find_packages
 
-setup()
+setup(
     name="myapp",
     version="1.0.0",
     packages=find_packages(where="src"),
@@ -703,13 +704,13 @@ setup()
             "mypy>=0.812",
         ]
     },
-()
-(""")
+)
+""")
         
         # Test files
         (self.project_root / "tests").mkdir()
         (self.project_root / "tests" / "__init__.py").write_text("")
-        (self.project_root / "tests" / "test_user_service.py").write_text(""")
+        (self.project_root / "tests" / "test_user_service.py").write_text("""
 import pytest
 from unittest.mock import Mock, patch
 from myapp.main import UserService, User
@@ -717,7 +718,7 @@ from myapp.main import UserService, User
 class TestUserService:
     def test_get_users_success(self):
         service = UserService("http://api.example.com")
-        
+
         with patch('requests.get') as mock_get:
             mock_response = Mock()
             mock_response.json.return_value = [
@@ -725,15 +726,15 @@ class TestUserService:
             ]
             mock_response.raise_for_status.return_value = None
             mock_get.return_value = mock_response
-            
+
             users = service.get_users()
-            
+
             assert len(users) == 1
             assert users[0].name == "John"
-            
+
     def test_create_user_success(self):
         service = UserService("http://api.example.com")
-        
+
         with patch('requests.post') as mock_post:
             mock_response = Mock()
             mock_response.json.return_value = {
@@ -741,15 +742,15 @@ class TestUserService:
             }
             mock_response.raise_for_status.return_value = None
             mock_post.return_value = mock_response
-            
+
             user = service.create_user("Jane", "jane@example.com")
-            
+
             assert user is not None
             assert user.name == "Jane"
-(""")
+""")
         
         # Configuration files
-        (self.project_root / "pyproject.toml").write_text(""")
+        (self.project_root / "pyproject.toml").write_text("""
 [tool.black]
 line-length = 88
 target-version = ['py38']
@@ -763,7 +764,7 @@ warn_unused_configs = true
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 addopts = "--cov=myapp --cov-report=html --cov-report=term"
-(""")
+""")
         
     def setup_enterprise_configuration(self):
         """Setup enterprise configuration with feature flags"""

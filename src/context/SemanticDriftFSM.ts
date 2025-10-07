@@ -4,7 +4,9 @@
  */
 
 import { EventEmitter } from 'events';
-// TODO(Phase 4): Create SemanticDriftTypes.ts - import { DriftStates, DriftEvents, DriftContext } from '~types/SemanticDriftTypes';
+import { DriftState as DriftStates } from '../performance/drift/DriftStates';
+import { DriftEvent as DriftEvents } from '../performance/drift/DriftEvents';
+// TODO(Phase 4): Create SemanticDriftTypes.ts - import { DriftContext } from '~types/SemanticDriftTypes';
 // TODO(Phase 4): Implement state handler - import { CapturingStateHandler } from './states/CapturingStateHandler';
 // TODO(Phase 4): Implement state handler - import { AnalyzingStateHandler } from './states/AnalyzingStateHandler';
 // TODO(Phase 4): Implement state handler - import { AdaptingStateHandler } from './states/AdaptingStateHandler';

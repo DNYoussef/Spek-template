@@ -9,7 +9,7 @@
  * Use QualityPrincessCore in quality-components/ directory for new implementations.
  */
 
-import { QualityPrincessCore } from './quality-components/QualityPrincessCore';
+// TODO(Phase 4): Implement core module - import { QualityPrincessCore } from './quality-components/QualityPrincessCore';
 import {
   QualityContext,
   QualityState,

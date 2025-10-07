@@ -1,6 +1,7 @@
 from lib.shared.utilities import path_exists
 import pytest
 
+"""
 CRITICAL TEST: Proves that detectors use REAL configuration values, not hardcoded defaults.
 This test validates that changing YAML config files changes actual detector behavior.
 
@@ -25,7 +26,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from analyzer.utils.config_manager import ConfigurationManager, get_config_manager, reset_config_manager
 from analyzer.detectors.position_detector import PositionDetector
 from analyzer.detectors.magic_literal_detector import MagicLiteralDetector
-"""
 
 class ConfigWiringRealityTest:
     """
@@ -116,11 +116,11 @@ def function_with_many_params(a, b, c, d, e, f):
 
         # Test with max_positional_params = 3 (should detect violation)
         reset_config_manager()  # Clear global cache
-        config_dir_3 = self.setup_test_config({)
+        config_dir_3 = self.setup_test_config({
             'position_detector': {
                 'thresholds': {'max_positional_params': 3}
             }
-(        })
+        })
 
         config_manager_3 = ConfigurationManager(config_dir_3)
         detector_3 = PositionDetector("test.py", test_code.split('\\n'))
@@ -132,11 +132,11 @@ def function_with_many_params(a, b, c, d, e, f):
 
         # Test with max_positional_params = 10 (should NOT detect violation)
         reset_config_manager()  # Clear global cache
-        config_dir_10 = self.setup_test_config({)
+        config_dir_10 = self.setup_test_config({
             'position_detector': {
                 'thresholds': {'max_positional_params': 10}
             }
-(        })
+        })
 
         config_manager_10 = ConfigurationManager(config_dir_10)
         detector_10 = PositionDetector("test.py", test_code.split('\\n'))
@@ -179,7 +179,7 @@ def test_function():
 
         # Test with 42 excluded (should NOT detect 42 as violation)
         reset_config_manager()  # Clear global cache
-        config_dir_excluded = self.setup_test_config({)
+        config_dir_excluded = self.setup_test_config({
             'magic_literal_detector': {
                 'exclusions': {
                     'common_numbers': [0, 1, -1, 2, 42],
@@ -190,7 +190,7 @@ def test_function():
                     'string_repetition': 1
                 }
             }
-(        })
+        })
 
         config_manager_excluded = ConfigurationManager(config_dir_excluded)
         detector_excluded = MagicLiteralDetector("test.py", test_code.split('\\n'))
@@ -202,7 +202,7 @@ def test_function():
 
         # Test with 42 NOT excluded (should detect 42 as violation)
         reset_config_manager()  # Clear global cache
-        config_dir_not_excluded = self.setup_test_config({)
+        config_dir_not_excluded = self.setup_test_config({
             'magic_literal_detector': {
                 'exclusions': {
                     'common_numbers': [0, 1, -1, 2],  # 42 NOT in exclusions
@@ -213,7 +213,7 @@ def test_function():
                     'string_repetition': 1
                 }
             }
-(        })
+        })
 
         config_manager_not_excluded = ConfigurationManager(config_dir_not_excluded)
         detector_not_excluded = MagicLiteralDetector("test.py", test_code.split('\\n'))
@@ -247,11 +247,11 @@ def test_function():
 
         # Create config with unique test values
         unique_value = 999
-        config_dir = self.setup_test_config({)
+        config_dir = self.setup_test_config({
             'position_detector': {
                 'thresholds': {'max_positional_params': unique_value}
             }
-(        })
+        })
 
         # Load configuration and verify values
         config_manager = ConfigurationManager(config_dir)
@@ -281,11 +281,11 @@ def test_function():
         """Test 4: Invalid configuration values are rejected with clear errors."""
 
         # Create config with invalid values
-        config_dir = self.setup_test_config({)
+        config_dir = self.setup_test_config({
             'position_detector': {
                 'thresholds': {'max_positional_params': -5}  # Invalid negative value
             }
-(        })
+        })
 
         try:
             config_manager = ConfigurationManager(config_dir)

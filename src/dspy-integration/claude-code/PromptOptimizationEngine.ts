@@ -5,7 +5,8 @@
  * continuously learning from agent responses to improve prompt effectiveness.
  */
 
-import { DSPyOptimizer, DSPySignature, DSPyModule } from '../core/DSPyCore';
+import { DSPySignature, DSPyModule, DSPyOptimizer } from '../../types/dspy-integration.types';
+// TODO(Phase 4): Implement core module - additional DSPy components from '../core/DSPyCore';
 import { AgentSummoningSignatures } from './AgentSummoningSignatures';
 import { ContextDNA } from './ClaudeCodeDSPyIntegration';
 

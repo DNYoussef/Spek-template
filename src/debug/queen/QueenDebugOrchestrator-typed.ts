@@ -9,7 +9,7 @@
  * Use QueenDebugCore in components/ directory for new implementations.
  */
 
-import { QueenDebugCore } from './components/QueenDebugCore';
+// TODO(Phase 4): Implement core module - import { QueenDebugCore } from './components/QueenDebugCore';
 import {
   DebugTarget,
   DebugResolution,

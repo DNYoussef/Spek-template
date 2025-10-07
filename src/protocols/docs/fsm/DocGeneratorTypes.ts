@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { Logger } from '../../../utils/logger';
+import { Logger } from '../../../utils/Logger';
 import { ProtocolDescriptor } from '../../a2a/ProtocolRegistry';
 import { ValidationResult } from '../../../types/validation-types';
 import {

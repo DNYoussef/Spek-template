@@ -1,9 +1,12 @@
 /**
  * DSPy Integration System - Main Export Index
- * 
+ *
  * NASA Rule 10 compliant DSPy integration system for SPEK platform
  * with communication optimization, A/B testing, and theater detection.
  */
+
+// Type Imports
+export { DSPyField, DSPySignature, DSPyModule, DSPyOptimizer, DSPyExample } from '../types/dspy-integration.types';
 
 // Core Components
 export { DSPyEngine } from './core/DSPyEngine';

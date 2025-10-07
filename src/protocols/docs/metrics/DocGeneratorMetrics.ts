@@ -1,4 +1,4 @@
-import { Logger } from '../../../utils/logger';
+import { Logger } from '../../../utils/Logger';
 import { DocGeneratorState, DocGeneratorEvent } from '../fsm/DocGeneratorTypes';
 
 export interface TransitionMetric {

@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { DashboardCore } from '../core/DashboardCore';
+// TODO(Phase 4): Implement core module - import { DashboardCore } from '../core/DashboardCore';
 import { DashboardStateMachine } from '../fsm/DashboardStateMachine';
 import { DashboardTypes } from '~types/DashboardTypes';
 import { WidgetRenderer } from '../renderers/WidgetRenderer';

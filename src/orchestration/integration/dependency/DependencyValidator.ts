@@ -13,7 +13,7 @@ import {
   VALIDATOR_TYPES,
   DEFAULT_CONFIG
 } from './DependencyTypes';
-import { delay } from './DependencyCore';
+// TODO(Phase 4): Implement core module - import { delay } from './DependencyCore';
 
 export abstract class DependencyValidator extends EventEmitter {
   protected config: ValidatorConfig;

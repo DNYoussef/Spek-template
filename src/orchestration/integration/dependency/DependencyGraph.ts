@@ -15,7 +15,7 @@ import {
   DEFAULT_CONFIG,
   DependencyState
 } from './DependencyTypes';
-import { generateSecureId } from './DependencyCore';
+// TODO(Phase 4): Implement core module - import { generateSecureId } from './DependencyCore';
 
 export class DependencyGraphBuilder extends EventEmitter {
   private readonly maxGraphSize: number = DEFAULT_CONFIG.MAX_GRAPH_SIZE;

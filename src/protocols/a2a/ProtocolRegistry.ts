@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { Logger } from '../../utils/logger';
+import { Logger } from '../../utils/Logger';
 import { ProtocolHandler, AgentIdentifier } from './A2AProtocolEngine';
 
 export interface ProtocolDescriptor {
