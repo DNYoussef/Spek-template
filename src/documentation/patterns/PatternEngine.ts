@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 import { VectorEmbeddings } from '../storage/VectorEmbeddings';
 import { PatternClassifier } from './PatternClassifier';
-// TODO(Phase 4): Create PatternTypes.ts - import { DocumentationPattern, PatternType, PatternMetadata } from '~types/PatternTypes';
+import { DocumentationPattern, PatternType, PatternMetadata } from './types/PatternTypes';
 import { CodeAnalyzer } from '../analysis/CodeAnalyzer';
 
 /**

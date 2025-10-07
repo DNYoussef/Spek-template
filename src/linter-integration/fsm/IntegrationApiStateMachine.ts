@@ -26,7 +26,7 @@ import {
  */
 export class StateMachine<TState extends string, TStateEvent extends string, TContext> extends EventEmitter {
   private currentState: TState;
-  private readonly config: StateMachineConfig<TState, TEvent, TContext>;
+  private readonly config: StateMachineConfig<TState, TStateEvent, TContext>;
   private readonly stateMetrics: Map<string, StateMetrics> = new Map();
   private readonly transitionMetrics: Map<string, TransitionMetrics> = new Map();
   private readonly errorRecovery: ErrorRecoveryConfig;
@@ -34,7 +34,7 @@ export class StateMachine<TState extends string, TStateEvent extends string, TCo
   private lastTransitionTime = 0;
 
   constructor(
-    config: StateMachineConfig<TState, TEvent, TContext>,
+    config: StateMachineConfig<TState, TStateEvent, TContext>,
     errorRecovery?: Partial<ErrorRecoveryConfig>
   ) {
     super();
@@ -71,7 +71,7 @@ export class StateMachine<TState extends string, TStateEvent extends string, TCo
    * Check if transition is valid
    * NASA Rule 10: Pure function, <30 lines
    */
-  public canTransition(event: TEvent, targetState?: TState): boolean {
+  public canTransition(event: TStateEvent, targetState?: TState): boolean {
     const transitions = this.config.transitions[this.currentState];
     if (!transitions) return false;
 
@@ -93,7 +93,7 @@ export class StateMachine<TState extends string, TStateEvent extends string, TCo
    * Execute state transition
    * NASA Rule 10: Core logic, <60 lines with proper error handling
    */
-  public async transition(event: TEvent, data?: any): Promise<boolean> {
+  public async transition(event: TStateEvent, data?: any): Promise<boolean> {
     const startTime = performance.now();
     const fromState = this.currentState;
     
@@ -144,7 +144,7 @@ export class StateMachine<TState extends string, TStateEvent extends string, TCo
    */
   private async handleTransitionError(
     fromState: TState,
-    event: TEvent,
+    event: TStateEvent,
     error: any,
     startTime: number
   ): Promise<boolean> {
@@ -171,7 +171,7 @@ export class StateMachine<TState extends string, TStateEvent extends string, TCo
    * Execute state enter handler
    * NASA Rule 10: Single responsibility, <30 lines
    */
-  private async executeStateEnter(state: TState, event: TEvent, data?: any): Promise<void> {
+  private async executeStateEnter(state: TState, event: TStateEvent, data?: any): Promise<void> {
     const handler = this.config.states[state as string];
     if (handler?.onEnter) {
       const enterStartTime = performance.now();
@@ -189,7 +189,7 @@ export class StateMachine<TState extends string, TStateEvent extends string, TCo
    * Execute state exit handler
    * NASA Rule 10: Single responsibility, <30 lines
    */
-  private async executeStateExit(state: TState, event: TEvent, data?: any): Promise<void> {
+  private async executeStateExit(state: TState, event: TStateEvent, data?: any): Promise<void> {
     const handler = this.config.states[state as string];
     if (handler?.onExit) {
       const exitStartTime = performance.now();
@@ -242,7 +242,7 @@ export class StateMachine<TState extends string, TStateEvent extends string, TCo
   private recordSuccessfulTransition(
     fromState: TState,
     toState: TState,
-    event: TEvent,
+    event: TStateEvent,
     duration: number
   ): void {
     const key = `${fromState}->${toState}`;
@@ -272,7 +272,7 @@ export class StateMachine<TState extends string, TStateEvent extends string, TCo
    * Record failed transition
    * NASA Rule 10: Error metrics, <25 lines
    */
-  private recordFailedTransition(fromState: TState, event: TEvent, error: string): void {
+  private recordFailedTransition(fromState: TState, event: TStateEvent, error: string): void {
     const stateMetrics = this.stateMetrics.get(fromState as string);
     if (stateMetrics) {
       stateMetrics.errorCount++;
