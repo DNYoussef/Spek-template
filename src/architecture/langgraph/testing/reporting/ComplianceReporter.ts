@@ -156,6 +156,8 @@ export class ComplianceReporter {
 
     // Generate FSM metrics
     const fsmMetrics: FSMValidationMetrics = {
+      stateTransitions: [],
+      stateExecutionTime: {} as Record<LangGraphTestValidationState, number>,
       stateTransitionCount: this.performanceData.stateTransitions,
       validTransitions: this.performanceData.stateTransitions, // Assume all recorded are valid
       invalidTransitions: 0, // Would be tracked separately
@@ -362,6 +364,8 @@ export class ComplianceReporter {
     const boundsReport = this.boundsManager.generateBoundsReport();
 
     return {
+      stateTransitions: [],
+      stateExecutionTime: {} as Record<LangGraphTestValidationState, number>,
       stateTransitionCount: this.performanceData.stateTransitions,
       validTransitions: this.performanceData.stateTransitions,
       invalidTransitions: 0,

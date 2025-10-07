@@ -360,6 +360,8 @@ export class FSMValidationSuite extends EventEmitter implements IValidationState
           boundedIterations: true
         },
         fsmMetrics: {
+          stateTransitions: [],
+          stateExecutionTime: {} as Record<LangGraphTestValidationState, number>,
           stateTransitionCount: 1,
           validTransitions: 1,
           invalidTransitions: 0,
@@ -392,6 +394,8 @@ export class FSMValidationSuite extends EventEmitter implements IValidationState
           boundedIterations: false
         },
         fsmMetrics: {
+          stateTransitions: [],
+          stateExecutionTime: {} as Record<LangGraphTestValidationState, number>,
           stateTransitionCount: 0,
           validTransitions: 0,
           invalidTransitions: 1,
@@ -626,6 +630,8 @@ export class FSMValidationSuite extends EventEmitter implements IValidationState
     const boundsReport = this.boundsManager.generateBoundsReport();
 
     return {
+      stateTransitions: [],
+      stateExecutionTime: {} as Record<LangGraphTestValidationState, number>,
       stateTransitionCount: this.results.length,
       validTransitions: this.results.filter(r => r.success).length,
       invalidTransitions: this.results.filter(r => !r.success).length,

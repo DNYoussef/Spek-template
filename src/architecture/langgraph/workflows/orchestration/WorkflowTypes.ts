@@ -24,6 +24,10 @@ export enum LangGraphOrchestrationWorkflowState {
   CANCELLED = 'CANCELLED'
 }
 
+// Alias for backward compatibility
+export const WorkflowState = LangGraphOrchestrationWorkflowState;
+export type WorkflowState = LangGraphOrchestrationWorkflowState;
+
 export enum LangGraphOrchestrationWorkflowEvent {
   CREATE_WORKFLOW = 'CREATE_WORKFLOW',
   VALIDATE_WORKFLOW = 'VALIDATE_WORKFLOW',
@@ -34,6 +38,10 @@ export enum LangGraphOrchestrationWorkflowEvent {
   CANCEL_EXECUTION = 'CANCEL_EXECUTION',
   RESET_WORKFLOW = 'RESET_WORKFLOW'
 }
+
+// Alias for backward compatibility - both value and type
+export const WorkflowEvent = LangGraphOrchestrationWorkflowEvent;
+export type WorkflowEvent = LangGraphOrchestrationWorkflowEvent;
 
 // Workflow step definition
 export interface WorkflowStep {
@@ -336,8 +344,7 @@ export interface WorkflowEventEmitter {
   removeListener(event: string, listener: (...args: any[]) => void): void;
 }
 
-// WorkflowEvent type - import from canonical location or define locally
-export type WorkflowEvent = string; // Generic event type for workflows
+// WorkflowEvent type - now defined as enum alias above (lines 43-44)
 
 export interface WorkflowEventData {
   workflowId: string;
