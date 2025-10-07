@@ -59,6 +59,11 @@ export class EnvironmentOverridesFacade {
   /**
    * Convert environment variable key to config path
    * NASA Rule 10: 2 assertions, <60 lines
+   *
+   * Maps environment variables to config paths:
+   * - ENTERPRISE_CONFIG_ENTERPRISE_X -> enterprise.x
+   * - ENTERPRISE_CONFIG_CUSTOM_X -> custom.x (keeps custom prefix)
+   * - ENTERPRISE_CONFIG_X -> X (no prefix added for other paths)
    */
   private envKeyToPath(key: string): string {
     if (!key || typeof key !== 'string') {
@@ -68,6 +73,7 @@ export class EnvironmentOverridesFacade {
     // Remove ENTERPRISE_CONFIG_ prefix and convert to dot notation
     let path = key.replace(/^ENTERPRISE_CONFIG_/, '').toLowerCase();
     path = path.replace(/_/g, '.');
+
     return path;
   }
 

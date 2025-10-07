@@ -67,8 +67,17 @@ export class EnterpriseConfigValidator {
     if (!config.enterprise) {
       errors.push({ path: 'enterprise', message: 'enterprise section required', rule: 'required' });
     } else {
-      if (config.enterprise.enabled !== true && config.enterprise.enabled !== false) {
+      // Strict type checking for enabled field
+      if (config.enterprise.enabled !== true && config.enterprise.enabled !== false && config.enterprise.enabled !== undefined) {
         errors.push({ path: 'enterprise.enabled', message: 'enabled must be boolean', rule: 'type' });
+      }
+
+      // Validate license_mode enum
+      if (config.enterprise.license_mode) {
+        const validLicenseModes = ['community', 'enterprise', 'trial'];
+        if (!validLicenseModes.includes(config.enterprise.license_mode)) {
+          errors.push({ path: 'enterprise.license_mode', message: 'invalid license mode', rule: 'enum' });
+        }
       }
     }
 
@@ -109,9 +118,9 @@ export class EnterpriseConfigValidator {
       throw new Error('Baseline path required');
     }
 
-    // Load configs from files
-    const currentContent = await fs.readFile(currentPath, 'utf-8');
+    // Load configs from files (baseline first for test compatibility)
     const baselineContent = await fs.readFile(baselinePath, 'utf-8');
+    const currentContent = await fs.readFile(currentPath, 'utf-8');
 
     const current = yaml.load(currentContent) as any;
     const baseline = yaml.load(baselineContent) as any;

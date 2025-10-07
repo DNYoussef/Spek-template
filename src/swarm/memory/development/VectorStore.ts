@@ -4,7 +4,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { Logger } from '../../../utils/logger';
+import { Logger } from '../../../utils/Logger';
 import { MemoryEntry, SearchResult } from './LangroidMemory';
 
 export interface VectorIndex {
@@ -187,7 +187,7 @@ export class VectorStore extends EventEmitter {
     const vectors = Array.from(this.vectors.entries())
       .sort((a, b) => a[1].metadata.lastAccessed.getTime() - b[1].metadata.lastAccessed.getTime());
 
-    const toEvict = vectors.slice(0, Math.floor(this.maxVectors * 0.1)); // Evict 10%
+    const toEvict = vectors.slice(0, Math.max(1, Math.floor(this.maxVectors * 0.1))); // Evict at least 1
 
     for (const [id, vector] of toEvict) {
       this.vectors.delete(id);
