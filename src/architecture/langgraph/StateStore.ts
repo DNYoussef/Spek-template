@@ -16,15 +16,20 @@ class StateStoreFacade extends EventEmitter {
   async initializeState(princessId: string, initialState: string): Promise<void> {}
   async updateState(princessId: string, newState: string, context: Record<string, any>): Promise<void> {}
   getState(princessId: string): any { return {}; }
+  setState(princessId: string, state: any): void {}
+  getAllStates(): any[] { return []; }
+  async deleteState(princessId: string): Promise<boolean> { return true; }
+  async createBackup(): Promise<string> { return ''; }
+  async restoreBackup(snapshotId: string): Promise<void> {}
+  getMetrics(): any { return {}; }
+  async shutdown(): Promise<void> {}
   async createTransaction(princessId: string): Promise<string> { return ''; }
   async commitTransaction(transactionId: string): Promise<void> {}
   async rollbackTransaction(transactionId: string): Promise<void> {}
   async createSnapshot(princessId: string, description: string): Promise<string> { return ''; }
   async loadSnapshot(snapshotId: string): Promise<void> {}
-  getAllStates(): Map<string, any> { return new Map(); }
   getTransactionHistory(princessId: string, limit: number): any[] { return []; }
   clearState(princessId: string): void {}
-  cleanup(): void {}
 }
 
 // Re-export types for backward compatibility

@@ -1,5 +1,8 @@
 import { ValidationResult } from '../../../../types/validation-types';
 
+// Re-export ValidationResult for facade consumers
+export type { ValidationResult };
+
 /**
  * WorkflowOrchestrator Types - Complete Type System
  * Comprehensive type definitions for FSM-based workflow orchestration
