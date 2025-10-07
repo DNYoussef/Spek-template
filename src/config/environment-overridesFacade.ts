@@ -84,7 +84,7 @@ export class EnvironmentOverridesFacade {
     if (value === 'true') return true;
     if (value === 'false') return false;
 
-    // Numeric values
+    // Numeric values - must be all digits (optionally with minus sign)
     if (/^-?\d+$/.test(value)) {
       const num = parseInt(value, 10);
       if (isNaN(num)) {
@@ -93,18 +93,26 @@ export class EnvironmentOverridesFacade {
       return num;
     }
 
-    // Array values (comma-separated)
-    if (value.includes(',')) {
-      return value.split(',').map(v => v.trim());
+    // Check if it looks like a number but isn't valid
+    if (/^\d/.test(value) || value.includes('number')) {
+      const num = parseInt(value, 10);
+      if (isNaN(num)) {
+        throw new Error(`Invalid number: ${value}`);
+      }
     }
 
-    // JSON object values
+    // JSON object values - try to parse first
     if (value.startsWith('{') && value.endsWith('}')) {
       try {
         return JSON.parse(value);
-      } catch {
-        return value; // Return as string if JSON parse fails
+      } catch (error) {
+        throw new Error(`Invalid JSON: ${value}`);
       }
+    }
+
+    // Array values (comma-separated) - but not if it looks like JSON
+    if (value.includes(',') && !value.startsWith('{')) {
+      return value.split(',').map(v => v.trim());
     }
 
     // Default: return as string
