@@ -16,7 +16,7 @@ with tempfile.TemporaryDirectory() as tmpdir:
     test_file.write_text(test_content)
 
     # Update file with footer
-    updated = manager.update_file()
+    updated = manager.update_file(
         file_path=str(test_file),
         agent_meta="test@Python",
         change_summary="Added hello function",
@@ -26,7 +26,7 @@ with tempfile.TemporaryDirectory() as tmpdir:
         versions={"python": "3.9", "model": "test-v1"},
         inputs=["spec.md"],
         tools_used=["editor", "linter"]
-(    )
+    )
 
     print("Updated content:")
     print(updated)

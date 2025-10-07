@@ -12,7 +12,7 @@ import { LangGraphEngine } from '../LangGraphEngine';
 import { WorkflowOrchestrator } from '../workflows/WorkflowOrchestrator';
 import { MessageRouter } from '../communication/MessageRouter';
 import { EventBus } from '../communication/EventBus';
-// TODO(Phase 4): Implement facade - import { PrincessStateMachineFacade as PrincessStateMachine } from '../state-machines/PrincessStateMachineFacade';
+import { PrincessStateMachineFacade as PrincessStateMachine } from '../state-machines/PrincessStateMachineFacade';
 import { WorkflowDefinition, ExecutionContext } from '~types/workflow';
 import { QueenFSMStates, QueenFSMEvents } from '~types/QueenFSMTypes';
 import { QueenConfiguration, StrategicObjective, ExecutionPlan, ResourceAllocation,

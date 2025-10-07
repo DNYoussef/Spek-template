@@ -18,8 +18,8 @@ def run_test_suite():
     # Test 1: Syntax validation
     print("\nTest 1: Syntax Validation")
     try:
-        result = subprocess.run([sys.executable, '-m', 'py_compile', 'fix_circular_imports.py'],)
-(                              capture_output=True, text=True, cwd=Path.cwd())
+        result = subprocess.run([sys.executable, '-m', 'py_compile', 'fix_circular_imports.py'],
+                              capture_output=True, text=True, cwd=Path.cwd())
         if result.returncode == 0:
             print("   [OK] Python syntax is valid")
         else:
@@ -53,19 +53,19 @@ def run_test_suite():
         script_content = open('fix_circular_imports.py', 'r').read()
 
         # Modify the script to work on test environment
-        test_script_content = script_content.replace()
+        test_script_content = script_content.replace(
             'os.getcwd()',
             f"'{test_dir.absolute()}'"
         ).replace(
             'backup_dir = os.path.join(os.getcwd(), "backup")',
             f'backup_dir = os.path.join("{test_dir.absolute()}", "backup")'
-(        )
+        )
 
         with open('fix_circular_imports_test.py', 'w') as f:
             f.write(test_script_content)
 
-        result = subprocess.run([sys.executable, 'fix_circular_imports_test.py'],)
-(                              capture_output=True, text=True, cwd=Path.cwd())
+        result = subprocess.run([sys.executable, 'fix_circular_imports_test.py'],
+                              capture_output=True, text=True, cwd=Path.cwd())
 
         print(f"   Return code: {result.returncode}")
         print(f"   Stdout: {result.stdout}")
@@ -148,8 +148,8 @@ def run_test_suite():
         f.write("from src.constants.base import BAD_SYNTAX\ndef incomplete_function(\n")  # Intentional syntax error)
 
     try:
-        result = subprocess.run([sys.executable, 'fix_circular_imports_test.py'],)
-(                              capture_output=True, text=True, cwd=Path.cwd())
+        result = subprocess.run([sys.executable, 'fix_circular_imports_test.py'],
+                              capture_output=True, text=True, cwd=Path.cwd())
         if "Error processing" in result.stdout or result.returncode == 0:
             print("   [OK] Script handles errors gracefully")
         else:
