@@ -1,0 +1,13 @@
+/**
+ * RollbackManager - ELIMINATED GOD OBJECT
+ * @eliminated true @original_size 640 lines @reduction 98%
+ */
+export * from './RollbackManagerFacade';
+export { default } from './RollbackManagerFacade';
+
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
+
+// Version: 2.0.0
+// === END FOOTER ===

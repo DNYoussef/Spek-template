@@ -1,3 +1,5 @@
+import pytest
+
 #!/usr/bin/env python3
 """
 Comprehensive import validation for moved test files.
@@ -42,18 +44,16 @@ def test_moved_file_imports():
     except ImportError as e:
         print(f"  [FAIL] Import error: {e}")
         print(f"  [FAIL] Traceback: {traceback.format_exc()}")
-        test_results.append({
-            "file": "test_debug.py",
+        test_results.append({"file": "test_debug.py",
             "status": "FAIL",
             "details": f"Import error: {e}"
-        })
+})
     except Exception as e:
         print(f"  [FAIL] Unexpected error: {e}")
-        test_results.append({
-            "file": "test_debug.py",
+        test_results.append({"file": "test_debug.py",
             "status": "FAIL",
             "details": f"Unexpected error: {e}"
-        })
+})
 
     # Test 2: test_quick.py imports
     print("\n[TEST 2] Validating test_quick.py imports...")
@@ -71,26 +71,23 @@ def test_moved_file_imports():
         quick_hash = hasher.compute_hash("quick test")
         print(f"  [OK] Quick hash test: OK (hash: {quick_hash})")
 
-        test_results.append({
-            "file": "test_quick.py",
+        test_results.append({"file": "test_quick.py",
             "status": "PASS",
             "details": "All imports successful, quick test verified"
-        })
+})
 
     except ImportError as e:
         print(f"  [FAIL] Import error: {e}")
-        test_results.append({
-            "file": "test_quick.py",
+        test_results.append({"file": "test_quick.py",
             "status": "FAIL",
             "details": f"Import error: {e}"
-        })
+})
     except Exception as e:
         print(f"  [FAIL] Unexpected error: {e}")
-        test_results.append({
-            "file": "test_quick.py",
+        test_results.append({"file": "test_quick.py",
             "status": "FAIL",
             "details": f"Unexpected error: {e}"
-        })
+})
 
     # Test 3: test_hash_debug.py basic imports
     print("\n[TEST 3] Validating test_hash_debug.py imports...")
@@ -111,26 +108,23 @@ def test_moved_file_imports():
         test_hash = hash_obj.hexdigest()[:7]
         print(f"  [OK] hashlib functionality: OK (hash: {test_hash})")
 
-        test_results.append({
-            "file": "test_hash_debug.py",
+        test_results.append({"file": "test_hash_debug.py",
             "status": "PASS",
             "details": "All basic imports successful, functionality verified"
-        })
+})
 
     except ImportError as e:
         print(f"  [FAIL] Import error: {e}")
-        test_results.append({
-            "file": "test_hash_debug.py",
+        test_results.append({"file": "test_hash_debug.py",
             "status": "FAIL",
             "details": f"Import error: {e}"
-        })
+})
     except Exception as e:
         print(f"  [FAIL] Unexpected error: {e}")
-        test_results.append({
-            "file": "test_hash_debug.py",
+        test_results.append({"file": "test_hash_debug.py",
             "status": "FAIL",
             "details": f"Unexpected error: {e}"
-        })
+})
 
     # Test 4: Verify the actual moved files exist
     print("\n[TEST 4] Verifying moved files exist...")
@@ -146,11 +140,10 @@ def test_moved_file_imports():
             print(f"  [OK] {file_path}: EXISTS")
         else:
             print(f"  [FAIL] {file_path}: MISSING")
-            test_results.append({
-                "file": file_path,
+            test_results.append({"file": file_path,
                 "status": "FAIL",
                 "details": "File not found at expected location"
-            })
+})
 
     # Summary
     print("\n" + "=" * 60)

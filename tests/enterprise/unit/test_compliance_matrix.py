@@ -22,10 +22,10 @@ import pytest
 import sys
 sys.path.append(str(Path(__file__).parent.parent.parent.parent / 'src'))
 
-from enterprise.compliance.matrix import (
+from enterprise.compliance.matrix import ()
     ComplianceMatrix, Control, ComplianceReport, 
     ComplianceFramework, ComplianceStatus
-)
+()
 
 class TestComplianceFramework:
     """Test ComplianceFramework enum"""
@@ -59,13 +59,13 @@ class TestControl:
     
     def test_control_creation(self):
         """Test basic control creation"""
-        control = Control(
+        control = Control()
             id="CC6.1",
             title="Access Controls",
             description="Implement access controls",
             framework=ComplianceFramework.SOC2_TYPE2,
             category="Security"
-        )
+(        )
         
         assert control.id == "CC6.1"
         assert control.title == "Access Controls"
@@ -88,7 +88,7 @@ class TestControl:
     def test_control_with_all_fields(self):
         """Test control creation with all fields"""
         today = date.today()
-        control = Control(
+        control = Control()
             id="A.5.1.1",
             title="Information Security Policy",
             description="Establish security policy",
@@ -106,7 +106,7 @@ class TestControl:
             risk_rating="high",
             automation_level="automated",
             dependencies=["A.5.1.2"]
-        )
+(        )
         
         assert control.subcategory == "Management"
         assert control.status == ComplianceStatus.IMPLEMENTED
@@ -249,12 +249,12 @@ class TestControlManagement:
         control_id = "CC6.1"
         
         # Update to implemented
-        self.matrix.update_control_status(
+        self.matrix.update_control_status()
             control_id, 
             ComplianceStatus.IMPLEMENTED,
             evidence_files=["access_policy.pdf"],
             notes="Implemented new access controls"
-        )
+(        )
         
         control = self.matrix.controls[control_id]
         assert control.status == ComplianceStatus.IMPLEMENTED
@@ -296,11 +296,11 @@ class TestControlManagement:
         evidence_file = self.temp_dir / "test_evidence.pdf"
         evidence_file.write_text("Test evidence content")
         
-        self.matrix.add_evidence(
+        self.matrix.add_evidence()
             control_id,
             evidence_file,
             "Test evidence for access controls"
-        )
+(        )
         
         control = self.matrix.controls[control_id]
         assert len(control.evidence_files) == 1
@@ -507,11 +507,11 @@ class TestMatrixExportImport:
         evidence_file = self.temp_dir / "policy.pdf"
         evidence_file.write_text("Policy content")
         
-        self.matrix.update_control_status(
+        self.matrix.update_control_status()
             "CC6.1", 
             ComplianceStatus.IMPLEMENTED,
             notes="Implemented access policy"
-        )
+(        )
         self.matrix.add_evidence("CC6.1", evidence_file, "Policy document")
         
         # Export and verify

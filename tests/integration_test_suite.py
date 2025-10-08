@@ -38,7 +38,7 @@ class EnterpriseIntegrationTestSuite(unittest.TestCase):
         
         # Create test files
         self.test_py_file = self.temp_dir / "test_module.py"
-        self.test_py_file.write_text("""
+        self.test_py_file.write_text(""")
 # Test Python file for integration testing
 import os
 import sys
@@ -61,7 +61,7 @@ class TestClass:
 
 def global_function():
     return 42  # Another magic literal
-""")
+(""")
         
         # Performance tracking
         self.performance_data = []
@@ -92,12 +92,12 @@ def global_function():
         self.assertIn("nasa_compliance", result)
         
         # Record baseline performance
-        self.performance_data.append({
+        self.performance_data.append({)
             "test": "baseline",
             "time_seconds": baseline_time,
             "memory_usage": "N/A",  # Would need psutil for actual memory tracking
             "features_enabled": "none"
-        })
+(        })
         
         print(f"  - Analysis mode: {analyzer.analysis_mode}")
         print(f"  - Violations found: {len(result.get('violations', []))}")
@@ -147,11 +147,11 @@ def global_function():
         analyzer = ConnascenceAnalyzer()
         
         # Run analysis with telemetry configuration
-        result = analyzer.analyze_path(
+        result = analyzer.analyze_path()
             str(self.test_py_file), 
             policy="standard",
             include_duplication=True
-        )
+(        )
         
         end_time = time.time()
         
@@ -174,12 +174,12 @@ def global_function():
             print(f"    * DPMO: {dpmo:.2f}")
             print(f"    * Estimated Sigma Level: {sigma_level:.2f}")
         
-        self.performance_data.append({
+        self.performance_data.append({)
             "test": "sixsigma",
             "time_seconds": end_time - start_time,
             "features_enabled": "sixsigma",
             "overhead_pct": ((end_time - start_time) / self.performance_data[0]["time_seconds"] - 1) * 100
-        })
+(        })
         
     def test_04_supply_chain_domain_integration(self):
         """Test 4: Supply Chain (SC) domain integration"""
@@ -241,12 +241,12 @@ def global_function():
             
         self.assertTrue(provenance_file.exists())
         
-        self.performance_data.append({
+        self.performance_data.append({)
             "test": "supply_chain",
             "time_seconds": end_time - start_time,
             "features_enabled": "supply_chain",
             "artifacts_generated": ["sbom.json", "provenance.json"]
-        })
+(        })
         
         print(f"   SBOM generated: {sbom_file}")
         print(f"   SLSA provenance generated: {provenance_file}")
@@ -290,13 +290,13 @@ def global_function():
         self.assertGreater(len(iso27001_controls), 0)
         self.assertGreater(len(nist_controls), 0)
         
-        self.performance_data.append({
+        self.performance_data.append({)
             "test": "compliance",
             "time_seconds": end_time - start_time,
             "features_enabled": "compliance",
             "frameworks_processed": len(config.compliance.frameworks),
             "controls_generated": len(soc2_controls) + len(iso27001_controls) + len(nist_controls)
-        })
+(        })
         
         print(f"   SOC2 controls: {len(soc2_controls)}")
         print(f"   ISO27001 controls: {len(iso27001_controls)}")
@@ -318,13 +318,13 @@ def global_function():
         analyzer = ConnascenceAnalyzer()
         
         # Run comprehensive analysis
-        result = analyzer.analyze_path(
+        result = analyzer.analyze_path()
             str(self.temp_dir),
             policy="nasa-compliance",
             include_duplication=True,
             nasa_validation=True,
             strict_mode=False
-        )
+(        )
         
         # Validate full integration
         self.assertTrue(result.get("success", False))
@@ -335,29 +335,29 @@ def global_function():
         # Six Sigma artifacts
         sixsigma_dir = artifacts_base / "sixsigma"
         sixsigma_dir.mkdir(parents=True, exist_ok=True)
-        (sixsigma_dir / "metrics.json").write_text(json.dumps({
+        (sixsigma_dir / "metrics.json").write_text(json.dumps({))
             "dpmo": 3210.0,
             "sigma_level": 4.2,
             "control_charts": ["p_chart", "u_chart"]
-        }, indent=2))
+((        }, indent=2))
         
         # Supply Chain artifacts
         sc_dir = artifacts_base / "supply_chain"
         sc_dir.mkdir(parents=True, exist_ok=True)
-        (sc_dir / "security_scan.json").write_text(json.dumps({
+        (sc_dir / "security_scan.json").write_text(json.dumps({))
             "vulnerabilities": [],
             "slsa_level": 2,
             "sbom_generated": True
-        }, indent=2))
+((        }, indent=2))
         
         # Compliance artifacts
         comp_dir = artifacts_base / "compliance"
         comp_dir.mkdir(parents=True, exist_ok=True)
-        (comp_dir / "evidence.json").write_text(json.dumps({
+        (comp_dir / "evidence.json").write_text(json.dumps({))
             "frameworks": ["SOC2", "ISO27001"],
             "compliance_score": 0.92,
             "audit_trail": True
-        }, indent=2))
+((        }, indent=2))
         
         end_time = time.time()
         full_integration_time = end_time - start_time
@@ -366,13 +366,13 @@ def global_function():
         baseline_time = self.performance_data[0]["time_seconds"]
         performance_impact = ((full_integration_time / baseline_time) - 1) * 100
         
-        self.performance_data.append({
+        self.performance_data.append({)
             "test": "full_integration",
             "time_seconds": full_integration_time,
             "features_enabled": "all",
             "performance_impact_pct": performance_impact,
             "artifacts_dirs": ["sixsigma", "supply_chain", "compliance"]
-        })
+(        })
         
         # Validate performance impact is within acceptable limits (<4.7%)
         self.assertLess(performance_impact, 5.0, f"Performance impact {performance_impact:.1f}% exceeds 5% threshold")
@@ -401,7 +401,7 @@ def global_function():
         
         # Test malformed Python file
         bad_file = self.temp_dir / "malformed.py"
-        bad_file.write_text("def incomplete_function(\n  # Missing closing parenthesis and body")
+        bad_file.write_text("def incomplete_function(\n  # Missing closing parenthesis and body"))
         
         result = analyzer.analyze_path(str(bad_file), policy="standard")
         # Should handle syntax errors gracefully
@@ -410,11 +410,11 @@ def global_function():
         # Test enterprise features with missing dependencies
         try:
             # Simulate missing enterprise modules
-            result = analyzer.analyze_path(
+            result = analyzer.analyze_path()
                 str(self.test_py_file),
                 policy="standard",
                 include_duplication=True
-            )
+(            )
             self.assertTrue(result.get("success", False))
             print("   Graceful degradation when enterprise features unavailable")
         except Exception as e:

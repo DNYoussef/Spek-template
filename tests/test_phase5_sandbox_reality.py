@@ -1,4 +1,6 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
+import pytest
+
 """
 
 This test creates a working sandbox environment that eliminates ALL theater
@@ -121,7 +123,7 @@ class RealityViolationDetector:
                 violation = ConnascenceViolation(
                     type=ConnascenceType.POSITION,
                     severity=ViolationSeverity.MEDIUM,
-                    description=f"Function '{node.name}' has {param_count} parameters (>MAXIMUM_NESTED_DEPTH threshold)",
+                    description=f"Function '{node.name}' has {param_count} parameters (>5 threshold)",
                     file_path=str(file_path),
                     line_number=node.lineno,
                     confidence=0.7,

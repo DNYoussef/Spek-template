@@ -79,13 +79,13 @@ def validate_pattern_matcher():
 
         # Test FailurePattern class
         try:
-            pattern = FailurePattern(
+            pattern = FailurePattern()
                 pattern_id="test",
                 pattern_type="test",
                 regex="test",
                 frequency=0,
                 confidence=0.8
-            )
+(            )
             results['failure_pattern_class'] = True
         except Exception as e:
             results['failure_pattern_class'] = False

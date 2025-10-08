@@ -1,9 +1,7 @@
 /**
  * Hive Princess - Factory Pattern Facade
- *
  * Factory for creating domain-specific Princess instances.
  * Delegates to specialized princess classes based on domain.
- *
  * REFACTORED: Reduced from 1200 LOC to 130 LOC (92% reduction)
  */
 
@@ -131,4 +129,5 @@ export class HivePrincess {
   }
 }
 
+// Backward compatibility
 export default HivePrincess;

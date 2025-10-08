@@ -1,3 +1,7 @@
+from dataclasses import dataclass, field
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
 
 """Provides real GitHub API integration for the analyzer, enabling:
@@ -17,6 +21,8 @@ import time
 import hashlib
 from typing import Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass
+from pathlib import Path
+
 logger = logging.getLogger(__name__)
 
 # Optional import with fallback

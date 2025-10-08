@@ -1,5 +1,10 @@
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import API_TIMEOUT_SECONDS, DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH
 
+"""
 Comprehensive 9-stage audit pipeline validating the god object refactoring.
 Generates production-ready assessment report for defense industry deployment.
 """
@@ -853,7 +858,8 @@ class RefactoringAuditPipeline:
                     content = f.read()
 
                 total += 1
-                if '"""' in content or "'''" in content:'
+                triple_single = chr(39) * 3  # Three single quotes
+                if ('"""' in content) or (triple_single in content):
                     documented += 1
 
             except Exception:
@@ -1017,7 +1023,7 @@ class RefactoringAuditPipeline:
             'deployment_recommendation': "FAILED: Audit process failed"
         }
 
-    def generate_audit_report(architecture_path: str = None) -> Dict[str, Any]:
+def generate_audit_report(architecture_path: str = None) -> Dict[str, Any]:
     """
     Generate comprehensive refactoring audit report.
 

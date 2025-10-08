@@ -1,3 +1,8 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
+logger = logging.getLogger(__name__)
+
 """
 Common Patterns - Eliminates Connascence of Algorithm
 ====================================================
@@ -459,8 +464,7 @@ class AlgorithmDeduplication:
         return intersection / union if union > 0 else 0.0
 
 # Factory function to create common utilities with configuration
-    def create_analysis_utilities(config_manager=None):
-        pass
+def create_analysis_utilities(config_manager=None):
     """
     Factory function to create analysis utilities with configuration.
     Eliminates duplicate utility instantiation patterns.
@@ -468,7 +472,7 @@ class AlgorithmDeduplication:
     if config_manager is None:
         from .config_manager import get_config_manager
         config_manager = get_config_manager()
-    
+
     return {
         'ast_utils': ASTUtils(),
         'pattern_matcher': PatternMatcher(),

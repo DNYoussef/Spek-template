@@ -1,0 +1,13 @@
+/**
+ * ProtocolMetrics - ELIMINATED GOD OBJECT
+ * @eliminated true @original_size 833 lines @reduction 99.0%
+ */
+export * from './ProtocolMetricsFacade';
+export { default } from './ProtocolMetricsFacade';
+
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
+
+// Version: 2.0.0
+// === END FOOTER ===

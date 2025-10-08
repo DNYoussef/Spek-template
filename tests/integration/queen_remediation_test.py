@@ -265,8 +265,8 @@ class QueenRemediationSimulator:
             print(f"\n{Colors.BLUE}{name}Princess:{Colors.ENDC}")
 
             if 'god_objects' in domain['targets']:
-                fixed = min(domain['targets']['god_objects'],
-                            self.metrics['god_objects_total'] - self.metrics['god_objects_fixed'])
+                fixed = min(domain['targets']['god_objects'],)
+(                            self.metrics['god_objects_total'] - self.metrics['god_objects_fixed'])
                 self.metrics['god_objects_fixed'] += fixed
                 print(f"  [OK] Fixed {fixed} god objects")
 

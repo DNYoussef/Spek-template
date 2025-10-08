@@ -1,0 +1,123 @@
+{
+  "stage": "bracket",
+  "files_fixed": 3,
+  "files_remaining": 42,
+  "timestamp": "2025-09-30T21:54:47.946334",
+  "results": [
+    {
+      "file": "tests/safety\\test_import_validation.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 361) (line 341)"
+    },
+    {
+      "file": "tests/safety\\test_safety_system.py",
+      "status": "partial",
+      "error": "invalid syntax (line 23)"
+    },
+    {
+      "file": "tests/byzantium\\test_byzantine_stress.py",
+      "status": "partial",
+      "error": "unexpected indent (line 96)"
+    },
+    {
+      "file": "tests/cache_analyzer\\comprehensive_cache_test.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 760) (line 738)"
+    },
+    {
+      "file": "tests/cycles\\test_integration.py",
+      "status": "partial",
+      "error": "unexpected indent (line 174)"
+    },
+    {
+      "file": "tests/end_to_end\\complete_system_validation.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 607) (line 547)"
+    },
+    {
+      "file": "tests/json_schema_validation\\test_json_schema_validation.py",
+      "status": "partial",
+      "error": "unexpected indent (line 61)"
+    },
+    {
+      "file": "tests/json_schema_validation\\test_risk_mitigation.py",
+      "status": "partial",
+      "error": "invalid syntax (line 5)"
+    },
+    {
+      "file": "tests/json_schema_validation\\test_runner.py",
+      "status": "partial",
+      "error": "invalid syntax (line 5)"
+    },
+    {
+      "file": "tests/json_schema_validation\\test_sarif_compliance.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 459) (line 447)"
+    },
+    {
+      "file": "tests/memory_integration\\test_cross_phase_memory.py",
+      "status": "partial",
+      "error": "invalid syntax (line 31)"
+    },
+    {
+      "file": "tests/production\\load_testing_suite.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 553) (line 516)"
+    },
+    {
+      "file": "tests/security\\complete_security_validation.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 810) (line 775)"
+    },
+    {
+      "file": "tests/security\\test_dfars_compliance.py",
+      "status": "partial",
+      "error": "invalid syntax (line 14)"
+    },
+    {
+      "file": "tests/security\\test_dfars_workflow_automation.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 716) (line 666)"
+    },
+    {
+      "file": "tests/security\\test_enterprise_theater_detection.py",
+      "status": "partial",
+      "error": "invalid syntax (line 10)"
+    },
+    {
+      "file": "tests/self-dogfooding\\workflow_simulation_test.py",
+      "status": "fixed",
+      "validator": "bracket_harmonizer"
+    },
+    {
+      "file": "tests/theater-detection\\test_theater_detection.py",
+      "status": "partial",
+      "error": "invalid syntax. Perhaps you forgot a comma? (line 179)"
+    },
+    {
+      "file": "tests/unit\\test_flake8_adapter.py",
+      "status": "fixed",
+      "validator": "bracket_harmonizer"
+    },
+    {
+      "file": "tests/unit\\test_pylint_adapter.py",
+      "status": "fixed",
+      "validator": "bracket_harmonizer"
+    },
+    {
+      "file": "tests/version_log\\test_import_validation.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 187) (line 15)"
+    },
+    {
+      "file": "tests/version_log\\test_unified_validation.py",
+      "status": "partial",
+      "error": "unexpected indent (line 51)"
+    },
+    {
+      "file": "tests/workflow-validation\\json_validation_framework.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 731) (line 665)"
+    }
+  ]
+}

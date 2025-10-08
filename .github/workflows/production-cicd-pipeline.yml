@@ -132,6 +132,23 @@ jobs:
           npm ci
         fi
 
+    - name: Build TypeScript
+      run: |
+        if [ -f "package.json" ]; then
+          npm run build
+        else
+          echo "No package.json found, skipping TypeScript build"
+        fi
+      continue-on-error: false
+
+    - name: Verify build artifacts
+      run: |
+        if [ -f "package.json" ] && [ ! -d "dist/src" ]; then
+          echo "ERROR: Build did not generate dist/ files"
+          exit 1
+        fi
+        echo "Build artifacts verified or skipped (no package.json)"
+
     - name: Run comprehensive test suite
       id: tests
       run: |

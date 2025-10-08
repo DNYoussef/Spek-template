@@ -1,0 +1,339 @@
+{
+  "jest_config": {
+    "status": "OK",
+    "issues": [],
+    "config_path": "jest.config.js"
+  },
+  "test_syntax": {
+    "tests\\integration.test.ts": [
+      "Missing test framework imports"
+    ],
+    "tests\\integration\\RealComponentIntegration.test.ts": [
+      "Missing test framework imports"
+    ],
+    "tests\\performance\\RealPerformanceValidation.test.ts": [
+      "Unbalanced parentheses",
+      "Missing test framework imports"
+    ],
+    "tests\\security\\security-theater-validation.test.ts": [
+      "Unbalanced parentheses"
+    ],
+    "tests\\e2e\\workflows\\SecurityValidationWorkflow.test.ts": [
+      "Missing test framework imports"
+    ],
+    "tests\\swarm\\integrations\\GitHubProjectIntegration.test.ts": [
+      "Unbalanced parentheses"
+    ],
+    "tests\\unit\\golden\\snapshot-comparison.test.ts": [
+      "Missing test framework imports"
+    ]
+  },
+  "python_tests": {
+    "status": "HAS_ERRORS",
+    "total_files": 162,
+    "issues": {
+      "tests\\audit_phase7_god_object_decomposition.py": [
+        "Missing test framework import"
+      ],
+      "tests\\config_reality_check.py": [
+        "SyntaxError at line 173: unterminated triple-quoted string literal (detected at line 201)",
+        "Missing test framework import"
+      ],
+      "tests\\fix_test_imports.py": [
+        "SyntaxError at line 210: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers"
+      ],
+      "tests\\phase1_functional_test.py": [
+        "SyntaxError at line 225: unterminated triple-quoted string literal (detected at line 264)",
+        "Missing test framework import"
+      ],
+      "tests\\production_validation_test.py": [
+        "SyntaxError at line 140: expected an indented block after 'except' statement on line 137"
+      ],
+      "tests\\regression_test_runner.py": [
+        "Missing test framework import"
+      ],
+      "tests\\simple_kill_switch_test.py": [
+        "Missing test framework import"
+      ],
+      "tests\\simple_test_runner.py": [
+        "SyntaxError at line 105: unterminated triple-quoted string literal (detected at line 157)",
+        "Missing test framework import"
+      ],
+      "tests\\simplified_integration_test.py": [
+        "Missing test framework import"
+      ],
+      "tests\\standalone_facade_test.py": [
+        "Missing test framework import"
+      ],
+      "tests\\test_analyzer_fixes.py": [
+        "Missing test framework import"
+      ],
+      "tests\\test_discovery_report.py": [
+        "Missing test framework import"
+      ],
+      "tests\\test_fixes.py": [
+        "SyntaxError at line 281: unterminated triple-quoted string literal (detected at line 336)",
+        "Missing test framework import"
+      ],
+      "tests\\test_fixes_simple.py": [
+        "Missing test framework import"
+      ],
+      "tests\\test_github_fixes.py": [
+        "Missing test framework import"
+      ],
+      "tests\\test_import_fixes.py": [
+        "Missing test framework import"
+      ],
+      "tests\\test_kelly_dpi_integration.py": [
+        "Missing test framework import"
+      ],
+      "tests\\test_kill_switch_integration.py": [
+        "SyntaxError at line 5: invalid decimal literal",
+        "Missing test framework import"
+      ],
+      "tests\\test_modules.py": [
+        "Missing test framework import"
+      ],
+      "tests\\test_phase3_100_percent.py": [
+        "SyntaxError at line 3: invalid syntax"
+      ],
+      "tests\\test_phase3_integration.py": [
+        "SyntaxError at line 601: unterminated triple-quoted string literal (detected at line 617)",
+        "Missing test framework import"
+      ],
+      "tests\\test_phase4_configuration.py": [
+        "SyntaxError at line 194: invalid decimal literal"
+      ],
+      "tests\\test_phase4_config_wiring_reality.py": [
+        "SyntaxError at line 3: invalid syntax",
+        "Missing test framework import"
+      ],
+      "tests\\test_phase5_integration.py": [
+        "SyntaxError at line 4: invalid syntax",
+        "Missing test framework import"
+      ],
+      "tests\\test_phase5_sandbox_reality.py": [
+        "Missing test framework import"
+      ],
+      "tests\\test_utils.py": [
+        "SyntaxError at line 60: invalid syntax. Perhaps you forgot a comma?"
+      ],
+      "tests\\test_yaml_validator.py": [
+        "Missing test framework import"
+      ],
+      "tests\\theater_detection_audit.py": [
+        "SyntaxError at line 627: unterminated triple-quoted string literal (detected at line 677)"
+      ],
+      "tests\\unified_test_orchestrator.py": [
+        "SyntaxError at line 25: invalid syntax"
+      ],
+      "tests\\batch3_validation\\test_strategy_pattern_validation.py": [
+        "SyntaxError at line 612: unterminated triple-quoted string literal (detected at line 671)"
+      ],
+      "tests\\batches_10_18_validation\\test_suite_orchestrator.py": [
+        "SyntaxError at line 854: invalid decimal literal"
+      ],
+      "tests\\byzantium\\test_byzantine_stress.py": [
+        "SyntaxError at line 695: unterminated triple-quoted string literal (detected at line 709)"
+      ],
+      "tests\\cache_analyzer\\comprehensive_cache_test.py": [
+        "Missing test framework import"
+      ],
+      "tests\\cache_analyzer\\test_cache_functionality.py": [
+        "SyntaxError at line 514: unterminated triple-quoted string literal (detected at line 536)",
+        "Missing test framework import"
+      ],
+      "tests\\compliance\\test_compliance_demo.py": [
+        "SyntaxError at line 41: unterminated triple-quoted string literal (detected at line 217)"
+      ],
+      "tests\\compliance\\test_compliance_simple.py": [
+        "SyntaxError at line 97: invalid decimal literal",
+        "Missing test framework import"
+      ],
+      "tests\\cycles\\test_integration.py": [
+        "SyntaxError at line 402: invalid decimal literal"
+      ],
+      "tests\\end_to_end\\complete_system_validation.py": [
+        "Missing test framework import"
+      ],
+      "tests\\integration\\final_reality_check.py": [
+        "Missing test framework import"
+      ],
+      "tests\\integration\\github_bridge_fixes.py": [
+        "SyntaxError at line 19: unterminated string literal (detected at line 19)",
+        "Missing test framework import"
+      ],
+      "tests\\integration\\github_bridge_fixes_clean.py": [
+        "SyntaxError at line 353: unterminated triple-quoted string literal (detected at line 377)",
+        "Missing test framework import"
+      ],
+      "tests\\integration\\production_integration_test.py": [
+        "Missing test framework import"
+      ],
+      "tests\\integration\\queen_remediation_test.py": [
+        "SyntaxError at line 409: unterminated triple-quoted string literal (detected at line 414)"
+      ],
+      "tests\\integration\\reality_check_simple.py": [
+        "SyntaxError at line 272: unterminated triple-quoted string literal (detected at line 346)",
+        "Missing test framework import"
+      ],
+      "tests\\integration\\reality_validation_simple.py": [
+        "SyntaxError at line 345: unterminated triple-quoted string literal (detected at line 361)",
+        "Missing test framework import"
+      ],
+      "tests\\integration\\test_enterprise_domains.py": [
+        "SyntaxError at line 207: unmatched ')'"
+      ],
+      "tests\\integration\\test_enterprise_integration.py": [
+        "SyntaxError at line 3: invalid syntax"
+      ],
+      "tests\\integration\\test_error_handling.py": [
+        "SyntaxError at line 443: unterminated triple-quoted string literal (detected at line 498)"
+      ],
+      "tests\\integration\\test_github_bridge_reality.py": [
+        "SyntaxError at line 412: unterminated triple-quoted string literal (detected at line 470)"
+      ],
+      "tests\\integration\\test_performance_load.py": [
+        "SyntaxError at line 593: unterminated triple-quoted string literal (detected at line 645)"
+      ],
+      "tests\\integration\\test_phase3_distributed_context.py": [
+        "Missing test framework import"
+      ],
+      "tests\\integration\\test_swarm_hierarchy_integration.py": [
+        "Missing test framework import"
+      ],
+      "tests\\integration\\test_tool_coordinator_sandbox.py": [
+        "Missing test framework import"
+      ],
+      "tests\\json_schema_validation\\demo_test_execution.py": [
+        "SyntaxError at line 398: unterminated triple-quoted string literal (detected at line 409)",
+        "Missing test framework import"
+      ],
+      "tests\\json_schema_validation\\test_full_pipeline_integration.py": [
+        "SyntaxError at line 3: invalid syntax"
+      ],
+      "tests\\json_schema_validation\\test_json_schema_validation.py": [
+        "SyntaxError at line 282: invalid decimal literal"
+      ],
+      "tests\\json_schema_validation\\test_risk_mitigation.py": [
+        "SyntaxError at line 449: unterminated triple-quoted string literal (detected at line 521)"
+      ],
+      "tests\\json_schema_validation\\test_runner.py": [
+        "SyntaxError at line 310: unterminated triple-quoted string literal (detected at line 343)"
+      ],
+      "tests\\linter_integration\\test_adapter_patterns.py": [
+        "SyntaxError at line 60: unindent does not match any outer indentation level"
+      ],
+      "tests\\linter_integration\\test_failure_modes.py": [
+        "SyntaxError at line 351: unindent does not match any outer indentation level"
+      ],
+      "tests\\linter_integration\\test_real_linter_validation.py": [
+        "SyntaxError at line 275: expected an indented block after 'except' statement on line 272"
+      ],
+      "tests\\memory_integration\\test_cross_phase_memory.py": [
+        "SyntaxError at line 663: unterminated triple-quoted string literal (detected at line 697)"
+      ],
+      "tests\\ml\\test_integration.py": [
+        "SyntaxError at line 701: unterminated triple-quoted string literal (detected at line 740)"
+      ],
+      "tests\\production\\load_testing_suite.py": [
+        "SyntaxError at line 322: invalid syntax. Perhaps you forgot a comma?"
+      ],
+      "tests\\regression\\performance_regression_suite.py": [
+        "Missing test framework import"
+      ],
+      "tests\\safety\\test_safety_system.py": [
+        "SyntaxError at line 136: invalid decimal literal"
+      ],
+      "tests\\security\\complete_security_validation.py": [
+        "Missing test framework import"
+      ],
+      "tests\\sixsigma\\test_integration.py": [
+        "SyntaxError at line 175: invalid syntax. Perhaps you forgot a comma?"
+      ],
+      "tests\\version_log\\test_import_validation.py": [
+        "Missing test framework import"
+      ],
+      "tests\\version_log\\test_unified_validation.py": [
+        "Missing test framework import"
+      ],
+      "tests\\version_log\\test_version_log_system.py": [
+        "Missing test framework import"
+      ],
+      "tests\\workflow-validation\\comprehensive_validation_report.py": [
+        "SyntaxError at line 2: unexpected indent",
+        "Missing test framework import"
+      ],
+      "tests\\workflow-validation\\json_validation_framework.py": [
+        "Missing test framework import"
+      ],
+      "tests\\workflow-validation\\python_execution_tests.py": [
+        "SyntaxError at line 2: unexpected indent",
+        "Missing test framework import"
+      ],
+      "tests\\workflow-validation\\workflow_test_suite.py": [
+        "SyntaxError at line 3: unexpected indent",
+        "Missing test framework import"
+      ],
+      "tests\\enterprise\\e2e\\test_enterprise_workflows.py": [
+        "SyntaxError at line 3: invalid syntax"
+      ],
+      "tests\\enterprise\\integration\\test_analyzer_integration.py": [
+        "SyntaxError at line 3: invalid syntax"
+      ],
+      "tests\\enterprise\\performance\\test_zero_impact_disabled.py": [
+        "SyntaxError at line 3: invalid syntax"
+      ],
+      "tests\\enterprise\\unit\\test_six_sigma_python.py": [
+        "SyntaxError at line 168: invalid syntax"
+      ],
+      "tests\\enterprise\\unit\\test_six_sigma_telemetry.py": [
+        "SyntaxError at line 253: invalid syntax"
+      ],
+      "tests\\refactored\\batch2\\test_agent_database_builder.py": [
+        "SyntaxError at line 3: '(' was never closed"
+      ],
+      "tests\\refactored\\batch2\\test_deployment_task_builder.py": [
+        "SyntaxError at line 3: '(' was never closed"
+      ],
+      "tests\\refactored\\batch2\\test_dfars_controls_builder.py": [
+        "SyntaxError at line 3: '(' was never closed"
+      ],
+      "tests\\refactored\\batch2\\test_test_pattern_builder.py": [
+        "SyntaxError at line 3: '(' was never closed"
+      ]
+    }
+  },
+  "npm_scripts": {
+    "status": "OK",
+    "total_scripts": 43,
+    "priority_validation": {
+      "test": "OK",
+      "test:ci": "OK",
+      "test:unit": "OK",
+      "test:py": "OK",
+      "build": "OK",
+      "typecheck": "OK",
+      "lint": "OK",
+      "lint:ci": "OK"
+    }
+  },
+  "test_runners": {
+    "status": "OK",
+    "configs": {
+      "jest": "FOUND",
+      "pytest": "FOUND",
+      "tsconfig_test": "FOUND"
+    }
+  },
+  "recommendations": [
+    "Update jest.config.js with testTimeout: 30000",
+    "Add detectOpenHandles: true to Jest config",
+    "Configure maxWorkers: 2 for parallel test execution",
+    "Add bail: true for fast failure detection",
+    "Fix Python test syntax errors before running test:py",
+    "Verify all NPM script references are valid",
+    "Ensure test imports resolve correctly",
+    "Add timeout guards to async test cases"
+  ]
+}

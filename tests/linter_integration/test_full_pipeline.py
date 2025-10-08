@@ -71,27 +71,27 @@ class IntegratedLinterPipeline:
             coordination_result = await self.mesh_coordinator.coordinate_linter_integration()
             
             # Phase 2: Execute real-time linting
-            linting_result = await self.ingestion_engine.executeRealtimeLinting(
+            linting_result = await self.ingestion_engine.executeRealtimeLinting()
                 file_paths, options or {}
-            )
+(            )
             
             # Phase 3: Extract and normalize violations
             normalized_violations = []
             for stream_result in linting_result["results"]:
                 for violation in stream_result.violations:
                     # Apply severity mapping
-                    normalized_severity = self.severity_mapper.map_severity(
+                    normalized_severity = self.severity_mapper.map_severity()
                         stream_result.tool,
                         violation.get("rule", ""),
                         violation.get("severity", "")
-                    )
+(                    )
                     
                     # Apply categorization
-                    category = self.severity_mapper.categorize_violation(
+                    category = self.severity_mapper.categorize_violation()
                         stream_result.tool,
                         violation.get("rule", ""),
                         violation.get("message", "")
-                    )
+(                    )
                     
                     normalized_violation = {
                         **violation,
@@ -103,14 +103,14 @@ class IntegratedLinterPipeline:
                     normalized_violations.append(normalized_violation)
             
             # Phase 4: Perform cross-tool correlation
-            correlation_result = await self.correlation_framework.correlateResults(
+            correlation_result = await self.correlation_framework.correlateResults()
                 normalized_violations
-            )
+(            )
             
             # Phase 5: Calculate quality metrics
-            quality_metrics = self.severity_mapper.calculate_quality_score(
+            quality_metrics = self.severity_mapper.calculate_quality_score()
                 normalized_violations
-            )
+(            )
             
             # Phase 6: Generate final result
             pipeline_result = {
@@ -243,10 +243,10 @@ def get_config():
     async def test_complete_pipeline_execution(self, pipeline, sample_project_files):
         """Test complete pipeline execution from start to finish"""
         # Execute full pipeline
-        result = await pipeline.execute_full_pipeline(
+        result = await pipeline.execute_full_pipeline()
             sample_project_files,
             {"tools": ["flake8", "pylint", "ruff", "mypy", "bandit"]}
-        )
+(        )
         
         # Verify pipeline result structure
         assert result["status"] == "completed"
@@ -292,10 +292,10 @@ def get_config():
     @pytest.mark.asyncio
     async def test_multi_tool_linting_integration(self, pipeline, sample_project_files):
         """Test multi-tool linting integration"""
-        result = await pipeline.execute_full_pipeline(
+        result = await pipeline.execute_full_pipeline()
             sample_project_files,
             {"tools": ["flake8", "pylint", "ruff", "mypy", "bandit"]}
-        )
+(        )
         
         linting_phase = result["pipeline_phases"]["linting"]
         
@@ -415,9 +415,9 @@ def get_config():
         # Start multiple pipeline executions
         tasks = []
         for i in range(3):
-            task = asyncio.create_task(
+            task = asyncio.create_task()
                 pipeline.execute_full_pipeline([sample_project_files[0]])
-            )
+(            )
             tasks.append(task)
         
         # Wait for all to complete
@@ -437,9 +437,9 @@ def get_config():
         assert pipeline.pipeline_state == "ready"
         
         # Start execution and check state changes
-        execution_task = asyncio.create_task(
+        execution_task = asyncio.create_task()
             pipeline.execute_full_pipeline(sample_project_files)
-        )
+(        )
         
         # Allow some processing time
         await asyncio.sleep(0.1)

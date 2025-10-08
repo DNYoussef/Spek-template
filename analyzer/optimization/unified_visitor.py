@@ -1,3 +1,5 @@
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import MAXIMUM_NESTED_DEPTH
 """
 
@@ -21,7 +23,6 @@ except ImportError:
     from pathlib import Path
     sys.path.insert(0, str(Path(__file__).parent.parent.parent))
     from utils.types import ConnascenceViolation
-"""
 
 @dataclass
 class ASTNodeData:

@@ -62,7 +62,6 @@ export interface RuleViolation {
 export class DataValidator extends EventEmitter {
   /**
    * Handles data integrity and consistency validation.
-   *
    * Extracted from ContextValidator (978 LOC -> ~200 LOC component).
    * Handles:
    * - Data integrity verification
@@ -107,7 +106,7 @@ export class DataValidator extends EventEmitter {
         crc = (crc >>> 8) ^ str.charCodeAt(i);
       }
       return (crc ^ (-1)) >>> 0;
-    }.toString());
+    }).toString();
   }
 
   private registerDefaultRules(): void {
@@ -362,10 +361,11 @@ export class DataValidator extends EventEmitter {
           });
         }
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         violations.push({
           ruleId: rule.id,
           ruleName: rule.name,
-          message: `Rule evaluation failed: ${error.message}`,
+          message: `Rule evaluation failed: ${errorMessage}`,
           severity: 'error'
         });
       }

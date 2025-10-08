@@ -2,6 +2,8 @@
 """
 AST-based analyzer orchestrator for god object detection and other complex analysis.
 """
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from pathlib import Path
 from typing import List
@@ -114,8 +116,7 @@ class AnalyzerOrchestrator:
         analyzer = analyzer_class(threshold=threshold)
         return analyzer.analyze_path(path)
 
-    def main():
-        pass
+def main():
     """Main entry point for command-line usage."""
     parser = argparse.ArgumentParser(description="AST-based analyzer orchestrator")
     parser.add_argument("--path", required=True, help="Path to analyze")

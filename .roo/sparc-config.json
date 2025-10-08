@@ -1,8 +1,10 @@
 {
   "name": "SPEK SPARC Configuration",
   "version": "2.0.0",
-  "claudeFlowVersion": "2.0.0-alpha.108",
+  "claudeFlowVersion": "2.5.0-alpha.139",
+  "sdkIntegration": true,
   "enabled": true,
+  "customModes": [],
   "settings": {
     "autoMode": true,
     "defaultMode": "spec",

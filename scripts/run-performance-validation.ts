@@ -1,7 +1,6 @@
 #!/usr/bin/env tsx
 /**
  * Phase 4 Step 8: CI/CD Performance Validation Runner
- *
  * Executes comprehensive performance validation for the complete
  * Phase 4 CI/CD enhancement system with <2% overhead constraint.
  */

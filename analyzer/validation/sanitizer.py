@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 Data Sanitization Engine
 Sanitizes and cleans input data for security.
@@ -10,6 +13,7 @@ from dataclasses import dataclass
 from enum import Enum
 import html
 import urllib.parse
+from pathlib import Path
 
 class SanitizationType(Enum):
     """Types of sanitization."""

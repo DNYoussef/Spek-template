@@ -1,4 +1,4 @@
-from src.constants.base import API_TIMEOUT_SECONDS
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
 
 """
 Unified Connascence Analyzer - Migration Layer
@@ -18,6 +18,12 @@ PHASE 3.2 MIGRATION:
 import logging
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
+
+# Import constants after other imports
+try:
+    from src.constants.base import API_TIMEOUT_SECONDS
+except ImportError:
+    API_TIMEOUT_SECONDS = 30  # Default fallback
 
 from .utils.result_builders import (
     build_fallback_result, create_integration_error

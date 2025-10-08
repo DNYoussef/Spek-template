@@ -1,6 +1,5 @@
 /**
  * Princess Base Class
- *
  * Abstract base class providing common functionality for all Princess agents.
  * Handles core lifecycle, audit gates, context management, and communication protocols.
  */
@@ -77,16 +76,16 @@ export abstract class PrincessBase extends EventEmitter {
    * Setup audit event listeners
    */
   protected setupAuditListeners(): void {
-    this.auditGate.on('audit:work_rejected', async (data) => {
+    this.auditGate.on('audit:work_rejected', async (data: unknown) => {
       console.log(`[${this.domainName}] Work rejected for ${data.subagentId}`);
       await this.sendWorkBackToSubagent(data.subagentId, data.auditResult);
     });
 
-    this.auditGate.on('completion:recorded', (result) => {
+    this.auditGate.on('completion:recorded', (result: unknown) => {
       console.log(`[${this.domainName}] Completion recorded: ${result.issueId}`);
     });
 
-    this.auditGate.on('audit:theater_found', (detection) => {
+    this.auditGate.on('audit:theater_found', (detection: unknown) => {
       console.log(`[${this.domainName}] Theater detected! Immediate action required.`);
     });
   }
@@ -255,7 +254,7 @@ export abstract class PrincessBase extends EventEmitter {
 
   // ===== SwarmQueen Compatibility Methods =====
 
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     console.log(`[${this.domainName}] Princess initializing...`);
   }
 

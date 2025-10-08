@@ -1,3 +1,6 @@
+import logging
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 Dependency Injection Container - Eliminates Connascence of Name and Construction
 ===============================================================================
@@ -230,7 +233,7 @@ def inject(**dependencies):
     """
     def decorator(func):
         @wraps(func)
-    def wrapper(*args, **kwargs):
+        def wrapper(*args, **kwargs):
             container = get_container()
             
             # Inject dependencies
@@ -285,7 +288,7 @@ class Injectable:
             setattr(self, name, value)
 
 # Service registration decorators
-    def singleton(name: Optional[str] = None):
+def singleton(name: Optional[str] = None):
     """
     Decorator to register a class as a singleton service.
     
@@ -299,23 +302,23 @@ class Injectable:
         return cls
     return decorator
 
-    def service(name: Optional[str] = None):
+def service(name: Optional[str] = None):
     """
     Decorator to register a class as a transient service.
-    
+
     Args:
         name: Optional service name (defaults to lowercase class name)
     """
     def decorator(cls):
         service_name = name or cls.__name__.lower()
-        get_container().register_type(service_name, cls)
+        get_container().register(service_name, cls, singleton=False)
         return cls
     return decorator
 
-    def factory(name: str):
+def factory(name: str):
     """
     Decorator to register a function as a service factory.
-    
+
     Args:
         name: Service name
     """
@@ -348,10 +351,10 @@ class ContainerScope:
         _container = self.original_container
 
 # Utility functions for common patterns
-    def resolve(service_name: str) -> Any:
+def resolve(service_name: str) -> Any:
     """Resolve a service by name."""
     return get_container().get(service_name)
 
-    def resolve_interface(interface: Type[T]) -> T:
+def resolve_interface(interface: Type[T]) -> T:
     """Resolve a service by interface type."""
     return get_container().get_interface(interface)

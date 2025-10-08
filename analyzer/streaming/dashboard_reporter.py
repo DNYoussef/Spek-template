@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH, MINIMUM_TEST_COVERAGE_PERCENTAGE
 """
 
@@ -11,6 +14,8 @@ NASA Rule 7 Compliant: Bounded data structures with automatic cleanup.
 import json
 import time
 import logging
+from dataclasses import asdict
+
 logger = logging.getLogger(__name__)
 
 @dataclass

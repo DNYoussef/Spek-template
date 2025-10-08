@@ -347,11 +347,11 @@ class SecurityComplianceValidator:
         
         # Simulate some violations for realistic testing
         if len(python_files) > 500:
-            violations_found.append({
+            violations_found.append({)
                 'rule': 'file_size_limit',
                 'severity': 'medium',
                 'message': 'Some files exceed recommended size limits'
-            })
+(            })
         
         return {
             'compliance_type': 'nasa_pot10',

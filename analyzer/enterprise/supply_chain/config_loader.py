@@ -1,3 +1,5 @@
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
 import os
@@ -285,7 +287,7 @@ class SupplyChainConfigLoader:
             'priority': 'normal',
             'performance_monitoring': {
                 'enabled': True,
-                'baseline_duration': MAXIMUM_FUNCTION_PARAMETERS.0,
+                'baseline_duration': float(MAXIMUM_FUNCTION_PARAMETERS),
                 'alert_threshold': 2.0
             }
         }
@@ -400,7 +402,7 @@ class SupplyChainConfigLoader:
                 'priority': 'normal',
                 'performance_monitoring': {
                     'enabled': True,
-                    'baseline_duration': MAXIMUM_FUNCTION_PARAMETERS.0,
+                    'baseline_duration': float(MAXIMUM_FUNCTION_PARAMETERS),
                     'alert_threshold': 2.0
                 },
                 'quality_gates': {
@@ -548,6 +550,6 @@ class SupplyChainConfigLoader:
             'enable_parallel_processing': sc_config.get('enable_parallel_processing', True),
             'max_workers': sc_config.get('max_workers', 4),
             'timeout_seconds': sc_config.get('timeout_seconds', 300),
-            'baseline_duration': integration_config.get('performance_monitoring', {}).get('baseline_duration', MAXIMUM_FUNCTION_PARAMETERS.0),
+            'baseline_duration': integration_config.get('performance_monitoring', {}).get('baseline_duration', float(MAXIMUM_FUNCTION_PARAMETERS)),
             'alert_threshold': integration_config.get('performance_monitoring', {}).get('alert_threshold', 2.0)
         }

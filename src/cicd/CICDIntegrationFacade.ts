@@ -38,13 +38,46 @@ export interface CICDStatus {
   };
 }
 
+// Additional types for quality-gates integration
+export interface CICDIntegrationConfig {
+  enabled: boolean;
+  pipelineDefaults?: Partial<Pipeline>;
+  testDefaults?: Partial<TestConfig>;
+  deploymentDefaults?: Partial<DeploymentTarget>;
+}
+
+export interface CICDPipelineExecution {
+  pipelineId: string;
+  runId: string;
+  status: 'running' | 'success' | 'failure' | 'cancelled';
+  startTime: Date;
+  endTime?: Date;
+  stages: PipelineStage[];
+}
+
+export interface QualityGateIntegration {
+  enabled: boolean;
+  gateId: string;
+  checkpoints: Array<{
+    stage: string;
+    gate: string;
+    required: boolean;
+  }>;
+}
+
+export interface DeploymentConfig {
+  targetName: string;
+  strategy: DeploymentStrategy;
+  rollbackEnabled: boolean;
+  healthCheckUrl?: string;
+  timeout: number;
+}
+
 export class CICDIntegration extends EventEmitter {
   /**
    * Facade for CI/CD Integration System.
-   *
    * Original: 985 LOC god object
    * Refactored: ~150 LOC facade + 3 specialized components (~650 LOC total)
-   *
    * Maintains 100% backward compatibility while delegating to:
    * - PipelineManager: CI/CD pipeline orchestration
    * - TestRunner: Test execution and reporting

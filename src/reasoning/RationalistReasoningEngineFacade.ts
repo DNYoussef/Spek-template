@@ -5,7 +5,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { ReasoningCore, Hypothesis, Evidence, Argument, BeliefState } from './core/ReasoningCore';
+// TODO(Phase 4): Implement core module - import { ReasoningCore, Hypothesis, Evidence, Argument, BeliefState } from './core/ReasoningCore';
 import { InferenceEngine, Proposition, InferenceRule, InferenceResult } from './core/InferenceEngine';
 import { DecisionMaker, Option, Decision, DecisionCriteria } from './core/DecisionMaker';
 
@@ -27,10 +27,8 @@ export interface ReasoningOptions {
 export class RationalistReasoningEngine extends EventEmitter {
   /**
    * Facade for Rationalist Reasoning Engine.
-   *
    * Original: 1,061 LOC god object
    * Refactored: ~150 LOC facade + 3 specialized components (~550 LOC total)
-   *
    * Maintains 100% backward compatibility while delegating to:
    * - ReasoningCore: Hypothesis formation and Bayesian updating
    * - InferenceEngine: Logical inference and deduction

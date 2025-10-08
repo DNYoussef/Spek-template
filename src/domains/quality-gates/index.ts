@@ -1,6 +1,5 @@
 /**
  * Quality Gates Domain - Export Index
- * 
  * Comprehensive quality gates enforcement system with Six Sigma metrics,
  * automated decisions, NASA POT10 compliance, and enterprise integration.
  */
@@ -95,7 +94,7 @@ export type {
   CICDPipelineExecution,
   QualityGateIntegration,
   DeploymentConfig
-} from './integrations/CICDIntegration';
+} from '../../cicd/CICDIntegrationFacade';
 
 // Performance Overhead Validation
 export { PerformanceOverheadValidator } from './monitoring/PerformanceOverheadValidator';
@@ -108,7 +107,6 @@ export type {
 
 /**
  * Quality Gates Domain Factory
- * 
  * Creates a fully configured quality gates system with all components
  * integrated and configured according to enterprise requirements.
  */
@@ -281,12 +279,12 @@ export class QualityGatesDomain {
    */
   private setupIntegrations(): void {
     // Engine -> Dashboard integration
-    this.engine.on('gate-completed', async (result) => {
+    this.engine.on('gate-completed', async (result: unknown) => {
       await this.dashboard.updateGateResult(result);
     });
 
     // Engine -> Overhead Validator integration
-    this.engine.on('gate-completed', async (result) => {
+    this.engine.on('gate-completed', async (result: unknown) => {
       if (result.executionTime) {
         await this.overheadValidator.measureQualityGateOverhead(
           'quality-gate',
@@ -297,7 +295,7 @@ export class QualityGatesDomain {
     });
 
     // Artifact Integration -> Engine integration
-    this.artifactIntegration.on('artifact-validated', async (metrics) => {
+    this.artifactIntegration.on('artifact-validated', async (metrics: unknown) => {
       // Convert artifact metrics to quality gate format and trigger validation
       const gateResult = await this.engine.executeQualityGate(
         `artifact-${metrics.artifactId}`,
@@ -307,7 +305,7 @@ export class QualityGatesDomain {
     });
 
     // CI/CD Integration -> Engine integration
-    this.cicdIntegration.on('quality-gate-validation-triggered', async (event) => {
+    this.cicdIntegration.on('quality-gate-validation-triggered', async (event: unknown) => {
       const gateResult = await this.engine.executeQualityGate(
         event.executionId,
         [], // Would populate with actual artifacts
@@ -334,13 +332,13 @@ export class QualityGatesDomain {
     });
 
     // Overhead Validator -> Dashboard integration
-    this.overheadValidator.on('overhead-measured', (measurement) => {
+    this.overheadValidator.on('overhead-measured', (measurement: unknown) => {
       // Update dashboard with overhead metrics
       this.dashboard.emit('overhead-metrics-updated', measurement);
     });
 
     // Overhead Validator -> Engine integration (budget enforcement)
-    this.overheadValidator.on('overhead-violation', (violation) => {
+    this.overheadValidator.on('overhead-violation', (violation: unknown) => {
       if (violation.severity === 'critical') {
         // Temporarily disable non-essential quality gates to reduce overhead
         this.engine.emit('overhead-critical', violation);

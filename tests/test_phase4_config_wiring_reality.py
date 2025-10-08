@@ -1,5 +1,7 @@
 from lib.shared.utilities import path_exists
+import pytest
 
+"""
 CRITICAL TEST: Proves that detectors use REAL configuration values, not hardcoded defaults.
 This test validates that changing YAML config files changes actual detector behavior.
 
@@ -24,7 +26,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from analyzer.utils.config_manager import ConfigurationManager, get_config_manager, reset_config_manager
 from analyzer.detectors.position_detector import PositionDetector
 from analyzer.detectors.magic_literal_detector import MagicLiteralDetector
-"""
 
 class ConfigWiringRealityTest:
     """

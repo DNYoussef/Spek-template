@@ -23,21 +23,21 @@ import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent.parent.parent / 'src'))
 
-from enterprise.telemetry.six_sigma import (
+from enterprise.telemetry.six_sigma import ()
     SixSigmaTelemetry, SixSigmaMetrics, QualityLevel
-)
+()
 
 class TestSixSigmaMetrics:
     """Test SixSigmaMetrics dataclass"""
     
     def test_metrics_creation(self):
         """Test basic metrics creation"""
-        metrics = SixSigmaMetrics(
+        metrics = SixSigmaMetrics()
             dpmo=100.0,
             rty=95.5,
             sigma_level=4.5,
             process_capability=1.33
-        )
+(        )
         
         assert metrics.dpmo == 100.0
         assert metrics.rty == 95.5

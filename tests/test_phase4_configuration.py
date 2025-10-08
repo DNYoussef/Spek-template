@@ -1,5 +1,6 @@
 from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
+"""
 Comprehensive tests that prove configuration system actually affects analyzer behavior.
 Tests YAML loading, detector threshold control, NASA POT10 compliance, and Six Sigma metrics.
 
@@ -25,7 +26,6 @@ from analyzer.utils.config_manager import ConfigurationManager, get_config_manag
 from analyzer.detectors.position_detector import PositionDetector
 from analyzer.detectors.magic_literal_detector import MagicLiteralDetector
 from analyzer.unified_analyzer import UnifiedConnascenceAnalyzer
-"""
 
 class TestPhase4ConfigurationReality(unittest.TestCase):
     """Test that configuration system actually controls analyzer behavior."""
@@ -191,7 +191,7 @@ class LargeClass:
         config = {
             'sixSigma': {
                 'targetSigma': 4.0,
-                'sigmaShift': 1.MAXIMUM_NESTED_DEPTH,
+                'sigmaShift': 1.5,
                 'performanceThreshold': 1.2
             },
             'quality': {
@@ -428,7 +428,9 @@ class LargeClass:
                 if test_func():
                     passed_tests += 1
                 else:
+                    pass
             except Exception as e:
+                pass
 
         reality_score = (passed_tests / total_tests) * 100
 

@@ -1,0 +1,9 @@
+
+=== AST Assertion Fixer Report ===
+Mode: DRY RUN
+Files processed: 8
+Files fixed: 8
+Functions fixed: 0
+Assertions relocated: 0
+
+Top Fixed Files:

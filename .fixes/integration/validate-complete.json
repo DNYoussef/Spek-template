@@ -1,0 +1,49 @@
+{
+  "stage": "Validate",
+  "files_processed": 20,
+  "files_fixed": 6,
+  "files_remaining": 14,
+  "errors": [
+    {
+      "file": "tests\\integration\\integration_test_suite.py",
+      "error": "unterminated triple-quoted string literal (detected at line 889) (line 748)"
+    },
+    {
+      "file": "tests\\integration\\queen_remediation_test.py",
+      "error": "unexpected indent (line 269)"
+    },
+    {
+      "file": "tests\\integration\\reality_check_simple.py",
+      "error": "unterminated triple-quoted string literal (detected at line 348) (line 274)"
+    },
+    {
+      "file": "tests\\integration\\reality_validation_simple.py",
+      "error": "unterminated triple-quoted string literal (detected at line 363) (line 347)"
+    },
+    {
+      "file": "tests\\integration\\simplified_integration_test.py",
+      "error": "unexpected indent (line 420)"
+    },
+    {
+      "file": "tests\\integration\\test_enterprise_domains.py",
+      "error": "unmatched ')' (line 175)"
+    },
+    {
+      "file": "tests\\integration\\test_enterprise_integration.py",
+      "error": "unterminated string literal (detected at line 220) (line 220)"
+    },
+    {
+      "file": "tests\\integration\\test_error_handling.py",
+      "error": "unindent does not match any outer indentation level (line 45)"
+    },
+    {
+      "file": "tests\\integration\\test_github_bridge_reality.py",
+      "error": "unterminated triple-quoted string literal (detected at line 470) (line 412)"
+    },
+    {
+      "file": "tests\\integration\\test_performance_load.py",
+      "error": "unmatched ')' (line 138)"
+    }
+  ],
+  "timestamp": "2025-09-30T21:59:39.995234+00:00"
+}

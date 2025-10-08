@@ -1,0 +1,19 @@
+{
+  "fault_detection": {
+    "avg_time_ms": 32.080430001951754,
+    "compliant": true
+  },
+  "fail_safe_activation": {
+    "avg_time_ms": 61.831425002310425,
+    "compliant": true
+  },
+  "availability": {
+    "percentage": 100.0,
+    "compliant": true
+  },
+  "redundancy": {
+    "avg_coverage_percent": 66.66666666666666,
+    "compliant": false
+  },
+  "overall_compliant": false
+}

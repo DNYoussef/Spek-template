@@ -1,3 +1,5 @@
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 ConfigurationManager - Extracted from UnifiedConnascenceAnalyzer
 Handles configuration loading, validation, and monitoring setup

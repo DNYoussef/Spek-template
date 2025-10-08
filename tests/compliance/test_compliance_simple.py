@@ -94,13 +94,13 @@ async def test_compliance_infrastructure():
                 "status": "success", 
                 "assessment_timestamp": datetime.now().isoformat(),
                 "controls_assessed": 15,
-                "overall_compliance_score": 78.MAXIMUM_NESTED_DEPTH
+                "overall_compliance_score": 78.5
             },
             "NIST-SSDF": {
                 "status": "success",
                 "analysis_timestamp": datetime.now().isoformat(),
                 "practices_assessed": 12,
-                "overall_compliance_score": 72.MAXIMUM_RETRY_ATTEMPTS,
+                "overall_compliance_score": 72.3,
                 "implementation_tier": {"overall_implementation_tier": 2}
             }
         }

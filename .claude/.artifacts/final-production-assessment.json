@@ -1,0 +1,87 @@
+{
+  "timestamp": "2025-09-29T14:47:45.240Z",
+  "duration": 33.8,
+  "overallScore": 72.08,
+  "readinessLevel": "DEVELOPMENT READY",
+  "assessment": {
+    "typescript": {
+      "status": "pass",
+      "score": 100,
+      "details": {
+        "errors": 0,
+        "warnings": 0,
+        "exitCode": 2
+      }
+    },
+    "linting": {
+      "status": "fail",
+      "score": 0,
+      "details": {
+        "errors": 1067,
+        "warnings": 1633,
+        "total": 2700
+      }
+    },
+    "tests": {
+      "status": "pass",
+      "score": 0,
+      "details": {
+        "passed": 0,
+        "failed": 0,
+        "total": 0,
+        "passRate": "0.0%"
+      }
+    },
+    "nasa": {
+      "status": "warn",
+      "score": 73.2,
+      "details": {
+        "complianceRate": "73.2%",
+        "target": "90%+",
+        "gap": 16.799999999999997
+      }
+    },
+    "security": {
+      "status": "pass",
+      "score": 100,
+      "details": {
+        "banditVulnerabilities": 0,
+        "codeVulnerabilities": 0,
+        "totalVulnerabilities": 0
+      }
+    },
+    "build": {
+      "status": "pass",
+      "score": 100,
+      "details": {
+        "exitCode": 0,
+        "buildSuccess": true,
+        "buildTime": "N/A"
+      }
+    },
+    "architecture": {
+      "status": "fail",
+      "score": 22,
+      "details": {
+        "totalFiles": 1902,
+        "averageFileSize": 46.17665615141956,
+        "godObjectCount": 39,
+        "facadePattern": 119,
+        "modularityScore": 22
+      }
+    }
+  },
+  "recommendations": [
+    {
+      "priority": "MEDIUM",
+      "category": "Code Quality",
+      "issue": "1067 linting errors",
+      "action": "Reduce linting errors to improve code maintainability"
+    }
+  ],
+  "metadata": {
+    "nodeVersion": "v20.17.0",
+    "platform": "win32",
+    "cwd": "C:\\Users\\17175\\Desktop\\spek template"
+  }
+}

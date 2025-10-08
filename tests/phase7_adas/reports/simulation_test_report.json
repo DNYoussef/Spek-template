@@ -1,0 +1,24 @@
+{
+  "test_configuration": {
+    "time_step_ms": 50,
+    "simulation_duration_s": 60.0,
+    "vehicle_dynamics": {
+      "max_acceleration_mps2": 3.0,
+      "max_deceleration_mps2": 8.0,
+      "max_steering_angle_deg": 45.0,
+      "wheelbase_m": 2.8
+    },
+    "sensor_ranges": {
+      "camera": 150.0,
+      "lidar": 200.0,
+      "radar": 250.0,
+      "ultrasonic": 5.0
+    }
+  },
+  "total_scenarios": 0,
+  "passed_scenarios": 0,
+  "failed_scenarios": 0,
+  "scenario_results": [],
+  "summary_metrics": {},
+  "timestamp": 1759203585.0253522
+}

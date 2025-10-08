@@ -1,6 +1,6 @@
 from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES
-"""
 
+"""
 Comprehensive validation testing for Strategy Pattern + Rule Engine refactoring.
 Tests strategy interface compliance, validation engine workflow, and rule engine evaluation.
 """
@@ -12,7 +12,6 @@ from typing import Any, Dict, List, Optional, Union
 from dataclasses import dataclass
 from pathlib import Path
 import sys
-"""
 
 # Add project root to path for imports
 sys.path.append(str(Path(__file__).parent.parent.parent))

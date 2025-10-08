@@ -1,3 +1,5 @@
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 """This module provides the component integration methods that connect
@@ -5,6 +7,8 @@ the UnifiedAnalyzer with the ComponentIntegrator for seamless operation.
 """
 
 import logging
+from pathlib import Path
+
 logger = logging.getLogger(__name__)
 
 class AnalyzerIntegrationMixin:
@@ -268,8 +272,7 @@ class AnalyzerIntegrationMixin:
             "duplication_percentage": duplication_percentage
         }
 
-    def integrate_unified_analyzer_with_components(analyzer_class):
-        pass
+def integrate_unified_analyzer_with_components(analyzer_class):
     """
     Class decorator to integrate UnifiedAnalyzer with component integrator.
 

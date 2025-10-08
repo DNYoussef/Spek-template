@@ -1,0 +1,70 @@
+{
+  "timestamp": "2025-09-29T14:39:49.813Z",
+  "duration": 34.7,
+  "results": {
+    "typescript": {
+      "status": "pass",
+      "errors": 0
+    },
+    "linting": {
+      "status": "fail",
+      "warnings": 6110
+    },
+    "tests": {
+      "status": "pass",
+      "passed": 1,
+      "failed": 0
+    },
+    "nasa": {
+      "status": "pass",
+      "compliance": 72.1
+    },
+    "security": {
+      "status": "pass",
+      "vulnerabilities": 0
+    },
+    "build": {
+      "status": "pass",
+      "success": true
+    }
+  },
+  "checks": [
+    {
+      "name": "TypeScript",
+      "status": "pass",
+      "detail": "0 errors"
+    },
+    {
+      "name": "Linting",
+      "status": "fail",
+      "detail": "6110 issues"
+    },
+    {
+      "name": "Tests",
+      "status": "pass",
+      "detail": "1 passed, 0 failed"
+    },
+    {
+      "name": "NASA Rule 10",
+      "status": "pass",
+      "detail": "72.1% compliant"
+    },
+    {
+      "name": "Security",
+      "status": "pass",
+      "detail": "0 vulnerabilities"
+    },
+    {
+      "name": "Build",
+      "status": "pass",
+      "detail": "Success"
+    }
+  ],
+  "summary": {
+    "passCount": 5,
+    "warnCount": 0,
+    "failCount": 1
+  },
+  "overallScore": 83.3,
+  "productionReady": false
+}

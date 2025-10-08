@@ -7,6 +7,8 @@ Analysis Constants and Thresholds
 Centralized constants for all analysis thresholds to eliminate magic numbers
 and ensure consistency across the codebase.
 """
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 # Core constants defined here to avoid circular imports
 MAXIMUM_FILE_LENGTH_LINES = 500

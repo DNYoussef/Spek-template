@@ -42,7 +42,7 @@ export class ConsensusCoordinator extends EventEmitter {
   /**
    * Initialize consensus system with princesses
    */
-  async initialize(princesses: Map<string, HivePrincess>): Promise<void> {
+  async initializeComponent(princesses: Map<string, HivePrincess>): Promise<void> {
     console.log(' Initializing Consensus Coordinator...');
 
     this.consensus = new PrincessConsensus(princesses);
@@ -84,13 +84,13 @@ export class ConsensusCoordinator extends EventEmitter {
    * Setup event handlers for consensus system
    */
   private setupEventHandlers(): void {
-    this.consensus.on('consensus:reached', (result) => {
+    this.consensus.on('consensus:reached', (result: unknown) => {
       this.metrics.successfulConsensus++;
       this.updateSuccessRate();
       this.emit('consensus:reached', result);
     });
 
-    this.consensus.on('consensus:failed', (failure) => {
+    this.consensus.on('consensus:failed', (failure: unknown) => {
       this.metrics.failedConsensus++;
       this.updateSuccessRate();
       this.emit('consensus:failed', failure);

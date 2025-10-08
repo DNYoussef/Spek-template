@@ -1,3 +1,5 @@
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 MonitoringManager - Extracted from UnifiedConnascenceAnalyzer
 Handles memory monitoring and resource management

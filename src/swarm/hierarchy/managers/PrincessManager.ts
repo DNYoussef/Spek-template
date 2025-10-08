@@ -27,7 +27,7 @@ export class PrincessManager extends EventEmitter {
   /**
    * Initialize all princess instances
    */
-  async initialize(): Promise<void> {
+  async initializeComponent(): Promise<void> {
     console.log(' Initializing Princess Manager...');
 
     // Create princess configurations

@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 Input Validation Engine
 Comprehensive input validation and sanitization.
@@ -10,6 +13,7 @@ import re
 from dataclasses import dataclass
 from enum import Enum
 import html
+from pathlib import Path
 
 class ValidationType(Enum):
     """Types of validation."""

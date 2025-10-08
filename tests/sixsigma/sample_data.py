@@ -244,8 +244,8 @@ def run_sample_scenarios():
     
     for name, result in results.items():
         status = "PASS" if result['sigma_level'] >= 3.0 else "FAIL"
-        print(f"{name:<20} {result['dpmo']:<10,.0f} {result['rty']:<8.1%} "
-                f"{result['sigma_level']:<8.1f} {result['total_defects']:<8} {status:<8}")
+        print(f"{name:<20} {result['dpmo']:<10,.0f} {result['rty']:<8.1%} ")
+(                f"{result['sigma_level']:<8.1f} {result['total_defects']:<8} {status:<8}")
     
     return results
 

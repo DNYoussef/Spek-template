@@ -3,4 +3,338 @@
  * Tests King's meta-logic patterns integration
  */
 
-import { KingLogicAdapter, ShardedTask } from '../../../src/swarm/queen/KingLogicAdapter';\nimport { MECEDistributor } from '../../../src/swarm/queen/MECEDistributor';\nimport { Task, TaskPriority } from '../../../src/swarm/types/task.types';\nimport { PrincessDomain } from '../../../src/swarm/hierarchy/types';\n\ndescribe('King Logic Integration Tests', () => {\n  let kingLogic: KingLogicAdapter;\n  let meceDistributor: MECEDistributor;\n\n  beforeEach(() => {\n    kingLogic = new KingLogicAdapter();\n    meceDistributor = new MECEDistributor();\n  });\n\n  describe('Task Complexity Analysis', () => {\n    it('should calculate complexity correctly for simple tasks', () => {\n      const task: Task = {\n        id: 'simple-task',\n        name: 'Simple feature',\n        description: 'Add a button',\n        domain: PrincessDomain.DEVELOPMENT,\n        files: ['src/button.tsx'],\n        estimatedLOC: 50,\n        priority: TaskPriority.LOW\n      };\n\n      const complexity = kingLogic.analyzeTaskComplexity(task);\n      expect(complexity).toBeLessThan(100); // Should be below sharding threshold\n    });\n\n    it('should calculate high complexity for complex tasks', () => {\n      const task: Task = {\n        id: 'complex-task',\n        name: 'Complex feature',\n        description: 'Build entire authentication system',\n        domain: PrincessDomain.SECURITY,\n        files: [\n          'src/auth/login.tsx',\n          'src/auth/register.tsx',\n          'src/auth/middleware.ts',\n          'src/auth/tokens.ts',\n          'src/auth/validation.ts'\n        ],\n        estimatedLOC: 2000,\n        dependencies: ['jwt', 'bcrypt', 'redis'],\n        priority: TaskPriority.CRITICAL\n      };\n\n      const complexity = kingLogic.analyzeTaskComplexity(task);\n      expect(complexity).toBeGreaterThan(100); // Should exceed sharding threshold\n    });\n  });\n\n  describe('Task Sharding', () => {\n    it('should determine sharding necessity correctly', () => {\n      const simpleTask: Task = {\n        id: 'simple',\n        name: 'Simple task',\n        description: 'Small change',\n        domain: PrincessDomain.DEVELOPMENT,\n        files: ['src/component.tsx'],\n        estimatedLOC: 30\n      };\n\n      const complexTask: Task = {\n        id: 'complex',\n        name: 'Complex task',\n        description: 'Major feature',\n        domain: PrincessDomain.DEVELOPMENT,\n        files: Array.from({ length: 10 }, (_, i) => `src/file${i}.tsx`),\n        estimatedLOC: 1500,\n        dependencies: ['dep1', 'dep2', 'dep3']\n      };\n\n      expect(kingLogic.shouldShardTask(simpleTask)).toBe(false);\n      expect(kingLogic.shouldShardTask(complexTask)).toBe(true);\n    });\n\n    it('should create appropriate shards for complex tasks', () => {\n      const task: Task = {\n        id: 'shardable-task',\n        name: 'Large feature',\n        description: 'Multi-component feature',\n        domain: PrincessDomain.DEVELOPMENT,\n        files: [\n          'src/components/Header.tsx',\n          'src/components/Footer.tsx',\n          'src/components/Sidebar.tsx',\n          'src/services/api.ts',\n          'src/services/auth.ts',\n          'src/utils/helpers.ts'\n        ],\n        estimatedLOC: 1200,\n        dependencies: ['react', 'axios']\n      };\n\n      const shards = kingLogic.shardTask(task);\n\n      expect(shards.length).toBeGreaterThan(1);\n      expect(shards.length).toBeLessThanOrEqual(6); // Max 6 shards (one per Princess)\n\n      // Verify shard structure\n      shards.forEach((shard, index) => {\n        expect(shard.originalTaskId).toBe(task.id);\n        expect(shard.shardId).toBe(`${task.id}-shard-${index}`);\n        expect(shard.shardIndex).toBe(index);\n        expect(shard.totalShards).toBe(shards.length);\n        expect(Object.values(PrincessDomain)).toContain(shard.domain);\n      });\n\n      // Verify all files are covered\n      const allShardFiles = shards.flatMap(shard => shard.subtask.files || []);\n      expect(allShardFiles.sort()).toEqual(task.files!.sort());\n    });\n  });\n\n  describe('Intelligent Routing', () => {\n    it('should route tasks to appropriate domains based on content', () => {\n      const testTask: Task = {\n        id: 'test-task',\n        name: 'Testing task',\n        description: 'Add unit tests for authentication',\n        domain: PrincessDomain.DEVELOPMENT,\n        files: ['src/auth.test.ts', 'src/auth.spec.ts']\n      };\n\n      const configTask: Task = {\n        id: 'config-task',\n        name: 'Configuration task',\n        description: 'Update deployment configuration',\n        domain: PrincessDomain.DEVELOPMENT,\n        files: ['config/deploy.json', 'docker-compose.yml']\n      };\n\n      const securityTask: Task = {\n        id: 'security-task',\n        name: 'Security task',\n        description: 'Implement authentication middleware',\n        domain: PrincessDomain.DEVELOPMENT,\n        files: ['src/middleware/auth.ts']\n      };\n\n      expect(kingLogic.routeTaskToPrincess(testTask)).toBe(PrincessDomain.QUALITY);\n      expect(kingLogic.routeTaskToPrincess(configTask)).toBe(PrincessDomain.INFRASTRUCTURE);\n      expect(kingLogic.routeTaskToPrincess(securityTask)).toBe(PrincessDomain.SECURITY);\n    });\n  });\n\n  describe('Multi-Agent Coordination', () => {\n    it('should distribute tasks across Princess domains', async () => {\n      const tasks: Task[] = [\n        {\n          id: 'dev-task',\n          name: 'Development',\n          description: 'Build component',\n          domain: PrincessDomain.DEVELOPMENT,\n          files: ['src/component.tsx']\n        },\n        {\n          id: 'test-task',\n          name: 'Testing',\n          description: 'Test component',\n          domain: PrincessDomain.QUALITY,\n          files: ['src/component.test.ts']\n        },\n        {\n          id: 'doc-task',\n          name: 'Documentation',\n          description: 'Document API',\n          domain: PrincessDomain.RESEARCH,\n          files: ['docs/api.md']\n        }\n      ];\n\n      const distribution = await kingLogic.coordinateMultipleAgents(tasks, 3);\n\n      expect(distribution.size).toBeGreaterThan(0);\n      expect(distribution.has(PrincessDomain.DEVELOPMENT)).toBe(true);\n      expect(distribution.has(PrincessDomain.QUALITY)).toBe(true);\n      expect(distribution.has(PrincessDomain.RESEARCH)).toBe(true);\n\n      // Verify all tasks are distributed\n      let totalDistributedTasks = 0;\n      distribution.forEach(domainTasks => {\n        totalDistributedTasks += domainTasks.length;\n      });\n      expect(totalDistributedTasks).toBeGreaterThanOrEqual(tasks.length);\n    });\n  });\n\n  describe('MECE Validation', () => {\n    it('should validate mutually exclusive tasks', () => {\n      const tasks: Task[] = [\n        {\n          id: 'task1',\n          name: 'Task 1',\n          description: 'Edit file A',\n          domain: PrincessDomain.DEVELOPMENT,\n          files: ['src/fileA.ts']\n        },\n        {\n          id: 'task2',\n          name: 'Task 2',\n          description: 'Edit file B',\n          domain: PrincessDomain.DEVELOPMENT,\n          files: ['src/fileB.ts']\n        }\n      ];\n\n      const validation = kingLogic.validateMECEDistribution(tasks);\n      expect(validation.valid).toBe(true);\n      expect(validation.overlaps).toHaveLength(0);\n      expect(validation.gaps).toHaveLength(0);\n    });\n\n    it('should detect overlapping tasks', () => {\n      const tasks: Task[] = [\n        {\n          id: 'task1',\n          name: 'Task 1',\n          description: 'Edit shared file',\n          domain: PrincessDomain.DEVELOPMENT,\n          files: ['src/shared.ts']\n        },\n        {\n          id: 'task2',\n          name: 'Task 2',\n          description: 'Also edit shared file',\n          domain: PrincessDomain.QUALITY,\n          files: ['src/shared.ts'] // Overlap!\n        }\n      ];\n\n      const validation = kingLogic.validateMECEDistribution(tasks);\n      expect(validation.valid).toBe(false);\n      expect(validation.overlaps.length).toBeGreaterThan(0);\n      expect(validation.overlaps[0]).toContain('src/shared.ts');\n    });\n  });\n\n  describe('Meta-Logic Configuration', () => {\n    it('should allow configuration of meta-logic features', () => {\n      const initialStatus = kingLogic.getMetaLogicStatus();\n      expect(initialStatus.taskSharding).toBe(true);\n\n      kingLogic.configureMetaLogic({\n        taskSharding: false,\n        adaptiveCoordination: false\n      });\n\n      const updatedStatus = kingLogic.getMetaLogicStatus();\n      expect(updatedStatus.taskSharding).toBe(false);\n      expect(updatedStatus.adaptiveCoordination).toBe(false);\n      expect(updatedStatus.meceDistribution).toBe(true); // Should remain unchanged\n    });\n\n    it('should respect disabled features', () => {\n      kingLogic.configureMetaLogic({ taskSharding: false });\n\n      const complexTask: Task = {\n        id: 'complex',\n        name: 'Complex task',\n        description: 'Should not be sharded',\n        domain: PrincessDomain.DEVELOPMENT,\n        files: Array.from({ length: 20 }, (_, i) => `file${i}.ts`),\n        estimatedLOC: 5000\n      };\n\n      expect(kingLogic.shouldShardTask(complexTask)).toBe(false);\n    });\n  });\n\n  describe('Integration with MECE Distributor', () => {\n    it('should work with MECE distributor for comprehensive coverage', () => {\n      const tasks: Task[] = [\n        {\n          id: 'frontend',\n          name: 'Frontend task',\n          description: 'UI components',\n          domain: PrincessDomain.DEVELOPMENT,\n          files: ['src/components/Button.tsx', 'src/components/Form.tsx']\n        },\n        {\n          id: 'backend',\n          name: 'Backend task',\n          description: 'API endpoints',\n          domain: PrincessDomain.DEVELOPMENT,\n          files: ['src/api/auth.ts', 'src/api/users.ts']\n        }\n      ];\n\n      const distribution = meceDistributor.distributeTasks(tasks);\n      expect(distribution.size).toBeGreaterThan(0);\n\n      const stats = meceDistributor.getDistributionStats();\n      expect(stats.totalTasks).toBe(tasks.length);\n      expect(stats.totalResources).toBeGreaterThan(0);\n    });\n  });\n\n  describe('Performance', () => {\n    it('should handle large task sets efficiently', async () => {\n      const largeTasks = Array.from({ length: 100 }, (_, i) => ({\n        id: `task-${i}`,\n        name: `Task ${i}`,\n        description: `Description for task ${i}`,\n        domain: PrincessDomain.DEVELOPMENT,\n        files: [`src/file${i}.ts`],\n        estimatedLOC: Math.floor(Math.random() * 500) + 50\n      }));\n\n      const startTime = Date.now();\n      const distribution = await kingLogic.coordinateMultipleAgents(largeTasks, 6);\n      const endTime = Date.now();\n\n      expect(endTime - startTime).toBeLessThan(5000); // Should complete in under 5 seconds\n      expect(distribution.size).toBeGreaterThan(0);\n    });\n  });\n});\n\n// Version & Run Log Footer\n/* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE */\n/* Version & Run Log\n| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |\n|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|\n| 1.0.0   | 2025-09-26T15:45:12-04:00 | claude@sonnet-4 | Created Phase 1 King Logic integration tests | tests/integration/phase1/king-logic.test.ts | OK | Complete test coverage | 0.00 | 7a8b9c2 |\n\nReceipt:\n- status: OK\n- reason_if_blocked: --\n- run_id: phase1-king-logic-tests\n- inputs: [\"KingLogicAdapter\", \"MECEDistributor\", \"Task types\"]\n- tools_used: [\"claude-code\"]\n- versions: {\"claude\":\"sonnet-4\",\"framework\":\"jest\"}\n*/\n/* AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE */"
+import { KingLogicAdapter, ShardedTask } from '../../../src/swarm/queen/KingLogicAdapter';
+import { MECEDistributor } from '../../../src/swarm/queen/MECEDistributor';
+import { Task, TaskPriority } from '../../../src/swarm/types/task.types';
+import { PrincessDomain } from '../../../src/swarm/hierarchy/types';
+*ndescribe('King Logic Integration Tests', () => {
+  let kingLogic: KingLogicAdapter;
+  let meceDistributor: MECEDistributor;
+
+  beforeEach(() => {
+    kingLogic = new KingLogicAdapter();
+    meceDistributor = new MECEDistributor();
+  });
+
+  describe('Task Complexity Analysis', () => {
+    it('should calculate complexity correctly for simple tasks', () => {
+      const task: Task = {
+        id: 'simple-task',
+        name: 'Simple feature',
+        description: 'Add a button',
+        domain: PrincessDomain.DEVELOPMENT,
+        files: ['src/button.tsx'],
+        estimatedLOC: 50,
+        priority: TaskPriority.LOW
+      };
+
+      const complexity = kingLogic.analyzeTaskComplexity(task);
+      expect(complexity).toBeLessThan(100); // Should be below sharding threshold
+    });
+
+    it('should calculate high complexity for complex tasks', () => {
+      const task: Task = {
+        id: 'complex-task',
+        name: 'Complex feature',
+        description: 'Build entire authentication system',
+        domain: PrincessDomain.SECURITY,
+        files: [
+          'src/auth/login.tsx',
+          'src/auth/register.tsx',
+          'src/auth/middleware.ts',
+          'src/auth/tokens.ts',
+          'src/auth/validation.ts'
+        ],
+        estimatedLOC: 2000,
+        dependencies: ['jwt', 'bcrypt', 'redis'],
+        priority: TaskPriority.CRITICAL
+      };
+
+      const complexity = kingLogic.analyzeTaskComplexity(task);
+      expect(complexity).toBeGreaterThan(100); // Should exceed sharding threshold
+    });
+  });
+
+  describe('Task Sharding', () => {
+    it('should determine sharding necessity correctly', () => {
+      const simpleTask: Task = {
+        id: 'simple',
+        name: 'Simple task',
+        description: 'Small change',
+        domain: PrincessDomain.DEVELOPMENT,
+        files: ['src/component.tsx'],
+        estimatedLOC: 30
+      };
+
+      const complexTask: Task = {
+        id: 'complex',
+        name: 'Complex task',
+        description: 'Major feature',
+        domain: PrincessDomain.DEVELOPMENT,
+        files: Array.from({ length: 10 }, (_, i) => `src/file${i}.tsx`),
+        estimatedLOC: 1500,
+        dependencies: ['dep1', 'dep2', 'dep3']
+      };
+
+      expect(kingLogic.shouldShardTask(simpleTask)).toBe(false);
+      expect(kingLogic.shouldShardTask(complexTask)).toBe(true);
+    });
+
+    it('should create appropriate shards for complex tasks', () => {
+      const task: Task = {
+        id: 'shardable-task',
+        name: 'Large feature',
+        description: 'Multi-component feature',
+        domain: PrincessDomain.DEVELOPMENT,
+        files: [
+          'src/components/Header.tsx',
+          'src/components/Footer.tsx',
+          'src/components/Sidebar.tsx',
+          'src/services/api.ts',
+          'src/services/auth.ts',
+          'src/utils/helpers.ts'
+        ],
+        estimatedLOC: 1200,
+        dependencies: ['react', 'axios']
+      };
+
+      const shards = kingLogic.shardTask(task);
+
+      expect(shards.length).toBeGreaterThan(1);
+      expect(shards.length).toBeLessThanOrEqual(6); // Max 6 shards (one per Princess)
+
+      // Verify shard structure
+      shards.forEach((shard, index) => {
+        expect(shard.originalTaskId).toBe(task.id);
+        expect(shard.shardId).toBe(`${task.id}-shard-${index}`);
+        expect(shard.shardIndex).toBe(index);
+        expect(shard.totalShards).toBe(shards.length);
+        expect(Object.values(PrincessDomain)).toContain(shard.domain);
+      });
+
+      // Verify all files are covered
+      const allShardFiles = shards.flatMap(shard => shard.subtask.files || []);
+      expect(allShardFiles.sort()).toEqual(task.files!.sort());
+    });
+  });
+
+  describe('Intelligent Routing', () => {
+    it('should route tasks to appropriate domains based on content', () => {
+      const testTask: Task = {
+        id: 'test-task',
+        name: 'Testing task',
+        description: 'Add unit tests for authentication',
+        domain: PrincessDomain.DEVELOPMENT,
+        files: ['src/auth.test.ts', 'src/auth.spec.ts']
+      };
+
+      const configTask: Task = {
+        id: 'config-task',
+        name: 'Configuration task',
+        description: 'Update deployment configuration',
+        domain: PrincessDomain.DEVELOPMENT,
+        files: ['config/deploy.json', 'docker-compose.yml']
+      };
+
+      const securityTask: Task = {
+        id: 'security-task',
+        name: 'Security task',
+        description: 'Implement authentication middleware',
+        domain: PrincessDomain.DEVELOPMENT,
+        files: ['src/middleware/auth.ts']
+      };
+
+      expect(kingLogic.routeTaskToPrincess(testTask)).toBe(PrincessDomain.QUALITY);
+      expect(kingLogic.routeTaskToPrincess(configTask)).toBe(PrincessDomain.INFRASTRUCTURE);
+      expect(kingLogic.routeTaskToPrincess(securityTask)).toBe(PrincessDomain.SECURITY);
+    });
+  });
+
+  describe('Multi-Agent Coordination', () => {
+    it('should distribute tasks across Princess domains', async () => {
+      const tasks: Task[] = [
+        {
+          id: 'dev-task',
+          name: 'Development',
+          description: 'Build component',
+          domain: PrincessDomain.DEVELOPMENT,
+          files: ['src/component.tsx']
+        },
+        {
+          id: 'test-task',
+          name: 'Testing',
+          description: 'Test component',
+          domain: PrincessDomain.QUALITY,
+          files: ['src/component.test.ts']
+        },
+        {
+          id: 'doc-task',
+          name: 'Documentation',
+          description: 'Document API',
+          domain: PrincessDomain.RESEARCH,
+          files: ['docs/api.md']
+        }
+      ];
+
+      const distribution = await kingLogic.coordinateMultipleAgents(tasks, 3);
+
+      expect(distribution.size).toBeGreaterThan(0);
+      expect(distribution.has(PrincessDomain.DEVELOPMENT)).toBe(true);
+      expect(distribution.has(PrincessDomain.QUALITY)).toBe(true);
+      expect(distribution.has(PrincessDomain.RESEARCH)).toBe(true);
+
+      // Verify all tasks are distributed
+      let totalDistributedTasks = 0;
+      distribution.forEach(domainTasks => {
+        totalDistributedTasks += domainTasks.length;
+      });
+      expect(totalDistributedTasks).toBeGreaterThanOrEqual(tasks.length);
+    });
+  });
+
+  describe('MECE Validation', () => {
+    it('should validate mutually exclusive tasks', () => {
+      const tasks: Task[] = [
+        {
+          id: 'task1',
+          name: 'Task 1',
+          description: 'Edit file A',
+          domain: PrincessDomain.DEVELOPMENT,
+          files: ['src/fileA.ts']
+        },
+        {
+          id: 'task2',
+          name: 'Task 2',
+          description: 'Edit file B',
+          domain: PrincessDomain.DEVELOPMENT,
+          files: ['src/fileB.ts']
+        }
+      ];
+
+      const validation = kingLogic.validateMECEDistribution(tasks);
+      expect(validation.valid).toBe(true);
+      expect(validation.overlaps).toHaveLength(0);
+      expect(validation.gaps).toHaveLength(0);
+    });
+
+    it('should detect overlapping tasks', () => {
+      const tasks: Task[] = [
+        {
+          id: 'task1',
+          name: 'Task 1',
+          description: 'Edit shared file',
+          domain: PrincessDomain.DEVELOPMENT,
+          files: ['src/shared.ts']
+        },
+        {
+          id: 'task2',
+          name: 'Task 2',
+          description: 'Also edit shared file',
+          domain: PrincessDomain.QUALITY,
+          files: ['src/shared.ts'] // Overlap!
+        }
+      ];
+
+      const validation = kingLogic.validateMECEDistribution(tasks);
+      expect(validation.valid).toBe(false);
+      expect(validation.overlaps.length).toBeGreaterThan(0);
+      expect(validation.overlaps[0]).toContain('src/shared.ts');
+    });
+  });
+
+  describe('Meta-Logic Configuration', () => {
+    it('should allow configuration of meta-logic features', () => {
+      const initialStatus = kingLogic.getMetaLogicStatus();
+      expect(initialStatus.taskSharding).toBe(true);
+
+      kingLogic.configureMetaLogic({
+        taskSharding: false,
+        adaptiveCoordination: false
+      });
+
+      const updatedStatus = kingLogic.getMetaLogicStatus();
+      expect(updatedStatus.taskSharding).toBe(false);
+      expect(updatedStatus.adaptiveCoordination).toBe(false);
+      expect(updatedStatus.meceDistribution).toBe(true); // Should remain unchanged
+    });
+
+    it('should respect disabled features', () => {
+      kingLogic.configureMetaLogic({ taskSharding: false });
+
+      const complexTask: Task = {
+        id: 'complex',
+        name: 'Complex task',
+        description: 'Should not be sharded',
+        domain: PrincessDomain.DEVELOPMENT,
+        files: Array.from({ length: 20 }, (_, i) => `file${i}.ts`),
+        estimatedLOC: 5000
+      };
+
+      expect(kingLogic.shouldShardTask(complexTask)).toBe(false);
+    });
+  });
+
+  describe('Integration with MECE Distributor', () => {
+    it('should work with MECE distributor for comprehensive coverage', () => {
+      const tasks: Task[] = [
+        {
+          id: 'frontend',
+          name: 'Frontend task',
+          description: 'UI components',
+          domain: PrincessDomain.DEVELOPMENT,
+          files: ['src/components/Button.tsx', 'src/components/Form.tsx']
+        },
+        {
+          id: 'backend',
+          name: 'Backend task',
+          description: 'API endpoints',
+          domain: PrincessDomain.DEVELOPMENT,
+          files: ['src/api/auth.ts', 'src/api/users.ts']
+        }
+      ];
+
+      const distribution = meceDistributor.distributeTasks(tasks);
+      expect(distribution.size).toBeGreaterThan(0);
+
+      const stats = meceDistributor.getDistributionStats();
+      expect(stats.totalTasks).toBe(tasks.length);
+      expect(stats.totalResources).toBeGreaterThan(0);
+    });
+  });
+
+  describe('Performance', () => {
+    it('should handle large task sets efficiently', async () => {
+      const largeTasks = Array.from({ length: 100 }, (_, i) => ({
+        id: `task-${i}`,
+        name: `Task ${i}`,
+        description: `Description for task ${i}`,
+        domain: PrincessDomain.DEVELOPMENT,
+        files: [`src/file${i}.ts`],
+        estimatedLOC: Math.floor(Math.random() * 500) + 50
+      }));
+
+      const startTime = Date.now();
+      const distribution = await kingLogic.coordinateMultipleAgents(largeTasks, 6);
+      const endTime = Date.now();
+
+      expect(endTime - startTime).toBeLessThan(5000); // Should complete in under 5 seconds
+      expect(distribution.size).toBeGreaterThan(0);
+    });
+  });
+});
+
+// Version & Run Log Footer
+/** AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE */
+/** Version & Run Log
+*| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+*|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+*| 1.0.0   | 2025-09-26T15:45:12-04:00 | claude@sonnet-4 | Created Phase 1 King Logic integration tests | tests/integration/phase1/king-logic.test.ts | OK | Complete test coverage | 0.00 | 7a8b9c2 |
+*nReceipt:
+*- status: OK
+*- reason_if_blocked: --
+*- run_id: phase1-king-logic-tests
+*- inputs: [\"KingLogicAdapter\", \"MECEDistributor\", \"Task types\"]
+*- tools_used: [\"claude-code\"]
+*- versions: {\"claude\":\"sonnet-4\",\"framework\":\"jest\"}
+**/
+/** AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE */"

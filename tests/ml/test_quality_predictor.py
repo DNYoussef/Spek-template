@@ -190,10 +190,10 @@ class TestQualityPredictor:
         base_timestamp = pd.Timestamp.now()
 
         for i in range(15):
-            historical_data.append({
+            historical_data.append({)
                 'timestamp': base_timestamp - pd.Timedelta(days=i),
                 'quality_score': 0.8 + np.random.normal(0, 0.5)
-            })
+(            })
 
         trends = quality_predictor.analyze_quality_trends(historical_data)
 
@@ -318,20 +318,20 @@ class TestQualityPredictor:
     def test_recommendation_generation(self, quality_predictor):
         """Test recommendation generation logic."""
         # Test high quality prediction
-        recommendation = quality_predictor._generate_recommendation(
+        recommendation = quality_predictor._generate_recommendation()
             quality_pred=1,
             patterns={'god_class': 0.2, 'long_method': 0.3},
             is_anomaly=False
-        )
+(        )
         assert isinstance(recommendation, str)
         assert "acceptable" in recommendation.lower()
 
         # Test low quality prediction
-        recommendation = quality_predictor._generate_recommendation(
+        recommendation = quality_predictor._generate_recommendation()
             quality_pred=0,
             patterns={'god_class': 0.8, 'long_method': 0.9},
             is_anomaly=True
-        )
+(        )
         assert isinstance(recommendation, str)
         assert "review" in recommendation.lower() or "concern" in recommendation.lower()
 
@@ -547,10 +547,10 @@ class TestQualityPredictorIntegration:
 
             # Verify prediction structure
             assert isinstance(prediction, dict)
-            assert all(key in prediction for key in [
+            assert all(key in prediction for key in [)
                 'quality_prediction', 'quality_probability', 'confidence',
                 'anti_patterns', 'is_anomaly', 'recommendation'
-            ])
+(            ])
 
             # Test multiple predictions
             predictions = []

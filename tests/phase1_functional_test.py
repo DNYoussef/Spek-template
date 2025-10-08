@@ -1,6 +1,5 @@
-from lib.shared.utilities import path_exists
-from src.constants.base import MAXIMUM_NESTED_DEPTH
 """
+Phase 1 Functional Test Suite
 
 Demonstrates actual working functionality of Phase 1 implementations.
 This test proves that the components provide REAL functionality, not theater.
@@ -12,6 +11,7 @@ import ast
 import json
 import tempfile
 from pathlib import Path
+import pytest
 
 # Add analyzer to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
@@ -19,7 +19,6 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from analyzer.utils.types import ConnascenceViolation, ConnascenceType, SeverityLevel
 from analyzer.detectors import DetectorBase, MagicLiteralDetector
 from analyzer.integrations.github_bridge import GitHubBridge, GitHubConfig
-"""
 
 def test_types_functionality():
     """Test that types module provides real functionality."""
@@ -221,6 +220,10 @@ def test_integration_workflow():
     print("[PASS] Integration Workflow: REAL FILE OPERATIONS VERIFIED")
     return True
 
+def path_exists(file_path):
+    """Check if file exists."""
+    return os.path.exists(file_path)
+
 def run_all_tests():
     """Run all functional tests and report results."""
     print("=" * 50)
@@ -245,6 +248,7 @@ def run_all_tests():
                 failed += 1
         except Exception as e:
             failed += 1
+            print(f"Error in {test_name}: {e}")
         print()
 
     print("=" * 50)

@@ -47,7 +47,6 @@ export interface BeliefState {
 export class ReasoningCore extends EventEmitter {
   /**
    * Core logic for rationalist reasoning.
-   *
    * Extracted from RationalistReasoningEngine (1,061 LOC -> ~200 LOC component).
    * Handles:
    * - Hypothesis formation and testing

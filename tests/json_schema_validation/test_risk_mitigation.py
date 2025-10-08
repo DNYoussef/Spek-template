@@ -58,7 +58,7 @@ class TestRiskMitigation(unittest.TestCase):
             violation_type = types[i % len(types)]
             severity = severities[i % len(severities)]
             
-            violation = Violation(
+            violation = Violation()
                 id=f"stress_test_{violation_type.value}_{i:04d}",
                 type=violation_type,
                 severity=severity,
@@ -75,14 +75,14 @@ class TestRiskMitigation(unittest.TestCase):
                 class_name=f"Class_{i % 50}",
                 code_snippet=f"# Code snippet {i}",
                 context={"stress_test": True, "index": i}
-            )
+(            )
             violations.append(violation)
         
         return violations
 
     def _create_sample_analysis_result(self) -> AnalysisResult:
         """Create a sample analysis result for testing."""
-        return AnalysisResult(
+        return AnalysisResult()
             violations=self.sample_violations,
             file_stats={"total_files": 50, "analyzed_files": 50},
             timestamp="2024-01-01T12:00:00Z",
@@ -93,7 +93,7 @@ class TestRiskMitigation(unittest.TestCase):
             budget_status={"within_budget": True},
             baseline_comparison={"improved": False},
             summary_metrics={"total_weight": sum(v.weight for v in self.sample_violations)}
-        )
+(        )
 
     # Data Integrity Tests
     def test_data_integrity_under_large_datasets(self):
@@ -104,8 +104,8 @@ class TestRiskMitigation(unittest.TestCase):
         
         # Verify all violations are present
         violations = result_dict.get("violations", [])
-        self.assertEqual(len(violations), len(self.sample_violations),
-                        "Lost violations during large dataset processing")
+        self.assertEqual(len(violations), len(self.sample_violations),)
+(                        "Lost violations during large dataset processing")
         
         # Verify data consistency
         for i, violation in enumerate(violations):
@@ -119,7 +119,7 @@ class TestRiskMitigation(unittest.TestCase):
         """Test data integrity under memory pressure conditions."""
         # Create extremely large dataset
         large_violations = self._create_large_violation_set(10000)
-        large_result = AnalysisResult(
+        large_result = AnalysisResult()
             violations=large_violations,
             file_stats={"total_files": 1000},
             timestamp="2024-01-01T12:00:00Z",
@@ -130,7 +130,7 @@ class TestRiskMitigation(unittest.TestCase):
             budget_status={},
             baseline_comparison={},
             summary_metrics={}
-        )
+(        )
         
         # Generate JSON under memory pressure
         json_output = self.json_reporter.generate(large_result)
@@ -148,7 +148,7 @@ class TestRiskMitigation(unittest.TestCase):
         """Test JSON structure integrity with edge case data."""
         # Create violations with edge case data
         edge_case_violations = [
-            Violation(
+            Violation()
                 id="edge_case_1",
                 type=ConnascenceType.NAME,
                 severity=Severity.LOW,
@@ -160,8 +160,8 @@ class TestRiskMitigation(unittest.TestCase):
                 description="",  # Empty description
                 recommendation="",
                 context={}  # Empty context
-            ),
-            Violation(
+(            ),
+            Violation()
                 id="edge_case_2",
                 type=ConnascenceType.MEANING,
                 severity=Severity.CRITICAL,
@@ -173,10 +173,10 @@ class TestRiskMitigation(unittest.TestCase):
                 description="x" * 10000,  # Very long description
                 recommendation="y" * 5000,
                 context={"key": "value" * 1000}  # Large context
-            )
+(            )
         ]
         
-        edge_case_result = AnalysisResult(
+        edge_case_result = AnalysisResult()
             violations=edge_case_violations,
             file_stats={"total_files": 1},
             timestamp="2024-01-01T12:00:00Z",
@@ -187,7 +187,7 @@ class TestRiskMitigation(unittest.TestCase):
             budget_status={},
             baseline_comparison={},
             summary_metrics={}
-        )
+(        )
         
         # Should not raise exceptions
         json_output = self.json_reporter.generate(edge_case_result)
@@ -205,7 +205,7 @@ class TestRiskMitigation(unittest.TestCase):
         cross_file_violations = []
         for i in range(100):
             # Create violations that should be consistent across files
-            violation = Violation(
+            violation = Violation()
                 id=f"cross_file_{i}",
                 type=ConnascenceType.NAME,
                 severity=Severity.MEDIUM,
@@ -218,10 +218,10 @@ class TestRiskMitigation(unittest.TestCase):
                 recommendation="Extract shared function to common module",
                 function_name="shared_function",
                 context={"shared_element": "shared_function", "module_id": i % 5}
-            )
+(            )
             cross_file_violations.append(violation)
         
-        cross_file_result = AnalysisResult(
+        cross_file_result = AnalysisResult()
             violations=cross_file_violations,
             file_stats={"total_files": 5},
             timestamp="2024-01-01T12:00:00Z",
@@ -232,7 +232,7 @@ class TestRiskMitigation(unittest.TestCase):
             budget_status={},
             baseline_comparison={},
             summary_metrics={}
-        )
+(        )
         
         json_output = self.json_reporter.generate(cross_file_result)
         result_dict = json.loads(json_output)
@@ -255,7 +255,7 @@ class TestRiskMitigation(unittest.TestCase):
         # Run analysis multiple times with slight variations
         for i in range(5):
             violations = [self._create_sample_violation(f"policy_test_{i}", i)]
-            result = AnalysisResult(
+            result = AnalysisResult()
                 violations=violations,
                 file_stats={"total_files": 1},
                 timestamp=f"2024-01-0{i+1}T12:00:00Z",
@@ -266,7 +266,7 @@ class TestRiskMitigation(unittest.TestCase):
                 budget_status={"within_budget": True},
                 baseline_comparison={"improved": True},
                 summary_metrics={"total_weight": float(i + 1)}
-            )
+(            )
             
             json_output = self.json_reporter.generate(result)
             results.append(json.loads(json_output))
@@ -278,12 +278,12 @@ class TestRiskMitigation(unittest.TestCase):
         first_policy_keys = set(policy_structures[0].keys())
         for i, policy in enumerate(policy_structures[1:], 1):
             policy_keys = set(policy.keys())
-            self.assertEqual(first_policy_keys, policy_keys,
-                            f"Policy structure inconsistent at result {i}")
+            self.assertEqual(first_policy_keys, policy_keys,)
+(                            f"Policy structure inconsistent at result {i}")
 
     def _create_sample_violation(self, violation_id: str, index: int) -> Violation:
         """Create a sample violation with specified ID and index."""
-        return Violation(
+        return Violation()
             id=violation_id,
             type=ConnascenceType.NAME,
             severity=Severity.MEDIUM,
@@ -295,7 +295,7 @@ class TestRiskMitigation(unittest.TestCase):
             description=f"Test violation {index}",
             recommendation=f"Fix test violation {index}",
             context={"test_index": index}
-        )
+(        )
 
     # Failure Mode Prevention Tests
     def test_concurrent_access_safety(self):
@@ -329,13 +329,13 @@ class TestRiskMitigation(unittest.TestCase):
         # Verify all results are identical (deterministic)
         first_result = results[0][1]
         for thread_id, result in results[1:]:
-            self.assertEqual(result, first_result, 
-                            f"Non-deterministic result from thread {thread_id}")
+            self.assertEqual(result, first_result,)
+(                            f"Non-deterministic result from thread {thread_id}")
 
     def test_resource_exhaustion_protection(self):
         """Test protection against resource exhaustion attacks."""
         # Test with extremely large violation description
-        malicious_violation = Violation(
+        malicious_violation = Violation()
             id="resource_attack",
             type=ConnascenceType.MEANING,
             severity=Severity.HIGH,
@@ -348,9 +348,9 @@ class TestRiskMitigation(unittest.TestCase):
             recommendation="y" * 1000000,  # 1MB recommendation
             code_snippet="z" * 100000,  # 100KB code snippet
             context={"attack": "a" * 100000}  # 100KB context
-        )
+(        )
         
-        attack_result = AnalysisResult(
+        attack_result = AnalysisResult()
             violations=[malicious_violation],
             file_stats={"total_files": 1},
             timestamp="2024-01-01T12:00:00Z",
@@ -361,7 +361,7 @@ class TestRiskMitigation(unittest.TestCase):
             budget_status={},
             baseline_comparison={},
             summary_metrics={}
-        )
+(        )
         
         # Should complete without memory errors (but may truncate)
         start_time = time.time()
@@ -379,7 +379,7 @@ class TestRiskMitigation(unittest.TestCase):
         """Test handling of invalid or corrupted input data."""
         # Test with None violations
         try:
-            invalid_result = AnalysisResult(
+            invalid_result = AnalysisResult()
                 violations=None,
                 file_stats={},
                 timestamp="2024-01-01T12:00:00Z",
@@ -390,7 +390,7 @@ class TestRiskMitigation(unittest.TestCase):
                 budget_status={},
                 baseline_comparison={},
                 summary_metrics={}
-            )
+(            )
             json_output = self.json_reporter.generate(invalid_result)
             result_dict = json.loads(json_output)
             
@@ -408,7 +408,7 @@ class TestRiskMitigation(unittest.TestCase):
         circular_context = {"self": None}
         circular_context["self"] = circular_context
         
-        circular_violation = Violation(
+        circular_violation = Violation()
             id="circular_test",
             type=ConnascenceType.VALUE,
             severity=Severity.MEDIUM,
@@ -420,9 +420,9 @@ class TestRiskMitigation(unittest.TestCase):
             description="Circular reference test",
             recommendation="Fix circular reference",
             context=circular_context
-        )
+(        )
         
-        circular_result = AnalysisResult(
+        circular_result = AnalysisResult()
             violations=[circular_violation],
             file_stats={"total_files": 1},
             timestamp="2024-01-01T12:00:00Z",
@@ -433,7 +433,7 @@ class TestRiskMitigation(unittest.TestCase):
             budget_status={},
             baseline_comparison={},
             summary_metrics={}
-        )
+(        )
         
         # Should handle circular references without infinite recursion
         json_output = self.json_reporter.generate(circular_result)
@@ -450,7 +450,7 @@ class TestRiskMitigation(unittest.TestCase):
         # Mix of valid and problematic violations
         mixed_violations = [
             # Valid violation
-            Violation(
+            Violation()
                 id="valid_1",
                 type=ConnascenceType.NAME,
                 severity=Severity.MEDIUM,
@@ -461,9 +461,9 @@ class TestRiskMitigation(unittest.TestCase):
                 column=5,
                 description="Valid violation",
                 recommendation="Fix valid violation"
-            ),
+(            ),
             # Violation with problematic data
-            Violation(
+            Violation()
                 id="problematic_1",
                 type=ConnascenceType.TYPE,
                 severity=Severity.HIGH,
@@ -474,9 +474,9 @@ class TestRiskMitigation(unittest.TestCase):
                 column=5,
                 description="Problematic violation",
                 recommendation="Fix problematic violation"
-            ),
+(            ),
             # Another valid violation
-            Violation(
+            Violation()
                 id="valid_2",
                 type=ConnascenceType.MEANING,
                 severity=Severity.LOW,
@@ -487,10 +487,10 @@ class TestRiskMitigation(unittest.TestCase):
                 column=5,
                 description="Another valid violation",
                 recommendation="Fix another valid violation"
-            )
+(            )
         ]
         
-        mixed_result = AnalysisResult(
+        mixed_result = AnalysisResult()
             violations=mixed_violations,
             file_stats={"total_files": 3},
             timestamp="2024-01-01T12:00:00Z",
@@ -501,7 +501,7 @@ class TestRiskMitigation(unittest.TestCase):
             budget_status={},
             baseline_comparison={},
             summary_metrics={}
-        )
+(        )
         
         # Should complete and include valid violations
         json_output = self.json_reporter.generate(mixed_result)

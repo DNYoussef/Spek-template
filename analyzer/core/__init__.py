@@ -28,6 +28,26 @@ except ImportError:
     IMPORT_MANAGER = UnifiedImportManager()
     ImportResult = None
 
+# Lazy import UnifiedAnalyzer to avoid circular dependency
+UnifiedAnalyzer = None
+UNIFIED_ANALYZER_AVAILABLE = False
+
+def get_unified_analyzer():
+    """Lazy loader for UnifiedAnalyzer to avoid circular imports."""
+    global UnifiedAnalyzer, UNIFIED_ANALYZER_AVAILABLE
+    if UnifiedAnalyzer is None:
+        try:
+            from ..unified_api import UnifiedAnalyzer as _UnifiedAnalyzer
+            UnifiedAnalyzer = _UnifiedAnalyzer
+            UNIFIED_ANALYZER_AVAILABLE = True
+        except ImportError:
+            # Create fallback stub
+            class UnifiedAnalyzer:
+                def __init__(self):
+                    pass
+            UNIFIED_ANALYZER_AVAILABLE = False
+    return UnifiedAnalyzer
+
 # Import core functions from the main core.py module
 try:
     import sys
@@ -77,12 +97,21 @@ __all__ = [
     "ImportResult",
     "UnifiedImportManager",
     "UNIFIED_IMPORTS_AVAILABLE",
+    "get_unified_analyzer",
+    "UNIFIED_ANALYZER_AVAILABLE",
     "main",
     "get_core_analyzer",
     "validate_critical_dependencies",
     "create_enhanced_mock_import_manager",
     "CORE_FUNCTIONS_AVAILABLE"
 ]
+
+# Support direct import via lazy loading
+def __getattr__(name):
+    """Lazy attribute lookup for UnifiedAnalyzer."""
+    if name == "UnifiedAnalyzer":
+        return get_unified_analyzer()
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 # Package metadata
 __version__ = "2.0.0"

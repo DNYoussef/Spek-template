@@ -1,6 +1,5 @@
 /**
  * Theater Elimination Tests
- *
  * Validates that all deployment orchestration components implement
  * real functionality instead of theater patterns.
  */

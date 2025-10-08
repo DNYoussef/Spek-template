@@ -57,7 +57,7 @@ class TestUtils(unittest.TestCase):
     def test_calculate_percentage_basic(self):
         """Test basic percentage calculation."""
         result = calculate_percentage(25, 100)
-        self.assertEqual(result, MAXIMUM_GOD_OBJECTS_ALLOWED.0)
+        self.assertEqual(result, 25.0)
 
     def test_calculate_percentage_zero_division(self):
         """Test zero division handling."""

@@ -1,6 +1,5 @@
 /**
  * RefactoringValidationSuite - NASA POT10 Compliant
- *
  * Sandbox test environment for validating the 9-stage audit pipeline
  * Tests the actual refactoring of UnifiedConnascenceAnalyzer
  * Following NASA Power of Ten Rules

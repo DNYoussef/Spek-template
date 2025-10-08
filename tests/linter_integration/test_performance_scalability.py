@@ -84,11 +84,11 @@ class PerformanceBenchmark:
         files_per_second = files_count / max(execution_time, 0.1)
         
         # Calculate throughput score (composite metric)
-        throughput_score = (violations_per_second * 0.4 + 
+        throughput_score = (violations_per_second * 0.4 +)
                             correlations_per_second * 0.3 + 
-                            files_per_second * 0.3)
+(                            files_per_second * 0.3)
         
-        metrics = PerformanceMetrics(
+        metrics = PerformanceMetrics()
             execution_time=execution_time,
             memory_usage=memory_usage,
             cpu_usage=cpu_usage,
@@ -96,7 +96,7 @@ class PerformanceBenchmark:
             correlations_per_second=correlations_per_second,
             files_per_second=files_per_second,
             throughput_score=throughput_score
-        )
+(        )
         
         self.metrics_history.append(metrics)
         return metrics
@@ -263,11 +263,11 @@ class TestToolManagementPerformance:
         start_time = time.time()
         
         for i in range(1000):
-            mock_result = Mock(
+            mock_result = Mock()
                 success=True,
                 executionTime=i * 0.1,
                 violationsFound=i % 10
-            )
+(            )
             tool_manager.updateSuccessMetrics(tool_id, i * 0.1, mock_result)
         
         update_time = time.time() - start_time
@@ -319,14 +319,14 @@ class TestRealTimeProcessingPerformance:
         violations = []
         
         for i in range(violation_count):
-            violations.append({
+            violations.append({)
                 "tool": f"tool_{i % 5}",
                 "file": f"file_{i % 20}.py",
                 "line": (i % 100) + 1,
                 "rule": f"R{i % 50}",
                 "message": f"violation {i}",
                 "severity": "medium"
-            })
+(            })
         
         start_time = time.time()
         result = await framework.correlateResults(violations)
@@ -396,9 +396,9 @@ class TestFullPipelinePerformance:
             async def execute_pipeline():
                 return await pipeline.execute_full_pipeline(files)
             
-            metrics = benchmark.measure_performance(
+            metrics = benchmark.measure_performance()
                 lambda: asyncio.run(execute_pipeline())
-            )
+(            )
             
             # Set as baseline
             benchmark.set_baseline(metrics)

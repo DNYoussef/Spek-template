@@ -70,8 +70,8 @@ class TestMeshCoordinationFailures:
         
         # System should still function (>66% nodes healthy)
         health = await coordinator.monitor_integration_health()
-        healthy_nodes = sum(1 for node in coordinator.mesh_nodes.values() 
-                            if node.status == NodeStatus.ACTIVE)
+        healthy_nodes = sum(1 for node in coordinator.mesh_nodes.values())
+(                            if node.status == NodeStatus.ACTIVE)
         
         assert healthy_nodes >= len(coordinator.mesh_nodes) * 0.66
         assert health["system_health"] >= 0.66
@@ -208,8 +208,8 @@ class TestToolManagementFailures:
         }
         
         # Mock failing execution
-        with patch.object(tool_manager, 'executeWithMonitoring', 
-                        side_effect=Exception("Tool execution failed")):
+        with patch.object(tool_manager, 'executeWithMonitoring',)
+(                        side_effect=Exception("Tool execution failed")):
             
             # Cause 5 failures to trigger circuit breaker
             for i in range(5):
@@ -303,10 +303,10 @@ class TestRealTimeProcessingFailures:
         
         # Should handle interruption gracefully
         try:
-            result = await engine.executeRealtimeLinting(
+            result = await engine.executeRealtimeLinting()
                 ["test.py"], 
                 {"tools": ["flake8", "pylint", "ruff"]}
-            )
+(            )
             # Some tools should succeed, some may fail
             assert "correlation_id" in result
         except Exception as e:
@@ -371,13 +371,13 @@ class TestRealTimeProcessingFailures:
             violations = []
             for file_path in files:
                 for i in range(1000):  # 1000 violations per file
-                    violations.append({
+                    violations.append({)
                         "file": file_path,
                         "line": i,
                         "rule": f"RULE_{i}",
                         "message": f"Large message {i}: " + "x" * 1000,  # Large message
                         "severity": "medium"
-                    })
+(                    })
             return violations
         
         engine._generate_mock_violations = memory_intensive_generate
@@ -437,8 +437,8 @@ class TestFullPipelineFailures:
         pipeline = IntegratedLinterPipeline()
         
         # Mock initialization failure
-        with patch.object(pipeline.mesh_coordinator, 'initialize_mesh_topology', 
-                        side_effect=Exception("Initialization failed")):
+        with patch.object(pipeline.mesh_coordinator, 'initialize_mesh_topology',)
+(                        side_effect=Exception("Initialization failed")):
             
             with pytest.raises(Exception, match="Initialization failed"):
                 await pipeline.initialize_pipeline("/tmp")
@@ -500,10 +500,10 @@ class TestFullPipelineFailures:
                 return Mock(value="success")
             
             # Apply failure to multiple components
-            with patch.object(pipeline.mesh_coordinator, 'coordinate_linter_integration', 
-                            side_effect=increment_failures), \
-                patch.object(pipeline.correlation_framework, 'correlateResults', 
-                            side_effect=increment_failures):
+            with patch.object(pipeline.mesh_coordinator, 'coordinate_linter_integration',)
+(                            side_effect=increment_failures), \
+                patch.object(pipeline.correlation_framework, 'correlateResults',)
+(                            side_effect=increment_failures):
                 
                 # Should isolate failures and not crash entire pipeline
                 try:
@@ -627,9 +627,9 @@ def malicious_function():
         # Attempt to analyze files outside of intended directory
         malicious_paths = [
             "../../../etc/passwd",
-            "..\\..\\..\\windows\\system32\\config\\sam",
+            rr"..\\..\\..\\windows\\system32\\config\\sam",
             "/etc/shadow",
-            "C:\\Windows\\System32\\config\\SAM"
+            rr"C:\\Windows\\System32\\config\\SAM"
         ]
         
         # Should handle malicious paths gracefully

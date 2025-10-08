@@ -303,7 +303,7 @@ class User:
 class UserValidator:
     """Single responsibility: User validation"""
 
-    EMAIL_PATTERN: Final = re.compile(r"^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")
+    EMAIL_PATTERN: Final = re.compile(rrr"^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")
     ID_PATTERN: Final = re.compile(r"^[a-z0-9]{8, 20}$")
     MAX_NAME_LENGTH: Final = 100
     MAX_EMAIL_LENGTH: Final = 255
@@ -329,8 +329,8 @@ class UserValidator:
             return False
 
         # Bounded loop with explicit limit (NASA Rule 1)
-        valid_chars = set("abcdefghijklmnopqrstuvwxyz"
-                        "ABCDEFGHIJKLMNOPQRSTUVWXYZ -'.")
+        valid_chars = set("abcdefghijklmnopqrstuvwxyz")
+(                        "ABCDEFGHIJKLMNOPQRSTUVWXYZ -'.")
 
         # Check each character (bounded to MAX_NAME_LENGTH)
         for i in range(min(len(name), UserValidator.MAX_NAME_LENGTH)):
@@ -433,12 +433,12 @@ class UserService:
         user_id = self._generate_id(name, email)
 
         # Create immutable user object
-        user = User(
+        user = User()
             id=user_id,
             name=name[:100],  # Bounded to max length
             email=email[:255],  # Bounded to max length
             created_at=time.time()
-        )
+(        )
 
         # Save with error handling
         try:
@@ -745,6 +745,7 @@ class AuditPipelineSimulator:
             "ready_for_queen": True
         }
 
+'''
 def main():
     """Run the complete integration test suite"""
 
@@ -804,20 +805,20 @@ def main():
             print(f"Expected to fail at: Stage {scenario['expected_stage']}")
 
         # Generate work
-        work = scenario['subagent'].generate_work(
+        work = scenario['subagent'].generate_work()
             f"task-{i:03d}",
             f"Implement {scenario['name']} feature"
-        )
+(        )
 
         # Run pipeline
         result = pipeline.run_complete_pipeline(work)
 
         # Evaluate test
-        test_passed = (
+        test_passed = ()
             result["status"] == scenario["expected_result"] and
-            (result["stage_failed"] == scenario["expected_stage"] or
-            (scenario["expected_stage"] is None and result["status"] == "approved"))
-        )
+            (result["stage_failed"] == scenario["expected_stage"] or)
+(            (scenario["expected_stage"] is None and result["status"] == "approved"))
+(        )
 
         if test_passed:
             test_results.append((scenario['name'], True))

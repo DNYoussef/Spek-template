@@ -6,6 +6,8 @@ Connascence Fixer - Automated Fix Suggestions
 Intelligent fixer implementing 13 methods for automated fix generation
 and safe code transformation. NASA Power of Ten compliant.
 """
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from pathlib import Path
 from typing import Dict, List, Any, Optional, Tuple

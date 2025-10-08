@@ -1,0 +1,32 @@
+# Phase 2 Import Analysis
+
+## Files Importing WorkflowTypes
+
+grep -r "from.*WorkflowTypes" src --include="*.ts" | grep -v "node_modules"
+
+### Import Pattern Distribution:
+- ./WorkflowTypes (local to directory) - Most common
+- ~types/WorkflowTypes (path alias) - Some files
+- ../../types/workflow/WorkflowTypes (relative) - Some files
+- ../orchestration/WorkflowTypes (relative) - Some files
+
+### Strategy:
+1. Files in orchestration/ directory can keep ./WorkflowTypes (same file)
+2. All OTHER files should use ~types/workflow/WorkflowTypes (canonical re-export)
+
+### Files to Update:
+src/architecture/langgraph/workflows/orchestration/WorkflowCore.ts:} from './WorkflowTypes';
+src/architecture/langgraph/workflows/orchestration/WorkflowExecutorFacade.ts:import { WorkflowDefinition, ExecutionContext, WorkflowOptimizationSuggestion, ValidationResult } from './WorkflowTypes';
+src/architecture/langgraph/workflows/orchestration/WorkflowFacade.ts:} from './WorkflowTypes';
+src/architecture/langgraph/workflows/orchestration/WorkflowStateMachine.ts:} from './WorkflowTypes';
+src/architecture/langgraph/workflows/WorkflowOrchestrator.ts:export * from './orchestration/WorkflowTypes';
+src/architecture/langgraph/workflows/WorkflowOrchestrator.ts:} from './orchestration/WorkflowTypes';
+src/orchestration/agents/AgentWorkflowFacade.ts:import { WorkflowExecution, WorkflowTask } from '~types/WorkflowTypes';
+src/orchestration/agents/core/TaskDistributor.ts:import { WorkflowExecution, WorkflowTask, AssignmentCriteria } from '~types/WorkflowTypes';
+src/swarm/orchestration/index.ts:export * from './WorkflowTypes';
+src/swarm/orchestration/WorkflowFacade.ts:} from './WorkflowTypes';
+src/swarm/orchestration/WorkflowOrchestrator.ts:export * from './WorkflowTypes';
+src/swarm/orchestration/WorkflowScheduler.ts:} from './WorkflowTypes';
+src/types/workflow/index.ts:export * from './WorkflowTypes';
+src/types/workflow/WorkflowTypes.ts:export * from '../../architecture/langgraph/workflows/orchestration/WorkflowTypes';
+src/types/workflow/WorkflowTypes.ts: * import { WorkflowDefinition } from '~types/workflow/WorkflowTypes';

@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Dict, List, Any
 import sys
 import os
+import pytest
 
 # Add analyzer to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -21,11 +22,11 @@ def test_baseline_functionality():
         # Create temporary test file
         temp_dir = Path(tempfile.mkdtemp())
         test_file = temp_dir / "test.py"
-        test_file.write_text("""
+        test_file.write_text(""")
 def test_function():
     magic_number = 42  # Magic literal
     return magic_number * 2
-""")
+(""")
         
         start_time = time.time()
         
@@ -226,7 +227,7 @@ def test_performance_impact():
 class TestClass:
     def __init__(self):
         self.data = [i for i in range(100)]
-    
+
     def process(self):
         result = 0
         for item in self.data:

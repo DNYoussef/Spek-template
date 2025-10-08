@@ -1,3 +1,9 @@
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
+import sys
+import time
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import QUALITY_GATE_MINIMUM_PASS_RATE
 
 """This module wires together all analyzer components:
@@ -14,6 +20,8 @@ Provides a single, production-ready entry point for all analysis capabilities.
 import ast
 import json
 import logging
+from dataclasses import asdict
+
 logger = logging.getLogger(__name__)
 
 class UnifiedOrchestrator:
@@ -403,8 +411,7 @@ class UnifiedOrchestrator:
             "duplication_percentage": 5.0
         }
 
-    def main():
-        pass
+def main():
     """CLI entry point for unified orchestrator."""
     import argparse
 

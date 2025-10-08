@@ -6,6 +6,9 @@ AST Traversal Optimizer
 Optimized AST traversal algorithms for improved performance
 in connascence analysis.
 """
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from collections import defaultdict
 from typing import Any, Callable, Dict, Iterator, List, Optional, Set, Tuple, Union
@@ -14,6 +17,8 @@ import logging
 import time
 
 from dataclasses import dataclass
+
+logger = logging.getLogger(__name__)
 
 @dataclass
 class TraversalStats:

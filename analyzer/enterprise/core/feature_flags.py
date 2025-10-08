@@ -10,6 +10,9 @@ backward compatibility.
 NASA Rule 4 Compliant: All methods under 60 lines.
 NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from typing import Dict, Any, Optional, List
 import logging
@@ -18,7 +21,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 from src.constants.base import MAXIMUM_NESTED_DEPTH, NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
-logger = loggi, NASA_POT10_TARGET_COMPLIANCE_THRESHOLDng.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 class FeatureState(Enum):
     """Enterprise feature states."""

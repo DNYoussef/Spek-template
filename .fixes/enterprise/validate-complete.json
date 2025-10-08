@@ -1,0 +1,19 @@
+{
+  "stage": "validate",
+  "files_fixed": 0,
+  "files_passing": 0,
+  "files_failing": 9,
+  "failures": [
+    "conftest.py:405:unexpected indent",
+    "test_enterprise_workflows.py:130:unexpected indent",
+    "test_analyzer_integration.py:233:expected ':'",
+    "test_zero_impact_disabled.py:424:unterminated string literal (detected at line 424)",
+    "test_compliance_matrix.py:92:unexpected indent",
+    "test_feature_flags.py:37:unexpected indent",
+    "test_sbom_generator.py:56:unexpected indent",
+    "test_six_sigma_python.py:436:closing parenthesis ')' does not match opening parenthesis '{'",
+    "test_six_sigma_telemetry.py:253:invalid syntax"
+  ],
+  "timestamp": "2025-09-30T22:02:20.580141",
+  "success": false
+}

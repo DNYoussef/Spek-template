@@ -8,6 +8,9 @@ compatible with GitHub Code Scanning, Azure DevOps, and other platforms.
 
 SARIF 2.1.0 Specification: https://docs.oasis-open.org/sarif/sarif/v2.1.0/
 """
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from datetime import datetime
 from pathlib import Path

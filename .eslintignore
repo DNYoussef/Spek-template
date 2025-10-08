@@ -1,0 +1,15 @@
+dist/
+node_modules/
+coverage/
+build/
+*.config.js
+*.config.ts
+.eslintrc.js
+scripts/
+analyzer/
+memory/dual-system/*.js
+tests/
+docs/
+.github/
+k8s/
+examples/

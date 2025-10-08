@@ -1,0 +1,26 @@
+{
+  "system_config": {
+    "max_response_time_ms": 100.0,
+    "redundancy_level": 2,
+    "fault_tolerance_level": 1,
+    "safety_functions": [
+      "emergency_braking",
+      "lane_keeping",
+      "collision_avoidance",
+      "speed_limiting"
+    ]
+  },
+  "safety_events": [],
+  "test_results": [],
+  "compliance_status": {
+    "asil_level": "D",
+    "availability": 100.0,
+    "redundancy_coverage": {
+      "emergency_braking": 100.0,
+      "lane_keeping": 100.0,
+      "collision_avoidance": 100.0,
+      "speed_limiting": 100.0
+    }
+  },
+  "timestamp": 1759239760.7983599
+}

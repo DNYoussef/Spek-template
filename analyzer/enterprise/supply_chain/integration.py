@@ -1,3 +1,6 @@
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
 import asyncio
@@ -28,7 +31,7 @@ class SupplyChainIntegration:
         
         # Performance monitoring
         self.perf_config = self.integration_config.get('performance_monitoring', {})
-        self.baseline_duration = self.perf_config.get('baseline_duration', MAXIMUM_FUNCTION_PARAMETERS.0)
+        self.baseline_duration = self.perf_config.get('baseline_duration', float(MAXIMUM_FUNCTION_PARAMETERS))
         self.alert_threshold = self.perf_config.get('alert_threshold', 2.0)
         
         # Quality gates

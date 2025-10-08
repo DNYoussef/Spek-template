@@ -1,5 +1,6 @@
-#!/usr/bin/env python3"""Unicode Removal Linter======================Comprehensive script to remove all unicode characters from Python, Markdown, and JSON files.Ensures Windows CLI compatibility by converting all unicode to ASCII equivalents."""import osimport reimport sysfrom pathlib import Pathfrom typing import Dict, List, Tupleimport jsonimport argparseclass UnicodeRemovalLinter:        """Comprehensive unicode character removal and replacement system."""        def __init__(self):
-            """Initialize unicode removal patterns and replacements."""        # Common unicode to ASCII replacements        self.unicode_replacements = {
+"""!/usr/bin/env python3"""Unicode Removal Linter======================Comprehensive script to remove all unicode characters from Python, Markdown, and JSON files.Ensures Windows CLI compatibility by converting all unicode to ASCII equivalents."""import osimport reimport sysfrom pathlib import Pathfrom typing import Dict, List, Tupleimport jsonimport argparseclass UnicodeRemovalLinter:        """Comprehensive unicode character removal and replacement system."""        def __init__(self):
+"""Initialize unicode removal patterns and replacements."""        # Common unicode to ASCII replacements        self.unicode_replacements = {
+"""
         # Arrows and symbols        '->': '->',
         '<-': '<-',
         '^': '^',

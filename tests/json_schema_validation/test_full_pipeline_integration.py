@@ -1,5 +1,6 @@
 from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE, TAKE_PROFIT_PERCENTAGE
 
+"""
 End-to-end tests validating the complete JSON generation and validation pipeline:
 - Complete workflow testing from analysis to JSON output
 - Production scenario simulation
@@ -73,10 +74,10 @@ class DataProcessor:
         if value > 100:  # Magic number
             return self._process_large(value, mode)
         return self._process_small(value, mode)
-    
+
     def _process_large(self, value, mode):
         return value * 2 if mode == "double" else value
-    
+
     def _process_small(self, value, mode):
         return value + 1 if mode == "increment" else value
 """)
@@ -373,7 +374,7 @@ def calculate_score(base, multiplier):
         self._validate_production_readiness(json_dict, sarif_dict)
 
     def test_regression_protection_for_phase1_findings(self):
-        """Test that all Phase 1 critical issues are resolved and won't regress."""'
+        """Test that all Phase 1 critical issues are resolved and won't regress."""
         # Test all Phase 1 critical issues:
         
         # 1. Mock Data Contamination Prevention (85.7% contamination detected)
@@ -499,7 +500,7 @@ def calculate_score(base, multiplier):
     def _validate_sarif_compliance(self, sarif_dict: Dict):
         """Validate SARIF 2.1.0 compliance."""
         # Schema compliance
-        self.assertEqual(sarif_dict.get("$schema"), 
+        self.assertEqual(sarif_dict.get("$schema"),
                         "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json")
         self.assertEqual(sarif_dict.get("version"), "2.1.0")
         
@@ -587,8 +588,8 @@ def calculate_score(base, multiplier):
             first_violation_keys = set(violations[0].keys())
             for i, violation in enumerate(violations[1:], 1):
                 violation_keys = set(violation.keys())
-                self.assertEqual(first_violation_keys, violation_keys,
-                                f"Violation {i} has inconsistent structure")
+                self.assertEqual(first_violation_keys, violation_keys,)
+(                                f"Violation {i} has inconsistent structure")
 
     def _validate_policy_field_standardization(self, result_dict: Dict):
         """Validate policy field standardization."""

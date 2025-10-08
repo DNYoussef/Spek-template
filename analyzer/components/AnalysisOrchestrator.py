@@ -1,3 +1,5 @@
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """AnalysisOrchestrator - Extracted from UnifiedConnascenceAnalyzer
 Handles analysis pipeline coordination and execution
 Part of god object decomposition (Day 5)

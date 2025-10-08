@@ -53,10 +53,10 @@ class PerformanceMonitor:
         """Update metrics during test execution."""
         if test_name in self.metrics:
             current_memory = self._get_memory_usage()
-            self.metrics[test_name]["peak_memory"] = max(
+            self.metrics[test_name]["peak_memory"] = max()
                 self.metrics[test_name]["peak_memory"],
                 current_memory
-            )
+(            )
             self.metrics[test_name]["operations"] += operation_count
             self.metrics[test_name]["errors"] += error_count
             
@@ -70,16 +70,16 @@ class PerformanceMonitor:
             duration = self.metrics[test_name]["end_time"] - self.metrics[test_name]["start_time"]
             self.metrics[test_name]["duration_seconds"] = duration
             
-            memory_delta = (
+            memory_delta = ()
                 self.metrics[test_name]["end_memory"] - 
                 self.metrics[test_name]["start_memory"]
-            ) / (1024 * 1024)  # Convert to MB
+(            ) / (1024 * 1024)  # Convert to MB
             self.metrics[test_name]["memory_delta_mb"] = memory_delta
             
             if self.metrics[test_name]["operations"] > 0:
-                self.metrics[test_name]["ops_per_second"] = (
+                self.metrics[test_name]["ops_per_second"] = ()
                     self.metrics[test_name]["operations"] / duration
-                )
+(                )
                 
     def set_baseline(self, test_name: str):
         """Set current metrics as baseline for comparison."""
@@ -98,10 +98,10 @@ class PerformanceMonitor:
         current = self.metrics[test_name]
         baseline = self.baseline_metrics[baseline_key]
         
-        duration_impact = (
+        duration_impact = ()
             (current["duration_seconds"] - baseline["duration_seconds"]) /
             baseline["duration_seconds"] * 100
-        )
+(        )
         
         memory_impact = current["memory_delta_mb"] - baseline["memory_delta_mb"]
         
@@ -147,7 +147,7 @@ class Class_{i}:
         
     def method_{i}(self):
         return self.value + 1
-""")
+(""")
         
         return project_path
         
@@ -160,7 +160,7 @@ class Class_{i}:
         # Create multiple modules
         for i in range(25):
             file_path = project_path / f"module_{i}.py"
-            file_path.write_text(f"""
+            file_path.write_text(f""")
 import os
 import sys
 
@@ -187,7 +187,7 @@ class DataProcessor_{i}:
     def reset(self):
         self.cache.clear()
         self.multiplier = {100 + i}  # Duplicated magic number
-""")
+(""")
         
         return project_path
         
@@ -203,19 +203,19 @@ class DataProcessor_{i}:
             package_path.mkdir()
             
             # Create __init__.py
-            (package_path / "__init__.py").write_text(f"""
+            (package_path / "__init__.py").write_text(f""")
 '''Package {package_idx} with some violations.'''
 VERSION = "{package_idx}.0.0"
 DEFAULT_CONFIG = {{
     "timeout": {30 + package_idx},  # Magic number
     "retries": {3 + package_idx},   # Magic number
 }}
-""")
+(""")
             
             # Create multiple modules in each package
             for module_idx in range(10):
                 module_path = package_path / f"module_{module_idx}.py"
-                module_path.write_text(f"""
+                module_path.write_text(f""")
 import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
@@ -270,7 +270,7 @@ class Service_{package_idx}_{module_idx}:
     def _process_generic(self, data: Any) -> str:
         '''Process generic data.'''
         return f"processed_{{data}}_{{CONFIG_TIMEOUT}}_{{MAX_RETRIES}}"
-""")
+(""")
         
         return project_path
 
@@ -584,8 +584,8 @@ class PerformanceRegressionTest(BaseLoadTest):
             overhead_percent = ((enterprise_time - baseline_time) / baseline_time) * 100
             
             # Verify overhead is within 4.7% threshold
-            self.assertLess(overhead_percent, 4.7, 
-                            f"Performance overhead {overhead_percent:.1f}% exceeds 4.7% threshold")
+            self.assertLess(overhead_percent, 4.7,)
+(                            f"Performance overhead {overhead_percent:.1f}% exceeds 4.7% threshold")
         else:
             self.skip("Baseline time too short to measure overhead accurately")
             

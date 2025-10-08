@@ -1,3 +1,6 @@
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 UnifiedAnalyzerFacade - Backward compatible interface for unified analysis
 Maintains API compatibility while delegating to decomposed components

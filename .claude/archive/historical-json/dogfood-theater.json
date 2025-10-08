@@ -1,7 +1,0 @@
-{
-  "theater_score": 65,
-  "status": "Analyzer validation needed",
-  "message": "Theater detector requires integration validation",
-  "patterns_detected": 0,
-  "fake_implementations": []
-}

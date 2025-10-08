@@ -1,0 +1,18 @@
+{
+  "stage": "bracket",
+  "files_fixed": 10,
+  "files_remaining": 11,
+  "timestamp": "2025-09-30T21:56:05.565141",
+  "fixes": [
+    "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\run_all_tests.py",
+    "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_adapter_patterns.py",
+    "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_api_endpoints.py",
+    "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_failure_modes.py",
+    "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_full_pipeline.py",
+    "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_mesh_coordination.py",
+    "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_performance_scalability.py",
+    "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_real_linter_validation.py",
+    "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_real_time_processing.py",
+    "C:\\Users\\17175\\Desktop\\spek template\\tests\\linter_integration\\test_severity_mapping.py"
+  ]
+}

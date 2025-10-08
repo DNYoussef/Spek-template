@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_GOD_OBJECTS_ALLOWED, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
+import pytest
 
 This script fixes the detected theater in the GitHub integration:
 1. Fix status check logic that's producing fake data'
@@ -176,11 +177,11 @@ class FixedToolCoordinator:
     def __init__(self):
         self.github_bridge = None
 
-    def correlate_results(
+    def correlate_results()
         self,
         connascence_results: Dict[str, Any],
         external_results: Dict[str, Any]
-    ) -> Dict[str, Any]:
+(    ) -> Dict[str, Any]:
         """Correlate results from multiple analysis tools - REAL IMPLEMENTATION."""
         correlation = {
             "timestamp": datetime.now().isoformat(),
@@ -456,31 +457,31 @@ def test_fixed_github_integration():
         from analyzer.integrations.github_bridge import GitHubBridge, GitHubConfig, UnifiedAnalysisResult
 
         # Configure bridge
-        config = GitHubConfig(
+        config = GitHubConfig()
             token="test-token-fixed",
             owner="test-owner",
             repo="test-repo",
             base_url="http://localhost:8891"
-        )
+(        )
 
         bridge = GitHubBridge(config)
 
         # Create test result with violations
-        test_result = UnifiedAnalysisResult(
+        test_result = UnifiedAnalysisResult()
             success=False,
             violations=[
-                type('MockViolation', (), {
+                type('MockViolation', (), {)
                     'severity': 'critical',
                     'type': type('MockType', (), {'value': 'God Object'})(),
                     'description': 'Class UserManager is too large',
                     'file_path': 'src/user.py',
                     'line_number': 25
-                })()
+(                })()
             ],
             nasa_compliance_score=0.82,
             god_objects_found=1,
             duplication_percentage=8.MAXIMUM_NESTED_DEPTH
-        )
+(        )
 
         # Test PR comment
         success = bridge.post_pr_comment(100, test_result)

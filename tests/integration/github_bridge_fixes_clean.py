@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
+import pytest
 
 This script fixes the detected theater in the GitHub integration:
 1. Fix status check logic that's producing fake data'

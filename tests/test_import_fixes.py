@@ -1,3 +1,5 @@
+import pytest
+
 #!/usr/bin/env python3
 """
 Import Fix Validation Test

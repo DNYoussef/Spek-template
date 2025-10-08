@@ -15,3 +15,6 @@ import { ComputerUseTools } from './computer-use.tools';
   providers: [ComputerUseTools],
 })
 export class BytebotMcpModule {}
+
+// Default export for backward compatibility
+export default BytebotMcpModule;

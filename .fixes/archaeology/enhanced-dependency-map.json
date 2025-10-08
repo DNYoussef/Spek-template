@@ -1,0 +1,839 @@
+{
+  "phase": "archaeological",
+  "agent": "enhanced-dependency-mapper",
+  "status": "complete",
+  "critical_path": [
+    {
+      "file": "tests\\test_analyzer.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: invalid syntax at line 44",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_command_factory_patterns.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '[' at line 220",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_core_functionality.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: invalid syntax at line 89",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_discovery_report.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: expected ':' at line 25",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_fixes.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 338) at line 283",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_focused_pattern_validation.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: unexpected indent at line 34",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_import_fixes.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: unexpected indent at line 67",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_kelly_dpi_integration.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: invalid syntax at line 16",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_kill_switch_integration.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: invalid decimal literal at line 6",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_naming_standardization.py",
+      "priority": "CRITICAL",
+      "reason": "Root-level test file",
+      "error": "SyntaxError: invalid syntax at line 18",
+      "action": "Fix syntax errors first"
+    },
+    {
+      "file": "tests\\test_analyzer.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: invalid syntax at line 44",
+      "action": "Fix to complete directory"
+    },
+    {
+      "file": "tests\\test_command_factory_patterns.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '[' at line 220",
+      "action": "Fix to complete directory"
+    },
+    {
+      "file": "tests\\test_core_functionality.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: invalid syntax at line 89",
+      "action": "Fix to complete directory"
+    },
+    {
+      "file": "tests\\test_discovery_report.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: expected ':' at line 25",
+      "action": "Fix to complete directory"
+    },
+    {
+      "file": "tests\\test_fixes.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 338) at line 283",
+      "action": "Fix to complete directory"
+    },
+    {
+      "file": "tests\\test_focused_pattern_validation.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: unexpected indent at line 34",
+      "action": "Fix to complete directory"
+    },
+    {
+      "file": "tests\\test_import_fixes.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: unexpected indent at line 67",
+      "action": "Fix to complete directory"
+    },
+    {
+      "file": "tests\\test_kelly_dpi_integration.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: invalid syntax at line 16",
+      "action": "Fix to complete directory"
+    },
+    {
+      "file": "tests\\test_kill_switch_integration.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: invalid decimal literal at line 6",
+      "action": "Fix to complete directory"
+    },
+    {
+      "file": "tests\\test_naming_standardization.py",
+      "priority": "HIGH",
+      "reason": "In partially working directory",
+      "error": "SyntaxError: invalid syntax at line 18",
+      "action": "Fix to complete directory"
+    }
+  ],
+  "tier_1_critical": [
+    {
+      "file": "tests\\test_analyzer.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 44",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\test_command_factory_patterns.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '[' at line 220",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\test_core_functionality.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 89",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\test_discovery_report.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: expected ':' at line 25",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\test_fixes.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 338) at line 283",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\test_focused_pattern_validation.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 34",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\test_import_fixes.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 67",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\test_kelly_dpi_integration.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 16",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\test_kill_switch_integration.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid decimal literal at line 6",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\test_naming_standardization.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 18",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\test_phase3_100_percent.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 4",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\test_phase3_integration.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 617) at line 601",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\test_phase4_configuration.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid decimal literal at line 194",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\test_phase4_config_wiring_reality.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' at line 119",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\test_phase5_integration.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 5",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\test_phase5_sandbox_reality.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 91",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\test_supply_chain_security.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' at line 35",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\test_utils.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax. Perhaps you forgot a comma? at line 60",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\batch3_validation\\test_strategy_pattern_validation.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 671) at line 612",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\batches_10_18_validation\\test_suite_orchestrator.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid decimal literal at line 854",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\byzantium\\test_byzantine_stress.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 709) at line 695",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\cache_analyzer\\test_cache_functionality.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 537) at line 515",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\compliance\\test_compliance_demo.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 217) at line 41",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\compliance\\test_compliance_simple.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 18",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\cycles\\test_integration.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid decimal literal at line 402",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\debug\\test_circular_imports_audit.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: expected 'except' or 'finally' block at line 22",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\debug\\test_debug.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 20",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\debug\\test_hash_debug.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 25",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\integration\\test_enterprise_domains.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unmatched ')' at line 175",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\integration\\test_enterprise_integration.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 4",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\integration\\test_error_handling.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unindent does not match any outer indentation level at line 45",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\integration\\test_github_bridge_reality.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 470) at line 412",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\integration\\test_performance_load.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unmatched ')' at line 138",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\integration\\test_phase2_reality_validation.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 22",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\integration\\test_phase3_distributed_context.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 96",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\integration\\test_swarm_hierarchy_integration.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '[' at line 335",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\integration\\test_tool_coordinator_sandbox.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' at line 170",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_full_pipeline_integration.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unmatched ')' at line 58",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_json_schema_validation.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid decimal literal at line 282",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_risk_mitigation.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 521) at line 449",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_runner.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 343) at line 310",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_sarif_compliance.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: expected ':' at line 52",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\linter_integration\\test_adapter_patterns.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 22",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\linter_integration\\test_api_endpoints.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' at line 33",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\linter_integration\\test_failure_modes.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 74",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\linter_integration\\test_full_pipeline.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 75",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\linter_integration\\test_mesh_coordination.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 19",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\linter_integration\\test_performance_scalability.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 87",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\linter_integration\\test_real_linter_validation.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '[' at line 175",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\linter_integration\\test_real_time_processing.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' at line 74",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\linter_integration\\test_severity_mapping.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 19",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\linter_integration\\test_tool_management.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 18",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\memory_integration\\test_cross_phase_memory.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 697) at line 663",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\ml\\test_compliance_forecaster.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 138",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\ml\\test_integration.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 740) at line 701",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\ml\\test_quality_predictor.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' at line 193",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\ml\\test_theater_classifier.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 377",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\nasa-compliance\\test_nasa_agents.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 25",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\phase4\\test_precision_validation.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 125",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\safety\\test_import_validation.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 208",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\safety\\test_safety_system.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid decimal literal at line 136",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\security\\test_dfars_compliance.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 14",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\security\\test_dfars_workflow_automation.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 21",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\security\\test_enterprise_theater_detection.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 10",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\sixsigma\\test_integration.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax. Perhaps you forgot a comma? at line 175",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\theater-detection\\test_theater_detection.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax. Perhaps you forgot a comma? at line 179",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\unit\\test_flake8_adapter.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 18",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\unit\\test_pylint_adapter.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 17",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\version_log\\test_import_validation.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' at line 38",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\version_log\\test_unified_validation.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 51",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\version_log\\test_version_log_system.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 17",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\enterprise\\e2e\\test_enterprise_workflows.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unmatched ')' at line 645",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\enterprise\\integration\\test_analyzer_integration.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 3",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\enterprise\\performance\\test_zero_impact_disabled.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 3",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\enterprise\\unit\\test_compliance_matrix.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 25",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\enterprise\\unit\\test_feature_flags.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 17",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\enterprise\\unit\\test_sbom_generator.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 26",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\enterprise\\unit\\test_six_sigma_python.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' at line 277",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\enterprise\\unit\\test_six_sigma_telemetry.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 26",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\refactored\\batch2\\test_agent_database_builder.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 3",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\refactored\\batch2\\test_deployment_task_builder.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 3",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\refactored\\batch2\\test_dfars_controls_builder.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 3",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\refactored\\batch2\\test_test_pattern_builder.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: invalid syntax at line 3",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\refactored\\batch3\\test_validation_strategies.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unmatched ')' at line 61",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\audit_test.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unmatched ')' at line 38",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\phase1_functional_test.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 28",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\production_validation_test.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 71",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\simple_kill_switch_test.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 67",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\simplified_integration_test.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unmatched ')' at line 304",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\cache_analyzer\\comprehensive_cache_test.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 105",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\integration\\queen_remediation_test.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unterminated triple-quoted string literal (detected at line 414) at line 409",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\integration\\simplified_integration_test.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: unexpected indent at line 420",
+      "fix_difficulty": "EASY"
+    },
+    {
+      "file": "tests\\self-dogfooding\\workflow_simulation_test.py",
+      "reason": "Syntax error",
+      "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' at line 163",
+      "fix_difficulty": "EASY"
+    }
+  ],
+  "tier_2_high_impact": [],
+  "tier_3_isolated": [
+    {
+      "file": "tests\\e2e\\test_complete_workflow.py",
+      "reason": "Collection failed",
+      "error": "",
+      "fix_difficulty": "HARD"
+    },
+    {
+      "file": "tests\\integration\\test_analyzer_integration.py",
+      "reason": "Collection failed",
+      "error": "",
+      "fix_difficulty": "HARD"
+    },
+    {
+      "file": "tests\\unit\\test_analyzer_core.py",
+      "reason": "Collection failed",
+      "error": "",
+      "fix_difficulty": "HARD"
+    },
+    {
+      "file": "tests\\self-dogfooding\\quality_gate_test.py",
+      "reason": "Collection failed",
+      "error": "No collection info",
+      "fix_difficulty": "HARD"
+    }
+  ],
+  "working_files": [
+    {
+      "file": "tests\\test_analyzer_fixes.py",
+      "test_count": 3,
+      "status": "WORKING"
+    },
+    {
+      "file": "tests\\test_fixes_simple.py",
+      "test_count": 5,
+      "status": "WORKING"
+    },
+    {
+      "file": "tests\\test_github_fixes.py",
+      "test_count": 1,
+      "status": "WORKING"
+    },
+    {
+      "file": "tests\\test_main.py",
+      "test_count": 13,
+      "status": "WORKING"
+    },
+    {
+      "file": "tests\\test_modules.py",
+      "test_count": 2,
+      "status": "WORKING"
+    },
+    {
+      "file": "tests\\test_yaml_validator.py",
+      "test_count": 0,
+      "status": "WORKING"
+    },
+    {
+      "file": "tests\\batch2_validation\\test_builder_patterns.py",
+      "test_count": 9,
+      "status": "WORKING"
+    },
+    {
+      "file": "tests\\batch2_validation\\test_regression.py",
+      "test_count": 6,
+      "status": "WORKING"
+    },
+    {
+      "file": "tests\\debug\\test_quick.py",
+      "test_count": 0,
+      "status": "WORKING"
+    },
+    {
+      "file": "tests\\phase7_adas\\test_perception_accuracy.py",
+      "test_count": 13,
+      "status": "WORKING"
+    },
+    {
+      "file": "tests\\phase7_adas\\test_real_time_performance.py",
+      "test_count": 10,
+      "status": "WORKING"
+    },
+    {
+      "file": "tests\\phase7_adas\\test_safety_compliance.py",
+      "test_count": 13,
+      "status": "WORKING"
+    },
+    {
+      "file": "tests\\phase7_adas\\test_sensor_fusion.py",
+      "test_count": 15,
+      "status": "WORKING"
+    },
+    {
+      "file": "tests\\phase7_adas\\test_simulation_scenarios.py",
+      "test_count": 10,
+      "status": "WORKING"
+    },
+    {
+      "file": "tests\\unit\\test_connascence_detectors.py",
+      "test_count": 6,
+      "status": "WORKING"
+    },
+    {
+      "file": "tests\\standalone_facade_test.py",
+      "test_count": 1,
+      "status": "WORKING"
+    },
+    {
+      "file": "tests\\integration\\production_integration_test.py",
+      "test_count": 4,
+      "status": "WORKING"
+    }
+  ],
+  "broken_by_category": {
+    "syntax_errors": 93,
+    "import_errors": 0,
+    "fixture_errors": 0,
+    "other_errors": 4
+  },
+  "statistics": {
+    "total_test_files": 114,
+    "working_files": 17,
+    "broken_files": 97,
+    "working_tests": 111,
+    "blocked_tests": 97,
+    "syntax_ok": 21,
+    "syntax_error": 93,
+    "collection_ok": 17,
+    "collection_error": 4
+  },
+  "timestamp": "2025-09-30T18:52:43.053320"
+}

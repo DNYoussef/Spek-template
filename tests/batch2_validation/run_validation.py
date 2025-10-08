@@ -62,26 +62,26 @@ class Batch2Validator:
 
     def validate_builder_patterns(self):
         """Validate Builder pattern implementation"""
-        result = subprocess.run(
+        result = subprocess.run()
             ["python3", "-m", "pytest", "tests/batch2_validation/test_builder_patterns.py", "-v"],
             capture_output=True,
             text=True
-        )
+(        )
 
         # Count builders
-        builder_count = subprocess.run(
+        builder_count = subprocess.run()
             ["grep", "-r", "class.*Builder", "src/", "scripts/", "analyzer/"],
             capture_output=True,
             text=True
-        )
+(        )
         builders_found = len(builder_count.stdout.strip().split('\n')) if builder_count.stdout.strip() else 0
 
         # Count config objects
-        config_count = subprocess.run(
+        config_count = subprocess.run()
             ["grep", "-r", "@dataclass", "src/", "scripts/", "analyzer/"],
             capture_output=True,
             text=True
-        )
+(        )
         configs_found = len(config_count.stdout.strip().split('\n')) if config_count.stdout.strip() else 0
 
         self.results["quality_gates"]["builder_pattern"] = {
@@ -123,10 +123,10 @@ class Batch2Validator:
         ]
 
         for file_path in batch2_files:
-            result = subprocess.run(
+            result = subprocess.run()
                 ["python3", "-m", "py_compile", file_path],
                 capture_output=True
-            )
+(            )
             if result.returncode == 0:
                 compilation_results["passed"] += 1
             else:
@@ -154,11 +154,11 @@ class Batch2Validator:
 
     def run_unit_tests(self):
         """Run unit tests"""
-        result = subprocess.run(
+        result = subprocess.run()
             ["python3", "-m", "pytest", "tests/batch2_validation/", "-v", "--tb=short"],
             capture_output=True,
             text=True
-        )
+(        )
 
         # Parse results
         passed = result.stdout.count(" PASSED")
@@ -179,11 +179,11 @@ class Batch2Validator:
 
     def run_regression_tests(self):
         """Run regression tests"""
-        result = subprocess.run(
+        result = subprocess.run()
             ["python3", "-m", "pytest", "tests/batch2_validation/test_regression.py", "-v"],
             capture_output=True,
             text=True
-        )
+(        )
 
         passed = result.stdout.count(" PASSED")
         failed = result.stdout.count(" FAILED")
@@ -207,11 +207,11 @@ class Batch2Validator:
     def validate_performance(self):
         """Validate performance metrics"""
         # Run performance test
-        result = subprocess.run(
+        result = subprocess.run()
             ["python3", "-m", "pytest", "tests/batch2_validation/test_builder_patterns.py::TestPerformance", "-v"],
             capture_output=True,
             text=True
-        )
+(        )
 
         self.results["performance"] = {
             "avg_init_time_ms": 120,  # Would measure actual
@@ -228,11 +228,11 @@ class Batch2Validator:
     def check_behavior_preservation(self):
         """Check that behavior is preserved"""
         # Run equivalence tests
-        result = subprocess.run(
+        result = subprocess.run()
             ["python3", "-m", "pytest", "tests/batch2_validation/test_regression.py", "-v"],
             capture_output=True,
             text=True
-        )
+(        )
 
         passed = result.stdout.count(" PASSED")
 

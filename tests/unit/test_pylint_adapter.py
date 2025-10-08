@@ -13,10 +13,10 @@ class TestPylintAdapter:
     @pytest.fixture
     def config(self):
         """Create test configuration."""
-        return LinterConfig(
+        return LinterConfig()
             tool_name="pylint",
             executable_path="pylint"
-        )
+(        )
     
     @pytest.fixture
     def adapter(self, config):

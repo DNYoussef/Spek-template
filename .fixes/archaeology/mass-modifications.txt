@@ -1,0 +1,18 @@
+35b74ba4 Wave 10: Module resolution + Python test discovery | Files: 147 | +2303 -1832
+d80458c4 Wave 3.4: Fix validation file syntax (embedded declarations, spacing) - Final Wave 3 | Files: 25 | +1669 -0
+1704df76 feat: Complete Phase 3 God Object Elimination Campaign - Historic Victory | Files: 24 | +9361 -0
+f8ccbbf7 feat: Complete Phase 9 Theater Audit & Agent Verification | Files: 108 | +47857 -298
+932a69fa index on main: 18c1f53 fix: Add numpy dependency to test-analyzer-visibility workflow | Files: 282 | +932 -131321
+c2e99863 feat: Complete analyzer restoration - all syntax errors fixed, full functionality achieved | Files: 93 | +285 -172
+69fb57c5 feat: Complete Unicode removal and file organization | Files: 185 | +40046 -5685
+63c9a95b Phase 0 complete: Foundation established, baseline scan complete | Files: 42 | +4031 -1860
+f44a8e1c feat: Complete VSCode extension integration with wrapper solution | Files: 31 | +9676 -0
+2a6a4e6a feat: Queen Remediation System - UnifiedConnascenceAnalyzer Decomposition | Files: 26 | +3867 -43675
+fb10a257 cleanup: Remove theater consolidation artifacts and actual redundancy | Files: 34 | +205 -2956
+b4d3a335 feat: Complete Phase 5 Integration and Final Reality Validation | Files: 25 | +9556 -0
+8f3b2573 feat: Loop 3 CI/CD Quality & Debugging - Comprehensive Fixes | Files: 22 | +6451 -4053
+3074b213 feat: Clean up artifacts and finalize Enhanced Loop 3 implementation | Files: 27 | +5840 -6825
+1e1fb236 feat: Complete 27-Step Enterprise Integration - Defense Industry Certified | Files: 29 | +5894 -117
+981bb501 feat: Complete SPEK Enhanced Development Platform - Enterprise Production Ready | Files: 52 | +30320 -0
+f1eacb8d feat: Complete comprehensive analyzer architecture audit and optimization | Files: 37 | +54381 -0
+289a12b8 feat: Complete analyzer pipeline deployment with comprehensive quality gates | Files: 27 | +9843 -0

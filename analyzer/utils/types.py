@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 Type definitions for the connascence analyzer ecosystem.
 Provides canonical types used across all analyzer modules.

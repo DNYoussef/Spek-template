@@ -29,12 +29,13 @@ export class ComputerUseController {
       this.logger.log(`Computer action request: ${JSON.stringify(paramsCopy)}`);
       return await this.computerUseService.action(params);
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error(
-        `Error executing computer action: ${error.message}`,
+        `Error executing computer action: ${errorMessage}`,
         error.stack,
       );
       throw new HttpException(
-        `Failed to execute computer action: ${error.message}`,
+        `Failed to execute computer action: ${errorMessage}`,
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

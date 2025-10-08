@@ -1,5 +1,6 @@
 from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
+"""
 This script demonstrates the complete compliance evidence generation system
 for SOC2, ISO27001:2022, and NIST-SSDF v1.1 regulatory frameworks.
 

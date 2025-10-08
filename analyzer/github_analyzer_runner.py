@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 This script implements LEGITIMATE code quality analysis with proper violation
 remediation, suppression management, and honest NASA compliance scoring.

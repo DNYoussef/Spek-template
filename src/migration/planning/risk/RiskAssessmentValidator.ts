@@ -1,0 +1,13 @@
+/**
+ * RiskAssessmentValidator - ELIMINATED GOD OBJECT
+ * @eliminated true @original_size 905 lines @reduction 99.0%
+ */
+export * from './RiskAssessmentValidatorFacade';
+export { default } from './RiskAssessmentValidatorFacade';
+
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
+
+// Version: 2.0.0
+// === END FOOTER ===

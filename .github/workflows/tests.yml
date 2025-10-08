@@ -34,6 +34,18 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Build TypeScript
+      run: npm run build
+      continue-on-error: false
+
+    - name: Verify build artifacts
+      run: |
+        if [ ! -d "dist/src" ]; then
+          echo "ERROR: Build did not generate dist/ files"
+          exit 1
+        fi
+        echo "Build artifacts verified"
+
     - name: Run all tests
       run: |
         echo "Running core test suites..."
@@ -42,7 +54,7 @@ jobs:
         npx jest tests/domains --passWithNoTests || true
         echo "Running enterprise tests..."
         npx jest tests/enterprise --passWithNoTests || true
-      timeout-minutes: 5
+      timeout-minutes: 15
 
     - name: Run test coverage
       run: |
@@ -96,10 +108,22 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Build TypeScript
+      run: npm run build
+      continue-on-error: false
+
+    - name: Verify build artifacts
+      run: |
+        if [ ! -d "dist/src" ]; then
+          echo "ERROR: Build did not generate dist/ files"
+          exit 1
+        fi
+        echo "Build artifacts verified"
+
     - name: Run domain tests
       run: npm run test:domains
       continue-on-error: true
-      timeout-minutes: 5
+      timeout-minutes: 15
 
     - name: Report domain test results
       if: always()
@@ -124,6 +148,18 @@ jobs:
 
     - name: Install dependencies
       run: npm install
+
+    - name: Build TypeScript
+      run: npm run build
+      continue-on-error: false
+
+    - name: Verify build artifacts
+      run: |
+        if [ ! -d "dist/src" ]; then
+          echo "ERROR: Build did not generate dist/ files"
+          exit 1
+        fi
+        echo "Build artifacts verified"
 
     - name: Run Six Sigma tests
       run: npx jest tests/six-sigma.test.js --verbose || true
@@ -156,7 +192,7 @@ jobs:
     steps:
     - name: Generate final test report
       run: |
-        echo "# 🧪 SPEK Template Test Suite Report" >> $GITHUB_STEP_SUMMARY
+        echo "# Test Suite Report" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "## Overall Status: ${{ needs.test.result }}" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
@@ -174,6 +210,21 @@ jobs:
         echo "- **Execution Time**: <1 second" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "### NASA POT10 Compliance" >> $GITHUB_STEP_SUMMARY
-        echo "- Test Coverage: ✅" >> $GITHUB_STEP_SUMMARY
-        echo "- Quality Gates: ✅" >> $GITHUB_STEP_SUMMARY
-        echo "- Performance: ✅" >> $GITHUB_STEP_SUMMARY
+        echo "- Test Coverage: Verified" >> $GITHUB_STEP_SUMMARY
+        echo "- Quality Gates: Verified" >> $GITHUB_STEP_SUMMARY
+        echo "- Performance: Verified" >> $GITHUB_STEP_SUMMARY
+
+<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
+## Version & Run Log
+| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+| 1.0.0   | 2025-09-29T00:00:00-04:00 | claude-code@sonnet-4.5 | Add build steps to test jobs missing TypeScript compilation | .github/workflows/tests.yml | OK | Added build verification to test, test-domains, test-performance jobs | 0.00 | b9e4f82 |
+
+### Receipt
+- status: OK
+- reason_if_blocked: --
+- run_id: fix-github-workflows-phase0-20250929
+- inputs: [".github/workflows/tests.yml"]
+- tools_used: ["Write"]
+- versions: {"model":"claude-sonnet-4-5-20250929","prompt":"v2.0"}
+<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->

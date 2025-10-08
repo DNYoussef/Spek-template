@@ -1,3 +1,6 @@
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES
 """
 
@@ -19,7 +22,6 @@ from pathlib import Path
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional
 from datetime import datetime
-"""
 
 logger = logging.getLogger(__name__)
 
@@ -631,10 +633,10 @@ class DefenseCertificationTool:
 
         logger.info(f"Certification report exported to {output_path}")
 
-    def main():
+def main():
     """Main execution function."""
     import argparse
-
+    
     parser = argparse.ArgumentParser(description='Defense Industry Certification Tool')
     parser.add_argument('--project', required=True, help='Project name')
     parser.add_argument('--path', default='.', help='Codebase path to analyze')
@@ -643,19 +645,19 @@ class DefenseCertificationTool:
                         help='Security classification level')
     parser.add_argument('--output', default='defense_certification_report.json',
                         help='Output report file')
-
+    
     args = parser.parse_args()
-
+    
     # Run certification
     tool = DefenseCertificationTool(args.project, args.level)
     codebase_path = Path(args.path)
-
+    
     report = tool.run_comprehensive_certification(codebase_path)
-
+    
     # Export report
     output_path = Path(args.output)
     tool.export_certification_report(report, output_path)
-
+    
     # Print summary
     print(f"\nDEFENSE CERTIFICATION SUMMARY")
     print(f"=" * 50)
@@ -668,12 +670,12 @@ class DefenseCertificationTool:
     print(f"  DFARS: {report.dfars_compliance_score:.1f}%")
     print(f"  NIST: {report.nist_compliance_score:.1f}%")
     print(f"  DoD: {report.dod_compliance_score:.1f}%")
-
+    
     if report.remediation_plan:
         print(f"\nRemediation Required:")
         for i, item in enumerate(report.remediation_plan, 1):
             print(f"  {i}. {item}")
-
+    
     # Return exit code based on certification status
     status_codes = {
         "certified": 0,
@@ -681,7 +683,7 @@ class DefenseCertificationTool:
         "remediation_required": 2,
         "non_compliant": 3
     }
-
+    
     return status_codes.get(report.certification_status, 3)
 
 if __name__ == '__main__':

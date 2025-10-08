@@ -1,6 +1,5 @@
 /**
  * Context DNA - Semantic Fingerprinting with Anti-Degradation
- *
  * Implements triple-layer integrity system:
  * 1. SHA-256 checksums for data integrity
  * 2. Vector embeddings for semantic drift tracking
@@ -8,6 +7,7 @@
  */
 
 import * as crypto from 'crypto';
+import { ValidationResult } from '../types/validation-types';
 
 export interface ContextFingerprint {
   checksum: string;
@@ -17,16 +17,9 @@ export interface ContextFingerprint {
   sourceAgent: string;
   targetAgent: string;
   degradationScore: number;
+  contextId?: string; // Optional context identifier for tracking
 }
 
-export interface ValidationResult {
-  valid: boolean;
-  checksumMatch: boolean;
-  semanticSimilarity: number;
-  degradationDetected: boolean;
-  recoveryNeeded: boolean;
-  details: string[];
-}
 
 export class ContextDNA {
   private static readonly SEMANTIC_THRESHOLD = 0.85;
@@ -483,4 +476,5 @@ export class ContextDNA {
   }
 }
 
+// Backward compatibility
 export default ContextDNA;

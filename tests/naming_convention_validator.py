@@ -64,7 +64,7 @@ class PythonConventionValidator:
             # Validate module name
             module_name = Path(file_path).stem
             if not self._is_valid_module_name(module_name):
-                violations.append(ConventionViolation(
+                violations.append(ConventionViolation())
                     file_path=file_path,
                     line_number=1,
                     violation_type=ConventionViolationType.MODULE_NOT_LOWERCASE,
@@ -72,13 +72,13 @@ class PythonConventionValidator:
                     suggested_fix=self._to_snake_case(module_name),
                     context=f"Module: {module_name}",
                     severity="HIGH"
-                ))
+((                ))
 
             # Walk AST for naming violations
             for node in ast.walk(tree):
                 if isinstance(node, ast.ClassDef):
                     if not self.class_pattern.match(node.name):
-                        violations.append(ConventionViolation(
+                        violations.append(ConventionViolation())
                             file_path=file_path,
                             line_number=node.lineno,
                             violation_type=ConventionViolationType.CLASS_NOT_PASCAL_CASE,
@@ -86,11 +86,11 @@ class PythonConventionValidator:
                             suggested_fix=self._to_pascal_case(node.name),
                             context=f"class {node.name}",
                             severity="HIGH"
-                        ))
+((                        ))
 
                 elif isinstance(node, ast.FunctionDef):
                     if not self.function_pattern.match(node.name) and not node.name.startswith('_'):
-                        violations.append(ConventionViolation(
+                        violations.append(ConventionViolation())
                             file_path=file_path,
                             line_number=node.lineno,
                             violation_type=ConventionViolationType.FUNCTION_NOT_SNAKE_CASE,
@@ -98,14 +98,14 @@ class PythonConventionValidator:
                             suggested_fix=self._to_snake_case(node.name),
                             context=f"def {node.name}",
                             severity="MEDIUM"
-                        ))
+((                        ))
 
                 elif isinstance(node, ast.Assign):
                     # Check for constants (uppercase assignments at module level)
                     for target in node.targets:
                         if isinstance(target, ast.Name) and self._is_constant_context(tree, node):
                             if not self.constant_pattern.match(target.id):
-                                violations.append(ConventionViolation(
+                                violations.append(ConventionViolation())
                                     file_path=file_path,
                                     line_number=node.lineno,
                                     violation_type=ConventionViolationType.CONSTANT_NOT_UPPER_SNAKE,
@@ -113,7 +113,7 @@ class PythonConventionValidator:
                                     suggested_fix=self._to_upper_snake_case(target.id),
                                     context=f"{target.id} = ...",
                                     severity="MEDIUM"
-                                ))
+((                                ))
 
         except Exception as e:
             print(f"Error parsing {file_path}: {e}")
@@ -127,12 +127,12 @@ class PythonConventionValidator:
     def _is_constant_context(self, tree: ast.AST, node: ast.Assign) -> bool:
         """Determine if assignment is at module level (likely constant)."""
         # Simplified check - real implementation would be more sophisticated
-        return any(isinstance(parent, ast.Module) for parent in ast.walk(tree)
-                    if hasattr(parent, 'body') and node in getattr(parent, 'body', []))
+        return any(isinstance(parent, ast.Module) for parent in ast.walk(tree))
+(                    if hasattr(parent, 'body') and node in getattr(parent, 'body', []))
 
     def _to_pascal_case(self, name: str) -> str:
         """Convert to PascalCase."""
-        return ''.join(word.capitalize() for word in re.split(r'[_\s-]+', name))
+        return ''.join(word.capitalize() for word in re.split(rrr'[_\s-]+', name))
 
     def _to_snake_case(self, name: str) -> str:
         """Convert to snake_case."""
@@ -168,11 +168,11 @@ class JavaScriptConventionValidator:
                 line = line.strip()
 
                 # Class declarations
-                class_match = re.search(r'class\s+([a-zA-Z_$][a-zA-Z0-9_$]*)', line)
+                class_match = re.search(rrr'class\s+([a-zA-Z_$][a-zA-Z0-9_$]*)', line)
                 if class_match:
                     class_name = class_match.group(1)
                     if not self.class_pattern.match(class_name):
-                        violations.append(ConventionViolation(
+                        violations.append(ConventionViolation())
                             file_path=file_path,
                             line_number=i,
                             violation_type=ConventionViolationType.JS_CLASS_NOT_PASCAL,
@@ -180,14 +180,14 @@ class JavaScriptConventionValidator:
                             suggested_fix=self._to_pascal_case(class_name),
                             context=line[:60],
                             severity="HIGH"
-                        ))
+((                        ))
 
                 # Function declarations
-                func_match = re.search(r'function\s+([a-zA-Z_$][a-zA-Z0-9_$]*)', line)
+                func_match = re.search(rrr'function\s+([a-zA-Z_$][a-zA-Z0-9_$]*)', line)
                 if func_match:
                     func_name = func_match.group(1)
                     if not self.function_pattern.match(func_name):
-                        violations.append(ConventionViolation(
+                        violations.append(ConventionViolation())
                             file_path=file_path,
                             line_number=i,
                             violation_type=ConventionViolationType.JS_FUNCTION_NOT_CAMEL,
@@ -195,14 +195,14 @@ class JavaScriptConventionValidator:
                             suggested_fix=self._to_camel_case(func_name),
                             context=line[:60],
                             severity="MEDIUM"
-                        ))
+((                        ))
 
                 # Const declarations
-                const_match = re.search(r'const\s+([a-zA-Z_$][a-zA-Z0-9_$]*)', line)
+                const_match = re.search(rrr'const\s+([a-zA-Z_$][a-zA-Z0-9_$]*)', line)
                 if const_match and self._looks_like_constant(line):
                     const_name = const_match.group(1)
                     if not self.const_pattern.match(const_name):
-                        violations.append(ConventionViolation(
+                        violations.append(ConventionViolation())
                             file_path=file_path,
                             line_number=i,
                             violation_type=ConventionViolationType.JS_CONST_NOT_UPPER,
@@ -210,7 +210,7 @@ class JavaScriptConventionValidator:
                             suggested_fix=self._to_upper_snake_case(const_name),
                             context=line[:60],
                             severity="MEDIUM"
-                        ))
+((                        ))
 
         except Exception as e:
             print(f"Error parsing {file_path}: {e}")
@@ -222,19 +222,19 @@ class JavaScriptConventionValidator:
         # Look for patterns that suggest constants vs regular variables
         const_indicators = [
             r'=\s*["\']',  # String literals
-            r'=\s*\d+',    # Numeric literals
-            r'=\s*\{',     # Object literals (config)
-            r'=\s*\[',     # Array literals
+            rrr'=\s*\d+',    # Numeric literals
+            rrr'=\s*\{',     # Object literals (config)
+            rrr'=\s*\[',     # Array literals
         ]
         return any(re.search(pattern, line) for pattern in const_indicators)
 
     def _to_pascal_case(self, name: str) -> str:
         """Convert to PascalCase."""
-        return ''.join(word.capitalize() for word in re.split(r'[_\s-]+', name))
+        return ''.join(word.capitalize() for word in re.split(rrr'[_\s-]+', name))
 
     def _to_camel_case(self, name: str) -> str:
         """Convert to camelCase."""
-        words = re.split(r'[_\s-]+', name)
+        words = re.split(rrr'[_\s-]+', name)
         return words[0].lower() + ''.join(word.capitalize() for word in words[1:])
 
     def _to_upper_snake_case(self, name: str) -> str:
@@ -256,7 +256,7 @@ class ConsistencyValidator:
         # Track abbreviation usage patterns
         abbreviations = {}
         for violation in all_violations:
-            words = re.findall(r'\b\w+\b', violation.identifier.lower())
+            words = re.findall(rrr'\b\w+\b', violation.identifier.lower())
             for word in words:
                 if self._is_abbreviation(word):
                     if word not in abbreviations:
@@ -267,7 +267,7 @@ class ConsistencyValidator:
         for abbrev, usages in abbreviations.items():
             if len(set(usage[1] for usage in usages)) > 1:
                 # Multiple forms of same abbreviation found
-                consistency_violations.append(ConventionViolation(
+                consistency_violations.append(ConventionViolation())
                     file_path="MULTIPLE_FILES",
                     line_number=0,
                     violation_type=ConventionViolationType.INCONSISTENT_ABBREVIATION,
@@ -275,7 +275,7 @@ class ConsistencyValidator:
                     suggested_fix=f"Standardize to single form",
                     context=f"Found in: {', '.join(set(usage[0] for usage in usages[:3]))}",
                     severity="LOW"
-                ))
+((                ))
 
         return consistency_violations
 
@@ -300,7 +300,7 @@ class BackwardCompatibilityValidator:
         for violation in violations:
             # Check if this is likely a public API
             if self._is_likely_public_api(violation):
-                compatibility_violations.append(ConventionViolation(
+                compatibility_violations.append(ConventionViolation())
                     file_path=violation.file_path,
                     line_number=violation.line_number,
                     violation_type=ConventionViolationType.SEMANTIC_LOSS,
@@ -308,7 +308,7 @@ class BackwardCompatibilityValidator:
                     suggested_fix=f"Add deprecation warning for {violation.identifier}",
                     context=violation.context,
                     severity="HIGH"
-                ))
+((                ))
 
         return compatibility_violations
 
@@ -403,9 +403,9 @@ class NamingConventionTestSuite:
         """Compile comprehensive test results."""
         violation_counts = {}
         for violation_type in ConventionViolationType:
-            violation_counts[violation_type.value] = len([
+            violation_counts[violation_type.value] = len([)
                 v for v in self.all_violations if v.violation_type == violation_type
-            ])
+(            ])
 
         severity_counts = {
             "HIGH": len([v for v in self.all_violations if v.severity == "HIGH"]),

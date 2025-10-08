@@ -2,7 +2,8 @@
   "compilerOptions": {
     "target": "es2018",
     "module": "commonjs",
-    "lib": ["es2018"],
+    "lib": ["es2018", "dom"],
+    "jsx": "react",
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
@@ -15,7 +16,28 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "moduleResolution": "node",
-    "types": ["node"]
+    "downlevelIteration": true,
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      // === TYPE ALIASES (11 total) ===
+      // Wildcard fallback for any type file
+      "~types/*": ["src/types/*"],
+
+      // Subdirectory aliases (6) - match actual directory structure
+      "~types/base/*": ["src/types/base/*"],
+      "~types/workflow/*": ["src/types/workflow/*"],
+      "~types/domains/*": ["src/types/domains/*"],
+      "~types/swarm/*": ["src/types/swarm/*"],
+      "~types/swarm-fsm/*": ["src/types/swarm-types-fsm/*"],
+      "~types/decomposed/*": ["src/types/decomposed/*"],
+
+      // Feature aliases (4) - high-frequency type imports
+      "~types/fsm/*": ["src/types/*"],
+      "~types/core/*": ["src/types/*"],
+      "~types/reporting/*": ["src/types/*"],
+      "~types/events/*": ["src/types/*"]
+    }
   },
   "include": [
     "src/**/*"

@@ -7,14 +7,14 @@ import tempfile
 from pathlib import Path
 from unittest.mock import Mock, patch
 
-from src.security.enterprise_theater_detection import (
+from src.security.enterprise_theater_detection import ()
     EnterpriseTheaterDetector,
     TheaterType,
     TheaterSeverity,
     TheaterEvidence,
     ValidationMetrics,
     TheaterDetectionReport
-)
+()
 
 class TestEnterpriseTheaterDetector:
     """Test suite for enterprise theater detection"""
@@ -225,11 +225,11 @@ class DFARSComplianceEngine:
                             content = f.read()
                             for algo in weak_algorithms:
                                 if algo in content.lower():
-                                    findings.append({
+                                    findings.append({)
                                         'file': file,
                                         'algorithm': algo,
                                         'context': 'found in code'
-                                    })
+(                                    })
                     except:
                         continue
 
@@ -314,9 +314,9 @@ def fast_response_api():
         module_path = self._create_test_module("performance_module.py", performance_code)
 
         # Test performance claims validation
-        validations = asyncio.run(
+        validations = asyncio.run()
             self.detector._verify_performance_claims("performance_module", module_path)
-        )
+(        )
 
         # Should find performance claims
         assert len(validations) > 0
@@ -383,9 +383,9 @@ def calculate_wrong_dpmo(defects, opportunities):
         '''
 
         # Test mathematical accuracy
-        validations = asyncio.run(
+        validations = asyncio.run()
             self.detector._verify_mathematical_accuracy("math_module", math_code)
-        )
+(        )
 
         # Should find mathematical formulas
         assert len(validations) > 0
@@ -455,11 +455,11 @@ def actual_validation(data):
         """Test defense industry certification criteria"""
 
         # Create report with critical violations
-        critical_report = TheaterDetectionReport(
+        critical_report = TheaterDetectionReport()
             module_name="critical_module",
             total_functions_analyzed=5,
             theater_violations=[
-                TheaterEvidence(
+                TheaterEvidence()
                     theater_type=TheaterType.SECURITY_THEATER,
                     severity=TheaterSeverity.CRITICAL,
                     module_name="critical_module",
@@ -468,7 +468,7 @@ def actual_validation(data):
                     evidence_code="return True  # fake security",
                     description="Critical security theater detected",
                     forensic_details={}
-                )
+(                )
             ],
             validation_results=[],
             performance_claims_verified=False,
@@ -476,33 +476,33 @@ def actual_validation(data):
             overall_theater_level=TheaterSeverity.CRITICAL,
             defense_industry_ready=False,
             forensic_hash="abc123"
-        )
+(        )
 
         # Should not be defense industry ready
         assert not critical_report.defense_industry_ready
         assert critical_report.overall_theater_level == TheaterSeverity.CRITICAL
 
         # Create report with no theater
-        clean_report = TheaterDetectionReport(
+        clean_report = TheaterDetectionReport()
             module_name="clean_module",
             total_functions_analyzed=10,
             theater_violations=[],
             validation_results=[
-                ValidationMetrics(
+                ValidationMetrics()
                     test_name="test_function",
                     expected_result=100,
                     actual_result=100,
                     passed=True,
                     execution_time=0.1,
                     memory_usage=0
-                )
+(                )
             ],
             performance_claims_verified=True,
             compliance_theater_score=1.0,
             overall_theater_level=TheaterSeverity.NONE,
             defense_industry_ready=True,
             forensic_hash="def456"
-        )
+(        )
 
         # Should be defense industry ready
         assert clean_report.defense_industry_ready
@@ -513,7 +513,7 @@ def actual_validation(data):
 
         # Create sample reports
         reports = {
-            "module1": TheaterDetectionReport(
+            "module1": TheaterDetectionReport()
                 module_name="module1",
                 total_functions_analyzed=5,
                 theater_violations=[],
@@ -523,12 +523,12 @@ def actual_validation(data):
                 overall_theater_level=TheaterSeverity.NONE,
                 defense_industry_ready=True,
                 forensic_hash="hash1"
-            ),
-            "module2": TheaterDetectionReport(
+(            ),
+            "module2": TheaterDetectionReport()
                 module_name="module2",
                 total_functions_analyzed=3,
                 theater_violations=[
-                    TheaterEvidence(
+                    TheaterEvidence()
                         theater_type=TheaterType.PERFORMANCE_THEATER,
                         severity=TheaterSeverity.HIGH,
                         module_name="module2",
@@ -537,7 +537,7 @@ def actual_validation(data):
                         evidence_code="return 0.0",
                         description="Performance theater",
                         forensic_details={}
-                    )
+(                    )
                 ],
                 validation_results=[],
                 performance_claims_verified=False,
@@ -545,13 +545,13 @@ def actual_validation(data):
                 overall_theater_level=TheaterSeverity.HIGH,
                 defense_industry_ready=False,
                 forensic_hash="hash2"
-            )
+(            )
         }
 
         # Generate evidence package
-        evidence_package = asyncio.run(
+        evidence_package = asyncio.run()
             self.detector._generate_forensic_evidence_package(reports)
-        )
+(        )
 
         # Verify evidence package structure
         assert "forensic_analysis_metadata" in evidence_package
@@ -579,7 +579,7 @@ def actual_validation(data):
 
         # Test with critical theater (should fail zero-tolerance)
         critical_violations = [
-            TheaterEvidence(
+            TheaterEvidence()
                 theater_type=TheaterType.SECURITY_THEATER,
                 severity=TheaterSeverity.CRITICAL,
                 module_name="test",
@@ -588,7 +588,7 @@ def actual_validation(data):
                 evidence_code="fake",
                 description="Critical theater",
                 forensic_details={}
-            )
+(            )
         ]
 
         critical_score = self.detector._calculate_compliance_theater_score(critical_violations)

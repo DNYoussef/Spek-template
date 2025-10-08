@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-10-05T14:32:01.771Z",
+  "totalStubs": 0,
+  "analyzed": [],
+  "summary": {
+    "facadesExist": 0,
+    "facadesMissing": 0,
+    "originalsFound": 0,
+    "originalsNotFound": 0,
+    "hasImporters": 0,
+    "noImporters": 0
+  }
+}

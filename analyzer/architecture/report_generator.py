@@ -1,5 +1,9 @@
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import MAXIMUM_NESTED_DEPTH
 
+"""
 Specialized report generation using template pattern.
 NASA Rule 4 Compliant: All methods under 60 lines.
 NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
@@ -356,6 +360,6 @@ class ReportGenerator:
         else:  # markdown
             return f"# Report Generation Error\n\n**Error:** {error_message}\n\n**Time:** {datetime.now().isoformat()}"
 
-    def create_report_generator() -> ReportGenerator:
+def create_report_generator() -> ReportGenerator:
     """Factory function to create report generator."""
     return ReportGenerator()

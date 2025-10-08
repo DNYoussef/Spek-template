@@ -1,3 +1,5 @@
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 Detects Connascence of Algorithm violations - duplicate algorithms across functions.
 """

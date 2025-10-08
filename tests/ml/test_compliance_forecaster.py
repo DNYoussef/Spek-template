@@ -134,11 +134,11 @@ class TestComplianceForecaster:
                 drift_score = np.random.uniform(-0.2, KELLY_CRITERION_FRACTION) # Stable
 
             # Create risk labels (high risk = 1, low risk = 0)
-            risk_score = (
+            risk_score = ()
                 sample['current_metrics']['security_score'] * 0.3 +
                 (1 - sample['violations']['critical_count'] / 10) * 0.4 +
                 sample['process_maturity']['automation_score'] * 0.3
-            )
+(            )
             risk_label = 1 if risk_score < 0.7 else 0
 
             training_samples.append(sample)
@@ -227,10 +227,10 @@ class TestComplianceForecaster:
         # Declining trend
         declining_data = []
         for i in range(30):
-            declining_data.append({
+            declining_data.append({)
                 'timestamp': (base_timestamp - timedelta(days=i)).isoformat(),
                 'overall_score': 0.9 - (i * 0.1)  # Declining by 1% per day
-            })
+(            })
 
         drift_result = compliance_forecaster.predict_compliance_drift(declining_data)
         assert drift_result.get('drift_detected', False)
@@ -239,10 +239,10 @@ class TestComplianceForecaster:
         # Improving trend
         improving_data = []
         for i in range(30):
-            improving_data.append({
+            improving_data.append({)
                 'timestamp': (base_timestamp - timedelta(days=i)).isoformat(),
                 'overall_score': 0.7 + (i * 0.5)  # Improving by 0.5% per day
-            })
+(            })
 
         drift_result = compliance_forecaster.predict_compliance_drift(improving_data)
         # May or may not detect as drift depending on threshold
@@ -316,20 +316,20 @@ class TestComplianceForecaster:
     def test_mitigation_recommendations(self, compliance_forecaster):
         """Test mitigation recommendation generation."""
         # High risk scenario
-        high_risk_recommendations = compliance_forecaster._generate_mitigation_recommendations(
+        high_risk_recommendations = compliance_forecaster._generate_mitigation_recommendations()
             risk_score=0.9,
             component_scores={'security': 0.8, 'operational': 0.9}
-        )
+(        )
 
         assert isinstance(high_risk_recommendations, list)
         assert len(high_risk_recommendations) > 0
         assert any('URGENT' in rec for rec in high_risk_recommendations)
 
         # Low risk scenario
-        low_risk_recommendations = compliance_forecaster._generate_mitigation_recommendations(
+        low_risk_recommendations = compliance_forecaster._generate_mitigation_recommendations()
             risk_score=0.3,
             component_scores={'security': 0.2, 'operational': 0.3}
-        )
+(        )
 
         assert isinstance(low_risk_recommendations, list)
 
@@ -345,9 +345,9 @@ class TestComplianceForecaster:
             'predicted_score_30d': 0.7
         }
 
-        alerts = compliance_forecaster.generate_proactive_alerts(
+        alerts = compliance_forecaster.generate_proactive_alerts()
             sample_compliance_data, forecast_result
-        )
+(        )
 
         assert isinstance(alerts, list)
         # Should generate alerts for drift and potentially high risk
@@ -540,10 +540,10 @@ class TestComplianceForecaster:
             day_of_week = i % 7
             seasonal_component = 0.1 * np.sin(2 * np.pi * day_of_week / 7)
 
-            seasonal_data.append({
+            seasonal_data.append({)
                 'timestamp': (base_timestamp - timedelta(days=i)).isoformat(),
                 'overall_score': 0.8 + seasonal_component + np.random.normal(0, KELLY_CRITERION_FRACTION)
-            })
+(            })
 
         ts_features = compliance_forecaster._extract_timeseries_features(seasonal_data)
 
@@ -644,11 +644,11 @@ class TestComplianceForecasterIntegration:
                 }
 
                 # Generate labels
-                overall_compliance = (
+                overall_compliance = ()
                     sample['current_metrics']['code_coverage'] * 0.3 +
                     sample['current_metrics']['security_score'] * 0.4 +
                     (1 - sample['violations']['critical_count'] / 10) * 0.3
-                )
+(                )
 
                 drift_label = np.random.normal(0, 0.5)  # Small drift
                 risk_label = 1 if overall_compliance < THEATER_DETECTION_WARNING_THRESHOLD else 0

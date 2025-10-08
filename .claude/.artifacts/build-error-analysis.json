@@ -1,0 +1,148 @@
+{
+  "timestamp": "2025-09-30T13:55:13.694Z",
+  "totalErrors": 4229,
+  "categories": {
+    "EventEmitter Conflicts": {
+      "count": 62,
+      "examples": [
+        "src/architecture/langgraph/communication/EventBus.ts(97,9): error TS2425: Class 'import(\"C:/Users/17175/Desktop/spek template/node_modules/@types/node/events.d.ts\")<DefaultEventMap>' defines instance member property 'cleanup', but extended class 'EventBus' defines it as instance member function.",
+        "src/architecture/langgraph/communication/MessageRouterFacade.ts(94,9): error TS2425: Class 'import(\"C:/Users/17175/Desktop/spek template/node_modules/@types/node/events.d.ts\")<DefaultEventMap>' defines instance member property 'cleanup', but extended class 'MessageRouterFacade' defines it as instance member function.",
+        "src/architecture/langgraph/communication/processors/MessageProcessor.ts(62,9): error TS2425: Class 'import(\"C:/Users/17175/Desktop/spek template/node_modules/@types/node/events.d.ts\")<DefaultEventMap>' defines instance member property 'cleanup', but extended class 'MessageProcessor' defines it as instance member function."
+      ]
+    },
+    "Undefined Variables": {
+      "count": 330,
+      "examples": [
+        "src/architecture/langgraph/queen/components/PrincessDispatcherFacade.ts(104,7): error TS2304: Cannot find name 'result'.",
+        "src/architecture/langgraph/queen/components/PrincessDispatcherFacade.ts(105,45): error TS2304: Cannot find name 'result'.",
+        "src/architecture/langgraph/queen/components/PrincessDispatcherFacade.ts(107,35): error TS2304: Cannot find name 'result'."
+      ]
+    },
+    "Missing Properties": {
+      "count": 624,
+      "examples": [
+        "src/architecture/langgraph/queen/core/QueenCoordinator.ts(121,49): error TS2339: Property 'getUtilizationSummary' does not exist on type 'ResourceManager'.",
+        "src/architecture/langgraph/queen/QueenFacadeFacade.ts(87,40): error TS2339: Property 'IDLE' does not exist on type 'typeof QueenState'.",
+        "src/architecture/langgraph/queen/QueenFacadeFacade.ts(99,40): error TS2339: Property 'ERROR' does not exist on type 'typeof QueenState'."
+      ]
+    },
+    "Property Access": {
+      "count": 297,
+      "examples": [
+        "src/architecture/langgraph/queen/QueenFacadeFacade.ts(316,38): error TS2551: Property 'DELEGATING_TASK' does not exist on type 'typeof QueenState'. Did you mean 'DELEGATING'?",
+        "src/architecture/langgraph/state-machines/research/ResearchStateMachineFacade.ts(317,16): error TS2551: Property 'transition' does not exist on type 'ResearchStateMachine'. Did you mean 'transitionHub'?",
+        "src/architecture/langgraph/StateGraphFacade.ts(76,10): error TS2551: Property '_edges' does not exist on type 'StateGraphFacade'. Did you mean 'edges'?"
+      ]
+    },
+    "Missing Modules": {
+      "count": 84,
+      "examples": [
+        "src/architecture/langgraph/monitoring/fsm/DashboardBaseFSM.ts(3,66): error TS2307: Cannot find module '../../../types/fsm-types' or its corresponding type declarations.",
+        "src/architecture/langgraph/queen/core/QueenCoordinator.ts(8,34): error TS2307: Cannot find module '../state-machines/PrincessStateMachine' or its corresponding type declarations.",
+        "src/architecture/langgraph/types/workflow.types.ts(8,15): error TS2307: Cannot find module './workflow.typesFacade' or its corresponding type declarations."
+      ]
+    },
+    "Type as Value": {
+      "count": 172,
+      "examples": [
+        "src/architecture/langgraph/queen/components/PrincessDispatcherFacade.ts(110,16): error TS2693: 'DispatchResult' only refers to a type, but is being used as a value here.",
+        "src/architecture/langgraph/queen/QueenFacadeFacade.ts(100,16): error TS2693: 'QueenOperationResult' only refers to a type, but is being used as a value here.",
+        "src/architecture/langgraph/queen/QueenFacadeFacade.ts(136,20): error TS2693: 'QueenOperationResult' only refers to a type, but is being used as a value here."
+      ]
+    },
+    "Used Before Init": {
+      "count": 8,
+      "examples": [
+        "src/architecture/langgraph/communication/MessageRouter.ts(138,13): error TS2729: Property 'facade' is used before its initialization.",
+        "src/architecture/langgraph/communication/MessageRouter.ts(138,33): error TS2729: Property 'facade' is used before its initialization.",
+        "src/architecture/langgraph/communication/MessageRouter.ts(139,15): error TS2729: Property 'facade' is used before its initialization."
+      ]
+    },
+    "Type Mismatch": {
+      "count": 139,
+      "examples": [
+        "src/architecture/langgraph/LangGraphEngineFacade.ts(15,5): error TS2322: Type 'LangGraphEngineCore' is not assignable to type 'ComponentCore'.",
+        "src/architecture/langgraph/queen/managers/ExecutionManager.ts(103,9): error TS2322: Type 'ExecutionPlan | undefined' is not assignable to type 'ExecutionPlan'.",
+        "src/architecture/langgraph/StateGraphFacade.ts(154,9): error TS2322: Type 'Set<unknown>' is not assignable to type 'Set<string>'."
+      ]
+    },
+    "Missing Return": {
+      "count": 22,
+      "examples": [
+        "src/architecture/langgraph/monitoring/StateMonitoringDashboardFacade.ts(21,41): error TS2355: A function whose declared type is neither 'undefined', 'void', nor 'any' must return a value.",
+        "src/config/environment-overridesFacade.ts(21,41): error TS2355: A function whose declared type is neither 'undefined', 'void', nor 'any' must return a value.",
+        "src/documentation/automation/OpenAPIGeneratorFacade.ts(21,41): error TS2355: A function whose declared type is neither 'undefined', 'void', nor 'any' must return a value."
+      ]
+    },
+    "Other": {
+      "count": 2491,
+      "examples": [
+        "src/architecture/langgraph/LangGraphEngineCore.ts(17,14): error TS2415: Class 'LangGraphEngineCore' incorrectly extends base class 'ComponentCore'.",
+        "src/architecture/langgraph/queen/core/QueenCoordinator.ts(164,38): error TS7006: Parameter 'oldState' implicitly has an 'any' type.",
+        "src/architecture/langgraph/queen/core/QueenCoordinator.ts(164,48): error TS7006: Parameter 'newState' implicitly has an 'any' type."
+      ]
+    }
+  },
+  "prioritized": [
+    {
+      "name": "Missing Modules",
+      "impact": "CRITICAL",
+      "effort": "LOW",
+      "count": 84
+    },
+    {
+      "name": "EventEmitter Conflicts",
+      "impact": "HIGH",
+      "effort": "LOW",
+      "count": 62
+    },
+    {
+      "name": "Undefined Variables",
+      "impact": "HIGH",
+      "effort": "LOW",
+      "count": 330
+    },
+    {
+      "name": "Used Before Init",
+      "impact": "HIGH",
+      "effort": "MEDIUM",
+      "count": 8
+    },
+    {
+      "name": "Property Access",
+      "impact": "MEDIUM",
+      "effort": "MEDIUM",
+      "count": 297
+    },
+    {
+      "name": "Missing Properties",
+      "impact": "MEDIUM",
+      "effort": "MEDIUM",
+      "count": 624
+    },
+    {
+      "name": "Type as Value",
+      "impact": "MEDIUM",
+      "effort": "LOW",
+      "count": 172
+    },
+    {
+      "name": "Type Mismatch",
+      "impact": "LOW",
+      "effort": "MEDIUM",
+      "count": 139
+    },
+    {
+      "name": "Missing Return",
+      "impact": "LOW",
+      "effort": "LOW",
+      "count": 22
+    },
+    {
+      "name": "Other",
+      "impact": "VARIES",
+      "effort": "VARIES",
+      "count": 2491
+    }
+  ]
+}

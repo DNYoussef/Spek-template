@@ -1,6 +1,5 @@
 /**
  * MECE Orchestration Validation Script
- *
  * Comprehensive validation of the MECE (Mutually Exclusive, Collectively Exhaustive)
  * orchestration system across all Princess domains.
  */

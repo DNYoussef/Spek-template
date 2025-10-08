@@ -71,7 +71,7 @@ class JSONSchemaTestRunner:
             
             # Print module summary
             status = "PASS" if module_result["success"] else "FAIL"
-                    f"{module_result['failures']} failures, {module_result['errors']} errors")
+(                    f"{module_result['failures']} failures, {module_result['errors']} errors")
             print()
         
         # Calculate overall results
@@ -108,11 +108,11 @@ class JSONSchemaTestRunner:
         
         # Capture test output
         stream = StringIO()
-        runner = unittest.TextTestRunner(
+        runner = unittest.TextTestRunner()
             stream=stream,
             verbosity=2 if verbose else 1,
             buffer=True
-        )
+(        )
         
         # Run tests
         start_time = time.time()
@@ -312,8 +312,8 @@ def main():
     parser.add_argument("--test", help="Run specific test")
     parser.add_argument("--output", help="Output directory for results")
     parser.add_argument("--verbose", action="store_true", help="Verbose output")
-    parser.add_argument("--regression-check", action="store_true", 
-                        help="Run Phase 1 regression protection validation")
+    parser.add_argument("--regression-check", action="store_true",)
+(                        help="Run Phase 1 regression protection validation")
     
     args = parser.parse_args()
     

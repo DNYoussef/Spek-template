@@ -1,0 +1,51 @@
+PRIORITY 2 CASCADE/IMPORT CLEANUP - EXECUTION STRATEGY
+=======================================================
+
+Total Errors: 1692 (TS2353: 625, TS2307: 456, TS2304: 310, TS2322: 301)
+Executable: 737 errors (44%)
+Skip: 955 errors (56% - facade/implementation issues)
+
+EXECUTION PHASES:
+-----------------
+
+Phase 1: TS2353 Object Literals ✅ HIGH ROI
+  Target: 625 errors → 350-425 errors (200-300 fixed, 32-48%)
+  Time: 7-10 hours
+  ROI: 30-40 errors/hour
+  Approach: Add missing interface properties
+
+Phase 2: TS2322 Enum Members ✅ QUICK WIN  
+  Target: 85 errors → 0-15 errors (70-85 fixed, 82-100%)
+  Time: 2-3 hours
+  ROI: 25-35 errors/hour
+  Approach: Add missing enum members
+
+Phase 3: TS2307 Type Imports ⚡ TARGETED
+  Target: 27 errors → 0-7 errors (20-27 fixed, 74-100%)
+  Time: 1-2 hours
+  ROI: 15-20 errors/hour
+  Approach: Fix ~types/ import paths
+
+SKIP CATEGORIES (Low ROI):
+  - TS2304 facade syntax: 150 errors (requires implementation)
+  - TS2307 missing facades: 429 errors (requires implementation)
+  - TS2322 type mismatches: 216 errors (requires investigation)
+
+EXPECTED IMPACT:
+----------------
+Total Errors Fixed: 290-412 (17-24% of Priority 2 total)
+Total Time: 10-15 hours
+Average ROI: 25-30 errors/hour
+
+CUMULATIVE PROGRESS (After Priority 2):
+  - Priority 1: 880 errors fixed (Property Access + Type Consolidation)
+  - Priority 2: 290-412 errors fixed (Cascade cleanup)
+  - Total: 1170-1292 errors fixed
+  - Remaining: ~6820-6945 errors (from 7235)
+
+HIGH-DENSITY TARGETS (Phase 1):
+  - integration-config.ts (24 errors)
+  - RealWebSocketServer.ts (21 errors)
+  - RealLangroidMemory.ts (15 errors)
+  - GitHubAPIOptimizer.ts (14 errors)
+  - A2AProtocolEngine.ts (13 errors)

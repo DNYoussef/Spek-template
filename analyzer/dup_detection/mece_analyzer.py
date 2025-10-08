@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import THEATER_DETECTION_WARNING_THRESHOLD
 
 import argparse
@@ -27,8 +30,8 @@ except ImportError:
         MECE_CLUSTER_MIN_SIZE = 3
         MECE_SIMILARITY_THRESHOLD = 0.8
 
-        @dataclass
-    class ConnascenceViolation:
+@dataclass
+class ConnascenceViolation:
             """Fallback ConnascenceViolation for MECE analysis."""
             type: str = ""
             severity: str = "medium"
@@ -491,7 +494,7 @@ class MECEAnalyzer:
 
         return True
 
-    def main():
+def main():
     """Main entry point for command-line usage."""
     parser = argparse.ArgumentParser(description="MECE duplication analyzer")
     parser.add_argument("--path", required=True, help="Path to analyze")

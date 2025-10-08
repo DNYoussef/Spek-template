@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 Pattern Detector ML Module
 Detects code patterns and anti-patterns using machine learning.

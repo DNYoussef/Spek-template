@@ -322,10 +322,10 @@ export const IntegratedRiskDashboard: React.FC<IntegratedDashboardProps> = ({
 
     const monitor = riskMonitor.current;
 
-    monitor.on('riskUpdate', (data) => {
+    monitor.on('riskUpdate', (data: unknown) => {
       const dashboardState = monitor.getDashboardState();
       setRiskData({
-        metrics: data.metrics,
+        metrics: (data as any).metrics,
         alerts: dashboardState.activeAlerts,
         dashboardState
       });

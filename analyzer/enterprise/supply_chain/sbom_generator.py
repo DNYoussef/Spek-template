@@ -1,3 +1,6 @@
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 SC-1: SBOM (Software Bill of Materials) Generator
 Supports CycloneDX 1.4 and SPDX 2.3 formats with enterprise-grade metadata.

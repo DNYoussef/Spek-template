@@ -16,11 +16,11 @@ import {
   PasteTextAction,
   WriteFileAction,
   ReadFileAction,
-} from "../types/computerAction.types";
+} from '~types/computerAction.types';
 import {
   ComputerToolUseContentBlock,
   MessageContentType,
-} from "../types/messageContent.types";
+} from '~types/messageContent.types';
 
 /**
  * Type guard factory for computer actions

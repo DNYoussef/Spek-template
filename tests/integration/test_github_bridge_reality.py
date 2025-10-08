@@ -43,42 +43,42 @@ class TestGitHubBridgeReality(unittest.TestCase):
         self.server.clear_requests()
 
         # Configure bridge to use mock server
-        self.config = GitHubConfig(
+        self.config = GitHubConfig()
             token="test-token-12345",
             owner="test-owner",
             repo="test-repo",
             base_url="http://localhost:8888",
             timeout=5
-        )
+(        )
 
         self.bridge = GitHubBridge(self.config)
 
         # Create test analysis result
-        self.test_result = UnifiedAnalysisResult(
+        self.test_result = UnifiedAnalysisResult()
             success=False,
             violations=[
-                type('MockViolation', (), {
+                type('MockViolation', (), {)
                     'severity': ViolationSeverity.CRITICAL,
                     'type': type('MockType', (), {'value': 'God Object'})(),
                     'description': 'Class UserManager has 847 lines and violates SRP',
                     'file_path': 'src/user_manager.py',
                     'line_number': 15,
                     'recommendation': 'Split into UserService, UserValidator, UserRepository'
-                })(),
-                type('MockViolation', (), {
+(                })(),
+                type('MockViolation', (), {)
                     'severity': ViolationSeverity.HIGH,
                     'type': type('MockType', (), {'value': 'High Coupling'})(),
                     'description': 'Function process_payment has 12 dependencies',
                     'file_path': 'src/payment.py',
                     'line_number': 45
-                })()
+(                })()
             ],
             nasa_compliance_score=0.73,
             six_sigma_level=3.2,
             mece_score=0.67,
             god_objects_found=MAXIMUM_RETRY_ATTEMPTS,
             duplication_percentage=18.5
-        )
+(        )
 
     def test_reality_check_http_requests_are_real(self):
         """REALITY CHECK: Verify actual HTTP requests are made."""
@@ -138,12 +138,12 @@ class TestGitHubBridgeReality(unittest.TestCase):
     def test_reality_check_authentication_required(self):
         """REALITY CHECK: Verify authentication is actually checked."""
         # Test with no token
-        bad_config = GitHubConfig(
+        bad_config = GitHubConfig()
             token="",
             owner="test-owner",
             repo="test-repo",
             base_url="http://localhost:8888"
-        )
+(        )
 
         bad_bridge = GitHubBridge(bad_config)
 
@@ -364,13 +364,13 @@ class TestEndToEndIntegration(unittest.TestCase):
 
             # Post to GitHub (mock)
             from analyzer.integrations.github_bridge import UnifiedAnalysisResult
-            result = UnifiedAnalysisResult(
+            result = UnifiedAnalysisResult()
                 success=False,
                 violations=[],
                 nasa_compliance_score=0.78,
                 god_objects_found=4,
                 duplication_percentage=22.3
-            )
+(            )
 
             success = coordinator.github_bridge.post_pr_comment(999, result)
             self.assertTrue(success, "GitHub posting should succeed")

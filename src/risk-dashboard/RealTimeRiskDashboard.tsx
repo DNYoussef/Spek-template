@@ -122,11 +122,11 @@ export const RealTimeRiskDashboard: React.FC<DashboardProps> = ({
     if (!riskMonitor.current) return;
     
     const monitor = riskMonitor.current;
-    
+
     // Handle risk updates
-    monitor.on('riskUpdate', (data) => {
+    monitor.on('riskUpdate', (data: unknown) => {
       updateCounter.current++;
-      
+
       // Update dashboard state
       const state = monitor.getDashboardState();
       setDashboardState(state);
@@ -160,12 +160,13 @@ export const RealTimeRiskDashboard: React.FC<DashboardProps> = ({
       console.error('Dashboard error:', err);
       setError(err.message);
     });
-    
+
+
     // Handle render events
-    monitor.on('render', (renderData) => {
+    monitor.on('render', (renderData: unknown) => {
       // Update render performance if needed
     });
-    
+
   }, [dashboardConfig.historyLength]);
   
   /**

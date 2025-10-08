@@ -1,0 +1,142 @@
+
+> spek-enhanced-platform@3.0.0 test
+> jest --testTimeout=10000 --forceExit tests/repository/RepositoryIntegration.test.ts --testNamePattern=should handle transactions correctly|should rollback failed transactions|should use cache for read operations
+
+ts-jest[ts-compiler] (WARN) [96msrc/repository/RepositoryBaseFSM.ts[0m:[93m134[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType 'string | object | T' is not assignable to type 'string | object'.
+  Type 'T' is not assignable to type 'string | object'.
+
+[7m134[0m       query: query || data,
+[7m   [0m [91m      ~~~~~[0m
+
+  [96msrc/repository/RepositoryBaseFSM.ts[0m:[93m130[0m:[93m15[0m
+    [7m130[0m   async write<T>(data: T, query?: string | object): Promise<{ id: string; data: T }> {
+    [7m   [0m [96m              ~[0m
+    This type parameter might need an `extends string | object` constraint.
+  [96msrc/repository/core/DataAccessLayer.ts[0m:[93m19[0m:[93m3[0m
+    [7m19[0m   query: string | object;
+    [7m  [0m [96m  ~~~~~[0m
+    The expected type comes from property 'query' which is declared here on type 'QueryOperation'
+[96msrc/repository/RepositoryBaseFSM.ts[0m:[93m375[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType 'string | object | T' is not assignable to type 'string | object'.
+  Type 'T' is not assignable to type 'string | object'.
+
+[7m375[0m       query: query || data,
+[7m   [0m [91m      ~~~~~[0m
+
+  [96msrc/repository/RepositoryBaseFSM.ts[0m:[93m371[0m:[93m15[0m
+    [7m371[0m   async write<T>(data: T, query?: string | object): Promise<{ id: string; data: T }> {
+    [7m   [0m [96m              ~[0m
+    This type parameter might need an `extends string | object` constraint.
+  [96msrc/repository/core/DataAccessLayer.ts[0m:[93m19[0m:[93m3[0m
+    [7m19[0m   query: string | object;
+    [7m  [0m [96m  ~~~~~[0m
+    The expected type comes from property 'query' which is declared here on type 'QueryOperation'
+ts-jest[ts-compiler] (WARN) [96msrc/config/ConfigurationManagerFacade.ts[0m:[93m70[0m:[93m9[0m - [91merror[0m[90m TS2425: [0mClass 'import("C:/Users/17175/Desktop/spek template/node_modules/@types/node/events.d.ts")<DefaultEventMap>' defines instance member property 'initialize', but extended class 'ConfigurationManagerFacade' defines it as instance member function.
+
+[7m70[0m   async initialize(): Promise<void> {
+[7m  [0m [91m        ~~~~~~~~~~[0m
+ts-jest[ts-compiler] (WARN) [96msrc/orchestration/quality/EventBusFacade.ts[0m:[93m78[0m:[93m9[0m - [91merror[0m[90m TS2425: [0mClass 'import("C:/Users/17175/Desktop/spek template/node_modules/@types/node/events.d.ts")<DefaultEventMap>' defines instance member property 'initialize', but extended class 'EventBusFacade' defines it as instance member function.
+
+[7m78[0m   async initialize(): Promise<void> {
+[7m  [0m [91m        ~~~~~~~~~~[0m
+ts-jest[ts-compiler] (WARN) [96msrc/domains/ec/remediation/RemediationOrchestratorFacade.ts[0m:[93m164[0m:[93m9[0m - [91merror[0m[90m TS2425: [0mClass 'import("C:/Users/17175/Desktop/spek template/node_modules/@types/node/events.d.ts")<DefaultEventMap>' defines instance member property 'initialize', but extended class 'RemediationOrchestratorFacade' defines it as instance member function.
+
+[7m164[0m   async initialize(): Promise<void> {
+[7m   [0m [91m        ~~~~~~~~~~[0m
+[96msrc/domains/ec/remediation/RemediationOrchestratorFacade.ts[0m:[93m283[0m:[93m35[0m - [91merror[0m[90m TS2322: [0mType 'unknown' is not assignable to type 'RemediationResult | null'.
+
+[7m283[0m       return results.length > 0 ? results[0] : null;
+[7m   [0m [91m                                  ~~~~~~~~~~[0m
+ts-jest[ts-compiler] (WARN) [96msrc/domains/ec/monitoring/RealTimeMonitorFacade.ts[0m:[93m150[0m:[93m9[0m - [91merror[0m[90m TS2425: [0mClass 'import("C:/Users/17175/Desktop/spek template/node_modules/@types/node/events.d.ts")<DefaultEventMap>' defines instance member property 'initialize', but extended class 'RealTimeMonitorFacade' defines it as instance member function.
+
+[7m150[0m   async initialize(): Promise<void> {
+[7m   [0m [91m        ~~~~~~~~~~[0m
+FAIL tests/repository/RepositoryIntegration.test.ts (10.513 s)
+  Repository God Object Elimination Tests
+    RepositoryBaseFSM Core Functionality
+      × should handle transactions correctly (197 ms)
+      × should rollback failed transactions (179 ms)
+      × should use cache for read operations (467 ms)
+      ○ skipped should perform basic CRUD operations
+      ○ skipped should track metrics correctly
+      ○ skipped should perform health checks
+    ConfigurationManagerFacade
+      ○ skipped should load and manage configuration
+      ○ skipped should update configuration values
+      ○ skipped should provide health status
+    EventBusFacade
+      ○ skipped should publish and subscribe to events
+      ○ skipped should filter events correctly
+      ○ skipped should maintain event history
+      ○ skipped should provide statistics
+    RemediationOrchestratorFacade
+      ○ skipped should handle remediation workflow
+      ○ skipped should handle rollback scenarios
+      ○ skipped should track active remediations
+    RealTimeMonitorFacade
+      ○ skipped should process metrics and trigger alerts
+      ○ skipped should manage monitoring rules
+      ○ skipped should acknowledge and resolve alerts
+      ○ skipped should provide monitoring statistics
+    Performance and Line Count Validation
+      ○ skipped should achieve 85%+ line reduction
+      ○ skipped should maintain performance under load
+      ○ skipped should handle concurrent access correctly
+
+  ● Repository God Object Elimination Tests › RepositoryBaseFSM Core Functionality › should handle transactions correctly
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 2
+    Received length: 1
+    Received array:  [{"data": "sample_data", "id": 1, "timestamp": 1759536501343}]
+
+    [0m [90m 69 |[39m
+     [90m 70 |[39m       [36mconst[39m data [33m=[39m [36mawait[39m repository[33m.[39mread([32m'*'[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 71 |[39m       expect(data)[33m.[39mtoHaveLength([35m2[39m)[33m;[39m
+     [90m    |[39m                    [31m[1m^[22m[39m
+     [90m 72 |[39m     })[33m;[39m
+     [90m 73 |[39m
+     [90m 74 |[39m     test([32m'should rollback failed transactions'[39m[33m,[39m [36masync[39m () [33m=>[39m {[0m
+
+      at Object.<anonymous> (tests/repository/RepositoryIntegration.test.ts:71:20)
+
+  ● Repository God Object Elimination Tests › RepositoryBaseFSM Core Functionality › should rollback failed transactions
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 0
+    Received length: 1
+    Received array:  [{"data": "sample_data", "id": 1, "timestamp": 1759536501536}]
+
+    [0m [90m 83 |[39m
+     [90m 84 |[39m       [36mconst[39m data [33m=[39m [36mawait[39m repository[33m.[39mread([32m'*'[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 85 |[39m       expect(data)[33m.[39mtoHaveLength([35m0[39m)[33m;[39m
+     [90m    |[39m                    [31m[1m^[22m[39m
+     [90m 86 |[39m     })[33m;[39m
+     [90m 87 |[39m
+     [90m 88 |[39m     test([32m'should use cache for read operations'[39m[33m,[39m [36masync[39m () [33m=>[39m {[0m
+
+      at Object.<anonymous> (tests/repository/RepositoryIntegration.test.ts:85:20)
+
+  ● Repository God Object Elimination Tests › RepositoryBaseFSM Core Functionality › should use cache for read operations
+
+    expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0
+    Received:   0
+
+    [0m [90m  95 |[39m
+     [90m  96 |[39m       [36mconst[39m metrics [33m=[39m repository[33m.[39mgetMetrics()[33m;[39m
+    [31m[1m>[22m[39m[90m  97 |[39m       expect(metrics[33m.[39mcacheHitRate)[33m.[39mtoBeGreaterThan([35m0[39m)[33m;[39m
+     [90m     |[39m                                    [31m[1m^[22m[39m
+     [90m  98 |[39m     })[33m;[39m
+     [90m  99 |[39m
+     [90m 100 |[39m     test([32m'should track metrics correctly'[39m[33m,[39m [36masync[39m () [33m=>[39m {[0m
+
+      at Object.<anonymous> (tests/repository/RepositoryIntegration.test.ts:97:36)
+
+Test Suites: 1 failed, 1 total
+Tests:       3 failed, 20 skipped, 23 total
+Snapshots:   0 total
+Time:        11.407 s
+Ran all test suites matching /tests\\repository\\RepositoryIntegration.test.ts/i with tests matching "should handle transactions correctly|should rollback failed transactions|should use cache for read operations".

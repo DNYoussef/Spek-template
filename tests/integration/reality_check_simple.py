@@ -1,4 +1,6 @@
 from src.constants.base import CONNASCENCE_ANALYSIS_THRESHOLD, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_RETRY_ATTEMPTS
+import pytest
+
 """
 
 Focused test that validates the GitHub integration without complex imports.
@@ -36,23 +38,23 @@ def test_github_bridge_reality():
         from analyzer.integrations.github_bridge import GitHubBridge, GitHubConfig, UnifiedAnalysisResult
 
         # Configure to use mock server
-        config = GitHubConfig(
+        config = GitHubConfig()
             token="test-token-reality",
             owner="test-owner",
             repo="test-repo",
             base_url="http://localhost:8890"
-        )
+(        )
 
         bridge = GitHubBridge(config)
 
         # Create test analysis result
-        test_result = UnifiedAnalysisResult(
+        test_result = UnifiedAnalysisResult()
             success=False,
             violations=[],
             nasa_compliance_score=0.76,
             god_objects_found=2,
             duplication_percentage=16.MAXIMUM_RETRY_ATTEMPTS
-        )
+(        )
 
         # Test 1: PR Comment posting
         success = bridge.post_pr_comment(42, test_result)

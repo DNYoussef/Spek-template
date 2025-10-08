@@ -65,14 +65,14 @@ class ProductionValidationTestSuite(unittest.TestCase):
             except (subprocess.TimeoutExpired, FileNotFoundError) as e:
                 missing_deps.append(f"{dep_name}: {str(e)}")
         
-        self.assertEqual(len(missing_deps), 0, 
+        self.assertEqual(len(missing_deps), 0,
                         f"Missing or failing dependencies: {missing_deps}")
 
     def test_02_cross_platform_compatibility(self):
         """Test cross-platform compatibility of cleanup scripts."""
         # Test path handling
         test_paths = [
-            "C:\\Windows\\path\\to\\file",
+            r"C:\\Windows\\path\\to\\file",
             "/unix/path/to/file",
             "relative/path/file",
             "./local/file"
@@ -84,13 +84,13 @@ class ProductionValidationTestSuite(unittest.TestCase):
         try:
             if os.name == 'nt':  # Windows
                 # Test Windows-specific functionality
-                result = subprocess.run(['bash', '-c', 'echo "Windows test"'], 
+                result = subprocess.run(['bash', '-c', 'echo "Windows test"'],
                                         capture_output=True, text=True, timeout=5)
                 if result.returncode != 0:
                     compatibility_issues.append("Bash unavailable on Windows")
             else:  # Unix-like
                 # Test Unix-specific functionality
-                result = subprocess.run(['bash', '-c', 'echo "Unix test"'], 
+                result = subprocess.run(['bash', '-c', 'echo "Unix test"'],
                                         capture_output=True, text=True, timeout=5)
                 if result.returncode != 0:
                     compatibility_issues.append("Bash issues on Unix")
@@ -120,23 +120,27 @@ class ProductionValidationTestSuite(unittest.TestCase):
             error_scenarios.append("Script hangs on invalid input")
         except Exception as e:
             error_scenarios.append(f"Unexpected error handling issue: {e}")
-        
+
         # Test script with missing dependencies (simulated)
         try:
             env = os.environ.copy()
             env['PATH'] = ''  # Remove PATH to simulate missing tools
-            
+
             result = subprocess.run([
                 'bash', str(self.cleanup_script), '--help'
             ], capture_output=True, text=True, timeout=5, env=env)
-            
+
             # Should still show help even with missing PATH
             if result.returncode != 0 and "USAGE:" not in result.stdout:
                 error_scenarios.append("Help should work even with missing PATH")
-                
+
+        except subprocess.TimeoutExpired:
+            # Timeout is acceptable for this test
+            pass
         except Exception as e:
             # This is expected in some cases
-        
+            pass
+
         self.assertEqual(len(error_scenarios), 0,
                         f"Error handling issues: {error_scenarios}")
 
@@ -366,7 +370,7 @@ class ProductionValidationTestSuite(unittest.TestCase):
             # Test script handles corrupted state gracefully
             result = subprocess.run([
                 'bash', str(self.cleanup_script), '--status'
-            ], capture_output=True, text=True, timeout=10, 
+            ], capture_output=True, text=True, timeout=10,
             cwd=str(self.test_dir))
             
             # Should handle gracefully, not crash
@@ -386,6 +390,7 @@ class ProductionValidationTestSuite(unittest.TestCase):
             recovery_issues.append("Script hangs during failure recovery test")
         except Exception as e:
             # Some failure scenarios are expected
+            pass
         finally:
             # Cleanup test files
             try:
@@ -458,7 +463,7 @@ class ProductionValidationTestSuite(unittest.TestCase):
             'test_06_rollback_mechanisms'
         ]
         
-        critical_passed = sum(1 for test in critical_tests 
+        critical_passed = sum(1 for test in critical_tests
                             if test in self.results and self.results[test]['status'] == 'passed')
         deployment_ready = critical_passed == len(critical_tests)
         

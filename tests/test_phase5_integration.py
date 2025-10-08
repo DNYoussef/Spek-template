@@ -1,6 +1,8 @@
 from lib.shared.utilities import path_exists
 from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
+import pytest
 
+"""
 Tests the complete integration of all analyzer components:
 - All 9 connascence detectors
 - Component integrator
@@ -17,7 +19,6 @@ import os
 from pathlib import Path
 import tempfile
 import shutil
-"""
 
 # Add analyzer to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "analyzer"))

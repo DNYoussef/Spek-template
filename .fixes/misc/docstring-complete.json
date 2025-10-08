@@ -1,0 +1,233 @@
+{
+  "stage": "docstring",
+  "files_fixed": 0,
+  "files_remaining": 45,
+  "timestamp": "2025-09-30T21:54:46.009490",
+  "results": [
+    {
+      "file": "tests/safety\\test_import_validation.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 361) (line 341)"
+    },
+    {
+      "file": "tests/safety\\test_safety_system.py",
+      "status": "partial",
+      "error": "invalid syntax (line 23)"
+    },
+    {
+      "file": "tests/byzantium\\test_byzantine_stress.py",
+      "status": "partial",
+      "error": "unexpected indent (line 96)"
+    },
+    {
+      "file": "tests/cache_analyzer\\comprehensive_cache_test.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 760) (line 738)"
+    },
+    {
+      "file": "tests/cache_analyzer\\test_cache_functionality.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 539) (line 517)"
+    },
+    {
+      "file": "tests/cycles\\test_integration.py",
+      "status": "partial",
+      "error": "unexpected indent (line 113)"
+    },
+    {
+      "file": "tests/debug\\test_circular_imports_audit.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 202) (line 15)"
+    },
+    {
+      "file": "tests/debug\\test_debug.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 34) (line 16)"
+    },
+    {
+      "file": "tests/debug\\test_hash_debug.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 50) (line 17)"
+    },
+    {
+      "file": "tests/end_to_end\\complete_system_validation.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 607) (line 547)"
+    },
+    {
+      "file": "tests/json_schema_validation\\demo_test_execution.py",
+      "status": "partial",
+      "error": "invalid syntax. Perhaps you forgot a comma? (line 135)"
+    },
+    {
+      "file": "tests/json_schema_validation\\test_full_pipeline_integration.py",
+      "status": "partial",
+      "error": "unexpected indent (line 105)"
+    },
+    {
+      "file": "tests/json_schema_validation\\test_json_schema_validation.py",
+      "status": "partial",
+      "error": "unexpected indent (line 61)"
+    },
+    {
+      "file": "tests/json_schema_validation\\test_risk_mitigation.py",
+      "status": "partial",
+      "error": "invalid syntax (line 5)"
+    },
+    {
+      "file": "tests/json_schema_validation\\test_runner.py",
+      "status": "partial",
+      "error": "invalid syntax (line 5)"
+    },
+    {
+      "file": "tests/json_schema_validation\\test_sarif_compliance.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 459) (line 447)"
+    },
+    {
+      "file": "tests/memory_integration\\test_cross_phase_memory.py",
+      "status": "partial",
+      "error": "invalid syntax (line 31)"
+    },
+    {
+      "file": "tests/monitoring\\performance_overhead_validation.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 267) (line 236)"
+    },
+    {
+      "file": "tests/nasa-compliance\\test_nasa_agents.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 485) (line 420)"
+    },
+    {
+      "file": "tests/phase4\\test_precision_validation.py",
+      "status": "unchanged",
+      "error": "unexpected indent (line 125)"
+    },
+    {
+      "file": "tests/production\\load_testing_suite.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 553) (line 516)"
+    },
+    {
+      "file": "tests/refactored\\batch2\\test_agent_database_builder.py",
+      "status": "unchanged",
+      "error": "invalid syntax (line 3)"
+    },
+    {
+      "file": "tests/refactored\\batch2\\test_deployment_task_builder.py",
+      "status": "unchanged",
+      "error": "invalid syntax (line 3)"
+    },
+    {
+      "file": "tests/refactored\\batch2\\test_dfars_controls_builder.py",
+      "status": "unchanged",
+      "error": "invalid syntax (line 3)"
+    },
+    {
+      "file": "tests/refactored\\batch2\\test_test_pattern_builder.py",
+      "status": "unchanged",
+      "error": "invalid syntax (line 3)"
+    },
+    {
+      "file": "tests/refactored\\batch3\\test_validation_strategies.py",
+      "status": "unchanged",
+      "error": "unmatched ')' (line 61)"
+    },
+    {
+      "file": "tests/security\\complete_security_validation.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 810) (line 775)"
+    },
+    {
+      "file": "tests/security\\test_dfars_compliance.py",
+      "status": "unchanged",
+      "error": "invalid syntax (line 14)"
+    },
+    {
+      "file": "tests/security\\test_dfars_workflow_automation.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 716) (line 666)"
+    },
+    {
+      "file": "tests/security\\test_enterprise_theater_detection.py",
+      "status": "unchanged",
+      "error": "invalid syntax (line 10)"
+    },
+    {
+      "file": "tests/self-dogfooding\\quality_gate_test.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 151) (line 118)"
+    },
+    {
+      "file": "tests/self-dogfooding\\workflow_simulation_test.py",
+      "status": "unchanged",
+      "error": "closing parenthesis ')' does not match opening parenthesis '{' (line 163)"
+    },
+    {
+      "file": "tests/sixsigma\\sample_data.py",
+      "status": "unchanged",
+      "error": "unexpected indent (line 250)"
+    },
+    {
+      "file": "tests/sixsigma\\test_integration.py",
+      "status": "unchanged",
+      "error": "invalid syntax. Perhaps you forgot a comma? (line 175)"
+    },
+    {
+      "file": "tests/theater-detection\\test_theater_detection.py",
+      "status": "unchanged",
+      "error": "invalid syntax. Perhaps you forgot a comma? (line 179)"
+    },
+    {
+      "file": "tests/unit\\test_connascence_detectors.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 68) (line 66)"
+    },
+    {
+      "file": "tests/unit\\test_flake8_adapter.py",
+      "status": "unchanged",
+      "error": "unexpected indent (line 18)"
+    },
+    {
+      "file": "tests/unit\\test_pylint_adapter.py",
+      "status": "unchanged",
+      "error": "unexpected indent (line 17)"
+    },
+    {
+      "file": "tests/version_log\\test_import_validation.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 187) (line 15)"
+    },
+    {
+      "file": "tests/version_log\\test_unified_validation.py",
+      "status": "unchanged",
+      "error": "unexpected indent (line 51)"
+    },
+    {
+      "file": "tests/version_log\\test_version_log_system.py",
+      "status": "partial",
+      "error": "invalid decimal literal (line 50)"
+    },
+    {
+      "file": "tests/workflow-validation\\comprehensive_validation_report.py",
+      "status": "unchanged",
+      "error": "unexpected indent (line 2)"
+    },
+    {
+      "file": "tests/workflow-validation\\json_validation_framework.py",
+      "status": "partial",
+      "error": "unterminated triple-quoted string literal (detected at line 731) (line 665)"
+    },
+    {
+      "file": "tests/workflow-validation\\python_execution_tests.py",
+      "status": "unchanged",
+      "error": "unexpected indent (line 2)"
+    },
+    {
+      "file": "tests/workflow-validation\\workflow_test_suite.py",
+      "status": "unchanged",
+      "error": "unexpected indent (line 3)"
+    }
+  ]
+}

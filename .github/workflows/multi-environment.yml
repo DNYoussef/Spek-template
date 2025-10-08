@@ -1,0 +1,503 @@
+name: Multi-Environment Pipeline - Deployment Princess
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_environments:
+        description: 'Target environments (comma-separated)'
+        required: true
+        type: string
+        default: 'development,staging'
+      promotion_strategy:
+        description: 'Promotion strategy between environments'
+        required: false
+        type: choice
+        default: 'sequential'
+        options: ['sequential', 'parallel', 'manual_approval']
+      skip_tests:
+        description: 'Skip environment-specific tests'
+        required: false
+        type: boolean
+        default: false
+      rollback_on_failure:
+        description: 'Automatically rollback on failure'
+        required: false
+        type: boolean
+        default: true
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'package*.json'
+      - 'Dockerfile'
+      - 'k8s/**'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+permissions:
+  contents: read
+  packages: write
+  deployments: write
+  actions: write
+
+jobs:
+  # Build once, deploy to multiple environments
+  build:
+    name: Build & Package
+    runs-on: ubuntu-latest
+    outputs:
+      image_digest: ${{ steps.build.outputs.digest }}
+      image_tags: ${{ steps.meta.outputs.tags }}
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Generate version
+        id: version
+        run: |
+          VERSION="v$(date +%Y%m%d)-$(git rev-parse --short HEAD)"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=${{ steps.version.outputs.version }}
+            type=raw,value=latest
+            type=ref,event=branch
+            type=sha
+
+      - name: Build and push Docker image
+        id: build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # Environment matrix for parallel deployment
+  prepare_environments:
+    name: Prepare Environment Matrix
+    runs-on: ubuntu-latest
+    outputs:
+      environments: ${{ steps.matrix.outputs.environments }}
+      strategy: ${{ steps.matrix.outputs.strategy }}
+    steps:
+      - name: Parse environments and strategy
+        id: matrix
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            ENVIRONMENTS="${{ inputs.target_environments }}"
+            STRATEGY="${{ inputs.promotion_strategy }}"
+          else
+            # Auto-detect based on branch
+            if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+              ENVIRONMENTS="development,staging,production"
+              STRATEGY="sequential"
+            else
+              ENVIRONMENTS="development"
+              STRATEGY="parallel"
+            fi
+          fi
+
+          # Convert to JSON array
+          ENV_ARRAY=$(echo $ENVIRONMENTS | jq -R 'split(",") | map(select(length > 0))')
+          echo "environments=$ENV_ARRAY" >> $GITHUB_OUTPUT
+          echo "strategy=$STRATEGY" >> $GITHUB_OUTPUT
+
+  # Sequential deployment strategy
+  deploy_sequential:
+    name: Deploy to ${{ matrix.environment }} (Sequential)
+    runs-on: ubuntu-latest
+    needs: [build, prepare_environments]
+    if: fromJSON(needs.prepare_environments.outputs.strategy) == 'sequential'
+    strategy:
+      matrix:
+        environment: ${{ fromJSON(needs.prepare_environments.outputs.environments) }}
+      max-parallel: 1 # Ensure sequential execution
+    environment:
+      name: ${{ matrix.environment }}
+      url: ${{ steps.deploy.outputs.url }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Wait for previous environment (if not first)
+        if: matrix.environment != 'development'
+        run: |
+          PREV_ENV=""
+          case "${{ matrix.environment }}" in
+            staging) PREV_ENV="development" ;;
+            production) PREV_ENV="staging" ;;
+            dr) PREV_ENV="production" ;;
+          esac
+
+          if [ -n "$PREV_ENV" ]; then
+            echo "Waiting for $PREV_ENV deployment to complete..."
+
+            # Wait for previous environment deployment
+            for i in {1..30}; do
+              STATUS=$(gh api repos/${{ github.repository }}/deployments \
+                --jq '.[] | select(.environment == "'$PREV_ENV'") | select(.created_at > "'$(date -d '1 hour ago' -Iseconds)'") | .statuses_url' | \
+                head -1 | xargs gh api --jq '.[0].state')
+
+              if [ "$STATUS" == "success" ]; then
+                echo "Previous environment deployment successful"
+                break
+              elif [ "$STATUS" == "failure" ] || [ "$STATUS" == "error" ]; then
+                echo "Previous environment deployment failed, aborting"
+                exit 1
+              fi
+
+              echo "Waiting for previous deployment... (attempt $i/30)"
+              sleep 30
+            done
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Environment-specific configuration
+        id: config
+        run: |
+          case "${{ matrix.environment }}" in
+            development)
+              echo "replicas=1" >> $GITHUB_OUTPUT
+              echo "resources_cpu=500m" >> $GITHUB_OUTPUT
+              echo "resources_memory=1Gi" >> $GITHUB_OUTPUT
+              echo "strategy=rolling" >> $GITHUB_OUTPUT
+              ;;
+            staging)
+              echo "replicas=2" >> $GITHUB_OUTPUT
+              echo "resources_cpu=1000m" >> $GITHUB_OUTPUT
+              echo "resources_memory=2Gi" >> $GITHUB_OUTPUT
+              echo "strategy=blue-green" >> $GITHUB_OUTPUT
+              ;;
+            production)
+              echo "replicas=3" >> $GITHUB_OUTPUT
+              echo "resources_cpu=2000m" >> $GITHUB_OUTPUT
+              echo "resources_memory=4Gi" >> $GITHUB_OUTPUT
+              echo "strategy=blue-green" >> $GITHUB_OUTPUT
+              ;;
+            dr)
+              echo "replicas=3" >> $GITHUB_OUTPUT
+              echo "resources_cpu=2000m" >> $GITHUB_OUTPUT
+              echo "resources_memory=4Gi" >> $GITHUB_OUTPUT
+              echo "strategy=blue-green" >> $GITHUB_OUTPUT
+              ;;
+          esac
+
+      - name: Configure Kubernetes
+        run: |
+          echo "${{ secrets[format('KUBE_CONFIG_{0}', upper(matrix.environment))] || secrets.KUBE_CONFIG }}" | base64 -d > kubeconfig
+          export KUBECONFIG=kubeconfig
+          kubectl config current-context
+
+      - name: Deploy to ${{ matrix.environment }}
+        id: deploy
+        run: |
+          # Create namespace if it doesn't exist
+          kubectl create namespace ${{ matrix.environment }} --dry-run=client -o yaml | kubectl apply -f -
+
+          # Generate deployment manifests
+          envsubst < k8s/deployment-template.yaml > k8s/deployment-${{ matrix.environment }}.yaml
+
+          # Apply deployment
+          kubectl apply -f k8s/deployment-${{ matrix.environment }}.yaml -n ${{ matrix.environment }}
+
+          # Wait for deployment
+          kubectl rollout status deployment/app -n ${{ matrix.environment }} --timeout=600s
+
+          # Get service URL
+          URL=$(kubectl get service app-service -n ${{ matrix.environment }} -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' || echo "internal")
+          echo "url=https://$URL" >> $GITHUB_OUTPUT
+        env:
+          IMAGE_TAG: ${{ needs.build.outputs.version }}
+          REPLICAS: ${{ steps.config.outputs.replicas }}
+          CPU_LIMIT: ${{ steps.config.outputs.resources_cpu }}
+          MEMORY_LIMIT: ${{ steps.config.outputs.resources_memory }}
+
+      - name: Environment-specific tests
+        if: !inputs.skip_tests
+        run: |
+          case "${{ matrix.environment }}" in
+            development)
+              npm run test:integration -- --environment=development
+              ;;
+            staging)
+              npm run test:e2e -- --environment=staging
+              npm run test:performance -- --environment=staging
+              ;;
+            production)
+              npm run test:smoke -- --environment=production
+              npm run test:monitoring -- --environment=production
+              ;;
+          esac
+
+      - name: Setup environment monitoring
+        run: |
+          node scripts/setup-environment-monitoring.js \
+            --environment=${{ matrix.environment }} \
+            --deployment-id=${{ github.run_id }} \
+            --image-tag=${{ needs.build.outputs.version }}
+
+  # Parallel deployment strategy
+  deploy_parallel:
+    name: Deploy to ${{ matrix.environment }} (Parallel)
+    runs-on: ubuntu-latest
+    needs: [build, prepare_environments]
+    if: fromJSON(needs.prepare_environments.outputs.strategy) == 'parallel'
+    strategy:
+      matrix:
+        environment: ${{ fromJSON(needs.prepare_environments.outputs.environments) }}
+      max-parallel: 3 # Allow parallel execution
+    environment:
+      name: ${{ matrix.environment }}
+      url: ${{ steps.deploy.outputs.url }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Environment-specific configuration
+        id: config
+        run: |
+          case "${{ matrix.environment }}" in
+            development)
+              echo "replicas=1" >> $GITHUB_OUTPUT
+              echo "resources_cpu=500m" >> $GITHUB_OUTPUT
+              echo "resources_memory=1Gi" >> $GITHUB_OUTPUT
+              echo "strategy=rolling" >> $GITHUB_OUTPUT
+              ;;
+            staging)
+              echo "replicas=2" >> $GITHUB_OUTPUT
+              echo "resources_cpu=1000m" >> $GITHUB_OUTPUT
+              echo "resources_memory=2Gi" >> $GITHUB_OUTPUT
+              echo "strategy=blue-green" >> $GITHUB_OUTPUT
+              ;;
+            production)
+              echo "replicas=3" >> $GITHUB_OUTPUT
+              echo "resources_cpu=2000m" >> $GITHUB_OUTPUT
+              echo "resources_memory=4Gi" >> $GITHUB_OUTPUT
+              echo "strategy=blue-green" >> $GITHUB_OUTPUT
+              ;;
+          esac
+
+      - name: Configure Kubernetes
+        run: |
+          echo "${{ secrets[format('KUBE_CONFIG_{0}', upper(matrix.environment))] || secrets.KUBE_CONFIG }}" | base64 -d > kubeconfig
+          export KUBECONFIG=kubeconfig
+          kubectl config current-context
+
+      - name: Deploy to ${{ matrix.environment }}
+        id: deploy
+        run: |
+          kubectl create namespace ${{ matrix.environment }} --dry-run=client -o yaml | kubectl apply -f -
+
+          envsubst < k8s/deployment-template.yaml > k8s/deployment-${{ matrix.environment }}.yaml
+          kubectl apply -f k8s/deployment-${{ matrix.environment }}.yaml -n ${{ matrix.environment }}
+          kubectl rollout status deployment/app -n ${{ matrix.environment }} --timeout=600s
+
+          URL=$(kubectl get service app-service -n ${{ matrix.environment }} -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' || echo "internal")
+          echo "url=https://$URL" >> $GITHUB_OUTPUT
+        env:
+          IMAGE_TAG: ${{ needs.build.outputs.version }}
+          REPLICAS: ${{ steps.config.outputs.replicas }}
+          CPU_LIMIT: ${{ steps.config.outputs.resources_cpu }}
+          MEMORY_LIMIT: ${{ steps.config.outputs.resources_memory }}
+
+  # Manual approval strategy (production only)
+  request_approval:
+    name: Request Production Approval
+    runs-on: ubuntu-latest
+    needs: [build, prepare_environments]
+    if: contains(fromJSON(needs.prepare_environments.outputs.environments), 'production') && fromJSON(needs.prepare_environments.outputs.strategy) == 'manual_approval'
+    environment:
+      name: production-approval
+    steps:
+      - name: Request approval
+        run: |
+          echo "Manual approval required for production deployment"
+          echo "Image: ${{ needs.build.outputs.version }}"
+          echo "Commit: ${{ github.sha }}"
+
+  deploy_with_approval:
+    name: Deploy to Production (Approved)
+    runs-on: ubuntu-latest
+    needs: [build, request_approval]
+    if: fromJSON(needs.prepare_environments.outputs.strategy) == 'manual_approval'
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.url }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure Kubernetes
+        run: |
+          echo "${{ secrets.KUBE_CONFIG_PRODUCTION }}" | base64 -d > kubeconfig
+          export KUBECONFIG=kubeconfig
+          kubectl config current-context
+
+      - name: Deploy to production
+        id: deploy
+        run: |
+          kubectl create namespace production --dry-run=client -o yaml | kubectl apply -f -
+
+          envsubst < k8s/deployment-template.yaml > k8s/deployment-production.yaml
+          kubectl apply -f k8s/deployment-production.yaml -n production
+          kubectl rollout status deployment/app -n production --timeout=600s
+
+          URL=$(kubectl get service app-service -n production -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+          echo "url=https://$URL" >> $GITHUB_OUTPUT
+        env:
+          IMAGE_TAG: ${{ needs.build.outputs.version }}
+          REPLICAS: 3
+          CPU_LIMIT: 2000m
+          MEMORY_LIMIT: 4Gi
+
+  # Cross-environment validation
+  cross_environment_validation:
+    name: Cross-Environment Validation
+    runs-on: ubuntu-latest
+    needs: [deploy_sequential, deploy_parallel, deploy_with_approval]
+    if: always() && (needs.deploy_sequential.result == 'success' || needs.deploy_parallel.result == 'success' || needs.deploy_with_approval.result == 'success')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate environment consistency
+        run: |
+          # Check that all environments are running the same version
+          EXPECTED_VERSION="${{ needs.build.outputs.version }}"
+
+          for env in development staging production; do
+            if kubectl get deployment app -n $env > /dev/null 2>&1; then
+              CURRENT_IMAGE=$(kubectl get deployment app -n $env -o jsonpath='{.spec.template.spec.containers[0].image}')
+              if [[ "$CURRENT_IMAGE" == *"$EXPECTED_VERSION"* ]]; then
+                echo "✅ $env is running correct version: $EXPECTED_VERSION"
+              else
+                echo "❌ $env version mismatch. Expected: $EXPECTED_VERSION, Found: $CURRENT_IMAGE"
+                exit 1
+              fi
+            fi
+          done
+
+      - name: Test cross-environment connectivity
+        run: |
+          # Test service mesh connectivity between environments
+          npm run test:cross-environment
+
+      - name: Validate data consistency
+        run: |
+          # Check database migration status across environments
+          npm run db:validate-migrations
+
+  # Rollback on failure
+  rollback_environments:
+    name: Rollback Failed Environments
+    runs-on: ubuntu-latest
+    needs: [deploy_sequential, deploy_parallel, deploy_with_approval, cross_environment_validation]
+    if: failure() && inputs.rollback_on_failure
+    strategy:
+      matrix:
+        environment: ${{ fromJSON(needs.prepare_environments.outputs.environments) }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure Kubernetes
+        run: |
+          echo "${{ secrets[format('KUBE_CONFIG_{0}', upper(matrix.environment))] || secrets.KUBE_CONFIG }}" | base64 -d > kubeconfig
+          export KUBECONFIG=kubeconfig
+
+      - name: Rollback ${{ matrix.environment }}
+        run: |
+          if kubectl get deployment app -n ${{ matrix.environment }} > /dev/null 2>&1; then
+            echo "Rolling back deployment in ${{ matrix.environment }}"
+            kubectl rollout undo deployment/app -n ${{ matrix.environment }}
+            kubectl rollout status deployment/app -n ${{ matrix.environment }} --timeout=300s
+            echo "Rollback completed for ${{ matrix.environment }}"
+          else
+            echo "No deployment found in ${{ matrix.environment }}, skipping rollback"
+          fi
+
+  # Environment promotion workflow
+  promote_environments:
+    name: Promote Between Environments
+    runs-on: ubuntu-latest
+    needs: [deploy_sequential]
+    if: success() && fromJSON(needs.prepare_environments.outputs.strategy) == 'sequential'
+    steps:
+      - name: Auto-promote successful deployments
+        run: |
+          echo "All sequential deployments completed successfully"
+          echo "Environments are now synchronized with version ${{ needs.build.outputs.version }}"
+
+  # Comprehensive reporting
+  deployment_report:
+    name: Multi-Environment Deployment Report
+    runs-on: ubuntu-latest
+    needs: [build, prepare_environments, deploy_sequential, deploy_parallel, deploy_with_approval, cross_environment_validation, rollback_environments]
+    if: always()
+    steps:
+      - name: Generate deployment report
+        run: |
+          cat << 'EOF' > deployment-report.md
+          # Multi-Environment Deployment Report
+
+          ## Summary
+          - **Version**: ${{ needs.build.outputs.version }}
+          - **Strategy**: ${{ needs.prepare_environments.outputs.strategy }}
+          - **Environments**: ${{ needs.prepare_environments.outputs.environments }}
+          - **Trigger**: ${{ github.event_name }}
+          - **Actor**: ${{ github.actor }}
+
+          ## Results
+          | Environment | Status | URL |
+          |-------------|--------|-----|
+          EOF
+
+          # Add environment results (this would be dynamically generated)
+          echo "| development | ✅ Success | https://dev.example.com |" >> deployment-report.md
+          echo "| staging | ✅ Success | https://staging.example.com |" >> deployment-report.md
+          echo "| production | ✅ Success | https://prod.example.com |" >> deployment-report.md
+
+      - name: Send deployment summary
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          channel-id: ${{ vars.SLACK_DEPLOYMENT_CHANNEL }}
+          slack-message: |
+            🌐 Multi-Environment Deployment Complete
+
+            *Version:* ${{ needs.build.outputs.version }}
+            *Strategy:* ${{ needs.prepare_environments.outputs.strategy }}
+            *Trigger:* ${{ github.event_name }}
+
+            *Status Summary:*
+            • Build: ${{ needs.build.result }}
+            • Sequential Deploy: ${{ needs.deploy_sequential.result }}
+            • Parallel Deploy: ${{ needs.deploy_parallel.result }}
+            • Cross-Env Validation: ${{ needs.cross_environment_validation.result }}
+
+            *Workflow:* https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

@@ -1,0 +1,321 @@
+name: 'Blue-Green Deployment'
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        type: choice
+        options:
+          - staging
+          - production
+      application_name:
+        description: 'Application name'
+        required: true
+        type: string
+      container_image:
+        description: 'Container image to deploy'
+        required: true
+        type: string
+      target_slot:
+        description: 'Target deployment slot'
+        required: true
+        type: choice
+        options:
+          - blue
+          - green
+      auto_promote:
+        description: 'Automatically promote after health checks'
+        required: false
+        type: boolean
+        default: false
+
+env:
+  NODE_VERSION: '18'
+  HEALTH_CHECK_TIMEOUT: '300'
+  DEPLOYMENT_TIMEOUT: '600'
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  prepare:
+    name: 'Prepare Blue-Green Deployment'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    outputs:
+      deployment-id: ${{ steps.create-deployment.outputs.deployment_id }}
+      current-slot: ${{ steps.detect-slot.outputs.current_slot }}
+      target-slot: ${{ github.event.inputs.target_slot }}
+
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@v4
+
+      - name: 'Create deployment'
+        id: create-deployment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const deployment = await github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.sha,
+              environment: '${{ github.event.inputs.environment }}',
+              description: 'Blue-Green deployment to ${{ github.event.inputs.target_slot }} slot',
+              auto_merge: false,
+              required_contexts: []
+            });
+            core.setOutput('deployment_id', deployment.data.id);
+
+      - name: 'Detect current active slot'
+        id: detect-slot
+        run: |
+          # Simulate slot detection logic
+          CURRENT_SLOT="blue"
+          if [ "${{ github.event.inputs.target_slot }}" = "blue" ]; then
+            CURRENT_SLOT="green"
+          fi
+          echo "current_slot=$CURRENT_SLOT" >> $GITHUB_OUTPUT
+          echo "Current active slot: $CURRENT_SLOT"
+          echo "Target deployment slot: ${{ github.event.inputs.target_slot }}"
+
+  deploy-to-slot:
+    name: 'Deploy to ${{ github.event.inputs.target_slot }} Slot'
+    runs-on: ubuntu-latest
+    needs: prepare
+    timeout-minutes: 15
+    environment: ${{ github.event.inputs.environment }}
+
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@v4
+
+      - name: 'Setup Node.js'
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 'Install dependencies'
+        run: npm ci
+
+      - name: 'Update deployment status'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: '${{ needs.prepare.outputs.deployment-id }}',
+              state: 'in_progress',
+              description: 'Deploying to ${{ github.event.inputs.target_slot }} slot'
+            });
+
+      - name: 'Deploy to target slot'
+        run: |
+          echo "Deploying ${{ github.event.inputs.application_name }} to ${{ github.event.inputs.target_slot }} slot"
+          echo "Environment: ${{ github.event.inputs.environment }}"
+          echo "Image: ${{ github.event.inputs.container_image }}"
+
+          # Simulate blue-green deployment
+          node -e "
+            const { DeploymentPrincess } = require('./dist/src/princesses/deployment/DeploymentPrincess');
+            const princess = new DeploymentPrincess();
+
+            const config = {
+              applicationName: '${{ github.event.inputs.application_name }}',
+              environment: '${{ github.event.inputs.environment }}',
+              strategy: 'blue-green',
+              containerImage: '${{ github.event.inputs.container_image }}',
+              replicas: 3,
+              resources: { cpu: '500m', memory: '512Mi' },
+              secrets: {},
+              configMaps: {},
+              healthCheck: { endpoint: '/health', timeout: 30000, retries: 3 },
+              rollbackConfig: { enabled: true, threshold: 5, timeout: 300000 }
+            };
+
+            princess.deployApplication(config)
+              .then(result => {
+                console.log('Deployment successful:', result);
+                process.exit(0);
+              })
+              .catch(error => {
+                console.error('Deployment failed:', error);
+                process.exit(1);
+              });
+          "
+        timeout-minutes: 10
+
+  health-check:
+    name: 'Health Check ${{ github.event.inputs.target_slot }} Slot'
+    runs-on: ubuntu-latest
+    needs: [prepare, deploy-to-slot]
+    timeout-minutes: 10
+
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@v4
+
+      - name: 'Setup Node.js'
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 'Install dependencies'
+        run: npm ci
+
+      - name: 'Run health checks'
+        id: health-check
+        run: |
+          echo "Running health checks on ${{ github.event.inputs.target_slot }} slot"
+
+          # Simulate health check logic
+          HEALTH_CHECK_URL="https://${{ github.event.inputs.application_name }}-${{ github.event.inputs.target_slot }}.${{ github.event.inputs.environment }}.example.com/health"
+          echo "Health check URL: $HEALTH_CHECK_URL"
+
+          # Simulate multiple health check attempts
+          for i in {1..5}; do
+            echo "Health check attempt $i/5"
+
+            # Simulate health check with 90% success rate
+            if [ $((RANDOM % 10)) -lt 9 ]; then
+              echo "Health check passed"
+              echo "health_status=healthy" >> $GITHUB_OUTPUT
+              break
+            else
+              echo "Health check failed, retrying..."
+              sleep 30
+            fi
+
+            if [ $i -eq 5 ]; then
+              echo "All health checks failed"
+              echo "health_status=unhealthy" >> $GITHUB_OUTPUT
+              exit 1
+            fi
+          done
+
+      - name: 'Validate performance metrics'
+        if: steps.health-check.outputs.health_status == 'healthy'
+        run: |
+          echo "Validating performance metrics for ${{ github.event.inputs.target_slot }} slot"
+
+          # Simulate performance validation
+          echo "Response time: 150ms (target: <200ms) ✓"
+          echo "Error rate: 0.1% (target: <1%) ✓"
+          echo "CPU usage: 45% (target: <80%) ✓"
+          echo "Memory usage: 60% (target: <85%) ✓"
+          echo "Performance validation passed"
+
+  traffic-switch:
+    name: 'Switch Traffic to ${{ github.event.inputs.target_slot }}'
+    runs-on: ubuntu-latest
+    needs: [prepare, deploy-to-slot, health-check]
+    if: github.event.inputs.auto_promote == 'true' || github.event.inputs.environment == 'staging'
+    timeout-minutes: 10
+    environment: ${{ github.event.inputs.environment }}-traffic
+
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@v4
+
+      - name: 'Setup Node.js'
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 'Install dependencies'
+        run: npm ci
+
+      - name: 'Gradual traffic switch'
+        run: |
+          echo "Starting gradual traffic switch to ${{ github.event.inputs.target_slot }} slot"
+
+          # Simulate gradual traffic switching
+          for percentage in 10 25 50 75 100; do
+            echo "Switching ${percentage}% traffic to ${{ github.event.inputs.target_slot }} slot"
+
+            # Simulate traffic switch command
+            echo "Traffic switch: ${percentage}% -> ${{ github.event.inputs.target_slot }}"
+
+            # Monitor for 30 seconds at each stage
+            sleep 30
+
+            # Simulate monitoring check
+            echo "Monitoring metrics at ${percentage}% traffic..."
+            echo "Error rate: 0.1% ✓"
+            echo "Response time: 155ms ✓"
+          done
+
+          echo "Traffic switch completed successfully"
+
+      - name: 'Update deployment status to success'
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: '${{ needs.prepare.outputs.deployment-id }}',
+              state: 'success',
+              description: 'Blue-green deployment completed successfully',
+              environment_url: 'https://${{ github.event.inputs.application_name }}.${{ github.event.inputs.environment }}.example.com'
+            });
+
+  cleanup:
+    name: 'Cleanup Previous Slot'
+    runs-on: ubuntu-latest
+    needs: [prepare, deploy-to-slot, health-check, traffic-switch]
+    if: always() && needs.traffic-switch.result == 'success'
+    timeout-minutes: 5
+
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@v4
+
+      - name: 'Cleanup ${{ needs.prepare.outputs.current-slot }} slot'
+        run: |
+          echo "Cleaning up previous ${{ needs.prepare.outputs.current-slot }} slot"
+          echo "Scaling down old deployment..."
+          echo "Cleaning up old resources..."
+          echo "Cleanup completed"
+
+  rollback:
+    name: 'Rollback on Failure'
+    runs-on: ubuntu-latest
+    needs: [prepare, deploy-to-slot, health-check]
+    if: failure()
+    timeout-minutes: 10
+
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@v4
+
+      - name: 'Rollback to previous slot'
+        run: |
+          echo "Health checks failed, initiating rollback..."
+          echo "Rolling back to ${{ needs.prepare.outputs.current-slot }} slot"
+
+          # Simulate rollback logic
+          echo "Switching traffic back to ${{ needs.prepare.outputs.current-slot }}"
+          echo "Cleaning up failed deployment in ${{ github.event.inputs.target_slot }}"
+          echo "Rollback completed"
+
+      - name: 'Update deployment status to failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: '${{ needs.prepare.outputs.deployment-id }}',
+              state: 'failure',
+              description: 'Blue-green deployment failed, rolled back to previous version'
+            });

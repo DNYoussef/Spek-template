@@ -1,6 +1,8 @@
 from src.constants.base import API_TIMEOUT_SECONDS
 
-Provides emergency position liquidation with <500ms response time
+"""Kill Switch System - Emergency Risk Control
+
+Provides emergency position liquidation with less than 500ms response time
 and comprehensive audit logging.
 """
 

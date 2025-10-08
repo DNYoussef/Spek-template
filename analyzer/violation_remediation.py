@@ -6,6 +6,10 @@ This module provides REAL engineering solutions for fixing code violations,
 not just hiding them. Implements auto-fix capabilities, suppression system
 with justifications, and proper violation management.
 """
+from dataclasses import dataclass, field
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple

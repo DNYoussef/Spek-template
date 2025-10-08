@@ -1,6 +1,5 @@
 /**
  * Audit Gate Manager
- *
  * Centralized quality gate definitions and evaluation logic.
  * Manages compliance checking and gate criteria across all domains.
  */

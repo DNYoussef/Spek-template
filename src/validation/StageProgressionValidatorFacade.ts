@@ -27,10 +27,8 @@ export interface ValidationOptions {
 export class StageProgressionValidator extends EventEmitter {
   /**
    * Facade for Stage Progression Validator.
-   *
    * Original: 1,188 LOC god object
    * Refactored: ~150 LOC facade + 3 specialized components (~700 LOC total)
-   *
    * Maintains 100% backward compatibility while delegating to:
    * - StageManager: Stage lifecycle and transitions
    * - ValidationEngine: Validation rule execution

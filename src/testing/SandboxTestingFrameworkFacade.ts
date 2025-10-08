@@ -24,10 +24,8 @@ export interface SandboxTestOptions {
 export class SandboxTestingFramework extends EventEmitter {
   /**
    * Facade for Sandbox Testing Framework.
-   *
    * Original: 1,213 LOC god object
    * Refactored: ~150 LOC facade + 3 specialized components (~750 LOC total)
-   *
    * Maintains 100% backward compatibility while delegating to:
    * - SandboxManager: Environment creation and lifecycle
    * - TestRunner: Test execution and monitoring
@@ -238,7 +236,7 @@ export class SandboxTestingFramework extends EventEmitter {
     return Array.from(this.activeSandboxes.keys());
   }
 
-  async cleanup(): Promise<void> {
+  async destroy(): Promise<void> {
     // Stop monitoring
     this.resourceMonitor.stopMonitoring();
 

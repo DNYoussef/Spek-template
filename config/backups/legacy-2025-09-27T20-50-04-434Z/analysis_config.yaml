@@ -1,0 +1,2 @@
+analysis:
+  parallel_workers: 25

@@ -1,3 +1,9 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+import logging
+
+logger = logging.getLogger(__name__)
+
 """
 Core Theater Detection Components
 Detects various forms of performance theater in software development.

@@ -16,10 +16,10 @@ import statistics
 sys.path.append(str(Path(__file__).parent.parent.parent / 'src'))
 
 try:
-    from monitoring.advanced_performance_monitor import (
+    from monitoring.advanced_performance_monitor import ()
         AdvancedPerformanceMonitor,
         PerformanceMetric
-    )
+(    )
 except ImportError as e:
     print(f"Warning: Could not import monitoring modules: {e}")
     print("Running basic overhead validation without full monitoring system")
@@ -203,14 +203,14 @@ def validate_memory_efficiency():
         # Sustained load test
         for batch in range(10):
             for i in range(100):
-                metric = PerformanceMetric(
+                metric = PerformanceMetric()
                     timestamp=time.time(),
                     metric_name="memory_test",
                     value=float(i),
                     unit="ms",
                     module="memory_test",
                     operation="sustained_load"
-                )
+(                )
                 monitor.record_metric(metric)
 
         final_memory = process.memory_info().rss / 1024 / 1024  # MB

@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import MAXIMUM_FILE_LENGTH_LINES, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 """
 
@@ -180,7 +183,7 @@ class ConfigurationManager:
             'connascence_of_name': 1.0,
             'connascence_of_type': 1.5, 
             'connascence_of_meaning': 2.0,
-            'connascence_of_position': 2.MAXIMUM_NESTED_DEPTH,
+            'connascence_of_position': 2.5,
             'connascence_of_algorithm': 3.0,
             'connascence_of_execution': 4.0,
             'connascence_of_timing': 5.0,
@@ -421,14 +424,14 @@ class ConfigurationManager:
         return {
             'sixSigma': {
                 'targetSigma': 4.0,
-                'sigmaShift': 1.MAXIMUM_NESTED_DEPTH,
+                'sigmaShift': 1.5,
                 'performanceThreshold': 1.2,
                 'maxExecutionTime': 5000,
                 'maxMemoryUsage': 100
             },
             'quality': {
                 'targetSigma': 4.0,
-                'sigmaShift': 1.MAXIMUM_NESTED_DEPTH,
+                'sigmaShift': 1.5,
                 'nasaPOT10Target': 95,
                 'auditTrailEnabled': True
             },
@@ -594,7 +597,9 @@ def get_config_manager() -> ConfigurationManager:
         # Verify that configuration loaded successfully
         validation_issues = _config_manager.validate_configuration()
         if validation_issues:
+            logger.warning(f"Configuration validation issues: {validation_issues}")
         else:
+            logger.info("Configuration validation passed")
     return _config_manager
 
 def reset_config_manager():

@@ -53,7 +53,6 @@ export interface ResourceThresholds {
 export class ResourceMonitor extends EventEmitter {
   /**
    * Monitors and tracks resource usage.
-   *
    * Extracted from SandboxTestingFramework (1,213 LOC -> ~200 LOC component).
    * Handles:
    * - Resource usage tracking

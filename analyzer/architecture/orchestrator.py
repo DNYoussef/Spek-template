@@ -1,3 +1,7 @@
+from datetime import datetime, timedelta
+import time
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import MAXIMUM_FILE_LENGTH_LINES, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TRADE_THRESHOLD
 
 """
@@ -403,7 +407,6 @@ class ArchitectureOrchestrator:
             result = self._build_architecture_result(arch_data, validation_results, start_time, path)
 
             return result
-
         except Exception as e:
             logger.error(f"Architecture analysis failed: {e}")
             return self._create_fallback_architecture_result(str(e), path)
@@ -550,31 +553,6 @@ class ArchitectureOrchestrator:
             recommendations.append("Architecture is in good health - maintain current patterns")
 
         return recommendations
-            
-            # Extract architectural metrics
-            architectural_metrics = self._calculate_architectural_metrics(violations_result)
-            
-            # Generate architecture-specific analysis
-            return {
-                "system_overview": {
-                    "architectural_health": architectural_metrics["architectural_health"],
-                    "coupling_score": architectural_metrics["coupling_score"],
-                    "complexity_score": architectural_metrics["complexity_score"],
-                    "maintainability_index": architectural_metrics["maintainability_index"]
-                },
-                "hotspots": self._identify_architectural_hotspots(violations_result),
-                "recommendations": self._generate_architectural_recommendations(violations_result),
-                "metrics": {
-                    "total_components": architectural_metrics["total_components"],
-                    "high_coupling_components": architectural_metrics["high_coupling_components"],
-                    "god_objects_detected": len([v for v in violations_result.get("connascence", []) if "god_object" in str(v).lower()])
-                },
-                "architectural_health": architectural_metrics["architectural_health"]
-            }
-            
-        except Exception as e:
-            logger.error(f"Architecture analysis failed: {e}")
-            return self._create_fallback_architecture_result(str(e), project_path)
 
     def _initialize_analyzers(self) -> Dict[str, Any]:
         """Initialize available analyzers. NASA Rule 4 compliant."""

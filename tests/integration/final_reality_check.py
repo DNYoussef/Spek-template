@@ -1,3 +1,5 @@
+import pytest
+
 #!/usr/bin/env python3
 """
 FINAL REALITY CHECK: Tests the fixed GitHub integration components

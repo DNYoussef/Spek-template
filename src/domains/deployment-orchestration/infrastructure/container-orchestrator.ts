@@ -1,6 +1,5 @@
 /**
  * Container Orchestrator - Real Container Management
- *
  * Provides genuine container deployment, scaling, and management
  * Supports Docker, Kubernetes, and Docker Swarm
  */
@@ -143,11 +142,12 @@ export class ContainerOrchestrator {
           throw new Error(`Scaling not supported for: ${this.orchestrator}`);
       }
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       return {
         success: false,
         currentReplicas: 0,
         targetReplicas,
-        error: error.message
+        error: errorMessage
       };
     }
   }
@@ -237,11 +237,11 @@ export class ContainerOrchestrator {
         `app=${namespace}`
       );
 
-      return podsResponse.body.items.map(pod => ({
-        id: pod.metadata?.uid || '',
-        name: pod.metadata?.name || '',
-        status: this.mapKubernetesPodStatus(pod.status?.phase || ''),
-        ready: pod.status?.conditions?.some(c => c.type === 'Ready' && c.status === 'True') || false,
+      return podsResponse.body.items.map((pod: unknown) => ({
+        id: (pod as any).metadata?.uid || '',
+        name: (pod as any).metadata?.name || '',
+        status: this.mapKubernetesPodStatus((pod as any).status?.phase || ''),
+        ready: (pod as any).status?.conditions?.some((c: unknown) => (c as any).type === 'Ready' && (c as any).status === 'True') || false,
         restartCount: pod.status?.containerStatuses?.[0]?.restartCount || 0,
         createdAt: new Date(pod.metadata?.creationTimestamp || Date.now())
       }));
@@ -326,11 +326,11 @@ export class ContainerOrchestrator {
         filters: { name: [namespace] }
       });
 
-      return containers.map(container => ({
-        id: container.Id,
-        name: container.Names[0]?.replace('/', '') || '',
-        status: this.mapDockerStatus(container.State),
-        ready: container.State === 'running',
+      return containers.map((container: unknown) => ({
+        id: (container as any).Id,
+        name: (container as any).Names[0]?.replace('/', '') || '',
+        status: this.mapDockerStatus((container as any).State),
+        ready: (container as any).State === 'running',
         restartCount: 0, // Docker doesn't expose restart count in list
         createdAt: new Date(container.Created * 1000)
       }));

@@ -1,0 +1,32 @@
+{
+  "map_highway": {
+    "benchmark_value": 90.0,
+    "current_value": 85.5,
+    "performance_ratio": 0.95,
+    "meets_benchmark": true
+  },
+  "map_urban": {
+    "benchmark_value": 85.0,
+    "current_value": 80.75,
+    "performance_ratio": 0.95,
+    "meets_benchmark": true
+  },
+  "tracking_consistency": {
+    "benchmark_value": 92.0,
+    "current_value": 87.39999999999999,
+    "performance_ratio": 0.95,
+    "meets_benchmark": true
+  },
+  "false_positive_rate": {
+    "benchmark_value": 3.0,
+    "current_value": 2.8499999999999996,
+    "performance_ratio": 0.9499999999999998,
+    "meets_benchmark": true
+  },
+  "detection_latency_ms": {
+    "benchmark_value": 40.0,
+    "current_value": 38.0,
+    "performance_ratio": 0.95,
+    "meets_benchmark": true
+  }
+}

@@ -50,6 +50,27 @@ jobs:
             echo "[WARN] Unified analyzer not available, will use fallback analysis"
           }
 
+      - name: Setup Node.js for test coverage
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install Node.js dependencies
+        run: npm ci || npm install
+
+      - name: Build TypeScript
+        run: npm run build
+        continue-on-error: false
+
+      - name: Verify build artifacts
+        run: |
+          if [ ! -d "dist/src" ]; then
+            echo "ERROR: Build did not generate dist/ files"
+            exit 1
+          fi
+          echo "Build artifacts verified"
+
       - name: Run Comprehensive Analysis
         id: analysis
         run: |

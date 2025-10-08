@@ -1,3 +1,7 @@
+import queue
+from queue import Queue, Empty
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 Stream Processing Engine for Incremental Analysis
 ================================================
@@ -924,8 +928,7 @@ class StreamProcessor:
 
 # Factory functions and utilities
 
-    def create_stream_processor(analyzer_factory: Callable[[], Any], **kwargs) -> StreamProcessor:
-        pass
+def create_stream_processor(analyzer_factory: Callable[[], Any], **kwargs) -> StreamProcessor:
     """Factory function to create configured stream processor."""
     return StreamProcessor(analyzer_factory=analyzer_factory, **kwargs)
 

@@ -1,6 +1,5 @@
 /**
  * Deployment Orchestrator - Main Coordinator
- *
  * Hierarchical coordinator managing all deployment operations with
  * multi-environment coordination and enterprise-grade automation.
  */
@@ -14,7 +13,7 @@ import {
   DeploymentResult,
   DeploymentError,
   ComplianceStatus
-} from '../types/deployment-types';
+} from '~types/deployment-types';
 
 import { MultiEnvironmentCoordinator } from './multi-environment-coordinator';
 import { BlueGreenEngine } from '../engines/blue-green-engine';
@@ -50,11 +49,11 @@ export class DeploymentOrchestrator {
    */
   private async initializeOrchestrator(): Promise<void> {
     // Set up cross-component event handling
-    this.rollbackSystem.onRollbackTriggered(async (deploymentId, reason) => {
+    this.rollbackSystem.onRollbackTriggered(async (deploymentId: unknown, reason: unknown) => {
       await this.handleAutoRollback(deploymentId, reason);
     });
 
-    this.multiEnvCoordinator.onEnvironmentStatusChange(async (env, status) => {
+    this.multiEnvCoordinator.onEnvironmentStatusChange(async (env: unknown, status: unknown) => {
       await this.handleEnvironmentStatusChange(env, status);
     });
 

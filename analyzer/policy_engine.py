@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, REGULATORY_FACTUALITY_REQUIREMENT, THEATER_DETECTION_WARNING_THRESHOLD
 """
 
@@ -65,7 +68,7 @@ class PolicyEngine:
             total_score += rule_score
 
         # Calculate overall score (average of rule scores)
-        overall_score = total_score / MAXIMUM_FUNCTION_PARAMETERS.0
+        overall_score = total_score / float(MAXIMUM_FUNCTION_PARAMETERS)
         passed = overall_score >= self.config.get_nasa_compliance_threshold()
 
         # Generate compliance violations for failed rules

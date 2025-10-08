@@ -42,7 +42,6 @@ export interface LogicalModel {
 export class InferenceEngine extends EventEmitter {
   /**
    * Handles logical inference and deduction.
-   *
    * Extracted from RationalistReasoningEngine (1,061 LOC -> ~200 LOC component).
    * Handles:
    * - Logical inference rules

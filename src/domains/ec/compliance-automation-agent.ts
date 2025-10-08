@@ -1,7 +1,6 @@
 /**
  * Enterprise Compliance Automation Agent
  * Implements comprehensive multi-framework compliance automation with real-time monitoring
- *
  * Domain: EC (Enterprise Compliance)
  * Tasks: EC-001 through EC-006
  * Frameworks: SOC2 Type II, ISO27001:2022, NIST-SSDF v1.1
@@ -51,6 +50,14 @@ export class EnterpriseComplianceAutomationAgent extends EventEmitter {
     super();
     this.config = config;
     this.initializeFrameworks();
+
+    // Emit initialized event after setup (use setTimeout for cross-environment compatibility)
+    setTimeout(() => {
+      this.emit('initialized', {
+        timestamp: new Date(),
+        frameworks: this.config.frameworks
+      });
+    }, 0);
   }
 
   /**
@@ -109,8 +116,9 @@ export class EnterpriseComplianceAutomationAgent extends EventEmitter {
       this.emit('initialized', { timestamp: new Date(), frameworks: this.config.frameworks });
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.emit('error', { type: 'initialization', error });
-      throw new Error(`Failed to initialize compliance agent: ${error.message}`);
+      throw new Error(`Failed to initialize compliance agent: ${errorMessage}`);
     }
   }
 
@@ -140,10 +148,10 @@ export class EnterpriseComplianceAutomationAgent extends EventEmitter {
       });
 
       // Perform cross-framework correlation
-      const correlationResults = await this.complianceCorrelator.correlatCompliance({
+      const correlationResults = await this.complianceCorrelator.correlateMultipleFrameworks({
         soc2: soc2Results,
         iso27001: iso27001Results,
-        nist: nistResults
+        nistSSFD: nistResults
       });
 
       // Start real-time monitoring if enabled
@@ -180,8 +188,9 @@ export class EnterpriseComplianceAutomationAgent extends EventEmitter {
       return complianceStatus;
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.emit('error', { type: 'compliance_execution', error });
-      throw new Error(`Compliance automation failed: ${error.message}`);
+      throw new Error(`Compliance automation failed: ${errorMessage}`);
     }
   }
 
@@ -485,4 +494,5 @@ export class EnterpriseComplianceAutomationAgent extends EventEmitter {
   }
 }
 
+// Backward compatibility
 export default EnterpriseComplianceAutomationAgent;

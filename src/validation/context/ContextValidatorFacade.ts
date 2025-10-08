@@ -59,10 +59,8 @@ export interface ComprehensiveValidationResult {
 export class ContextValidator extends EventEmitter {
   /**
    * Facade for Context Validation System.
-   *
    * Original: 978 LOC god object
    * Refactored: ~150 LOC facade + 3 specialized components (~650 LOC total)
-   *
    * Maintains 100% backward compatibility while delegating to:
    * - SchemaValidator: Schema-based validation
    * - DataValidator: Data integrity and consistency

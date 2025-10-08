@@ -6,6 +6,8 @@ Connascence Cache - High-Performance Caching Layer
 Intelligent caching system implementing 8 methods for optimal performance.
 NASA Power of Ten compliant with comprehensive cache management.
 """
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from collections import OrderedDict
 from pathlib import Path

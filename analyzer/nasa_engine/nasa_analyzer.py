@@ -1,3 +1,9 @@
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
+import logging
+
+logger = logging.getLogger(__name__)
+
 """
 NASA Power of Ten Rule Analyzer
 

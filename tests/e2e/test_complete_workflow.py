@@ -10,7 +10,7 @@ import tempfile
 import pytest
 
 from analyzer.core import UnifiedAnalyzer
-from analyzer.utils.config_manager import ConfigManager
+from analyzer.utils.config_manager import ConfigurationManager as ConfigManager
 
 class TestCompleteWorkflow:
     """End-to-end tests for complete analysis workflow."""
@@ -55,10 +55,10 @@ class DataModel:
     def __init__(self, data):
         self.data = data
         self.metadata = {'created': True}
-    
+
     def get_data(self):
         return self.data
-    
+
     def update_data(self, new_data):
         self.data.update(new_data)
 """)

@@ -1,5 +1,7 @@
 from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH
+import pytest
 
+"""
 Tests the complete kill switch system including:
 - Import functionality
 - Performance validation (<500ms)

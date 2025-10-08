@@ -1,3 +1,5 @@
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 Unified Visitor Performance Profiler
 =====================================
@@ -643,8 +645,7 @@ class UnifiedVisitorProfiler:
         
         return header + "\n".join(body_lines)
 
-    def run_comprehensive_performance_audit(output_dir: Path = None) -> Dict[str, Any]:
-        pass
+def run_comprehensive_performance_audit(output_dir: Path = None) -> Dict[str, Any]:
     """
     Execute comprehensive performance audit of unified visitor efficiency.
     

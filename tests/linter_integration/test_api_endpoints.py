@@ -30,11 +30,11 @@ class MockIngestionEngine:
         
     async def executeRealtimeLinting(self, filePaths: List[str], options: Dict[str, Any] = None):
         """Mock linting execution"""
-        self.executions.append({
+        self.executions.append({)
             "filePaths": filePaths,
             "options": options or {},
             "timestamp": time.time()
-        })
+(        })
         
         return {
             "correlationId": f"test_{len(self.executions)}",
@@ -174,11 +174,11 @@ class TestIntegrationApiServer:
         # Import here to avoid circular imports
         from linter_integration.integration_api import create_app
         
-        app = create_app(
+        app = create_app()
             mock_dependencies["ingestion_engine"],
             mock_dependencies["tool_manager"],
             mock_dependencies["correlation_framework"]
-        )
+(        )
         
         client = await aiohttp_client(app)
         return client
@@ -235,8 +235,8 @@ class TestIntegrationApiServer:
             "options": {"ignoreErrors": False}
         }
         
-        response = await api_client.post("/api/v1/lint/execute", 
-                                        json=payload, headers=headers)
+        response = await api_client.post("/api/v1/lint/execute",)
+(                                        json=payload, headers=headers)
         
         assert response.status == 202  # Accepted
         data = await response.json()
@@ -259,8 +259,8 @@ class TestIntegrationApiServer:
             "tools": ["flake8"]
         }
         
-        response = await api_client.post("/api/v1/lint/execute", 
-                                        json=payload, headers=headers)
+        response = await api_client.post("/api/v1/lint/execute",)
+(                                        json=payload, headers=headers)
         
         assert response.status == 400
         data = await response.json()
@@ -273,8 +273,8 @@ class TestIntegrationApiServer:
         headers = {"X-API-Key": "dev-key-12345"}
         correlation_id = "test_correlation_123"
         
-        response = await api_client.get(f"/api/v1/lint/results/{correlation_id}", 
-                                        headers=headers)
+        response = await api_client.get(f"/api/v1/lint/results/{correlation_id}",)
+(                                        headers=headers)
         
         assert response.status == 200
         data = await response.json()
@@ -312,8 +312,8 @@ class TestIntegrationApiServer:
         headers = {"X-API-Key": "dev-key-12345"}
         tool_id = "flake8"
         
-        response = await api_client.get(f"/api/v1/tools/{tool_id}/status", 
-                                        headers=headers)
+        response = await api_client.get(f"/api/v1/tools/{tool_id}/status",)
+(                                        headers=headers)
         
         assert response.status == 200
         data = await response.json()
@@ -330,8 +330,8 @@ class TestIntegrationApiServer:
         headers = {"X-API-Key": "dev-key-12345"}
         tool_id = "nonexistent"
         
-        response = await api_client.get(f"/api/v1/tools/{tool_id}/status", 
-                                        headers=headers)
+        response = await api_client.get(f"/api/v1/tools/{tool_id}/status",)
+(                                        headers=headers)
         
         assert response.status == 404
         data = await response.json()
@@ -347,8 +347,8 @@ class TestIntegrationApiServer:
             "options": {"maxLineLength": 88}
         }
         
-        response = await api_client.post(f"/api/v1/tools/{tool_id}/execute", 
-                                        json=payload, headers=headers)
+        response = await api_client.post(f"/api/v1/tools/{tool_id}/execute",)
+(                                        json=payload, headers=headers)
         
         assert response.status == 200
         data = await response.json()
@@ -377,8 +377,8 @@ class TestIntegrationApiServer:
             ]
         }
         
-        response = await api_client.post("/api/v1/correlations/analyze", 
-                                        json=payload, headers=headers)
+        response = await api_client.post("/api/v1/correlations/analyze",)
+(                                        json=payload, headers=headers)
         
         assert response.status == 200
         data = await response.json()
@@ -392,8 +392,8 @@ class TestIntegrationApiServer:
     async def test_correlation_clusters_endpoint(self, api_client):
         """Test correlation clusters list endpoint"""
         headers = {"X-API-Key": "dev-key-12345"}
-        response = await api_client.get("/api/v1/correlations/clusters", 
-                                        headers=headers)
+        response = await api_client.get("/api/v1/correlations/clusters",)
+(                                        headers=headers)
         
         assert response.status == 200
         data = await response.json()
@@ -422,8 +422,8 @@ class TestIntegrationApiServer:
     async def test_correlation_metrics_endpoint(self, api_client):
         """Test correlation metrics endpoint"""
         headers = {"X-API-Key": "dev-key-12345"}
-        response = await api_client.get("/api/v1/metrics/correlations", 
-                                        headers=headers)
+        response = await api_client.get("/api/v1/metrics/correlations",)
+(                                        headers=headers)
         
         assert response.status == 200
         data = await response.json()
@@ -559,8 +559,8 @@ class TestIntegrationApiServer:
             "tools": ["flake8"]
         }
         
-        response = await api_client.post("/api/v1/lint/execute", 
-                                        json=small_payload, headers=headers)
+        response = await api_client.post("/api/v1/lint/execute",)
+(                                        json=small_payload, headers=headers)
         assert response.status == 202
         
         # Test with very large payload would fail in real implementation
@@ -605,9 +605,9 @@ class TestWebSocketEndpoints:
     async def test_websocket_real_time_updates(self, mock_dependencies):
         """Test real-time updates via WebSocket"""
         # Simulate real-time linting
-        result = await mock_dependencies["ingestion_engine"].executeRealtimeLinting(
+        result = await mock_dependencies["ingestion_engine"].executeRealtimeLinting()
             ["test.py"], {"realtime": True}
-        )
+(        )
         
         # Verify result can be sent via WebSocket
         assert "correlationId" in result

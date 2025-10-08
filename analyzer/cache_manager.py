@@ -1,3 +1,5 @@
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES
 
 """
@@ -10,6 +12,8 @@ NASA Rule 4 Compliant: Single responsibility pattern.
 """
 
 import logging
+from pathlib import Path
+
 logger = logging.getLogger(__name__)
 
 # Import optimization components with fallback

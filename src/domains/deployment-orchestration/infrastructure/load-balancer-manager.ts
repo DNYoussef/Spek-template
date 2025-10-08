@@ -1,6 +1,5 @@
 /**
  * Load Balancer Manager - Real Infrastructure Integration
- *
  * Provides genuine load balancer integration for traffic switching
  * Supports Nginx, HAProxy, AWS ALB, and Kubernetes Ingress
  */
@@ -86,9 +85,10 @@ export class LoadBalancerManager {
       };
 
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       return {
         success: false,
-        error: `Traffic verification failed: ${error.message}`
+        error: `Traffic verification failed: ${errorMessage}`
       };
     }
   }

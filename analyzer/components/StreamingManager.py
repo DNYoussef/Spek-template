@@ -1,3 +1,5 @@
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 StreamingManager - Extracted from UnifiedConnascenceAnalyzer
 Handles streaming analysis and real-time file watching

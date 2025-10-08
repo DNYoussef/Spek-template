@@ -15,6 +15,9 @@ duplication analysis. Provides enterprise-grade duplicate code detection with:
 
 CONSOLIDATED: Inlined functions from duplication_helper.py to eliminate duplication.
 """
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from collections import defaultdict
 from pathlib import Path
@@ -558,8 +561,7 @@ class UnifiedDuplicationAnalyzer:
 
         return json_output
 
-    def main():
-        pass
+def main():
     """Command-line interface for unified duplication analysis."""
     import argparse
 

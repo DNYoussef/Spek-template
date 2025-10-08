@@ -56,7 +56,7 @@ class TestJSONSchemaValidation(unittest.TestCase):
 
     def _create_sample_violation(self, rule_id: str, conn_type: str, severity: str, weight: float) -> Violation:
         """Create a sample violation for testing."""
-        return Violation(
+        return Violation()
             id=f"test_{rule_id}_{uuid.uuid4().hex[:8]}",
             type=getattr(ConnascenceType, conn_type.upper()),
             severity=getattr(Severity, severity.upper()),
@@ -73,11 +73,11 @@ class TestJSONSchemaValidation(unittest.TestCase):
             class_name="TestClass",
             code_snippet="def test_function():",
             context={"authentic": True, "analysis_type": "real"}
-        )
+(        )
 
     def _create_sample_analysis_result(self) -> AnalysisResult:
         """Create a sample analysis result for testing."""
-        return AnalysisResult(
+        return AnalysisResult()
             violations=self.sample_violations,
             file_stats={"total_files": 5, "analyzed_files": 5},
             timestamp="2024-01-01T00:00:00Z",
@@ -88,7 +88,7 @@ class TestJSONSchemaValidation(unittest.TestCase):
             budget_status={"within_budget": True},
             baseline_comparison={"improved": True},
             summary_metrics={"total_weight": 15.5}
-        )
+(        )
 
     # PHASE 1 ISSUE 1: Mock Data Contamination Prevention Tests
     def test_detect_mock_data_patterns(self):
@@ -103,8 +103,8 @@ class TestJSONSchemaValidation(unittest.TestCase):
         result_dict = json.loads(json_output)
         
         mock_score = self._calculate_mock_contamination_score(result_dict)
-        self.assertLess(mock_score, 0.2, 
-                        f"Real analysis data flagged as mock (score: {mock_score})")
+        self.assertLess(mock_score, 0.2,)
+(                        f"Real analysis data flagged as mock (score: {mock_score})")
         
         # Test synthetic mock data (should be flagged)
         mock_result = self._create_mock_analysis_result()
@@ -112,8 +112,8 @@ class TestJSONSchemaValidation(unittest.TestCase):
         mock_dict = json.loads(mock_json)
         
         mock_score = self._calculate_mock_contamination_score(mock_dict)
-        self.assertGreater(mock_score, 0.5, 
-                            f"Mock data not detected (score: {mock_score})")
+        self.assertGreater(mock_score, 0.5,)
+(                            f"Mock data not detected (score: {mock_score})")
 
     def test_authentic_analysis_evidence_validation(self):
         """Test validation of authentic analysis evidence."""
@@ -189,8 +189,8 @@ class TestJSONSchemaValidation(unittest.TestCase):
         
         for i, violation in enumerate(violations):
             for field in required_violation_fields:
-                self.assertIn(field, violation, 
-                            f"Violation {i} missing required field: {field}")
+                self.assertIn(field, violation,)
+(                            f"Violation {i} missing required field: {field}")
             
             # Validate data types
             self.assertIsInstance(violation["weight"], (int, float))
@@ -217,8 +217,8 @@ class TestJSONSchemaValidation(unittest.TestCase):
         for result in results:
             policy_compliance = result.get("policy_compliance", {})
             for field in policy_fields:
-                self.assertIn(field, policy_compliance, 
-                            f"Inconsistent policy field: {field}")
+                self.assertIn(field, policy_compliance,)
+(                            f"Inconsistent policy field: {field}")
 
     def test_standardized_policy_preset_values(self):
         """Test that policy preset values are standardized."""
@@ -228,8 +228,8 @@ class TestJSONSchemaValidation(unittest.TestCase):
         result_dict = json.loads(json_output)
         
         policy_preset = result_dict["policy_compliance"]["policy_preset"]
-        self.assertIn(policy_preset, valid_presets, 
-                    f"Invalid policy preset: {policy_preset}")
+        self.assertIn(policy_preset, valid_presets,)
+(                    f"Invalid policy preset: {policy_preset}")
 
     # PHASE 1 ISSUE 4: Performance Regression Detection Tests
     def test_json_generation_performance(self):
@@ -241,9 +241,9 @@ class TestJSONSchemaValidation(unittest.TestCase):
         
         generation_time = time.perf_counter() - start_time
         
-        self.assertLess(generation_time, self.json_generation_time_threshold,
+        self.assertLess(generation_time, self.json_generation_time_threshold,)
                         f"JSON generation time {generation_time:.4f}s exceeds "
-                        f"threshold {self.json_generation_time_threshold:.4f}s")
+(                        f"threshold {self.json_generation_time_threshold:.4f}s")
 
     def test_memory_footprint_limits(self):
         """Test memory footprint during JSON generation."""
@@ -256,7 +256,7 @@ class TestJSONSchemaValidation(unittest.TestCase):
         # Generate large JSON report
         large_violations = [self._create_sample_violation(f"CON_TEST_{i}", "name", "medium", 1.0) 
                             for i in range(1000)]
-        large_result = AnalysisResult(
+        large_result = AnalysisResult()
             violations=large_violations,
             file_stats={"total_files": 100},
             timestamp="2024-01-01T00:00:00Z",
@@ -267,16 +267,16 @@ class TestJSONSchemaValidation(unittest.TestCase):
             budget_status={},
             baseline_comparison={},
             summary_metrics={}
-        )
+(        )
         
         json_output = self.json_reporter.generate(large_result)
         
         final_memory = process.memory_info().rss
         memory_increase = (final_memory - initial_memory) / initial_memory
         
-        self.assertLess(memory_increase, self.memory_footprint_threshold,
+        self.assertLess(memory_increase, self.memory_footprint_threshold,)
                         f"Memory footprint increase {memory_increase:.3f} "
-                        f"exceeds threshold {self.memory_footprint_threshold:.3f}")
+(                        f"exceeds threshold {self.memory_footprint_threshold:.3f}")
 
     def test_sarif_overhead_limits(self):
         """Test SARIF generation overhead (baseline: 6x standard JSON)."""
@@ -292,8 +292,8 @@ class TestJSONSchemaValidation(unittest.TestCase):
         
         # SARIF should be no more than 6x slower
         overhead_ratio = sarif_time / json_time if json_time > 0 else float('inf')
-        self.assertLess(overhead_ratio, 6.0,
-                        f"SARIF overhead ratio {overhead_ratio:.2f}x exceeds 6x limit")
+        self.assertLess(overhead_ratio, 6.0,)
+(                        f"SARIF overhead ratio {overhead_ratio:.2f}x exceeds 6x limit")
 
     # PHASE 1 ISSUE 5: Violation ID Determinism Tests
     def test_violation_id_uniqueness(self):
@@ -318,8 +318,8 @@ class TestJSONSchemaValidation(unittest.TestCase):
         self.assertEqual(ids_set1, ids_set2, "Violation IDs are not deterministic")
         
         # All IDs should be unique
-        self.assertEqual(len(ids_set1), len(result1, get("violations", [])),
-                        "Duplicate violation IDs detected")
+        self.assertEqual(len(ids_set1), len(result1, get("violations", [])),)
+(                        "Duplicate violation IDs detected")
 
     def test_violation_id_format_consistency(self):
         """Test that violation ID format is consistent."""
@@ -335,8 +335,8 @@ class TestJSONSchemaValidation(unittest.TestCase):
             
             # ID should contain rule type information
             rule_id = violation["rule_id"]
-            self.assertTrue(violation_id.startswith("test_") or rule_id in violation_id,
-                            f"Violation ID {violation_id} doesn't contain rule information")
+            self.assertTrue(violation_id.startswith("test_") or rule_id in violation_id,)
+(                            f"Violation ID {violation_id} doesn't contain rule information")
 
     def test_path_resolution_consistency(self):
         """Test that file path resolution is consistent."""
@@ -428,7 +428,7 @@ class TestJSONSchemaValidation(unittest.TestCase):
     def _create_mock_analysis_result(self) -> AnalysisResult:
         """Create an obviously mock analysis result for testing detection."""
         mock_violations = [
-            Violation(
+            Violation()
                 id="mock_violation_example",
                 type=ConnascenceType.NAME,
                 severity=Severity.MEDIUM,
@@ -443,10 +443,10 @@ class TestJSONSchemaValidation(unittest.TestCase):
                 class_name="SampleClass",
                 code_snippet="# Example code snippet",
                 context={"mock": True, "template": True}
-            )
+(            )
         ]
         
-        return AnalysisResult(
+        return AnalysisResult()
             violations=mock_violations,
             file_stats={"total_files": 1, "analyzed_files": 1},
             timestamp="2024-01-01T00:00:00Z",
@@ -457,7 +457,7 @@ class TestJSONSchemaValidation(unittest.TestCase):
             budget_status={"example": True},
             baseline_comparison={"sample": True},
             summary_metrics={"example_metric": 1.0}
-        )
+(        )
 
 if __name__ == "__main__":
     unittest.main()

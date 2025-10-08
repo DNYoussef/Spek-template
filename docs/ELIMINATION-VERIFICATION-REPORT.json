@@ -1,0 +1,907 @@
+{
+  "verification_date": "2025-09-28",
+  "god_objects": {
+    "remaining": 159,
+    "eliminated": 21,
+    "target_achieved": true
+  },
+  "fsm_infrastructure": {
+    "facades_created": 94,
+    "templates_created": 62
+  },
+  "nasa_compliance": {
+    "total_functions": 21880,
+    "violations": [
+      {
+        "file": "src\\architecture\\langgraph\\monitoring\\StateMonitoringDashboard.ts",
+        "function": "private initializeDefaultWidgets(): void {",
+        "lines": 86,
+        "start_line": 613
+      },
+      {
+        "file": "src\\architecture\\langgraph\\queen\\fsm\\QueenTransitionHub.ts",
+        "function": "private initializeTransitions(): void {",
+        "lines": 98,
+        "start_line": 138
+      },
+      {
+        "file": "src\\architecture\\langgraph\\state-machines\\InfrastructureStateMachine.ts",
+        "function": "protected initializeTransitionRules(): void {",
+        "lines": 65,
+        "start_line": 185
+      },
+      {
+        "file": "src\\architecture\\langgraph\\state-machines\\InfrastructureStateMachine.ts",
+        "function": "private static getDefaultCapabilities(): PrincessC...",
+        "lines": 63,
+        "start_line": 639
+      },
+      {
+        "file": "src\\architecture\\langgraph\\state-machines\\InfrastructureStateMachine.ts",
+        "function": "private static getStateNodes(): StateNode[] {",
+        "lines": 66,
+        "start_line": 704
+      },
+      {
+        "file": "src\\architecture\\langgraph\\state-machines\\InfrastructureStateMachine.ts",
+        "function": "private static getStateTransitions(): StateTransit...",
+        "lines": 93,
+        "start_line": 772
+      },
+      {
+        "file": "src\\architecture\\langgraph\\testing\\PerformanceBenchmarks.ts",
+        "function": "private async benchmarkWorkflowExecution(): Promis...",
+        "lines": 66,
+        "start_line": 193
+      },
+      {
+        "file": "src\\architecture\\langgraph\\testing\\TestRunner.ts",
+        "function": "private generateHtmlReport(): string {",
+        "lines": 192,
+        "start_line": 356
+      },
+      {
+        "file": "src\\architecture\\langgraph\\testing\\fsm\\StateGuards.ts",
+        "function": "private initializeDefaultGuards(): void {",
+        "lines": 106,
+        "start_line": 25
+      },
+      {
+        "file": "src\\architecture\\langgraph\\workflows\\orchestration\\WorkflowStateMachine.ts",
+        "function": "private initializeTransitions(): void {",
+        "lines": 85,
+        "start_line": 43
+      },
+      {
+        "file": "src\\config\\configuration-manager.ts",
+        "function": "private createDefaultEnterpriseConfig(): Enterpris...",
+        "lines": 276,
+        "start_line": 584
+      },
+      {
+        "file": "src\\config\\environment-overrides.ts",
+        "function": "private initializeStandardMappings(): void {",
+        "lines": 168,
+        "start_line": 205
+      },
+      {
+        "file": "src\\config\\migration-versioning.ts",
+        "function": "async migrate(targetVersion?: string): Promise<Mig...",
+        "lines": 90,
+        "start_line": 477
+      },
+      {
+        "file": "src\\context\\AdaptiveThresholdManager.ts",
+        "function": "private initializeAdaptationRules(): void {",
+        "lines": 97,
+        "start_line": 97
+      },
+      {
+        "file": "src\\context\\degradation\\components\\RecoveryExecutor.ts",
+        "function": "async executeRecovery(action: RecoveryAction): Pro...",
+        "lines": 65,
+        "start_line": 27
+      },
+      {
+        "file": "src\\controllers\\core\\ControllerTransitionHub.ts",
+        "function": "private initializeBaseTransitions(): void {",
+        "lines": 94,
+        "start_line": 31
+      },
+      {
+        "file": "src\\debug\\execute-queen-complete-security-original-backup.ts",
+        "function": "private identifySecurityIssues() {",
+        "lines": 68,
+        "start_line": 138
+      },
+      {
+        "file": "src\\debug\\execute-queen-security-fix.ts",
+        "function": "private async updateSecurityConfigs() {",
+        "lines": 79,
+        "start_line": 54
+      },
+      {
+        "file": "src\\documentation\\automation\\OpenAPIGenerator.ts",
+        "function": "private generateCommonResponses(): Record<string, ...",
+        "lines": 61,
+        "start_line": 691
+      },
+      {
+        "file": "src\\documentation\\princess\\InfrastructureDocumentationManager.ts",
+        "function": "async generateAPIDocumentation(endpoints: APIEndpo...",
+        "lines": 85,
+        "start_line": 38
+      },
+      {
+        "file": "src\\documentation\\princess\\InfrastructureDocumentationManager.ts",
+        "function": "async generateDeploymentDocumentation(deploymentCo...",
+        "lines": 99,
+        "start_line": 147
+      },
+      {
+        "file": "src\\documentation\\princess\\InfrastructureDocumentationManager.ts",
+        "function": "async generateMonitoringDocumentation(components: ...",
+        "lines": 138,
+        "start_line": 251
+      },
+      {
+        "file": "src\\documentation\\princess\\InfrastructureDocumentationManager.ts",
+        "function": "async generateComponentDocumentation(component: In...",
+        "lines": 83,
+        "start_line": 415
+      },
+      {
+        "file": "src\\documentation\\princess\\ResearchDocumentationManager.ts",
+        "function": "async generateResearchTaskDocumentation(task: Rese...",
+        "lines": 100,
+        "start_line": 39
+      },
+      {
+        "file": "src\\documentation\\princess\\ResearchDocumentationManager.ts",
+        "function": "async generateResearchFindingsDocumentation(result...",
+        "lines": 166,
+        "start_line": 144
+      },
+      {
+        "file": "src\\domains\\deployment-orchestration\\config\\deployment-config.ts",
+        "function": "private async loadEnterpriseConfigFile(): Promise<...",
+        "lines": 116,
+        "start_line": 185
+      },
+      {
+        "file": "src\\domains\\deployment-orchestration\\coordinators\\multi-environment-coordinator.ts",
+        "function": "private initializeDefaultEnvironments(): void {",
+        "lines": 87,
+        "start_line": 327
+      },
+      {
+        "file": "src\\domains\\deployment-orchestration\\pipelines\\pipeline-orchestrator-fsm\\pipeline-orchestratorCore.ts",
+        "function": "private async registerDefaultPipelineTemplates(): ...",
+        "lines": 68,
+        "start_line": 464
+      },
+      {
+        "file": "src\\domains\\deployment-orchestration\\systems\\auto-rollback-system.ts",
+        "function": "private async checkEndpointHealth(endpoint: string...",
+        "lines": 65,
+        "start_line": 572
+      },
+      {
+        "file": "src\\domains\\ec\\correlation\\compliance-correlator.ts",
+        "function": "private initializeCorrelationDatabase(): void {",
+        "lines": 101,
+        "start_line": 220
+      },
+      {
+        "file": "src\\domains\\ec\\correlation\\compliance-correlator.ts",
+        "function": "async correlatCompliance(frameworkResults: Record<...",
+        "lines": 65,
+        "start_line": 368
+      },
+      {
+        "file": "src\\domains\\ec\\frameworks\\iso27001-mapper.ts",
+        "function": "private initializeISO27001Controls(): void {",
+        "lines": 297,
+        "start_line": 107
+      },
+      {
+        "file": "src\\domains\\ec\\frameworks\\nist-ssdf-validator.ts",
+        "function": "private initializeNISTSSFDPractices(): void {",
+        "lines": 383,
+        "start_line": 153
+      },
+      {
+        "file": "src\\domains\\ec\\frameworks\\soc2-automation.ts",
+        "function": "private initializeSOC2Controls(): void {",
+        "lines": 503,
+        "start_line": 66
+      },
+      {
+        "file": "src\\domains\\ec\\integrations\\phase3-integration.ts",
+        "function": "async syncAuditTrail(auditEvents: AuditEvent[]): P...",
+        "lines": 76,
+        "start_line": 310
+      },
+      {
+        "file": "src\\domains\\ec\\monitoring\\real-time-monitor.ts",
+        "function": "private getFrameworkMetrics(framework: ComplianceF...",
+        "lines": 63,
+        "start_line": 341
+      },
+      {
+        "file": "src\\domains\\ec\\monitoring\\real-time-monitor.ts",
+        "function": "private setupDefaultDashboards(): void {",
+        "lines": 90,
+        "start_line": 474
+      },
+      {
+        "file": "src\\domains\\ec\\remediation\\remediation-orchestrator.ts",
+        "function": "private setupDefaultRemediationPlans(): void {",
+        "lines": 171,
+        "start_line": 215
+      },
+      {
+        "file": "src\\domains\\ec\\remediation\\RemediationOrchestratorFacade.ts",
+        "function": "private initializePlanTemplates(): void {",
+        "lines": 66,
+        "start_line": 95
+      },
+      {
+        "file": "src\\domains\\quality-gates\\index.ts",
+        "function": "constructor(config?: Partial<QualityGateConfig>) {",
+        "lines": 154,
+        "start_line": 121
+      },
+      {
+        "file": "src\\domains\\quality-gates\\config\\EnterpriseConfiguration.ts",
+        "function": "private getDefaultCTQSpecifications(): CTQSpecific...",
+        "lines": 138,
+        "start_line": 353
+      },
+      {
+        "file": "src\\domains\\quality-gates\\config\\EnterpriseConfiguration.ts",
+        "function": "private getDefaultGateConfigurations(): QualityGat...",
+        "lines": 103,
+        "start_line": 496
+      },
+      {
+        "file": "src\\domains\\quality-gates\\dashboard\\QualityDashboard-fsm\\QualityDashboardCore.ts",
+        "function": "private initializeDefaultLayouts(): void {",
+        "lines": 128,
+        "start_line": 93
+      },
+      {
+        "file": "src\\domains\\quality-gates\\decisions\\AutomatedDecisionEngine-fsm\\AutomatedDecisionEngineCore.ts",
+        "function": "private initializeRemediationStrategies(): void {",
+        "lines": 105,
+        "start_line": 59
+      },
+      {
+        "file": "src\\domains\\quality-gates\\integrations\\ArtifactSystemIntegration.ts",
+        "function": "async getValidationPlan(artifactId: string): Promi...",
+        "lines": 85,
+        "start_line": 206
+      },
+      {
+        "file": "src\\fsm\\TransitionHub.ts",
+        "function": "private async executeTransition(request: Transitio...",
+        "lines": 66,
+        "start_line": 316
+      },
+      {
+        "file": "src\\fsm\\orchestration\\SystemStateMachine.ts",
+        "function": "private initializeMachine(): void {",
+        "lines": 125,
+        "start_line": 63
+      },
+      {
+        "file": "src\\fsm\\princesses\\DevelopmentPrincessFSM.ts",
+        "function": "private createDevelopmentStates(): any {",
+        "lines": 93,
+        "start_line": 65
+      },
+      {
+        "file": "src\\fsm\\princesses\\ResearchPrincessFSM.ts",
+        "function": "private createResearchStates(): any {",
+        "lines": 85,
+        "start_line": 72
+      },
+      {
+        "file": "src\\fsm\\princesses\\SecurityPrincessFSM.ts",
+        "function": "private createSecurityStates(): any {",
+        "lines": 67,
+        "start_line": 72
+      },
+      {
+        "file": "src\\fsm\\princesses\\domains\\architecture\\ArchitectureStates.ts",
+        "function": "getStates(): any {",
+        "lines": 66,
+        "start_line": 13
+      },
+      {
+        "file": "src\\fsm\\princesses\\domains\\performance\\PerformanceStates.ts",
+        "function": "getStates(): any {",
+        "lines": 66,
+        "start_line": 13
+      },
+      {
+        "file": "src\\fsm\\princesses\\domains\\quality\\QualityStates.ts",
+        "function": "getStates(): any {",
+        "lines": 109,
+        "start_line": 13
+      },
+      {
+        "file": "src\\fsm\\princesses\\quality-components\\QualityPrincessStateMachine.ts",
+        "function": "private createStatesConfig(): Record<string, any> ...",
+        "lines": 92,
+        "start_line": 58
+      },
+      {
+        "file": "src\\fsm\\princesses\\services\\SecurityMonitoringService.ts",
+        "function": "private async setupSecurityAlerts(context: Securit...",
+        "lines": 62,
+        "start_line": 41
+      },
+      {
+        "file": "src\\fsm\\princesses\\services\\SecurityMonitoringService.ts",
+        "function": "private async configureIntrusionDetection(context:...",
+        "lines": 67,
+        "start_line": 154
+      },
+      {
+        "file": "src\\fsm\\princesses\\services\\SecurityMonitoringService.ts",
+        "function": "private async configureDashboard(context: Security...",
+        "lines": 64,
+        "start_line": 388
+      },
+      {
+        "file": "src\\github\\GitHubProjectManager.ts",
+        "function": "query GetProject($projectId: ID!) {",
+        "lines": 91,
+        "start_line": 35
+      },
+      {
+        "file": "src\\github\\api\\GitHubGraphQLClient.ts",
+        "function": "async getProjectsV2(ownerLogin: string, first: num...",
+        "lines": 114,
+        "start_line": 165
+      },
+      {
+        "file": "src\\github\\api\\GitHubGraphQLClient.ts",
+        "function": "async getProjectV2ById(projectId: string): Promise...",
+        "lines": 110,
+        "start_line": 656
+      },
+      {
+        "file": "src\\github\\integration\\GitHubProjectManager.ts",
+        "function": "async getProjectMetrics(projectId: number): Promis...",
+        "lines": 102,
+        "start_line": 83
+      },
+      {
+        "file": "src\\github\\security\\SecurityPolicyAutomation.ts",
+        "function": "private initializeDefaultPolicies(): void {",
+        "lines": 79,
+        "start_line": 312
+      },
+      {
+        "file": "src\\github\\security\\SecurityPolicyAutomation.ts",
+        "function": "private initializeComplianceFrameworks(): void {",
+        "lines": 63,
+        "start_line": 396
+      },
+      {
+        "file": "src\\github\\workflows\\RealActionWorkflowBuilder.ts",
+        "function": "data.workflow_runs.map(async (run) => {",
+        "lines": 71,
+        "start_line": 253
+      },
+      {
+        "file": "src\\langgraph\\GraphStateMapper.ts",
+        "function": "private initializeDefaultMappings(): void {",
+        "lines": 130,
+        "start_line": 65
+      },
+      {
+        "file": "src\\linter-integration\\real-time-ingestion-engine.ts",
+        "function": "private initializeDefaultTools(): void {",
+        "lines": 77,
+        "start_line": 111
+      },
+      {
+        "file": "src\\linter-integration\\result-correlation-framework-fsm\\result-correlation-frameworkCore.ts",
+        "function": "private initializeConnascencePatterns(): void {",
+        "lines": 70,
+        "start_line": 37
+      },
+      {
+        "file": "src\\memory\\sync\\fsm\\TransitionHub.ts",
+        "function": "private initializeTransitions(): void {",
+        "lines": 88,
+        "start_line": 29
+      },
+      {
+        "file": "src\\migration\\core\\MigrationOrchestratorFSM.ts",
+        "function": "private createTransitions(): StateTransition[] {",
+        "lines": 96,
+        "start_line": 186
+      },
+      {
+        "file": "src\\migration\\core\\RealProtocolMigrator.ts",
+        "function": "private setupRealFallbackChains(): void {",
+        "lines": 79,
+        "start_line": 544
+      },
+      {
+        "file": "src\\migration\\core\\MigrationPlanner-fsm\\MigrationPlannerCore.ts",
+        "function": "switch (strategy.type) {",
+        "lines": 110,
+        "start_line": 432
+      },
+      {
+        "file": "src\\migration\\dashboard\\fsm\\DashboardStateMachine.ts",
+        "function": "private createTransitions(): DashboardTypes.Dashbo...",
+        "lines": 70,
+        "start_line": 109
+      },
+      {
+        "file": "src\\migration\\planning\\facade\\MigrationAnalysisFacade.ts",
+        "function": "async analyzeImpact(request: ImpactAnalysisRequest...",
+        "lines": 71,
+        "start_line": 51
+      },
+      {
+        "file": "src\\migration\\planning\\facade\\MigrationAnalysisFacade.ts",
+        "function": "private async executeOrchestration(analysisId: str...",
+        "lines": 71,
+        "start_line": 129
+      },
+      {
+        "file": "src\\migration\\planning\\fsm\\AnalysisStateMachine.original.ts",
+        "function": "private initializeTransitions(): void {",
+        "lines": 72,
+        "start_line": 462
+      },
+      {
+        "file": "src\\migration\\planning\\fsm\\core\\TransitionHub.ts",
+        "function": "private initializeTransitions(): void {",
+        "lines": 68,
+        "start_line": 152
+      },
+      {
+        "file": "src\\migration\\planning\\risk\\RiskAssessmentCore.ts",
+        "function": "private initializeStateMachine(): void {",
+        "lines": 74,
+        "start_line": 122
+      },
+      {
+        "file": "src\\migration\\planning\\risk\\reporting\\ReportGeneratorFacade.ts",
+        "function": "private initializeTemplates(): void {",
+        "lines": 139,
+        "start_line": 149
+      },
+      {
+        "file": "src\\migration\\planning\\risk\\reporting\\core\\ReportGeneratorCore.ts",
+        "function": "private async generateDashboards(context: any): Pr...",
+        "lines": 68,
+        "start_line": 331
+      },
+      {
+        "file": "src\\migration\\planning\\risk\\reporting\\core\\ReportGeneratorCore.ts",
+        "function": "private async generateReports(context: any): Promi...",
+        "lines": 62,
+        "start_line": 417
+      },
+      {
+        "file": "src\\migration\\planning\\risk\\reporting\\core\\ReportGeneratorCore.ts",
+        "function": "private async generateReviews(context: any): Promi...",
+        "lines": 94,
+        "start_line": 565
+      },
+      {
+        "file": "src\\migration\\planning\\risk\\reporting\\fsm\\ReportGenerationStateMachine.ts",
+        "function": "private defineTransitions(): void {",
+        "lines": 77,
+        "start_line": 121
+      },
+      {
+        "file": "src\\migration\\planning\\strategy\\fsm\\transitions\\TransitionHub.ts",
+        "function": "private getTransitionMap(): Map<MigrationPlanningS...",
+        "lines": 62,
+        "start_line": 293
+      },
+      {
+        "file": "src\\migration\\strategies\\canary\\CanaryMigrationStateMachine.ts",
+        "function": "private buildTransitionMap(): Map<string, StateTra...",
+        "lines": 128,
+        "start_line": 128
+      },
+      {
+        "file": "src\\migration\\translation\\ProtocolStateMachine.ts",
+        "function": "private initializeTransitions(): StateTransition[]...",
+        "lines": 109,
+        "start_line": 32
+      },
+      {
+        "file": "src\\migration\\translation\\fsm\\FormatRegistry.ts",
+        "function": "initializeBuiltInFormats(): void {",
+        "lines": 89,
+        "start_line": 83
+      },
+      {
+        "file": "src\\orchestration\\agents\\AgentWorkflowFacade.ts",
+        "function": "private createPhase9AgentDefinitions(): AgentDefin...",
+        "lines": 72,
+        "start_line": 187
+      },
+      {
+        "file": "src\\orchestration\\agents\\components\\AgentFSMFacade.ts",
+        "function": "getAgentDefinitions(): AgentDefinition[] {",
+        "lines": 64,
+        "start_line": 274
+      },
+      {
+        "file": "src\\orchestration\\deployment\\PreDeploymentValidator.ts",
+        "function": "private initializeValidationSuites(): void {",
+        "lines": 290,
+        "start_line": 297
+      },
+      {
+        "file": "src\\orchestration\\deployment\\ProductionReadinessScorer.ts",
+        "function": "private initializeMetrics(): void {",
+        "lines": 213,
+        "start_line": 377
+      },
+      {
+        "file": "src\\orchestration\\integration\\fsm\\TransitionHub.ts",
+        "function": "private initializeTransitions(): void {",
+        "lines": 138,
+        "start_line": 179
+      },
+      {
+        "file": "src\\orchestration\\integration\\fsm\\components\\ComponentIntegrator.ts",
+        "function": "async integrateComponent(component: IntegrationCom...",
+        "lines": 61,
+        "start_line": 75
+      },
+      {
+        "file": "src\\orchestration\\quality\\ErrorHandlingSystem.ts",
+        "function": "private initializeErrorPatterns(): void {",
+        "lines": 82,
+        "start_line": 190
+      },
+      {
+        "file": "src\\orchestration\\quality\\GateRegistry.ts",
+        "function": "private initializeDefaultTemplates(): void {",
+        "lines": 112,
+        "start_line": 459
+      },
+      {
+        "file": "src\\orchestration\\quality\\MetricsCollector.ts",
+        "function": "private initializeBuiltInMetrics(): void {",
+        "lines": 89,
+        "start_line": 174
+      },
+      {
+        "file": "src\\orchestration\\quality\\QualityGateStateMachine.ts",
+        "function": "private initializeTransitions(): void {",
+        "lines": 65,
+        "start_line": 149
+      },
+      {
+        "file": "src\\orchestration\\quality\\fsm\\QualityGateStateMachine.ts",
+        "function": "private initializeTransitions(): void {",
+        "lines": 134,
+        "start_line": 78
+      },
+      {
+        "file": "src\\orchestration\\quality\\reporting\\QualityGateReporter.ts",
+        "function": "private initializeDefaultTemplates(): void {",
+        "lines": 85,
+        "start_line": 71
+      },
+      {
+        "file": "src\\orchestration\\quality\\state\\TransitionHub.ts",
+        "function": "private initializeTransitionTable(): void {",
+        "lines": 167,
+        "start_line": 37
+      },
+      {
+        "file": "src\\performance\\BenchmarkReporter.ts",
+        "function": "private buildHTMLReport(config: ReportConfig, opti...",
+        "lines": 84,
+        "start_line": 262
+      },
+      {
+        "file": "src\\performance\\BenchmarkReporter.ts",
+        "function": "private getHTMLStyles(theme: 'light' | 'dark' | 'a...",
+        "lines": 225,
+        "start_line": 348
+      },
+      {
+        "file": "src\\performance\\BenchmarkReporter.ts",
+        "function": "private generateChartData(results: BenchmarkResult...",
+        "lines": 86,
+        "start_line": 844
+      },
+      {
+        "file": "src\\performance\\cli\\PerformanceTheaterDetector.ts",
+        "function": "constructor(config: Partial<TheaterDetectionConfig...",
+        "lines": 77,
+        "start_line": 65
+      },
+      {
+        "file": "src\\princesses\\deployment\\CICDPipelineManager.ts",
+        "function": "private createDeploymentWorkflow(): any {",
+        "lines": 111,
+        "start_line": 313
+      },
+      {
+        "file": "src\\princesses\\deployment\\SecurityIntegration.ts",
+        "function": "async scanContainerImage(imageTag: string, policy?...",
+        "lines": 66,
+        "start_line": 73
+      },
+      {
+        "file": "src\\princesses\\deployment\\adapters\\QueenToDeploymentAdapter.ts",
+        "function": "async executeDeploymentOrder(order: QueenDeploymen...",
+        "lines": 116,
+        "start_line": 132
+      },
+      {
+        "file": "src\\princesses\\infrastructure\\InfrastructurePrincess.ts",
+        "function": "public async initialize(): Promise<void> {",
+        "lines": 80,
+        "start_line": 112
+      },
+      {
+        "file": "src\\princesses\\infrastructure\\InfrastructurePrincess.ts",
+        "function": "public async healthCheck(): Promise<{",
+        "lines": 69,
+        "start_line": 254
+      },
+      {
+        "file": "src\\princesses\\security\\integration\\SIEMIntegration.ts",
+        "function": "async ingestSecurityEvent(event: Partial<SecurityE...",
+        "lines": 63,
+        "start_line": 207
+      },
+      {
+        "file": "src\\princesses\\security\\integration\\SIEMIntegration.ts",
+        "function": "private async initializeSIEMProviders(): Promise<v...",
+        "lines": 69,
+        "start_line": 447
+      },
+      {
+        "file": "src\\princesses\\security\\nasa-pot10\\NASA_POT10_Compliance.ts",
+        "function": "private initializePOT10Rules(): void {",
+        "lines": 75,
+        "start_line": 206
+      },
+      {
+        "file": "src\\princesses\\security\\threat-detection\\ThreatDetectionEngine.ts",
+        "function": "private async loadThreatSignatures(): Promise<void...",
+        "lines": 82,
+        "start_line": 388
+      },
+      {
+        "file": "src\\princesses\\security\\zero-trust\\ZeroTrustArchitecture.ts",
+        "function": "private async loadDefaultPolicies(): Promise<void>...",
+        "lines": 80,
+        "start_line": 211
+      },
+      {
+        "file": "src\\protocols\\docs\\fsm\\DocGeneratorContext.ts",
+        "function": "async generateProtocolExamples(descriptor: Protoco...",
+        "lines": 70,
+        "start_line": 83
+      },
+      {
+        "file": "src\\protocols\\docs\\fsm\\DocGeneratorContext.ts",
+        "function": "async generateProtocolSchemas(descriptor: Protocol...",
+        "lines": 73,
+        "start_line": 155
+      },
+      {
+        "file": "src\\protocols\\docs\\fsm\\DocGeneratorContext.ts",
+        "function": "private initializeCodeTemplates(): void {",
+        "lines": 143,
+        "start_line": 379
+      },
+      {
+        "file": "src\\protocols\\docs\\fsm\\DocGeneratorTypes.ts",
+        "function": "private defineTransitions(): void {",
+        "lines": 189,
+        "start_line": 77
+      },
+      {
+        "file": "src\\repository\\fsm\\RepositoryTransitionHub.ts",
+        "function": "private initializeTransitions(): void {",
+        "lines": 87,
+        "start_line": 66
+      },
+      {
+        "file": "src\\risk-dashboard\\IntegratedServer.ts",
+        "function": "function generateIntegratedDashboardHTML(): string...",
+        "lines": 70,
+        "start_line": 458
+      },
+      {
+        "file": "src\\risk-dashboard\\IntegratedServer.ts",
+        "function": "const handleMessage = (message) => {",
+        "lines": 82,
+        "start_line": 563
+      },
+      {
+        "file": "src\\risk-dashboard\\TalebBarbellEngine.ts",
+        "function": "private initializeBarbellAllocation(): BarbellAllo...",
+        "lines": 79,
+        "start_line": 162
+      },
+      {
+        "file": "src\\rollback\\systems\\DefenseRollbackSystem.ts",
+        "function": "private async createRollbackPlan(snapshot: Rollbac...",
+        "lines": 95,
+        "start_line": 266
+      },
+      {
+        "file": "src\\services\\desktop-agent\\computer-use\\computer-use.service.ts",
+        "function": "async action(params: ComputerAction): Promise<any>...",
+        "lines": 73,
+        "start_line": 31
+      },
+      {
+        "file": "src\\services\\desktop-agent\\computer-use\\computer-use.service.ts",
+        "function": "private async readFile(action: ReadFileAction): Pr...",
+        "lines": 86,
+        "start_line": 419
+      },
+      {
+        "file": "src\\swarm\\controllers\\PrincessHiveDeployment.ts",
+        "function": "private initializePrincessHives(): void {",
+        "lines": 62,
+        "start_line": 205
+      },
+      {
+        "file": "src\\swarm\\controllers\\fsm\\DebugTransitionHub.ts",
+        "function": "private initializeTransitions(): void {",
+        "lines": 173,
+        "start_line": 36
+      },
+      {
+        "file": "src\\swarm\\hierarchy\\CodexQualityEnhancer.ts",
+        "function": "private initializeNASARules(): NASARule[] {",
+        "lines": 63,
+        "start_line": 646
+      },
+      {
+        "file": "src\\swarm\\hierarchy\\EnterpriseQualityAnalyzer.ts",
+        "function": "async analyzeCode(files: string[]): Promise<Qualit...",
+        "lines": 106,
+        "start_line": 155
+      },
+      {
+        "file": "src\\swarm\\hierarchy\\domains\\QualityPrincess.ts",
+        "function": "async executeTask(task: any): Promise<any> {",
+        "lines": 65,
+        "start_line": 69
+      },
+      {
+        "file": "src\\swarm\\hierarchy\\domains\\quality\\QualityPrincessFacade.ts",
+        "function": "async executeTask(task: any): Promise<any> {",
+        "lines": 65,
+        "start_line": 63
+      },
+      {
+        "file": "src\\swarm\\memory\\quality\\LangroidMemory.ts",
+        "function": "private loadTheaterPatterns(): void {",
+        "lines": 110,
+        "start_line": 77
+      },
+      {
+        "file": "src\\swarm\\orchestration\\RealGodObjectOrchestrator.ts",
+        "function": "generateRealReport(): string {",
+        "lines": 62,
+        "start_line": 533
+      },
+      {
+        "file": "src\\swarm\\orchestration\\SwarmMonitor.ts",
+        "function": "private logStructuredMetrics(metrics: MonitoringMe...",
+        "lines": 68,
+        "start_line": 166
+      },
+      {
+        "file": "src\\swarm\\orchestration\\WorkflowExecutor.ts",
+        "function": "async executePrincessTask(domainId: string, task: ...",
+        "lines": 76,
+        "start_line": 245
+      },
+      {
+        "file": "src\\swarm\\orchestration\\WorkflowStateMachine.ts",
+        "function": "private defineTransitions(): void {",
+        "lines": 108,
+        "start_line": 127
+      },
+      {
+        "file": "src\\swarm\\reasoning\\ConsultationClaritySystem.ts",
+        "function": "switch (ambiguity.type) {",
+        "lines": 63,
+        "start_line": 586
+      },
+      {
+        "file": "src\\swarm\\testing\\fsm\\IntegrationTestStateGuards.ts",
+        "function": "private initializeDefaultGuards(): void {",
+        "lines": 129,
+        "start_line": 27
+      },
+      {
+        "file": "src\\swarm\\validation\\desktop-quality-gates.ts",
+        "function": "async runQualityGates(sessionId: string): Promise<...",
+        "lines": 109,
+        "start_line": 142
+      },
+      {
+        "file": "src\\validation\\ValidationRunner.ts",
+        "function": "private generateDetailedTechnicalReport(gateResult...",
+        "lines": 97,
+        "start_line": 169
+      },
+      {
+        "file": "src\\validation\\ValidationRunnerFixed.ts",
+        "function": "private generateDetailedTechnicalReport(gateResult...",
+        "lines": 97,
+        "start_line": 211
+      }
+    ],
+    "compliance_rate": 99.3601462522852,
+    "compliant": true
+  },
+  "top_remaining_god_objects": [
+    [
+      "src\\orchestration\\deployment\\ProductionReadinessScorer.ts",
+      1032
+    ],
+    [
+      "src\\architecture\\langgraph\\monitoring\\StateMonitoringDashboard.ts",
+      1002
+    ],
+    [
+      "src\\swarm\\reasoning\\ConsultationClaritySystem.ts",
+      985
+    ],
+    [
+      "src\\performance\\BenchmarkReporter.ts",
+      945
+    ],
+    [
+      "src\\domains\\ec\\frameworks\\nist-ssdf-validator.ts",
+      935
+    ],
+    [
+      "src\\domains\\ec\\correlation\\compliance-correlator.ts",
+      916
+    ],
+    [
+      "src\\domains\\quality-gates\\config\\EnterpriseConfiguration.ts",
+      914
+    ],
+    [
+      "src\\domains\\ec\\remediation\\remediation-orchestrator.ts",
+      897
+    ],
+    [
+      "src\\performance\\BaselineComparator.ts",
+      897
+    ],
+    [
+      "src\\performance\\NetworkProfiler.ts",
+      896
+    ]
+  ],
+  "success_metrics": {
+    "elimination_target": true,
+    "fsm_infrastructure": true,
+    "nasa_compliance": true
+  },
+  "overall_success": true
+}

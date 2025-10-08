@@ -1,0 +1,9 @@
+src/architecture/langgraph/monitoring/fsm/DashboardBaseFSM.ts(23,38): error TS2304: Cannot find name 'FSMConfig'.
+src/architecture/langgraph/monitoring/StateMonitoringDashboardFacade.ts(21,41): error TS2355: A function whose declared type is neither 'undefined', 'void', nor 'any' must return a value.
+src/architecture/langgraph/queen/core/QueenCoordinator.ts(8,68): error TS2307: Cannot find module '../state-machines/PrincessStateMachineFacade' or its corresponding type declarations.
+src/architecture/langgraph/queen/managers/ResourceManager.ts(43,34): error TS2339: Property 'getCapabilities' does not exist on type 'PrincessStateMachineFacade'.
+src/architecture/langgraph/queen/managers/ResourceManager.ts(43,56): error TS7006: Parameter 'cap' implicitly has an 'any' type.
+src/architecture/langgraph/state-machines/research/ResearchStateMachineFacade.ts(70,7): error TS2353: Object literal may only specify known properties, and 'stateDefinition' does not exist in type 'PrincessConfiguration'.
+src/architecture/langgraph/state-machines/research/ResearchStateMachineFacade.ts(93,11): error TS2554: Expected 0 arguments, but got 1.
+src/architecture/langgraph/state-machines/research/ResearchStateMachineFacade.ts(170,59): error TS2352: Conversion of type 'string[]' to type 'SearchResult[]' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type 'string' is not comparable to type 'SearchResult'.

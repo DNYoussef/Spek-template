@@ -1,6 +1,6 @@
 """Tests for DFARS Controls Builder"""
 
-from src.security.dfars_controls_builder import (
+from src.security.dfars_controls_builder import ()
 import pytest
 
 class TestSecurityControlBuilder:
@@ -8,7 +8,7 @@ class TestSecurityControlBuilder:
 
     def test_builder_creates_valid_control(self):
         """Test builder creates valid security control."""
-        control = (
+        control = ()
             SecurityControlBuilder()
             .with_id("AC-01")
             .with_title("Access Control")
@@ -23,7 +23,7 @@ class TestSecurityControlBuilder:
             .with_nist_mapping("NIST SP 800-53 AC-1")
             .with_dfars_reference("DFARS 252.204-7012(b)(1)")
             .build()
-        )
+(        )
 
         assert control.control_id == "AC-01"
         assert control.title == "Access Control"
@@ -41,7 +41,7 @@ class TestSecurityControlBuilder:
 
     def test_builder_adds_multiple_procedures(self):
         """Test builder adds multiple validation procedures."""
-        control = (
+        control = ()
             SecurityControlBuilder()
             .with_id("TEST")
             .with_title("Test")
@@ -50,7 +50,7 @@ class TestSecurityControlBuilder:
             .with_dfars_reference("TEST")
             .add_procedures("Proc1", "Proc2", "Proc3")
             .build()
-        )
+(        )
 
         assert len(control.validation_procedures) == 3
 

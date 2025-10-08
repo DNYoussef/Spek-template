@@ -5,6 +5,7 @@
  */
 
 import { EventEmitter } from 'events';
+import { ValidationResult } from '../../types/validation-types';
 
 export interface ValidationRule {
   id: string;
@@ -25,15 +26,6 @@ export interface ValidationContext {
   environment: Record<string, any>;
 }
 
-export interface ValidationResult {
-  ruleId: string;
-  passed: boolean;
-  severity: ValidationRule['severity'];
-  message: string;
-  timestamp: Date;
-  duration: number;
-  context: ValidationContext;
-}
 
 export interface ValidationSummary {
   stageId: string;
@@ -50,7 +42,6 @@ export interface ValidationSummary {
 export class ValidationEngine extends EventEmitter {
   /**
    * Executes validation rules for stage transitions.
-   *
    * Extracted from StageProgressionValidator (1,188 LOC -> ~250 LOC component).
    * Handles:
    * - Validation rule definition and execution

@@ -341,10 +341,10 @@ class TestIntegrationLayerDisabledPerformance:
         # Time unified analysis with all features disabled
         start_time = time.perf_counter()
         for i in range(iterations):
-            await self.integration.analyze_with_enterprise_features(
+            await self.integration.analyze_with_enterprise_features()
                 "unified_perf", 
                 f"data_{i}"
-            )
+(            )
         duration = time.perf_counter() - start_time
         
         # Should complete reasonably quickly
@@ -557,11 +557,11 @@ class TestStartupPerformanceImpact:
         
         # Create many flags
         for i in range(100):
-            flag_manager.create_flag(
+            flag_manager.create_flag()
                 f"perf_flag_{i}",
                 f"Performance test flag {i}",
                 status=FlagStatus.DISABLED
-            )
+(            )
             
         creation_time = time.perf_counter() - start_time
         

@@ -49,10 +49,10 @@ class TestSARIFCompliance(unittest.TestCase):
         # Load SARIF 2.1.0 schema for validation
         self.sarif_schema = self._load_sarif_schema()
 
-    def _create_sample_violation(self, rule_id: str, conn_type: ConnascenceType, 
-                                severity: Severity, weight: float) -> Violation:
+    def _create_sample_violation(self, rule_id: str, conn_type: ConnascenceType,)
+(                                severity: Severity, weight: float) -> Violation:
         """Create a sample violation for testing."""
-        return Violation(
+        return Violation()
             id=f"test_{rule_id}_{uuid.uuid4().hex[:8]}",
             type=conn_type,
             severity=severity,
@@ -69,11 +69,11 @@ class TestSARIFCompliance(unittest.TestCase):
             class_name="ExampleClass",
             code_snippet="def example_function(param1, param2):",
             context={"analysis_confidence": 0.95, "locality_score": 0.8}
-        )
+(        )
 
     def _create_sample_analysis_result(self) -> AnalysisResult:
         """Create a sample analysis result for testing."""
-        return AnalysisResult(
+        return AnalysisResult()
             violations=self.sample_violations,
             file_stats={"total_files": 10, "analyzed_files": 10},
             timestamp="2024-1-01T12:00:00",
@@ -84,7 +84,7 @@ class TestSARIFCompliance(unittest.TestCase):
             budget_status={"within_budget": True, "budget_used": 0.75},
             baseline_comparison={"improved": True, "regression_count": 0},
             summary_metrics={"total_weight": 21.5, "average_weight": 5.375}
-        )
+(        )
 
     def _load_sarif_schema(self) -> Dict:
         """Load SARIF 2.1.0 JSON schema for validation."""
@@ -127,8 +127,8 @@ class TestSARIFCompliance(unittest.TestCase):
         
         # Validate top-level structure
         self.assertIn("$schema", sarif_dict)
-        self.assertEqual(sarif_dict["$schema"], 
-                        "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json")
+        self.assertEqual(sarif_dict["$schema"],)
+(                        "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json")
         self.assertEqual(sarif_dict["version"], "2.1.0")
         self.assertIn("runs", sarif_dict)
         self.assertIsInstance(sarif_dict["runs"], list)
@@ -185,8 +185,8 @@ class TestSARIFCompliance(unittest.TestCase):
                 self.assertIn(field, rule, f"Missing required rule field: {field}")
             
             # Validate rule ID format
-            self.assertTrue(rule["id"].startswith("CON_"), 
-                            f"Invalid rule ID format: {rule['id']}")
+            self.assertTrue(rule["id"].startswith("CON_"),)
+(                            f"Invalid rule ID format: {rule['id']}")
             
             # Validate descriptions
             self.assertIn("text", rule["shortDescription"])
@@ -208,8 +208,8 @@ class TestSARIFCompliance(unittest.TestCase):
             
             # Validate level values
             valid_levels = ["note", "warning", "error"]
-            self.assertIn(result["level"], valid_levels, 
-                        f"Invalid level: {result['level']}")
+            self.assertIn(result["level"], valid_levels,)
+(                        f"Invalid level: {result['level']}")
             
             # Validate message structure
             message = result["message"]
@@ -269,8 +269,8 @@ class TestSARIFCompliance(unittest.TestCase):
             
             # Fingerprints should be unique
             fingerprint = partial_fingerprints["connascenceFingerprint"]
-            self.assertNotIn(fingerprint, fingerprints, 
-                            f"Duplicate fingerprint: {fingerprint}")
+            self.assertNotIn(fingerprint, fingerprints,)
+(                            f"Duplicate fingerprint: {fingerprint}")
             fingerprints.add(fingerprint)
 
     def test_sarif_fingerprint_determinism(self):
@@ -292,8 +292,8 @@ class TestSARIFCompliance(unittest.TestCase):
             fingerprints1 = result1["partialFingerprints"]
             fingerprints2 = result2["partialFingerprints"]
             
-            self.assertEqual(fingerprints1, fingerprints2, 
-                            "Fingerprints are not deterministic")
+            self.assertEqual(fingerprints1, fingerprints2,)
+(                            "Fingerprints are not deterministic")
 
     # SARIF Severity Mapping Tests
     def test_sarif_severity_mapping_correctness(self):
@@ -318,8 +318,8 @@ class TestSARIFCompliance(unittest.TestCase):
             
             if original_severity:
                 expected_level = severity_mapping.get(original_severity)
-                self.assertEqual(sarif_level, expected_level,
-                                f"Incorrect severity mapping: {original_severity} -> {sarif_level}")
+                self.assertEqual(sarif_level, expected_level,)
+(                                f"Incorrect severity mapping: {original_severity} -> {sarif_level}")
 
     # SARIF Automation Details Tests
     def test_sarif_automation_details_compliance(self):
@@ -335,13 +335,13 @@ class TestSARIFCompliance(unittest.TestCase):
         # Required automation details fields
         required_fields = ["id", "description"]
         for field in required_fields:
-            self.assertIn(field, automation_details, 
-                        f"Missing automation details field: {field}")
+            self.assertIn(field, automation_details,)
+(                        f"Missing automation details field: {field}")
         
         # Validate ID format
         automation_id = automation_details["id"]
-        self.assertTrue(automation_id.startswith("connascence/"),
-                        f"Invalid automation ID format: {automation_id}")
+        self.assertTrue(automation_id.startswith("connascence/"),)
+(                        f"Invalid automation ID format: {automation_id}")
         
         # Validate description
         description = automation_details["description"]
@@ -365,22 +365,22 @@ class TestSARIFCompliance(unittest.TestCase):
             # Required invocation fields
             required_fields = ["executionSuccessful", "startTimeUtc", "workingDirectory"]
             for field in required_fields:
-                self.assertIn(field, invocation, 
-                            f"Missing invocation field: {field}")
+                self.assertIn(field, invocation,)
+(                            f"Missing invocation field: {field}")
             
             # Validate execution status
             self.assertIsInstance(invocation["executionSuccessful"], bool)
             
             # Validate timestamp format (should end with Z for UTC)
             start_time = invocation["startTimeUtc"]
-            self.assertTrue(start_time.endswith("Z"), 
-                            f"Invalid timestamp format: {start_time}")
+            self.assertTrue(start_time.endswith("Z"),)
+(                            f"Invalid timestamp format: {start_time}")
             
             # Validate working directory URI format
             working_dir = invocation["workingDirectory"]
             self.assertIn("uri", working_dir)
-            self.assertTrue(working_dir["uri"].startswith("file://"),
-                            f"Invalid working directory URI: {working_dir['uri']}")
+            self.assertTrue(working_dir["uri"].startswith("file://"),)
+(                            f"Invalid working directory URI: {working_dir['uri']}")
 
     # SARIF Properties Extension Tests
     def test_sarif_properties_extension_compliance(self):
@@ -405,8 +405,8 @@ class TestSARIFCompliance(unittest.TestCase):
             
             expected_result_properties = ["connascenceType", "severity", "weight", "locality"]
             for prop in expected_result_properties:
-                self.assertIn(prop, result_properties, 
-                            f"Missing result property: {prop}")
+                self.assertIn(prop, result_properties,)
+(                            f"Missing result property: {prop}")
 
     # Industry Integration Compatibility Tests
     def test_github_code_scanning_compatibility(self):
@@ -415,8 +415,8 @@ class TestSARIFCompliance(unittest.TestCase):
         sarif_dict = json.loads(sarif_output)
         
         # GitHub requires specific schema version
-        self.assertEqual(sarif_dict["$schema"],
-                        "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json")
+        self.assertEqual(sarif_dict["$schema"],)
+(                        "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json")
         
         # GitHub requires uriBaseId for relative paths
         results = sarif_dict["runs"][0]["results"]

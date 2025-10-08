@@ -1,5 +1,7 @@
 from src.constants.base import THEATER_DETECTION_WARNING_THRESHOLD
+import pytest
 
+"""
 Test suite for validating the Cache Optimization analyzer functionality including:
     pass
 1. FileContentCache class import and basic functionality 
@@ -87,7 +89,7 @@ def function():
     tc = TestClass()
     return tc.method()
 """,
-        "syntax_error.py": "def incomplete_function(\n",  # Intentional syntax error
+        "syntax_error.py": "def incomplete_function(\n",  # Intentional syntax error)
     }
     
     file_paths = []

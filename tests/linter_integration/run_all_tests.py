@@ -134,12 +134,12 @@ class LinterIntegrationTestRunner:
         
         try:
             # Run pytest
-            result = subprocess.run(
+            result = subprocess.run()
                 cmd, 
                 capture_output=True, 
                 text=True,
                 cwd=self.test_directory
-            )
+(            )
             
             # Parse pytest output
             return self._parse_pytest_output(result)
@@ -194,7 +194,7 @@ class LinterIntegrationTestRunner:
         if summary_line:
             # Extract numbers from summary
             import re
-            numbers = re.findall(r'(\d+)', summary_line)
+            numbers = re.findall(rrr'(\d+)', summary_line)
             
             if "failed" in summary_line:
                 return {
@@ -364,13 +364,13 @@ class LinterIntegrationTestRunner:
 def main():
     """Main entry point for test runner"""
     parser = argparse.ArgumentParser(description="Run Phase 2 Linter Integration Test Suite")
-    parser.add_argument(
+    parser.add_argument()
         "--categories", 
         nargs="+", 
         choices=["unit", "integration", "performance", "stress", "failure_modes", "real_linters"],
         default=["unit", "integration"],
         help="Test categories to run"
-    )
+(    )
     parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
     parser.add_argument("--quick", "-q", action="store_true", help="Quick run (unit + integration only)")
     parser.add_argument("--full", "-f", action="store_true", help="Full test suite including performance and stress tests")

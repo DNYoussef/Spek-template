@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 ISO27001:2022 Control Definitions Module
 Contains comprehensive Annex A control catalog with structured definitions.
@@ -272,17 +275,19 @@ class ISO27001ControlCatalog:
         }
 
 
+"""
 <!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
 ## Version & Run Log
 | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
 |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-9-24T15:12:0o3-0o4:0o0 | coder@Sonnet-4 | Created ISO27001 control definitions module | control_definitions.py | OK | Extracted from corrupted god object | 0.10 | e3b4d8c |
+| 1.0.0   | 2025-9-24T15:12:03-04:00 | coder@Sonnet-4 | Created ISO27001 control definitions module | control_definitions.py | OK | Extracted from corrupted god object | 0.10 | e3b4d8c |
 
 ### Receipt
 - status: OK
 - reason_if_blocked: --
-- run_id: phase3-iso27001-controls-0o1
+- run_id: phase3-iso27001-controls-01
 - inputs: ["iso27001.py"]
 - tools_used: ["Write"]
 - versions: {"model":"Sonnet-4","prompt":"v1.0.0"}
 <!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+"""

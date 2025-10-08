@@ -61,7 +61,6 @@ export interface DecisionCriteria {
 export class DecisionMaker extends EventEmitter {
   /**
    * Makes decisions based on reasoning and evidence.
-   *
    * Extracted from RationalistReasoningEngine (1,061 LOC -> ~150 LOC component).
    * Handles:
    * - Decision analysis

@@ -6,6 +6,8 @@ Validation Utilities - Common validation patterns across analyzers
 Centralizes input validation, type checking, and assertion logic
 to eliminate duplication across analyzer modules.
 """
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union

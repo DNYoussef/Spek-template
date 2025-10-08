@@ -1,0 +1,173 @@
+src/domains/quality-gates/compliance/security-fsm/SecurityStateComplianceValidation.ts(54,7): error TS1005: ')' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateComplianceValidation.ts(54,52): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateComplianceValidation.ts(57,7): error TS1137: Expression or comma expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateComplianceValidation.ts(134,9): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateComplianceValidation.ts(226,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateComplianceValidation.ts(227,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateComplianceValidation.ts(228,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateComplianceValidation.ts(229,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateComplianceValidation.ts(230,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateComplianceValidation.ts(240,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateComplianceValidation.ts(265,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateComplianceValidation.ts(266,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateComplianceValidation.ts(267,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateComplianceValidation.ts(268,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateComplianceValidation.ts(278,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateDataExtraction.ts(92,9): error TS1005: ')' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateDataExtraction.ts(93,7): error TS1005: ')' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateDataExtraction.ts(106,9): error TS1005: ')' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateDataExtraction.ts(107,7): error TS1005: ')' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(55,7): error TS1005: ')' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(58,9): error TS1003: Identifier expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(58,17): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(59,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(60,5): error TS1128: Declaration or statement expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(65,3): error TS1128: Declaration or statement expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(70,3): error TS1128: Declaration or statement expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(70,36): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(70,64): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(71,12): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(71,35): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(72,12): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(72,43): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(73,12): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(73,28): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(74,12): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(74,33): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(75,12): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(75,26): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(81,3): error TS1128: Declaration or statement expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(81,11): error TS1434: Unexpected keyword or identifier.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(81,43): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(81,71): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(81,85): error TS1109: Expression expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(83,16): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(83,39): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(83,41): error TS1136: Property assignment expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(100,3): error TS1128: Declaration or statement expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(105,3): error TS1128: Declaration or statement expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(105,28): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(105,42): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(105,70): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(106,12): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(110,6): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(112,9): error TS1005: ':' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(118,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(124,17): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(124,45): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(131,19): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(131,47): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(133,12): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(133,36): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(139,26): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(139,54): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(139,56): error TS1434: Unexpected keyword or identifier.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateInitial.ts(146,1): error TS1128: Declaration or statement expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(122,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(123,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(124,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(125,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(126,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(138,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(139,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(140,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(141,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(142,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(154,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(155,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(156,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(157,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(158,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(170,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(171,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(172,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(173,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(174,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateReportGeneration.ts(247,3): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(122,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(124,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(125,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(126,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(129,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(130,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(131,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(138,56): error TS1144: '{' or ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(138,67): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(138,93): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(153,3): error TS1128: Declaration or statement expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(153,38): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(153,44): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(153,46): error TS1434: Unexpected keyword or identifier.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(175,3): error TS1128: Declaration or statement expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(175,31): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(175,37): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(175,39): error TS1434: Unexpected keyword or identifier.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(191,3): error TS1128: Declaration or statement expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(191,45): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(191,67): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(191,69): error TS1434: Unexpected keyword or identifier.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(212,5): error TS1005: ')' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(233,3): error TS1128: Declaration or statement expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(233,40): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(233,60): error TS1011: An element access expression should take an argument.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(233,62): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(233,82): error TS1011: An element access expression should take an argument.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(233,84): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(254,3): error TS1128: Declaration or statement expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(254,35): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(254,55): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(254,57): error TS1434: Unexpected keyword or identifier.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(260,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(267,3): error TS1128: Declaration or statement expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(267,39): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(267,59): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(267,61): error TS1434: Unexpected keyword or identifier.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(282,3): error TS1128: Declaration or statement expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(282,38): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(282,68): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(282,77): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(282,116): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(292,3): error TS1128: Declaration or statement expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(292,28): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(292,42): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(292,70): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(293,12): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(297,6): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(299,9): error TS1005: ':' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(305,7): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(311,17): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(311,45): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(318,19): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(318,47): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(325,26): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(325,54): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(325,56): error TS1434: Unexpected keyword or identifier.
+src/domains/quality-gates/compliance/security-fsm/SecurityStateVulnerabilityAnalysis.ts(331,1): error TS1128: Declaration or statement expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityTransitionHub.ts(231,26): error TS1005: ',' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityTransitionHub.ts(231,39): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityTransitionHub.ts(231,59): error TS1005: ';' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityTransitionHub.ts(320,9): error TS1005: '}' expected.
+src/domains/quality-gates/compliance/security-fsm/SecurityTransitionHub.ts(358,3): error TS1005: ')' expected.
+src/domains/types/fsm-types.ts(22,19): error TS1005: ',' expected.
+src/github/types/api.types.ts(38,19): error TS1005: ',' expected.
+src/github/types/integration.types-fsm/integration.typesTypes.ts(41,29): error TS1005: '{' expected.
+src/github/types/integration.types-fsm/integration.typesTypes.ts(41,30): error TS1435: Unknown keyword or identifier. Did you mean 'type sConfig'?
+src/github/types/project.types.ts(22,19): error TS1005: ',' expected.
+src/github/types/sync.types.ts(22,19): error TS1005: ',' expected.
+src/linter-integration/result-correlation-framework-fsm/result-correlation-frameworkTypes.ts(9,24): error TS1005: '{' expected.
+src/linter-integration/result-correlation-framework-fsm/result-correlation-frameworkTypes.ts(9,53): error TS1005: ';' expected.
+src/linter-integration/result-correlation-framework-fsm/ResultCorrelationFrameworkCore.ts(13,1): error TS1128: Declaration or statement expected.
+src/linter-integration/result-correlation-framework-fsm/ResultCorrelationFrameworkStateMachine.ts(13,1): error TS1128: Declaration or statement expected.
+src/linter-integration/result-correlation-framework.ts(13,1): error TS1128: Declaration or statement expected.
+src/orchestration/quality/types/QualityGateTypes.ts(22,19): error TS1005: ',' expected.
+src/princesses/research/ResearchQueryProcessor-fsm/ResearchQueryProcessorCore.ts(14,5): error TS1068: Unexpected token. A constructor, method, accessor, or property was expected.
+src/princesses/research/ResearchQueryProcessor-fsm/ResearchQueryProcessorCore.ts(348,1): error TS1128: Declaration or statement expected.
+src/swarm/github/fsm/GitHubSharedTypes.ts(22,19): error TS1005: ',' expected.
+src/types/compliance-types.ts(22,19): error TS1005: ',' expected.
+src/types/github-types.ts(22,19): error TS1005: ',' expected.
+src/types/quality-types.ts(14,32): error TS1011: An element access expression should take an argument.
+src/types/quality-types.ts(31,34): error TS1109: Expression expected.
+src/types/quality-types.ts(32,41): error TS1109: Expression expected.
+src/types/quality-types.ts(33,40): error TS1109: Expression expected.
+src/types/swarm-types-fsm/SwarmTypesCore.ts(22,19): error TS1005: ',' expected.
+src/types/swarm-types-fsm/SwarmTypesStateMachine.ts(22,19): error TS1005: ',' expected.

@@ -28,7 +28,7 @@ def sample_python_files():
         
         # File with style issues (flake8, ruff)
         style_issues = Path(temp_dir) / "style_issues.py"
-        style_issues.write_text('''
+        style_issues.write_text(''')
 import os
 import sys
 import unused_module
@@ -45,12 +45,12 @@ class MyClass:
     def method_with_trailing_whitespace(self):   
         return self.value
         
-# Missing final newline''')
+(# Missing final newline''')
         files['style_issues'] = str(style_issues)
         
         # File with logical issues (pylint, mypy)
         logical_issues = Path(temp_dir) / "logical_issues.py"
-        logical_issues.write_text('''
+        logical_issues.write_text(''')
 from typing import List, Dict
 
 def function_with_issues(param: int) -> str:
@@ -92,12 +92,12 @@ def complexity_issue(a, b, c, d, e):
             return "nested 1"
     else:
         return "no nesting"
-''')
+(''')
         files['logical_issues'] = str(logical_issues)
         
         # File with security issues (bandit)
         security_issues = Path(temp_dir) / "security_issues.py"
-        security_issues.write_text('''
+        security_issues.write_text(''')
 import subprocess
 import hashlib
 import pickle
@@ -132,12 +132,12 @@ def path_traversal_risk():
     filename = "../../../etc/passwd"
     with open(filename, 'r') as f:
         return f.read()
-''')
+(''')
         files['security_issues'] = str(security_issues)
         
         # File with import and structure issues
         import_issues = Path(temp_dir) / "import_issues.py"
-        import_issues.write_text('''
+        import_issues.write_text(''')
 # Import issues
 import os
 import sys
@@ -159,7 +159,7 @@ def function_using_some_imports():
 # Missing docstring for module and functions
 def no_docstring():
     pass
-''')
+(''')
         files['import_issues'] = str(import_issues)
         
         yield files
@@ -172,11 +172,11 @@ class TestFlake8Integration:
     async def test_flake8_real_execution(self, sample_python_files):
         """Test real flake8 execution and output parsing"""
         # Execute flake8 directly
-        result = subprocess.run([
+        result = subprocess.run([)
             "flake8", 
             "--format=json",
             sample_python_files['style_issues']
-        ], capture_output=True, text=True)
+(        ], capture_output=True, text=True)
         
         # Should find style violations
         if result.stdout:
@@ -197,11 +197,11 @@ class TestFlake8Integration:
     @pytest.mark.skipif(not check_tool_available("flake8"), reason="flake8 not available")
     def test_flake8_violation_categories(self, sample_python_files):
         """Test flake8 violation categorization"""
-        result = subprocess.run([
+        result = subprocess.run([)
             "flake8",
             "--format=json", 
             sample_python_files['style_issues']
-        ], capture_output=True, text=True)
+(        ], capture_output=True, text=True)
         
         if result.stdout:
             violations = json.loads(result.stdout)
@@ -221,13 +221,13 @@ class TestPylintIntegration:
     @pytest.mark.asyncio
     async def test_pylint_real_execution(self, sample_python_files):
         """Test real pylint execution and output parsing"""
-        result = subprocess.run([
+        result = subprocess.run([)
             "pylint",
             "--output-format=json",
             "--disable=all",
             "--enable=unused-variable, undefined-variable, line-too-long",
             sample_python_files['logical_issues']
-        ], capture_output=True, text=True)
+(        ], capture_output=True, text=True)
         
         # Pylint returns non-zero for violations
         assert result.returncode != 0 or result.stdout
@@ -250,13 +250,13 @@ class TestPylintIntegration:
     @pytest.mark.skipif(not check_tool_available("pylint"), reason="pylint not available")
     def test_pylint_message_types(self, sample_python_files):
         """Test pylint message type categorization"""
-        result = subprocess.run([
+        result = subprocess.run([)
             "pylint",
             "--output-format=json",
             "--disable=all",
             "--enable=unused-variable, line-too-long, missing-docstring",
             sample_python_files['logical_issues']
-        ], capture_output=True, text=True)
+(        ], capture_output=True, text=True)
         
         if result.stdout:
             try:
@@ -279,11 +279,11 @@ class TestRuffIntegration:
     @pytest.mark.asyncio
     async def test_ruff_real_execution(self, sample_python_files):
         """Test real ruff execution and output parsing"""
-        result = subprocess.run([
+        result = subprocess.run([)
             "ruff", "check",
             "--format=json",
             sample_python_files['style_issues']
-        ], capture_output=True, text=True)
+(        ], capture_output=True, text=True)
         
         # Ruff returns non-zero for violations
         assert result.returncode in [0, 1]
@@ -303,11 +303,11 @@ class TestRuffIntegration:
     @pytest.mark.skipif(not check_tool_available("ruff"), reason="ruff not available")
     def test_ruff_rule_categories(self, sample_python_files):
         """Test ruff rule categorization"""
-        result = subprocess.run([
+        result = subprocess.run([)
             "ruff", "check",
             "--format=json",
             sample_python_files['import_issues']
-        ], capture_output=True, text=True)
+(        ], capture_output=True, text=True)
         
         if result.stdout:
             violations = json.loads(result.stdout)
@@ -327,12 +327,12 @@ class TestMypyIntegration:
     @pytest.mark.asyncio
     async def test_mypy_real_execution(self, sample_python_files):
         """Test real mypy execution and output parsing"""
-        result = subprocess.run([
+        result = subprocess.run([)
             "mypy",
             "--show-error-codes",
             "--no-error-summary",
             sample_python_files['logical_issues']
-        ], capture_output=True, text=True)
+(        ], capture_output=True, text=True)
         
         # MyPy returns non-zero for type errors
         assert result.returncode in [0, 1]
@@ -351,11 +351,11 @@ class TestMypyIntegration:
     @pytest.mark.skipif(not check_tool_available("mypy"), reason="mypy not available") 
     def test_mypy_type_error_detection(self, sample_python_files):
         """Test mypy type error detection"""
-        result = subprocess.run([
+        result = subprocess.run([)
             "mypy", 
             "--show-error-codes",
             sample_python_files['logical_issues']
-        ], capture_output=True, text=True)
+(        ], capture_output=True, text=True)
         
         if result.stdout and result.returncode != 0:
             # Should detect type mismatches
@@ -376,11 +376,11 @@ class TestBanditIntegration:
     @pytest.mark.asyncio
     async def test_bandit_real_execution(self, sample_python_files):
         """Test real bandit execution and output parsing"""
-        result = subprocess.run([
+        result = subprocess.run([)
             "bandit",
             "-f", "json",
             sample_python_files['security_issues']
-        ], capture_output=True, text=True)
+(        ], capture_output=True, text=True)
         
         # Bandit returns non-zero for security issues
         assert result.returncode in [0, 1]
@@ -403,11 +403,11 @@ class TestBanditIntegration:
     @pytest.mark.skipif(not check_tool_available("bandit"), reason="bandit not available")
     def test_bandit_security_issue_detection(self, sample_python_files):
         """Test bandit security issue detection"""
-        result = subprocess.run([
+        result = subprocess.run([)
             "bandit",
             "-f", "json",
             sample_python_files['security_issues']
-        ], capture_output=True, text=True)
+(        ], capture_output=True, text=True)
         
         if result.stdout:
             report = json.loads(result.stdout)
@@ -429,27 +429,27 @@ class TestBanditIntegration:
 class TestMultiToolIntegration:
     """Integration tests with multiple real linter tools"""
     
-    @pytest.mark.skipif(
+    @pytest.mark.skipif()
         not all(check_tool_available(tool) for tool in ["flake8", "pylint"]),
         reason="Required tools not available"
-    )
+(    )
     def test_multi_tool_same_file_analysis(self, sample_python_files):
         """Test multiple tools analyzing the same file"""
         target_file = sample_python_files['style_issues']
         results = {}
         
         # Run flake8
-        flake8_result = subprocess.run([
+        flake8_result = subprocess.run([)
             "flake8", "--format=json", target_file
-        ], capture_output=True, text=True)
+(        ], capture_output=True, text=True)
         
         if flake8_result.stdout:
             results['flake8'] = json.loads(flake8_result.stdout)
         
         # Run pylint
-        pylint_result = subprocess.run([
+        pylint_result = subprocess.run([)
             "pylint", "--output-format=json", target_file
-        ], capture_output=True, text=True)
+(        ], capture_output=True, text=True)
         
         if pylint_result.stdout:
             try:
@@ -471,27 +471,27 @@ class TestMultiToolIntegration:
                 # Don't assert overlap since tools may catch different things
                 assert len(flake8_lines) > 0 or len(pylint_lines) > 0
     
-    @pytest.mark.skipif(
+    @pytest.mark.skipif()
         not all(check_tool_available(tool) for tool in ["ruff", "bandit"]),
         reason="Required tools not available"
-    )
+(    )
     def test_cross_tool_violation_correlation(self, sample_python_files):
         """Test correlation potential between different linter tools"""
         target_file = sample_python_files['security_issues']
         results = {}
         
         # Run ruff (may catch some security-related issues)
-        ruff_result = subprocess.run([
+        ruff_result = subprocess.run([)
             "ruff", "check", "--format=json", target_file
-        ], capture_output=True, text=True)
+(        ], capture_output=True, text=True)
         
         if ruff_result.stdout:
             results['ruff'] = json.loads(ruff_result.stdout)
         
         # Run bandit (security-focused)
-        bandit_result = subprocess.run([
+        bandit_result = subprocess.run([)
             "bandit", "-f", "json", target_file
-        ], capture_output=True, text=True)
+(        ], capture_output=True, text=True)
         
         if bandit_result.stdout:
             bandit_report = json.loads(bandit_result.stdout)
@@ -517,9 +517,9 @@ class TestAdapterRealWorldCompatibility:
     def test_flake8_adapter_with_real_output(self, sample_python_files):
         """Test flake8 adapter with real flake8 output"""
         # Get real flake8 output
-        result = subprocess.run([
+        result = subprocess.run([)
             "flake8", "--format=json", sample_python_files['style_issues']
-        ], capture_output=True, text=True)
+(        ], capture_output=True, text=True)
         
         if result.stdout:
             # Create adapter and test parsing
@@ -550,9 +550,9 @@ class TestAdapterRealWorldCompatibility:
     @pytest.mark.skipif(not check_tool_available("bandit"), reason="bandit not available")
     def test_bandit_adapter_with_real_output(self, sample_python_files):
         """Test bandit adapter with real bandit output"""
-        result = subprocess.run([
+        result = subprocess.run([)
             "bandit", "-f", "json", sample_python_files['security_issues']
-        ], capture_output=True, text=True)
+(        ], capture_output=True, text=True)
         
         if result.stdout:
             report = json.loads(result.stdout)
@@ -592,9 +592,9 @@ class TestRealWorldPerformance:
         target_files = list(sample_python_files.values())
         
         start_time = time.time()
-        result = subprocess.run([
+        result = subprocess.run([)
             "ruff", "check", "--format=json"
-        ] + target_files, capture_output=True, text=True)
+(        ] + target_files, capture_output=True, text=True)
         execution_time = time.time() - start_time
         
         # Ruff should be very fast
@@ -602,10 +602,10 @@ class TestRealWorldPerformance:
         assert result.returncode in [0, 1]  # Success or violations found
     
     @pytest.mark.performance
-    @pytest.mark.skipif(
+    @pytest.mark.skipif()
         not all(check_tool_available(tool) for tool in ["flake8", "pylint"]),
         reason="Required tools not available"
-    )
+(    )
     def test_tool_performance_comparison(self, sample_python_files):
         """Compare performance of different linter tools"""
         import time
@@ -615,16 +615,16 @@ class TestRealWorldPerformance:
         
         # Test flake8 performance
         start_time = time.time()
-        flake8_result = subprocess.run([
+        flake8_result = subprocess.run([)
             "flake8", "--format=json", target_file
-        ], capture_output=True, text=True)
+(        ], capture_output=True, text=True)
         execution_times['flake8'] = time.time() - start_time
         
         # Test pylint performance
         start_time = time.time()
-        pylint_result = subprocess.run([
+        pylint_result = subprocess.run([)
             "pylint", "--output-format=json", target_file
-        ], capture_output=True, text=True)
+(        ], capture_output=True, text=True)
         execution_times['pylint'] = time.time() - start_time
         
         # All tools should complete within reasonable time
@@ -645,8 +645,8 @@ class TestRealWorldErrorHandling:
         with tempfile.TemporaryDirectory() as temp_dir:
             # Create file with syntax errors
             invalid_file = Path(temp_dir) / "invalid.py"
-            invalid_file.write_text('''
-def broken_function(
+            invalid_file.write_text(''')
+def broken_function()
     # Missing closing parenthesis
     return "broken"
 
@@ -654,12 +654,12 @@ class UnfinishedClass
     # Missing colon
     def method(self):
         pass
-''')
+(''')
             
             # Tools should handle syntax errors gracefully
-            result = subprocess.run([
+            result = subprocess.run([)
                 "flake8", "--format=json", str(invalid_file)
-            ], capture_output=True, text=True)
+(            ], capture_output=True, text=True)
             
             # Should return error code but not crash
             assert result.returncode != 0
@@ -681,18 +681,18 @@ class UnfinishedClass
         with tempfile.TemporaryDirectory() as temp_dir:
             # Create file importing non-existent modules
             missing_deps = Path(temp_dir) / "missing_deps.py"
-            missing_deps.write_text('''
+            missing_deps.write_text(''')
 import nonexistent_module
 from missing_package import missing_function
 
 def use_missing():
     return nonexistent_module.some_function()
-''')
+(''')
             
             # Pylint should handle missing imports gracefully
-            result = subprocess.run([
+            result = subprocess.run([)
                 "pylint", "--output-format=json", str(missing_deps)
-            ], capture_output=True, text=True)
+(            ], capture_output=True, text=True)
             
             # Should complete but report import errors
             assert result.returncode != 0  # Violations found

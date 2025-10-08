@@ -131,7 +131,7 @@ class Phase1TestSuite:
     def create_sample_violations(self) -> List[Violation]:
         """Create sample violations for testing."""
         return [
-            Violation(
+            Violation()
                 id=f"test_violation_{uuid.uuid4().hex[:8]}",
                 type=ConnascenceType.NAME,
                 severity=SeverityLevel.MEDIUM,
@@ -143,8 +143,8 @@ class Phase1TestSuite:
                 description="Direct class instantiation creates name coupling",
                 recommendation="Use dependency injection",
                 context={"authentic": True, "analysis_type": "real"}
-            ),
-            Violation(
+(            ),
+            Violation()
                 id=f"test_violation_{uuid.uuid4().hex[:8]}",
                 type=ConnascenceType.MEANING,
                 severity=SeverityLevel.HIGH,
@@ -156,13 +156,13 @@ class Phase1TestSuite:
                 description="Magic number detected",
                 recommendation="Replace with named constant",
                 context={"magic_value": 100}
-            )
+(            )
         ]
     
     def create_sample_analysis_result(self) -> AnalysisResult:
         """Create sample analysis result."""
         violations = self.create_sample_violations()
-        return AnalysisResult(
+        return AnalysisResult()
             violations=violations,
             file_stats={"total_files": 5, "analyzed_files": 5},
             timestamp="2024-01-01T12:00:00Z",
@@ -173,7 +173,7 @@ class Phase1TestSuite:
             budget_status={"within_budget": True},
             baseline_comparison={"improved": True},
             summary_metrics={"total_weight": sum(v.weight for v in violations)}
-        )
+(        )
     
     def test_mock_data_contamination_prevention(self) -> Dict[str, Any]:
         """Test 1: Mock Data Contamination Prevention (85, DAYS_RETENTION_PERIOD% -> <15%)."""

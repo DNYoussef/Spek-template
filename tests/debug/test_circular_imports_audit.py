@@ -145,7 +145,7 @@ def run_test_suite():
     # Create a file with syntax error to test error handling
     error_file = test_dir / "syntax_error.py"
     with open(error_file, 'w') as f:
-        f.write("from src.constants.base import BAD_SYNTAX\ndef incomplete_function(\n")  # Intentional syntax error
+        f.write("from src.constants.base import BAD_SYNTAX\ndef incomplete_function(\n")  # Intentional syntax error)
 
     try:
         result = subprocess.run([sys.executable, 'fix_circular_imports_test.py'],

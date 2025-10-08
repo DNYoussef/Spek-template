@@ -381,8 +381,9 @@ export class ComputerUseService {
       try {
         await execAsync(`sudo mkdir -p "${dir}"`);
       } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
         // Directory might already exist, which is fine
-        this.logger.debug(`Directory creation: ${error.message}`);
+        this.logger.debug(`Directory creation: ${errorMessage}`);
       }
 
       // Write to a temporary file first
@@ -408,10 +409,11 @@ export class ComputerUseService {
         message: `File written successfully to: ${targetPath}`,
       };
     } catch (error) {
-      this.logger.error(`Error writing file: ${error.message}`, error.stack);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error(`Error writing file: ${errorMessage}`, error.stack);
       return {
         success: false,
-        message: `Error writing file: ${error.message}`,
+        message: `Error writing file: ${errorMessage}`,
       };
     }
   }
@@ -497,10 +499,11 @@ export class ComputerUseService {
         throw error;
       }
     } catch (error) {
-      this.logger.error(`Error reading file: ${error.message}`, error.stack);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error(`Error reading file: ${errorMessage}`, error.stack);
       return {
         success: false,
-        message: `Error reading file: ${error.message}`,
+        message: `Error reading file: ${errorMessage}`,
       };
     }
   }

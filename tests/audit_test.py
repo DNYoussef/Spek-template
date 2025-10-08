@@ -13,7 +13,7 @@ def audit_workflow(workflow_path):
     warnings = []
     successes = []
     
-    with open(workflow_path, 'r') as f:
+    with open(workflow_path, 'r', encoding='utf-8') as f:
         content = f.read()
     
     # Check 1: Unified analyzer command

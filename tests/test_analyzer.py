@@ -42,11 +42,11 @@ def test_performance_modules_availability():
     """Test performance module imports with fallback handling."""
     try:
         from analyzer.performance import (
-            REAL_TIME_MONITOR_AVAILABLE,
+    REAL_TIME_MONITOR_AVAILABLE,
             CACHE_PROFILER_AVAILABLE,
             RealTimeMonitor,
             CachePerformanceProfiler
-        )
+)
 
         if REAL_TIME_MONITOR_AVAILABLE:
             assert RealTimeMonitor is not None
@@ -69,12 +69,12 @@ def test_core_types_import():
     """Test core analyzer types can be imported."""
     try:
         from analyzer import (
-            ConnascenceViolation,
+    ConnascenceViolation,
             ConnascenceType,
             SeverityLevel,
             AnalysisResult,
             CORE_IMPORTS_AVAILABLE
-        )
+)
 
         if CORE_IMPORTS_AVAILABLE:
             assert ConnascenceViolation is not None

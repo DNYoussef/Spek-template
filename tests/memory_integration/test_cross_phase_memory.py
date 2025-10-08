@@ -27,10 +27,10 @@ import statistics
 
 # Import the memory system components
 try:
-    from analyzer.unified_memory_model import (
+    from analyzer.unified_memory_model import ()
         UnifiedMemoryModel, MemoryCorrelation, PerformanceCorrelation,
         PhaseMemoryEntry, MemorySafetyValidator
-    )
+(    )
     from analyzer.phase_correlation_storage import PhaseCorrelationStorage
     MEMORY_SYSTEM_AVAILABLE = True
 except ImportError:
@@ -89,23 +89,23 @@ class TestUnifiedMemoryModel:
         """Create temporary memory model for testing."""
         with tempfile.TemporaryDirectory() as temp_dir:
             storage_path = str(Path(temp_dir) / "test_storage.db")
-            model = UnifiedMemoryModel(
+            model = UnifiedMemoryModel()
                 storage_path=storage_path,
                 max_memory_mb=50,  # Small limit for testing
                 max_entries=1000
-            )
+(            )
             yield model
             model.shutdown()
     
     def test_memory_entry_storage_and_retrieval(self, temp_memory_model):
         """Test basic memory entry operations."""
-        entry = PhaseMemoryEntry(
+        entry = PhaseMemoryEntry()
             phase_id="test_phase",
             entry_id="test_entry",
             entry_type="test",
             content={"test_data": "test_value"},
             tags={"test", "memory"}
-        )
+(        )
         
         # Store entry
         assert temp_memory_model.store_memory_entry(entry) == True
@@ -120,13 +120,13 @@ class TestUnifiedMemoryModel:
     
     def test_cross_phase_correlation(self, temp_memory_model):
         """Test cross-phase correlation creation and retrieval."""
-        temp_memory_model.correlate_phases(
+        temp_memory_model.correlate_phases()
             source_phase="phase1",
             target_phase="phase2",
             correlation_type="learning",
             strength=0.85,
             metadata={"learning_type": "optimization_pattern"}
-        )
+(        )
         
         # Verify correlation was stored
         correlations = temp_memory_model.storage.get_correlations_by_phase("phase1")
@@ -140,13 +140,13 @@ class TestUnifiedMemoryModel:
     
     def test_performance_improvement_tracking(self, temp_memory_model):
         """Test performance improvement tracking and validation."""
-        temp_memory_model.track_performance_improvement(
+        temp_memory_model.track_performance_improvement()
             phase="test_phase",
             metric_name="test_metric",
             baseline_value=60.0,
             current_value=150.0,
             correlation_factors=["optimization1", "optimization2"]
-        )
+(        )
         
         # Verify performance correlation was stored
         trends = temp_memory_model.storage.get_performance_trends("test_phase")
@@ -163,13 +163,13 @@ class TestUnifiedMemoryModel:
         temp_memory_model.correlate_phases("phase1", "phase2", "performance", 0.9)
         temp_memory_model.correlate_phases("phase1", "phase2", "pattern", 0.8)
         
-        temp_memory_model.track_performance_improvement(
+        temp_memory_model.track_performance_improvement()
             phase="phase2",
             metric_name="efficiency",
             baseline_value=100.0,
             current_value=180.0,
             correlation_factors=["phase1_patterns"]
-        )
+(        )
         
         # Get learning insights
         insights = temp_memory_model.get_cross_phase_learning_insights("phase2")
@@ -186,12 +186,12 @@ class TestUnifiedMemoryModel:
         
         success_count = 0
         for i in range(100):  # Try to create many entries
-            entry = PhaseMemoryEntry(
+            entry = PhaseMemoryEntry()
                 phase_id="test_phase",
                 entry_id=f"large_entry_{i}",
                 entry_type="test",
                 content=large_content
-            )
+(            )
             
             if temp_memory_model.store_memory_entry(entry):
                 success_count += 1
@@ -213,23 +213,23 @@ class TestPhaseCorrelationStorage:
         """Create temporary storage for testing."""
         with tempfile.TemporaryDirectory() as temp_dir:
             storage_path = str(Path(temp_dir) / "test_correlation_storage.db")
-            storage = PhaseCorrelationStorage(
+            storage = PhaseCorrelationStorage()
                 storage_path=storage_path,
                 enable_compression=True,
                 backup_enabled=False  # Disable for testing
-            )
+(            )
             yield storage
             storage.shutdown()
     
     def test_correlation_storage_and_retrieval(self, temp_storage):
         """Test correlation storage with compression."""
-        correlation = MemoryCorrelation(
+        correlation = MemoryCorrelation()
             source_phase="phase1",
             target_phase="phase2",
             correlation_type="learning",
             correlation_strength=0.75,
             metadata={"large_data": "x" * 2000}  # Large metadata for compression test
-        )
+(        )
         
         # Store correlation
         assert temp_storage.store_correlation(correlation) == True
@@ -247,26 +247,26 @@ class TestPhaseCorrelationStorage:
     def test_performance_correlation_validation(self, temp_storage):
         """Test performance correlation validation."""
         # Valid correlation
-        valid_perf = PerformanceCorrelation(
+        valid_perf = PerformanceCorrelation()
             phase="test_phase",
             metric_name="valid_metric",
             baseline_value=100.0,
             current_value=120.0,
             improvement_percentage=20.0,
             correlation_factors=["factor1"]
-        )
+(        )
         
         assert temp_storage.store_performance_correlation(valid_perf) == True
         
         # Invalid correlation (unrealistic improvement)
-        invalid_perf = PerformanceCorrelation(
+        invalid_perf = PerformanceCorrelation()
             phase="test_phase",
             metric_name="invalid_metric",
             baseline_value=100.0,
             current_value=120.0,
             improvement_percentage=2000.0,  # Unrealistic
             correlation_factors=["factor1"]
-        )
+(        )
         
         assert temp_storage.store_performance_correlation(invalid_perf) == False
     
@@ -279,12 +279,12 @@ class TestPhaseCorrelationStorage:
         }
         
         # Store pattern
-        assert temp_storage.store_learning_pattern(
+        assert temp_storage.store_learning_pattern()
             pattern_key="phase1->phase2:optimization",
             pattern_type="optimization",
             pattern_strength=0.85,
             pattern_data=pattern_data
-        ) == True
+(        ) == True
         
         # Retrieve patterns
         patterns = temp_storage.get_learning_patterns_by_type("optimization", min_strength=0.8)
@@ -299,13 +299,13 @@ class TestPhaseCorrelationStorage:
         """Test query performance and caching."""
         # Store multiple correlations
         for i in range(50):
-            correlation = MemoryCorrelation(
+            correlation = MemoryCorrelation()
                 source_phase=f"phase{i % 5}",
                 target_phase=f"phase{(i % 5) + 1}",
                 correlation_type="performance",
                 correlation_strength=0.5 + (i % 5) * 0.1,
                 metadata={"iteration": i}
-            )
+(            )
             temp_storage.store_correlation(correlation)
         
         # First query (should be slow, cache miss)
@@ -334,11 +334,11 @@ class TestConcurrentMemoryOperations:
         """Create memory model for concurrent testing."""
         with tempfile.TemporaryDirectory() as temp_dir:
             storage_path = str(Path(temp_dir) / "concurrent_test_storage.db")
-            model = UnifiedMemoryModel(
+            model = UnifiedMemoryModel()
                 storage_path=storage_path,
                 max_memory_mb=100,
                 max_entries=5000
-            )
+(            )
             yield model
             model.shutdown()
     
@@ -347,12 +347,12 @@ class TestConcurrentMemoryOperations:
     def store_entries(thread_id: int, entry_count: int) -> int:
             stored_count = 0
             for i in range(entry_count):
-                entry = PhaseMemoryEntry(
+                entry = PhaseMemoryEntry()
                     phase_id=f"thread_{thread_id}",
                     entry_id=f"entry_{i}",
                     entry_type="concurrent_test",
                     content={"thread_id": thread_id, "entry_index": i}
-                )
+(                )
                 
                 if concurrent_memory_model.store_memory_entry(entry):
                     stored_count += 1
@@ -386,13 +386,13 @@ class TestConcurrentMemoryOperations:
             created_count = 0
             for i in range(correlation_count):
                 try:
-                    concurrent_memory_model.correlate_phases(
+                    concurrent_memory_model.correlate_phases()
                         source_phase=f"thread_{thread_id}_source",
                         target_phase=f"thread_{thread_id}_target",
                         correlation_type="concurrent_test",
                         strength=0.5 + (i * 0.01),
                         metadata={"thread_id": thread_id, "correlation_index": i}
-                    )
+(                    )
                     created_count += 1
                 except Exception:
                     pass  # Expected under high concurrency
@@ -429,12 +429,12 @@ class TestConcurrentMemoryOperations:
             
             for i in range(50):
                 # Store operation
-                entry = PhaseMemoryEntry(
+                entry = PhaseMemoryEntry()
                     phase_id=f"stress_{thread_id}",
                     entry_id=f"stress_entry_{i}",
                     entry_type="stress_test",
                     content=large_content
-                )
+(                )
                 
                 if concurrent_memory_model.store_memory_entry(entry):
                     results["stored"] += 1
@@ -482,11 +482,11 @@ class TestMemoryLeakPrevention:
         """Create memory model for leak testing."""
         with tempfile.TemporaryDirectory() as temp_dir:
             storage_path = str(Path(temp_dir) / "leak_test_storage.db")
-            model = UnifiedMemoryModel(
+            model = UnifiedMemoryModel()
                 storage_path=storage_path,
                 max_memory_mb=20,  # Small limit for leak testing
                 max_entries=200
-            )
+(            )
             yield model
             model.shutdown()
     
@@ -495,13 +495,13 @@ class TestMemoryLeakPrevention:
         # Store entries with short TTL
         entries_with_ttl = []
         for i in range(10):
-            entry = PhaseMemoryEntry(
+            entry = PhaseMemoryEntry()
                 phase_id="ttl_test",
                 entry_id=f"ttl_entry_{i}",
                 entry_type="ttl_test",
                 content={"data": f"value_{i}"},
                 ttl_seconds=1  # Very short TTL
-            )
+(            )
             
             if leak_test_model.store_memory_entry(entry):
                 entries_with_ttl.append(entry)
@@ -528,12 +528,12 @@ class TestMemoryLeakPrevention:
         
         stored_entries = []
         for i in range(50):  # Try to store many entries
-            entry = PhaseMemoryEntry(
+            entry = PhaseMemoryEntry()
                 phase_id="lru_test",
                 entry_id=f"lru_entry_{i}",
                 entry_type="lru_test",
                 content=large_content
-            )
+(            )
             
             if leak_test_model.store_memory_entry(entry):
                 stored_entries.append(entry)
@@ -567,13 +567,13 @@ class TestMemoryLeakPrevention:
         
         # Store some entries with TTL
         for i in range(5):
-            entry = PhaseMemoryEntry(
+            entry = PhaseMemoryEntry()
                 phase_id="background_test",
                 entry_id=f"bg_entry_{i}",
                 entry_type="background_test",
                 content={"data": f"value_{i}"},
                 ttl_seconds=2  # Short TTL
-            )
+(            )
             leak_test_model.store_memory_entry(entry)
         
         initial_stats = leak_test_model.memory_stats
@@ -612,20 +612,20 @@ class TestPerformanceCorrelationAccuracy:
         ]
         
         for baseline, current, expected in test_cases:
-            perf_test_model.track_performance_improvement(
+            perf_test_model.track_performance_improvement()
                 phase="accuracy_test",
                 metric_name=f"test_metric_{baseline}",
                 baseline_value=baseline,
                 current_value=current,
                 correlation_factors=["test_factor"]
-            )
+(            )
             
             # Retrieve and verify
             trends = perf_test_model.storage.get_performance_trends("accuracy_test")
-            matching_trend = next(
+            matching_trend = next()
                 (t for t in trends if t.metric_name == f"test_metric_{baseline}"),
                 None
-            )
+(            )
             
             assert matching_trend is not None
             assert abs(matching_trend.improvement_percentage - expected) < 0.01
@@ -638,13 +638,13 @@ class TestPerformanceCorrelationAccuracy:
         # Create performance data for multiple phases
         for phase in phases:
             for i in range(metrics_per_phase):
-                perf_test_model.track_performance_improvement(
+                perf_test_model.track_performance_improvement()
                     phase=phase,
                     metric_name=f"metric_{i}",
                     baseline_value=100.0,
                     current_value=100.0 + (i + 1) * 20.0,  # Increasing improvement
                     correlation_factors=[f"factor_{i}"]
-                )
+(                )
         
         # Get comprehensive performance report
         report = perf_test_model.get_unified_performance_report()
@@ -689,9 +689,9 @@ class TestPerformanceCorrelationAccuracy:
 
 if __name__ == "__main__":
     # Run specific test categories if called directly
-    pytest.main([
+    pytest.main([)
         __file__,
         "-v",
         "--tb=short",
         "-k", "TestMemorySafetyValidation or TestUnifiedMemoryModel"
-    ])
+(    ])

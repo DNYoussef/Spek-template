@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 Connascence Reduction Validator
 ==============================
@@ -381,19 +384,18 @@ class ConnascenceValidator:
         path_str = str(file_path)
         return not any(pattern in path_str for pattern in skip_patterns)
 
-    def validate_connascence_reduction() -> Dict[str, Any]:
-        pass
+def validate_connascence_reduction() -> Dict[str, Any]:
     """
     Main function to validate connascence reduction effectiveness.
-    
+
     Returns:
         Validation results dictionary
     """
     analyzer_path = Path(__file__).parent.parent
     validator = ConnascenceValidator(str(analyzer_path))
-    
+
     results = validator.validate_reduction_effectiveness()
-    
+
     # Print summary
     print("\n[CHART] CONNASCENCE REDUCTION VALIDATION RESULTS")
     print("=" * 50)
@@ -403,11 +405,11 @@ class ConnascenceValidator:
     print("\n[TARGET] Key Improvements:")
     for improvement in results['specific_improvements']:
         print(f"  [U+2022] {improvement['area']}: {improvement['description']}")
-    
+
     print("\n[INFO] Recommendations:")
     for rec in results['recommendations']:
         print(f"  [U+2022] {rec}")
-    
+
     return results
 
 if __name__ == "__main__":

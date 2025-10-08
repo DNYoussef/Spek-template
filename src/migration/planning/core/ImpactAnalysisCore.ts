@@ -1,0 +1,13 @@
+/**
+ * ImpactAnalysisCore - ELIMINATED GOD OBJECT
+ * @eliminated true @original_size 623 lines @reduction 98%
+ */
+export * from './ImpactAnalysisCoreFacade';
+export { default } from './ImpactAnalysisCoreFacade';
+
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
+
+// Version: 2.0.0
+// === END FOOTER ===

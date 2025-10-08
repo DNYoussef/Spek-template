@@ -1,6 +1,5 @@
 /**
  * HivePrincess Decomposition Test Suite
- *
  * Tests the decomposed princess architecture:
  * - PrincessBase abstract class
  * - 6 domain-specific princesses

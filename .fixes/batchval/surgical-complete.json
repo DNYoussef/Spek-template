@@ -1,0 +1,56 @@
+{
+  "stage": "surgical",
+  "files_fixed": 6,
+  "files_remaining": 7,
+  "timestamp": "2025-09-30T17:57:10.129967",
+  "results": [
+    {
+      "file": "tests\\batch2_validation\\run_validation.py",
+      "fixed": true,
+      "valid": false,
+      "message": "Line 66: unexpected indent"
+    },
+    {
+      "file": "tests\\batch2_validation\\test_builder_patterns.py",
+      "fixed": true,
+      "valid": true,
+      "message": "OK"
+    },
+    {
+      "file": "tests\\batch2_validation\\test_regression.py",
+      "fixed": true,
+      "valid": false,
+      "message": "Line 63: expected 'except' or 'finally' block"
+    },
+    {
+      "file": "tests\\batch3_validation\\run_validation.py",
+      "fixed": true,
+      "valid": false,
+      "message": "Line 112: unexpected indent"
+    },
+    {
+      "file": "tests\\batch3_validation\\test_strategy_pattern_validation.py",
+      "fixed": false,
+      "valid": false,
+      "message": "Line 612: unterminated triple-quoted string literal (detected at line 671)"
+    },
+    {
+      "file": "tests\\batches_10_18_validation\\batch_pattern_validators.py",
+      "fixed": false,
+      "valid": false,
+      "message": "Line 44: unexpected indent"
+    },
+    {
+      "file": "tests\\batches_10_18_validation\\run_validation.py",
+      "fixed": true,
+      "valid": false,
+      "message": "Line 17: unexpected indent"
+    },
+    {
+      "file": "tests\\batches_10_18_validation\\test_suite_orchestrator.py",
+      "fixed": true,
+      "valid": false,
+      "message": "Line 854: invalid decimal literal"
+    }
+  ]
+}

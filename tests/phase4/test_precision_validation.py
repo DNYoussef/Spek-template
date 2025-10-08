@@ -119,8 +119,8 @@ class TestPhase4PrecisionValidation(unittest.TestCase):
         ]
         
         for fix_name, loc_count in actual_fixes:
-            self.assertLessEqual(loc_count, max_loc_per_fix, 
-                                f"{fix_name} exceeds LOC limit: {loc_count} > {max_loc_per_fix}")
+            self.assertLessEqual(loc_count, max_loc_per_fix,)
+(                                f"{fix_name} exceeds LOC limit: {loc_count} > {max_loc_per_fix}")
     
     def test_performance_baselines_maintained(self):
         """Test that performance baselines are maintained after micro-fixes."""
@@ -147,8 +147,8 @@ class TestPhase4PrecisionValidation(unittest.TestCase):
         
         for metric, target in performance_targets.items():
             current = current_performance[metric]
-            self.assertGreaterEqual(current, target * 0.95,  # Allow 5% tolerance
-                                    f"{metric}: {current} < {target} (95% threshold)")
+            self.assertGreaterEqual(current, target * 0.95,  # Allow 5% tolerance)
+(                                    f"{metric}: {current} < {target} (95% threshold)")
 
     def test_integration_stability(self):
         """Test that all micro-fixes work together without conflicts."""
@@ -291,8 +291,8 @@ class TestPhase4PerformanceValidation(unittest.TestCase):
             
             # Performance should not regress (allow small improvements)
             regression_threshold = before * (1 - tolerance)
-            self.assertGreaterEqual(after, regression_threshold,
-                                    f"{metric} regression detected: {after} < {regression_threshold}")
+            self.assertGreaterEqual(after, regression_threshold,)
+(                                    f"{metric} regression detected: {after} < {regression_threshold}")
 
     def test_micro_fix_performance_impact(self):
         """Test that micro-fixes have minimal performance impact."""
@@ -309,8 +309,8 @@ class TestPhase4PerformanceValidation(unittest.TestCase):
             overhead = impact_data['overhead_percent']
             max_acceptable = impact_data['max_acceptable']
             
-            self.assertLessEqual(overhead, max_acceptable,
-                                f"{fix_name} overhead too high: {overhead}% > {max_acceptable}%")
+            self.assertLessEqual(overhead, max_acceptable,)
+(                                f"{fix_name} overhead too high: {overhead}% > {max_acceptable}%")
 
 def run_phase4_tests():
     """Run complete Phase 4 test suite."""

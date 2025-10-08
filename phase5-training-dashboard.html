@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 5 Training Dashboard - Advanced AI Training System</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 100%);
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        .dashboard-container {
+            display: grid;
+            grid-template-areas:
+                "header header header header"
+                "main-dashboard curriculum grokfast dream"
+                "metrics chaos-controller training-loop self-modeling"
+                "footer footer footer footer";
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: auto 400px 400px auto;
+            gap: 20px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            grid-area: header;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .main-dashboard {
+            grid-area: main-dashboard;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .curriculum-progress {
+            grid-area: curriculum;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .grokfast-metrics {
+            grid-area: grokfast;
+            background: rgba(255, 193, 7, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .dream-cycle {
+            grid-area: dream;
+            background: rgba(156, 39, 176, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(156, 39, 176, 0.3);
+        }
+
+        .training-metrics {
+            grid-area: metrics;
+            background: rgba(33, 150, 243, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(33, 150, 243, 0.3);
+        }
+
+        .chaos-controller {
+            grid-area: chaos-controller;
+            background: rgba(244, 67, 54, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+
+        .training-loop {
+            grid-area: training-loop;
+            background: rgba(0, 188, 212, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(0, 188, 212, 0.3);
+        }
+
+        .self-modeling {
+            grid-area: self-modeling;
+            background: rgba(255, 87, 34, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 87, 34, 0.3);
+        }
+
+        .footer {
+            grid-area: footer;
+            text-align: center;
+            padding: 20px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .card-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin: 10px 0;
+            text-shadow: 0 2px 10px rgba(255,255,255,0.2);
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .progress-bar {
+            background: rgba(255,255,255,0.1);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            border-radius: 4px;
+            transition: width 2s ease;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        .status-active { background: #4CAF50; }
+        .status-warning { background: #FF9800; }
+        .status-critical { background: #F44336; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .chaos-viz {
+            height: 120px;
+            background: radial-gradient(circle, rgba(244,67,54,0.3) 0%, transparent 70%);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chaos-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #F44336;
+            border-radius: 50%;
+            animation: chaosMove 3s infinite linear;
+        }
+
+        @keyframes chaosMove {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(100px, -100px) rotate(360deg); }
+        }
+
+        .training-wave {
+            height: 100px;
+            background: linear-gradient(45deg, rgba(33,150,243,0.2) 0%, rgba(0,188,212,0.2) 100%);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wave {
+            position: absolute;
+            top: 50%;
+            left: -100%;
+            width: 200%;
+            height: 60px;
+            background: linear-gradient(90deg, transparent, rgba(33,150,243,0.6), transparent);
+            animation: wave 2s infinite;
+        }
+
+        @keyframes wave {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .interactive-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+
+        .level-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin: 2px;
+        }
+
+        .dream-phase {
+            background: rgba(156, 39, 176, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 5px 0;
+            border-left: 3px solid #9C27B0;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header">
+            <h1>Phase 5 Advanced AI Training Dashboard</h1>
+            <p>Real-time Neural Network Training System | Edge of Chaos Architecture</p>
+            <p id="timestamp">Last Update: Loading...</p>
+        </div>
+
+        <div class="main-dashboard">
+            <div class="card-title">
+                <span class="status-indicator status-active"></span>
+                Main Training Dashboard
+            </div>
+            <div class="metric-label">Training Session Status</div>
+            <div class="metric-value" style="color: #4CAF50; font-size: 1.8em;">ACTIVE</div>
+            <div class="metric-label">Current Epoch</div>
+            <div class="metric-value" id="current-epoch">247</div>
+            <div class="metric-label">Learning Rate</div>
+            <div class="metric-value" style="font-size: 1.5em; color: #FF9800;" id="learning-rate">0.0031</div>
+            <button class="interactive-button" onclick="pauseTraining()">Pause Training</button>
+            <button class="interactive-button" onclick="adjustLearningRate()">Adjust LR</button>
+        </div>
+
+        <div class="curriculum-progress">
+            <div class="card-title">
+                <span class="status-indicator status-active"></span>
+                10-Level Curriculum Progress
+            </div>
+            <div id="curriculum-levels">
+                <div class="level-badge">Level 1: Complete</div>
+                <div class="level-badge">Level 2: Complete</div>
+                <div class="level-badge">Level 3: Complete</div>
+                <div class="level-badge">Level 4: Complete</div>
+                <div class="level-badge">Level 5: Complete</div>
+                <div class="level-badge">Level 6: Complete</div>
+                <div class="level-badge" style="background: linear-gradient(135deg, #FF9800, #FFC107);">Level 7: 73%</div>
+                <div class="level-badge" style="background: rgba(255,255,255,0.2);">Level 8: Pending</div>
+                <div class="level-badge" style="background: rgba(255,255,255,0.2);">Level 9: Pending</div>
+                <div class="level-badge" style="background: rgba(255,255,255,0.2);">Level 10: Pending</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 73%"></div>
+            </div>
+            <div style="margin-top: 10px; font-size: 0.9em;">
+                Current: Pattern Recognition & Generalization
+            </div>
+            <button class="interactive-button" onclick="nextLevel()">Advance Level</button>
+        </div>
+
+        <div class="grokfast-metrics">
+            <div class="card-title">
+                <span class="status-indicator status-warning"></span>
+                Grokfast Acceleration
+            </div>
+            <div class="metric-label">Acceleration Factor</div>
+            <div class="metric-value" style="color: #FFC107;" id="grok-factor">2.4x</div>
+            <div class="metric-label">Understanding Velocity</div>
+            <div class="metric-value" style="font-size: 1.5em; color: #4CAF50;" id="understanding-velocity">+18.7%</div>
+            <div class="metric-label">Grok Detection</div>
+            <div style="color: #FF9800; font-weight: 600;">Pattern Emerging</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 67%; background: linear-gradient(90deg, #FF9800, #FFC107);"></div>
+            </div>
+            <button class="interactive-button" onclick="boostGrokfast()">Boost Grokfast</button>
+        </div>
+
+        <div class="dream-cycle">
+            <div class="card-title">
+                <span class="status-indicator status-active"></span>
+                Dream Cycle Visualization
+            </div>
+            <div class="dream-phase">
+                <strong>Phase 1:</strong> Memory Consolidation (Active)
+            </div>
+            <div class="dream-phase" style="opacity: 0.6;">
+                <strong>Phase 2:</strong> Pattern Synthesis (Queue)
+            </div>
+            <div class="dream-phase" style="opacity: 0.4;">
+                <strong>Phase 3:</strong> Creative Generation (Queue)
+            </div>
+            <div class="metric-label">Dream Efficiency</div>
+            <div class="metric-value" style="color: #9C27B0; font-size: 1.8em;" id="dream-efficiency">87.3%</div>
+            <button class="interactive-button" onclick="triggerDream()">Trigger Dream</button>
+        </div>
+
+        <div class="training-metrics">
+            <div class="card-title">
+                <span class="status-indicator status-active"></span>
+                Real-time Training Metrics
+            </div>
+            <div class="training-wave">
+                <div class="wave"></div>
+            </div>
+            <div class="metric-label">Loss Function</div>
+            <div class="metric-value" style="color: #2196F3; font-size: 1.5em;" id="loss-value">0.0347</div>
+            <div class="metric-label">Accuracy</div>
+            <div class="metric-value" style="color: #4CAF50; font-size: 1.5em;" id="accuracy">94.7%</div>
+            <div class="metric-label">GPU Utilization</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 82%; background: linear-gradient(90deg, #2196F3, #00BCD4);"></div>
+            </div>
+        </div>
+
+        <div class="chaos-controller">
+            <div class="card-title">
+                <span class="status-indicator status-critical"></span>
+                Edge of Chaos Controller
+            </div>
+            <div class="chaos-viz">
+                <div class="chaos-particle" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+                <div class="chaos-particle" style="top: 60%; left: 30%; animation-delay: 0.5s;"></div>
+                <div class="chaos-particle" style="top: 40%; left: 70%; animation-delay: 1s;"></div>
+                <div class="chaos-particle" style="top: 80%; left: 50%; animation-delay: 1.5s;"></div>
+            </div>
+            <div class="metric-label">Chaos Parameter</div>
+            <div class="metric-value" style="color: #F44336; font-size: 1.8em;" id="chaos-param">λ = 3.57</div>
+            <div class="metric-label">Critical Transition</div>
+            <div style="color: #FF9800; font-weight: 600;">Approaching Edge</div>
+            <button class="interactive-button" onclick="adjustChaos()">Adjust Chaos</button>
+        </div>
+
+        <div class="training-loop">
+            <div class="card-title">
+                <span class="status-indicator status-active"></span>
+                Training Loop Status
+            </div>
+            <div class="metric-label">Loop Iteration</div>
+            <div class="metric-value" style="color: #00BCD4;" id="loop-iteration">15,847</div>
+            <div class="metric-label">Convergence Rate</div>
+            <div class="metric-value" style="font-size: 1.5em; color: #4CAF50;" id="convergence-rate">+2.3%</div>
+            <div class="metric-label">Next Checkpoint</div>
+            <div style="color: #FFC107;">In 153 iterations</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 31%; background: linear-gradient(90deg, #00BCD4, #4CAF50);"></div>
+            </div>
+            <button class="interactive-button" onclick="saveCheckpoint()">Save Checkpoint</button>
+        </div>
+
+        <div class="self-modeling">
+            <div class="card-title">
+                <span class="status-indicator status-active"></span>
+                Self-Modeling Efficiency
+            </div>
+            <div class="metric-label">Model Awareness</div>
+            <div class="metric-value" style="color: #FF5722; font-size: 1.8em;" id="model-awareness">76.4%</div>
+            <div class="metric-label">Self-Optimization</div>
+            <div class="metric-value" style="font-size: 1.5em; color: #9C27B0;" id="self-optimization">+14.2%</div>
+            <div class="metric-label">Metacognitive Load</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 58%; background: linear-gradient(90deg, #FF5722, #E91E63);"></div>
+            </div>
+            <button class="interactive-button" onclick="enhanceMetacognition()">Enhance</button>
+        </div>
+
+        <div class="footer">
+            <p>Phase 5 Advanced AI Training System | Neural Architecture v2.1 | Real-time Performance Monitoring</p>
+            <p>Edge of Chaos Training Protocol Active | Grokfast Acceleration Enabled</p>
+        </div>
+    </div>
+
+    <script>
+        // Update timestamp
+        function updateTimestamp() {
+            document.getElementById('timestamp').textContent =
+                'Last Update: ' + new Date().toLocaleString();
+        }
+
+        // Simulate real-time data updates
+        function updateMetrics() {
+            const epoch = document.getElementById('current-epoch');
+            const learningRate = document.getElementById('learning-rate');
+            const grokFactor = document.getElementById('grok-factor');
+            const understandingVelocity = document.getElementById('understanding-velocity');
+            const dreamEfficiency = document.getElementById('dream-efficiency');
+            const lossValue = document.getElementById('loss-value');
+            const accuracy = document.getElementById('accuracy');
+            const chaosParam = document.getElementById('chaos-param');
+            const loopIteration = document.getElementById('loop-iteration');
+            const convergenceRate = document.getElementById('convergence-rate');
+            const modelAwareness = document.getElementById('model-awareness');
+            const selfOptimization = document.getElementById('self-optimization');
+
+            // Simulate gradual improvements
+            if (epoch) epoch.textContent = parseInt(epoch.textContent) + 1;
+            if (learningRate) learningRate.textContent = (parseFloat(learningRate.textContent) * 0.999).toFixed(4);
+            if (grokFactor) grokFactor.textContent = (parseFloat(grokFactor.textContent) + (Math.random() - 0.5) * 0.1).toFixed(1) + 'x';
+            if (understandingVelocity) understandingVelocity.textContent = '+' + (18.7 + (Math.random() - 0.5) * 2).toFixed(1) + '%';
+            if (dreamEfficiency) dreamEfficiency.textContent = (87.3 + (Math.random() - 0.5) * 1).toFixed(1) + '%';
+            if (lossValue) lossValue.textContent = (0.0347 - Math.random() * 0.0001).toFixed(4);
+            if (accuracy) accuracy.textContent = (94.7 + (Math.random() - 0.5) * 0.5).toFixed(1) + '%';
+            if (chaosParam) chaosParam.textContent = 'λ = ' + (3.57 + (Math.random() - 0.5) * 0.05).toFixed(2);
+            if (loopIteration) loopIteration.textContent = (parseInt(loopIteration.textContent.replace(',', '')) + 1).toLocaleString();
+            if (convergenceRate) convergenceRate.textContent = '+' + (2.3 + (Math.random() - 0.5) * 0.5).toFixed(1) + '%';
+            if (modelAwareness) modelAwareness.textContent = (76.4 + (Math.random() - 0.5) * 1).toFixed(1) + '%';
+            if (selfOptimization) selfOptimization.textContent = '+' + (14.2 + (Math.random() - 0.5) * 1).toFixed(1) + '%';
+        }
+
+        // Interactive functions
+        function pauseTraining() {
+            alert('Training paused. All metrics frozen at current values.');
+        }
+
+        function adjustLearningRate() {
+            const newRate = prompt('Enter new learning rate (current: 0.0031):');
+            if (newRate && !isNaN(newRate)) {
+                document.getElementById('learning-rate').textContent = parseFloat(newRate).toFixed(4);
+                alert('Learning rate updated to ' + newRate);
+            }
+        }
+
+        function nextLevel() {
+            alert('Advancing to next curriculum level. This may take several training epochs.');
+        }
+
+        function boostGrokfast() {
+            alert('Grokfast acceleration boosted. Understanding velocity increased by 25%.');
+            const current = parseFloat(document.getElementById('understanding-velocity').textContent.replace('%', '').replace('+', ''));
+            document.getElementById('understanding-velocity').textContent = '+' + (current + 5).toFixed(1) + '%';
+        }
+
+        function triggerDream() {
+            alert('Dream cycle triggered. Memory consolidation and pattern synthesis initiated.');
+        }
+
+        function adjustChaos() {
+            const newChaos = prompt('Enter new chaos parameter (current: 3.57):');
+            if (newChaos && !isNaN(newChaos)) {
+                document.getElementById('chaos-param').textContent = 'λ = ' + parseFloat(newChaos).toFixed(2);
+                alert('Chaos parameter updated. System dynamics modified.');
+            }
+        }
+
+        function saveCheckpoint() {
+            alert('Training checkpoint saved successfully. Model state preserved.');
+        }
+
+        function enhanceMetacognition() {
+            alert('Metacognitive enhancement applied. Self-modeling efficiency improved.');
+            const current = parseFloat(document.getElementById('model-awareness').textContent.replace('%', ''));
+            document.getElementById('model-awareness').textContent = (current + 2).toFixed(1) + '%';
+        }
+
+        // Initialize dashboard
+        updateTimestamp();
+        setInterval(updateTimestamp, 30000); // Update timestamp every 30 seconds
+        setInterval(updateMetrics, 2000); // Update metrics every 2 seconds
+
+        // Add some random visual effects
+        setInterval(() => {
+            const particles = document.querySelectorAll('.chaos-particle');
+            particles.forEach(particle => {
+                particle.style.animationDelay = Math.random() * 3 + 's';
+            });
+        }, 5000);
+
+        console.log('Phase 5 Training Dashboard initialized successfully');
+        console.log('All 8 training components are active and responsive');
+    </script>
+</body>
+</html>

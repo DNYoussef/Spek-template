@@ -373,9 +373,9 @@ class TestTheaterClassifier:
         theater_prob = 0.9
         gaming_scores = {'coverage_gaming': 0.7, 'complexity_gaming': 0.2}
 
-        explanation = theater_classifier._generate_theater_explanation(
+        explanation = theater_classifier._generate_theater_explanation()
             features, change_data, theater_prob, gaming_scores
-        )
+(        )
 
         assert isinstance(explanation, str)
         assert len(explanation) > 0
@@ -384,21 +384,21 @@ class TestTheaterClassifier:
     def test_recommendation_generation(self, theater_classifier):
         """Test recommendation generation."""
         # Test theater detected
-        recommendation = theater_classifier._generate_theater_recommendation(
+        recommendation = theater_classifier._generate_theater_recommendation()
             is_theater=True,
             theater_prob=QUALITY_GATE_MINIMUM_PASS_RATE,
             gaming_scores={'coverage_gaming': 0.8}
-        )
+(        )
 
         assert isinstance(recommendation, str)
         assert "review" in recommendation.lower() or "recommended" in recommendation.lower()
 
         # Test genuine change
-        recommendation = theater_classifier._generate_theater_recommendation(
+        recommendation = theater_classifier._generate_theater_recommendation()
             is_theater=False,
             theater_prob=0.2,
             gaming_scores={}
-        )
+(        )
 
         assert isinstance(recommendation, str)
         assert "approved" in recommendation.lower() or "genuine" in recommendation.lower()

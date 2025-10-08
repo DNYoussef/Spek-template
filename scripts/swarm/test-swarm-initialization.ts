@@ -1,7 +1,6 @@
 #!/usr/bin/env ts-node
 /**
  * Test Hierarchical Swarm Initialization
- *
  * Comprehensive test suite for verifying swarm infrastructure:
  * - Queen deployment
  * - 6 Princess domains

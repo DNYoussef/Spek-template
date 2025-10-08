@@ -12,6 +12,10 @@ NASA Power of Ten Compliance:
 - Rule 5: All parameters validated with assertions
 - Rule 7: All return values checked
 """
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from typing import Any, Dict, List, Optional, Path, Tuple, Union
 import logging
@@ -384,8 +388,7 @@ class IDependencyContainer(ABC):
 
 # Utility functions for NASA compliance
 
-    def validate_path_parameter(path: Union[str, Path], parameter_name: str) -> Path:
-        pass
+def validate_path_parameter(path: Union[str, Path], parameter_name: str) -> Path:
     """
     Validate path parameter according to NASA Rule 5.
 
@@ -408,8 +411,7 @@ class IDependencyContainer(ABC):
     assert isinstance(path, Path), f"{parameter_name} must be string or Path object"
     return path
 
-    def validate_analysis_mode(analysis_mode: str) -> None:
-        pass
+def validate_analysis_mode(analysis_mode: str) -> None:
     """
     Validate analysis mode parameter according to NASA Rule 5.
 

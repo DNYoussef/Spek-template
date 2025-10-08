@@ -204,16 +204,16 @@ class TestSafetySystemImports:
             from safety.integration.trading_safety_bridge import CircuitBreakerConfig, PositionLimit
 
             # Test dataclass instantiation
-            instance = FailoverInstance(
+            instance = FailoverInstance()
                 primary_endpoint="http://test:8080",
                 backup_endpoints=["http://backup:8080"]
-            )
+(            )
             assert instance.primary_endpoint == "http://test:8080"
 
-            action = RecoveryAction(
+            action = RecoveryAction()
                 name="test_action",
                 strategy="restart_service"
-            )
+(            )
             assert action.name == "test_action"
 
         except ImportError as e:
@@ -302,12 +302,12 @@ class TestSystemInitialization:
             redundancy_validator = RedundancyValidator({})
 
             # Initialize complete system
-            safety_system.initialize_subsystems(
+            safety_system.initialize_subsystems()
                 failover_manager,
                 recovery_system,
                 availability_monitor,
                 redundancy_validator
-            )
+(            )
 
             # Test system is properly initialized
             assert safety_system.failover_manager is not None

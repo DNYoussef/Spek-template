@@ -1,0 +1,282 @@
+name: Issue Triage
+on:
+  issues:
+    types: [opened, edited, labeled, unlabeled]
+  issue_comment:
+    types: [created]
+  schedule:
+    - cron: '0 9 * * MON'  # Run every Monday at 9 AM UTC
+
+jobs:
+  auto-triage:
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Auto-triage Issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { GitHubIssueManager } = require('./dist/src/github/GitHubIssueManager.js');
+            const { GitHubAuthentication } = require('./dist/src/github/GitHubAuthentication.js');
+            const { GitHubAPIClient } = require('./dist/src/github/GitHubAPIClient.js');
+
+            const auth = GitHubAuthentication.createPersonalToken(process.env.GITHUB_TOKEN);
+            const apiClient = new GitHubAPIClient(auth);
+            const issueManager = new GitHubIssueManager(apiClient);
+
+            const issue = context.payload.issue;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            try {
+              // Auto-label the issue
+              const suggestedLabels = await issueManager.autoLabel(owner, repo, issue);
+              console.log(`Applied auto-labels: ${suggestedLabels.join(', ')}`);
+
+              // Check if issue needs template
+              if (issue.body && issue.body.length < 50) {
+                await issueManager.addComment(owner, repo, issue.number,
+                  `👋 Thanks for opening this issue!
+
+                  It looks like your issue might benefit from more details. Could you please provide:
+
+                  - Steps to reproduce (if it's a bug)
+                  - Expected behavior
+                  - Actual behavior
+                  - Environment details (OS, browser, version)
+
+                  This will help us understand and address your issue more quickly. Thanks!`
+                );
+              }
+
+              // Check for duplicate issues
+              const recentIssues = await issueManager.getIssues(owner, repo, {
+                state: 'open',
+                sort: 'created',
+                direction: 'desc',
+                per_page: 20
+              });
+
+              const possibleDuplicates = recentIssues.filter(recentIssue => {
+                if (recentIssue.number === issue.number) return false;
+
+                const similarity = calculateSimilarity(issue.title, recentIssue.title);
+                return similarity > 0.7;
+              });
+
+              if (possibleDuplicates.length > 0) {
+                const duplicateLinks = possibleDuplicates
+                  .map(dup => `#${dup.number}`)
+                  .join(', ');
+
+                await issueManager.addComment(owner, repo, issue.number,
+                  `🔍 This issue might be similar to: ${duplicateLinks}
+
+                  Please check if your issue is already covered by one of these. If not, please provide additional details to help us distinguish this issue. Thanks!`
+                );
+
+                await issueManager.addLabels(owner, repo, issue.number, ['duplicate?']);
+              }
+
+            } catch (error) {
+              console.error('Auto-triage failed:', error);
+            }
+
+            function calculateSimilarity(str1, str2) {
+              const words1 = str1.toLowerCase().split(/\s+/);
+              const words2 = str2.toLowerCase().split(/\s+/);
+              const commonWords = words1.filter(word => words2.includes(word));
+              return commonWords.length / Math.max(words1.length, words2.length);
+            }
+
+  stale-issues:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Check Stale Issues
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { GitHubIssueManager } = require('./dist/src/github/GitHubIssueManager.js');
+            const { GitHubAuthentication } = require('./dist/src/github/GitHubAuthentication.js');
+            const { GitHubAPIClient } = require('./dist/src/github/GitHubAPIClient.js');
+
+            const auth = GitHubAuthentication.createPersonalToken(process.env.GITHUB_TOKEN);
+            const apiClient = new GitHubAPIClient(auth);
+            const issueManager = new GitHubIssueManager(apiClient);
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+            const sixtyDaysAgo = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000);
+
+            try {
+              const issues = await issueManager.getIssues(owner, repo, {
+                state: 'open',
+                sort: 'updated',
+                direction: 'asc'
+              });
+
+              for (const issue of issues) {
+                const updatedAt = new Date(issue.updated_at);
+                const hasStaleLabel = issue.labels?.some(label =>
+                  (typeof label === 'string' ? label : label.name) === 'stale'
+                );
+
+                if (updatedAt < sixtyDaysAgo && hasStaleLabel) {
+                  // Close issues that have been stale for 60+ days
+                  await issueManager.closeIssue(owner, repo, issue.number, 'not_planned');
+                  await issueManager.addComment(owner, repo, issue.number,
+                    `This issue has been automatically closed due to inactivity.
+
+                    If this issue is still relevant, please reopen it with updated information. Thanks!`
+                  );
+                  console.log(`Closed stale issue #${issue.number}`);
+
+                } else if (updatedAt < thirtyDaysAgo && !hasStaleLabel) {
+                  // Mark issues as stale after 30 days of inactivity
+                  await issueManager.addLabels(owner, repo, issue.number, ['stale']);
+                  await issueManager.addComment(owner, repo, issue.number,
+                    `This issue has been marked as stale due to 30 days of inactivity.
+
+                    It will be automatically closed in 30 days if there's no further activity.
+                    To keep it open, please provide updates or remove the 'stale' label. Thanks!`
+                  );
+                  console.log(`Marked issue #${issue.number} as stale`);
+                }
+              }
+
+            } catch (error) {
+              console.error('Stale issue processing failed:', error);
+            }
+
+  issue-metrics:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Generate Issue Metrics
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { GitHubIssueManager } = require('./dist/src/github/GitHubIssueManager.js');
+            const { GitHubAuthentication } = require('./dist/src/github/GitHubAuthentication.js');
+            const { GitHubAPIClient } = require('./dist/src/github/GitHubAPIClient.js');
+
+            const auth = GitHubAuthentication.createPersonalToken(process.env.GITHUB_TOKEN);
+            const apiClient = new GitHubAPIClient(auth);
+            const issueManager = new GitHubIssueManager(apiClient);
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            try {
+              const analytics = await issueManager.getIssueAnalytics(owner, repo, 30);
+
+              console.log('📊 Issue Analytics (Last 30 Days)');
+              console.log(`Total Issues: ${analytics.totalIssues}`);
+              console.log(`Open Issues: ${analytics.openIssues}`);
+              console.log(`Closed Issues: ${analytics.closedIssues}`);
+              console.log(`Average Time to Close: ${analytics.avgTimeToClose.toFixed(1)} days`);
+
+              console.log('\n🏷️ Issues by Label:');
+              Object.entries(analytics.issuesByLabel)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 10)
+                .forEach(([label, count]) => {
+                  console.log(`  ${label}: ${count}`);
+                });
+
+              console.log('\n👥 Issues by Assignee:');
+              Object.entries(analytics.issuesByAssignee)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 10)
+                .forEach(([assignee, count]) => {
+                  console.log(`  ${assignee}: ${count}`);
+                });
+
+              // Create issue with weekly metrics
+              const metricsBody = `## Weekly Issue Metrics
+
+              📊 **Overview (Last 30 Days)**
+              - Total Issues: ${analytics.totalIssues}
+              - Open Issues: ${analytics.openIssues}
+              - Closed Issues: ${analytics.closedIssues}
+              - Average Time to Close: ${analytics.avgTimeToClose.toFixed(1)} days
+
+              🏷️ **Top Labels**:
+              ${Object.entries(analytics.issuesByLabel)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 5)
+                .map(([label, count]) => `- ${label}: ${count}`)
+                .join('\n')}
+
+              👥 **Top Assignees**:
+              ${Object.entries(analytics.issuesByAssignee)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 5)
+                .map(([assignee, count]) => `- ${assignee}: ${count}`)
+                .join('\n')}
+
+              *Generated automatically by GitHub Issue Manager*`;
+
+              await issueManager.createIssue(owner, repo, {
+                title: `Weekly Issue Metrics - ${new Date().toISOString().split('T')[0]}`,
+                body: metricsBody,
+                labels: ['metrics', 'automated']
+              });
+
+            } catch (error) {
+              console.error('Issue metrics generation failed:', error);
+            }

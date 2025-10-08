@@ -19,6 +19,26 @@ export enum TaskStatus {
   CANCELLED = 'cancelled'
 }
 
+export interface TaskResources {
+  memory: number;           // MB required
+  cpu: number;             // CPU cores needed
+  network: boolean;        // Network access required
+  storage: number;         // GB storage needed
+  gpu?: boolean;           // GPU acceleration needed
+  timeout: number;         // Max execution time (seconds)
+}
+
+export interface TaskMetadata {
+  estimatedDuration: number;     // Minutes
+  complexity: number;            // 1-100 scale
+  tags: string[];               // Categorization tags
+  author: string;               // Task creator
+  version: string;              // Task definition version
+  framework?: string;           // Target framework
+  testRequired: boolean;        // Requires testing
+  reviewRequired: boolean;      // Requires code review
+}
+
 export interface Task {
   id: string;
   name: string;
@@ -30,17 +50,29 @@ export interface Task {
   priority?: TaskPriority;
   status?: TaskStatus;
   type?: string;
-  resources?: Record<string, any>;
-  metadata?: Record<string, any>;
+  resources?: TaskResources;
+  metadata?: TaskMetadata;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export interface TaskResult {
+export interface TaskMetrics {
+  executionTime: number;        // Milliseconds
+  memoryUsage: number;         // MB peak usage
+  cpuUsage: number;            // Average % utilization
+  linesChanged: number;        // Lines of code modified
+  filesModified: number;       // Number of files changed
+  testsRun: number;           // Test cases executed
+  testsPassed: number;        // Successful tests
+  qualityScore: number;       // 0-100 quality assessment
+  complexityReduction: number; // Complexity delta
+}
+
+export interface TaskResult<T = unknown> {
   taskId: string;
   status: TaskStatus;
-  result?: any;
+  result?: T;
   error?: Error;
   duration?: number;
-  metrics?: Record<string, any>;
+  metrics?: TaskMetrics;
 }
