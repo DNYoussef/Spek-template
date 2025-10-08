@@ -13,7 +13,8 @@ import {
   VALIDATOR_TYPES,
   DEFAULT_CONFIG
 } from './DependencyTypes';
-// TODO(Phase 4): Implement core module - import { delay } from './DependencyCore';
+// Delay utility function
+const delay = (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms));
 
 export abstract class DependencyValidator extends EventEmitter {
   protected config: ValidatorConfig;

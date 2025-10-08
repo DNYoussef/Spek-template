@@ -4,7 +4,7 @@
  */
 
 import { QualityConfig, QualityMetrics } from './QualityPrincessTypes';
-import { QualityLangroidMemory } from '../../../memory/quality/LangroidMemory';
+import { LangroidMemory as QualityLangroidMemory } from '../../../memory/quality/LangroidMemory';
 import { KingLogicAdapter } from '../../../queen/KingLogicAdapter';
 import { MECEDistributor } from '../../../queen/MECEDistributor';
 

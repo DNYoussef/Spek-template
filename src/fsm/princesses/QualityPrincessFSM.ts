@@ -9,7 +9,7 @@
  * Use QualityPrincessCore in quality-components/ directory for new implementations.
  */
 
-// TODO(Phase 4): Implement core module - import { QualityPrincessCore } from './quality-components/QualityPrincessCore';
+import { QualityPrincessCore } from '../../swarm/hierarchy/domains/quality/QualityPrincessCore';
 import {
   QualityContext,
   QualityState,
