@@ -2,10 +2,15 @@
  * WorkflowExecutorFacade - Workflow Execution Facade
  * NASA Rule 10 Compliant
  */
+import { EventEmitter } from 'events';
 import { WorkflowDefinition, ExecutionContext, WorkflowOptimizationSuggestion, ValidationResult } from './WorkflowTypes';
 
-export class WorkflowExecutor {
+export class WorkflowExecutor extends EventEmitter {
   private activeWorkflows: Map<string, ExecutionContext> = new Map();
+
+  constructor() {
+    super();
+  }
 
   /**
    * Execute a workflow

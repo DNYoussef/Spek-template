@@ -45,10 +45,10 @@ export class ProfilingStateHandler {
     await this.v8Manager.start();
 
     // Start sampling
-    context.sampleInterval = setInterval(() => {
+    (context as any).sampleInterval = setInterval(() => {
       if (context.isProfileActive) {
         const sample = this.sampleCollector.takeSample(context);
-        context.samples.push(sample);
+        (context as any).samples = [...context.samples, sample];
       }
     }, data.intervalMs);
 
@@ -70,17 +70,17 @@ export class ProfilingStateHandler {
 
     console.log('Stopping CPU profiling...');
 
-    context.isProfileActive = false;
+    (context as any).isProfileActive = false;
 
     // Stop sampling
     if (context.sampleInterval) {
       clearInterval(context.sampleInterval);
-      context.sampleInterval = null;
+      (context as any).sampleInterval = null;
     }
 
     // Take final sample
     const finalSample = this.sampleCollector.takeSample(context);
-    context.samples.push(finalSample);
+    (context as any).samples = [...context.samples, finalSample];
 
     // Stop V8 profiler and get profile path
     context.v8ProfilePath = await this.v8Manager.stop(context.outputDir);

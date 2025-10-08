@@ -2,11 +2,11 @@
  * QualityGateProcessor.ts - REPLACED WITH FSM SYSTEM
  * Lightweight facade that delegates to ValidationFSM
  * NASA POT10 Compliant: All functions ≤60 lines, bounded operations
- * 
+ *
  * ORIGINAL: 846 lines (GOD OBJECT)
  * NEW: ~60 lines (92.9% reduction)
  */
-
+import { EventEmitter } from 'events';
 import { ValidationFSM } from '../../validation/fsm/ValidationFSM';
 import { ValidationType, ComplianceLevel } from '../../validation/fsm/types/ValidationFSMTypes';
 
@@ -40,10 +40,11 @@ export interface ProcessorExecutionOptions {
  * QualityGateProcessor - FSM-based replacement for massive gate processor
  * Maintains API compatibility while using decomposed FSM system
  */
-export class QualityGateProcessor {
+export class QualityGateProcessor extends EventEmitter {
   private readonly validationFSM: ValidationFSM;
 
   constructor() {
+    super();
     this.validationFSM = new ValidationFSM();
   }
 

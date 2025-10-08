@@ -11,6 +11,10 @@ export enum WorkflowStates {
   ERROR = 'error'
 }
 
+// Backward compatibility alias
+export const WorkflowState = WorkflowStates;
+export type WorkflowState = WorkflowStates;
+
 export enum WorkflowEvents {
   CREATE_WORKFLOW = 'create_workflow',
   TEMPLATE_LOADED = 'template_loaded',

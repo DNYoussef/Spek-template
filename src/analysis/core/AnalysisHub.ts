@@ -3,13 +3,14 @@
  * 358 lines → ~60 lines (83% reduction)
  * NASA Rule 10 Compliant: All functions ≤60 lines
  */
-
+import { EventEmitter } from 'events';
 import { ComponentFactory } from '../../fsm/shared/ComponentLibrary';
 
-export class AnalysisHub {
+export class AnalysisHub extends EventEmitter {
   private facade = ComponentFactory.createDataProcessor({ enableLogging: true });
 
   constructor() {
+    super();
     this.facade.initialize();
   }
 

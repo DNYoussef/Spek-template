@@ -2,6 +2,7 @@
  * PerformanceMonitorFacade - Minimal facade for eliminated god object
  * FSM-compliant performance monitoring with NASA Rule 10 compliance
  */
+import { EventEmitter } from 'events';
 
 // Required type exports
 export interface PerformanceThresholds {
@@ -30,8 +31,9 @@ export interface PerformanceResult {
 }
 
 // Minimal facade class
-export class PerformanceMonitor {
+export class PerformanceMonitor extends EventEmitter {
   constructor(private thresholds: PerformanceThresholds) {
+    super();
     if (!thresholds) throw new Error('Thresholds required');
     if (thresholds.maxLatency <= 0) throw new Error('Invalid maxLatency');
   }

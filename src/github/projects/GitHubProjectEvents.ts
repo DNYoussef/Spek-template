@@ -12,6 +12,7 @@ export enum GitHubProjectEvent {
   COMPLETE = 'COMPLETE',
   DISCONNECT = 'DISCONNECT',
   FAIL = 'FAIL',
+  ERROR = 'ERROR',
   RESET = 'RESET'
 }
 

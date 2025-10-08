@@ -146,10 +146,10 @@ export class ConfigStateMachine {
     private async onEnterLoading(context: ConfigContext): Promise<boolean> {
         try {
             const configs = await this.loader.loadFromSources(context.sources);
-            context.rawConfigs = configs;
+            (context as any).rawConfigs = configs;
             return this.transitionHub.transition(context, ConfigEvent.VALIDATE);
         } catch (error) {
-            context.errors.push(`Loading failed: ${error}`);
+            (context as any).errors = [...context.errors, `Loading failed: ${error}`];
             return this.transitionHub.transition(context, ConfigEvent.ERROR);
         }
     }
@@ -161,12 +161,12 @@ export class ConfigStateMachine {
         try {
             const validation = await this.validator.validateConfigs(context.rawConfigs);
             if (!validation.valid) {
-                context.errors.push(...validation.errors);
+                (context as any).errors = [...context.errors, ...validation.errors];
                 return this.transitionHub.transition(context, ConfigEvent.ERROR);
             }
             return this.transitionHub.transition(context, ConfigEvent.MERGE);
         } catch (error) {
-            context.errors.push(`Validation failed: ${error}`);
+            (context as any).errors = [...context.errors, `Validation failed: ${error}`];
             return this.transitionHub.transition(context, ConfigEvent.ERROR);
         }
     }
@@ -177,10 +177,10 @@ export class ConfigStateMachine {
     private async onEnterMerging(context: ConfigContext): Promise<boolean> {
         try {
             const merged = await this.merger.mergeConfigs(context.rawConfigs);
-            context.config = merged;
+            (context as any).config = merged;
             return this.transitionHub.transition(context, ConfigEvent.WATCH);
         } catch (error) {
-            context.errors.push(`Merging failed: ${error}`);
+            (context as any).errors = [...context.errors, `Merging failed: ${error}`];
             return this.transitionHub.transition(context, ConfigEvent.ERROR);
         }
     }
@@ -195,7 +195,7 @@ export class ConfigStateMachine {
             });
             return true;
         } catch (error) {
-            context.errors.push(`Watching failed: ${error}`);
+            (context as any).errors = [...context.errors, `Watching failed: ${error}`];
             return this.transitionHub.transition(context, ConfigEvent.ERROR);
         }
     }
@@ -205,7 +205,7 @@ export class ConfigStateMachine {
      */
     private async onEnterReloading(context: ConfigContext): Promise<boolean> {
         // Reset errors and reload
-        context.errors = [];
+        (context as any).errors = [];
         return this.transitionHub.transition(context, ConfigEvent.LOAD);
     }
 
@@ -221,9 +221,9 @@ export class ConfigStateMachine {
      * State handler: IDLE
      */
     private async onEnterIdle(context: ConfigContext): Promise<boolean> {
-        context.config = null;
-        context.rawConfigs = undefined;
-        context.errors = [];
+        (context as any).config = null;
+        (context as any).rawConfigs = undefined;
+        (context as any).errors = [];
         this.watcher.stopAll();
         return true;
     }

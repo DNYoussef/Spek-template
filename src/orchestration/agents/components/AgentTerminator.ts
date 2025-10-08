@@ -317,8 +317,8 @@ export class AgentTerminator extends EventEmitter {
     // Handle current task
     if (agentExecution.currentTask) {
       if (session.options.cancelActiveTasks) {
-        agentExecution.failedTasks.push(agentExecution.currentTask);
-        agentExecution.currentTask = undefined;
+        (agentExecution as any).failedTasks = [...agentExecution.failedTasks, agentExecution.currentTask];
+        (agentExecution as any).currentTask = undefined;
       } else {
         // Wait for current task completion with timeout
         await this.waitForTaskCompletion(session);
@@ -335,12 +335,12 @@ export class AgentTerminator extends EventEmitter {
     console.log(`[Agent Terminator] Cleaning up resources: ${agentExecution.executionId}`);
 
     // Reset resource utilization
-    agentExecution.resources.cpuUsage = 0;
-    agentExecution.resources.memoryUsage = 0;
-    agentExecution.resources.storageUsage = 0;
-    agentExecution.resources.networkUsage = 0;
-    agentExecution.resources.toolsInUse = [];
-    agentExecution.resources.costs = 0;
+    (agentExecution.resources as any).cpuUsage = 0;
+    (agentExecution.resources as any).memoryUsage = 0;
+    (agentExecution.resources as any).storageUsage = 0;
+    (agentExecution.resources as any).networkUsage = 0;
+    (agentExecution.resources as any).toolsInUse = [];
+    (agentExecution.resources as any).costs = 0;
 
     // Close communication channels
     agentExecution.communication.messagesPending = 0;
@@ -388,8 +388,8 @@ export class AgentTerminator extends EventEmitter {
 
     if (session.agentExecution.currentTask) {
       console.warn(`[Agent Terminator] Task completion timeout, forcing termination`);
-      session.agentExecution.failedTasks.push(session.agentExecution.currentTask);
-      session.agentExecution.currentTask = undefined;
+      (session.agentExecution as any).failedTasks = [...session.agentExecution.failedTasks, session.agentExecution.currentTask];
+      (session.agentExecution as any).currentTask = undefined;
     }
 
     assert(session.agentExecution.currentTask === undefined, 'Current task must be cleared');

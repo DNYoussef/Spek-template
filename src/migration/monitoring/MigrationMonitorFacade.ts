@@ -3,6 +3,7 @@
  * @annihilated true @original_size 611 lines @reduction 98%
  * @architecture Migration monitoring facade
  */
+import { EventEmitter } from 'events';
 
 export interface MigrationMetrics {
   readonly totalMigrations: number;
@@ -49,7 +50,11 @@ export interface MigrationHealthCheck {
   readonly errorRate?: number;
 }
 
-export class MigrationMonitor {
+export class MigrationMonitor extends EventEmitter {
+  constructor() {
+    super();
+  }
+
   async initialize(): Promise<void> {
     // TODO: Implement - Issue #5
   }
